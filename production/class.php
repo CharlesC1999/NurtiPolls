@@ -378,12 +378,11 @@ $rowsClassCategories = $resultClassCategories->fetch_all(MYSQLI_ASSOC);
                             <tr>
                               <th class="align-middle">課程編號</th>
                               <th class="align-middle">課程<br> 名稱</th>
-                              <th class="align-middle">課程簡介</th>
+                              <th class="align-middle">狀態</th>
                               <th class="align-middle">費用</th>
                               <th class="align-middle">講師</th>
                               <th class="align-middle">學員名額</th>
-                              <th class="align-middle">報名<br> 起始</th>
-                              <th class="align-middle">報名<br> 截止</th>
+                              <th class="align-middle">報名 <br> 日期</th>
                               <th class="align-middle">實際<br> 開課日</th>
                             </tr>
                           </thead>
@@ -393,13 +392,28 @@ $rowsClassCategories = $resultClassCategories->fetch_all(MYSQLI_ASSOC);
                             <?php foreach ($rowsClass as $rowClass) : ?>
                               <tr>
                                 <td><?= $rowClass["Class_ID"] ?></td>
-                                <td><a href="e_commerce.php"><?= $rowClass["Class_name"] ?></a></td>
-                                <td><?= $rowClass["Class_description"] ?></td>
+                                <td><a href="e_commerce.php?Class_ID=<?= $rowClass["Class_ID"] ?>"><?= $rowClass["Class_name"] ?></a></td>
+                                <td>
+                                  <?php
+                                  $Start_date = $rowClass["Start_date"];
+                                  $End_date = $rowClass["End_date"];
+                                  $now = date("Y-m-d");
+                                  if ($now >= $Start_date && $now <= $End_date) {
+                                    echo "報名開放中";
+                                  } else {
+                                    echo "尚未開放報名";
+                                  }
+                                  ?>
+                                </td>
                                 <td class="text-nowrap">$ <?= number_format($rowClass["C_price"]) ?></td>
                                 <td class="text-nowrap"><?= $rowClass["Speaker_name"] ?></td>
                                 <td><?= $rowClass["Class_person_limit"] ?></td>
-                                <td><?= $rowClass["Start_date"] ?></td>
-                                <td><?= $rowClass["End_date"] ?></td>
+                                <td>
+                                  <?= $rowClass["Start_date"] ?>
+                                  <br>
+                                  <div>|</div>
+                                  <?= $rowClass["End_date"] ?>
+                                </td>
                                 <td><?= $rowClass["Class_date"] ?></td>
                               </tr>
                             <?php endforeach; ?>
