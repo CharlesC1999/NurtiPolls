@@ -2,7 +2,7 @@
 
 require_once "../db_connect.php";
 
-$sql_cate_product = "SELECT * FROM product_categories ORDER BY Product_cate_ID";
+$sql_cate_product = "SELECT * FROM class_categories ORDER BY Class_cate_ID";
 $result_all_product = $conn->query($sql_cate_product);
 $product_type_count = $result_all_product->num_rows;
 
@@ -321,7 +321,7 @@ $product_type_count = $result_all_product->num_rows;
               <div class="col-md-12 col-sm-12 ">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>商品分類 <small>Product categories</small></h2>
+                    <h2>課程分類 <small>Class categories</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -357,9 +357,9 @@ $rows = $result_all_product->fetch_all(MYSQLI_ASSOC);
 foreach ($rows as $cate):
 ?>
                           <tr>
-                            <td><?=$cate["Product_cate_ID"]?></td>
-                            <td><?=$cate["Product_cate_name"]?></td>
-                            <td><?=$cate["P_Description"]?></td>
+                            <td><?=$cate["Class_cate_ID"]?></td>
+                            <td><?=$cate["Class_cate_name"]?></td>
+                            <td><?=$cate["C_Description"]?></td>
                           </tr>
                           <?php endforeach;?>
                       </tbody>

@@ -2,7 +2,7 @@
 
 require_once "../db_connect.php";
 
-$sql_cate_product = "SELECT * FROM product_categories ORDER BY Product_cate_ID";
+$sql_cate_product = "SELECT * FROM recipe_categories ORDER BY Recipe_cate_ID";
 $result_all_product = $conn->query($sql_cate_product);
 $product_type_count = $result_all_product->num_rows;
 
@@ -357,9 +357,9 @@ $rows = $result_all_product->fetch_all(MYSQLI_ASSOC);
 foreach ($rows as $cate):
 ?>
                           <tr>
-                            <td><?=$cate["Product_cate_ID"]?></td>
-                            <td><?=$cate["Product_cate_name"]?></td>
-                            <td><?=$cate["P_Description"]?></td>
+                            <td><?=$cate["Recipe_cate_ID"]?></td>
+                            <td><?=$cate["Recipe_cate_name"]?></td>
+                            <td><?=$cate["R_Description"]?></td>
                           </tr>
                           <?php endforeach;?>
                       </tbody>
