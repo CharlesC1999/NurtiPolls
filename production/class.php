@@ -4,10 +4,10 @@ require_once("/xampp/htdocs/project/php_connect/db_connect_project.php");
 if (isset($_GET["Class_cate_ID"])) {
   $Class_cate_ID = $_GET["Class_cate_ID"];
   $whereClause = "WHERE Class_category_ID = '$Class_cate_ID'";
-} else {
-  $whereClause = "";
+  if ($Class_cate_ID == "") {
+    $whereClause = "";
+  }
 }
-
 
 //join class, speaker and category 
 $sqlClass = "SELECT class.*, speaker.Speaker_name, class_categories.Class_cate_name
@@ -137,9 +137,9 @@ $rowsClassCategories = $resultClassCategories->fetch_all(MYSQLI_ASSOC);
                 </li>
                 <li><a><i class="fa fa-table"></i> 課程管理 <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu">
-                    <li><a href="class.php">所有類別</a></li>
+                    <li class="<?php if ($Class_cate_ID == "") echo "active" ?>"><a href="class.php?Class_cate_ID=">所有類別</a></li>
                     <?php foreach ($rowsClassCategories as $rowClassCategories) : ?>
-                      <li><a href=" class.php?Class_cate_ID=<?= $rowClassCategories["Class_cate_ID"] ?>"><?= $rowClassCategories["Class_cate_name"] ?></a></li>
+                      <li class="<?php if ($rowClassCategories["Class_cate_ID"] == $Class_cate_ID) echo "active" ?>"><a href="class.php?Class_cate_ID=<?= $rowClassCategories["Class_cate_ID"] ?>"><?= $rowClassCategories["Class_cate_name"] ?></a></li>
                     <?php endforeach; ?>
                   </ul>
                 </li>
