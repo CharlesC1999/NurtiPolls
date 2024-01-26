@@ -1,4 +1,16 @@
-<!--pathinfo函式用法 https://www.runoob.com/php/func-filesystem-pathinfo.html -->
+<!--pathinfo函式用法 -> https://www.runoob.com/php/func-filesystem-pathinfo.html -->
+
+
+<!-- 用PHP上傳檔案 -> https://www.tad0616.net/modules/tad_book3/html_all.php?tbsn=8
+1.若表單中有file元件，表單一定要加上：「enctype="multipart/form-data"」。
+2.每上傳一張圖（假設file欄位名稱為pic），都會產生一組 $_FILES 超級全域變數：
+(1) $_FILES['pic']['name']（多檔：$_FILES['pic']['name'][0]）：上傳檔案原始名稱。
+(2) $_FILES['pic']['type']：檔案的 MIME 類型，例如“image/gif”。
+(3) $_FILES['pic']['size']：已上傳檔案的大小，單位為bytes。
+(4) $_FILES['pic']['tmp_name']：檔案被上傳後的臨時檔案名。
+(5) $_FILES['pic']['error']：和該檔案上傳相關的錯誤代碼。
+3.上傳的步驟：送出上傳→圖會暫時放到tmp中→程式要搬移該檔到指定的位置。
+4.搬移上傳檔方法：move_uploaded_file(暫存檔 , 新路徑檔名) -->
 <?php
 require_once("../db-connect.php");
 
@@ -8,8 +20,7 @@ if(!isset($_POST["name"])){
 }
 
 $name=$_POST["name"];
-$name=$_POST["description"];
-echo $name;
+$description=$_POST["description"];
 
 //ppt.481 接收圖片是用$_FILES接住
 // $file=$_FILES["pic"];
@@ -19,19 +30,19 @@ echo $name;
 if($_FILES["pic"]["error"]==0){
     //$filename=time(); 解決檔名重復
     $filename=time(); // 取得當前的 Unix 時間戳（秒級別）
-     // pathinfo 取得上傳檔案的擴展名
+    
+    // pathinfo 取得上傳檔案的擴展名(路徑/PATHINFO_EXTENSION(.jpg))
     $fileExt=pathinfo($_FILES["pic"]["name"],PATHINFO_EXTENSION);
     $filename=$filename.".".$fileExt;  
     
     // echo $filename;
     // exit;
 
-    if(move_uploaded_file($_FILES["pic"]["tmp_name"], "../upload/".$filename)){
+    if(move_uploaded_file($_FILES["pic"]["tmp_name"], "Speaker_pic/".$filename)){
+        
         //上傳到資料庫裡
-        //$filename=$_FILES["pic"]["name"];
-        $now=date('Y-m-d H:i:s'); //直接在後台抓時間 丟給 下面sql
-        $sql="INSERT INTO images (name, filename, created_at)
-        VALUES ('$name', '$filename', '$now')";   
+        $sql="INSERT INTO speaker (Speaker_name, Speaker_description, Image, valid)
+        VALUES ('$name', '$description', '$filename',1)";   
         
         if($conn->query($sql)){
             echo "新增資料完成!!";
@@ -44,8 +55,10 @@ if($_FILES["pic"]["error"]==0){
     }else{
         echo "upload 失敗!!";
     }
+}else{
+    echo "上傳過程錯誤";
 }
 
-// var_dump($_FILES["pic"])
+
 $conn->close();
-header("location: file-upload.php");
+?>

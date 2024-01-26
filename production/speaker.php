@@ -268,6 +268,7 @@ $speakerCount = $result->num_rows; //result裡面有幾筆(num_rows)
                                 <!-- 文字置中垂直 text-center,align-middle -->
                                 <td class="text-center align-middle"><?= $speaker["Speaker_name"] ?></td>
                                 <td><?= $speaker["Speaker_description"] ?></td>
+                                
                                 <td>
                                   <div class="d-flex justify-content-between">
                                     <!-- 去到speakeruser.php網頁丟id過去做處理(點擊到哪一位的id) -->
@@ -280,6 +281,7 @@ $speakerCount = $result->num_rows; //result裡面有幾筆(num_rows)
                                     <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmModal"><i class="fa-solid fa-trash fa-fw"></i></button>
                                   </div>
                                 </td>
+
                               </tr>
                             <?php endforeach; ?>
                           </tbody>
