@@ -8,19 +8,4 @@
             height: 100%;
             object-fit: cover;
         }
-
-        .cart-icon {
-            font-size: 1.8rem;
-        }
-
-        .cart-count {
-            font-size: 12px;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            top: -5px;
-            right: -10px;
-            align-items: center;
-            justify-content: center;
-        }
     </style>
