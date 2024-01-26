@@ -1,15 +1,28 @@
 <?php
 require_once("/xampp/htdocs/project/php_connect/db_connect_project.php");
 
-//join all class and speaker 
-$sqlClass = "SELECT class.*, speaker.Speaker_name
+if (isset($_GET["Class_cate_ID"])) {
+  $Class_cate_ID = $_GET["Class_cate_ID"];
+  $whereClause = "WHERE Class_category_ID = '$Class_cate_ID'";
+} else {
+  $whereClause = "";
+}
+
+
+//join class, speaker and category 
+$sqlClass = "SELECT class.*, speaker.Speaker_name, class_categories.Class_cate_name
  FROM class 
- JOIN speaker ON class.F_Speaker_ID = speaker.Speaker_ID";
+ JOIN speaker ON class.F_Speaker_ID = speaker.Speaker_ID
+ JOIN class_categories ON class.Class_category_ID = class_categories.Class_cate_ID
+ $whereClause";
 $resultClass = $conn->query($sqlClass);
 $rowsClass = $resultClass->fetch_all(MYSQLI_ASSOC);
 
 
-
+//class_categories
+$sqlClassCategories = "SELECT * FROM class_categories";
+$resultClassCategories = $conn->query($sqlClassCategories);
+$rowsClassCategories = $resultClassCategories->fetch_all(MYSQLI_ASSOC);
 
 ?>
 
@@ -122,11 +135,13 @@ $rowsClass = $resultClass->fetch_all(MYSQLI_ASSOC);
                 </li>
                 <li><a href="tables_dynamic.php"><i class="fa fa-table"></i>講師管理<span class="fa fa-chevron-down"></span></a>
                 </li>
-                <li><a href="class.php"><i class="fa fa-table"></i>課程管理<span class="fa fa-chevron-down"></span></a>
+                <li><a><i class="fa fa-table"></i> 課程管理 <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu">
-                    <li><a href="class.php">Dashboard</a></li>
+                    <li><a href="class.php">所有類別</a></li>
+                    <?php foreach ($rowsClassCategories as $rowClassCategories) : ?>
+                      <li><a href=" class.php?Class_cate_ID=<?= $rowClassCategories["Class_cate_ID"] ?>"><?= $rowClassCategories["Class_cate_name"] ?></a></li>
+                    <?php endforeach; ?>
                   </ul>
-
                 </li>
                 <li><a href="tables_dynamic.php"><i class="fa fa-table"></i>優惠卷管理<span class="fa fa-chevron-down"></span></a>
                 </li>
