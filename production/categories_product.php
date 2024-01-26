@@ -1,3 +1,14 @@
+<?php
+
+require_once "../db_connect.php";
+
+$per_page = 10;
+$sql_cate_product = "SELECT * FROM product_categories";
+$result_all_product = $conn->query($sql_cate_product);
+$product_type_count = $result_all_product->num_rows;
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -36,7 +47,7 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentelella Alela!</span></a>
+              <a href="HomePage.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentelella Alela!</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -93,7 +104,14 @@
                   <li><a href="tables_dynamic.html"><i class="fa fa-table"></i> 會員管理 <span class="fa fa-chevron-down"></span></a>
                   </li><li><a href="tables_dynamic.html"><i class="fa fa-table"></i>商品管理 <span class="fa fa-chevron-down"></span></a>
                   </li>
-                  <li><a href="categories.php"><i class="fa fa-table"></i>分類管理<span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-table"></i>分類管理<span class="fa fa-chevron-down"></span>
+                  <ul class="nav child_menu">
+                      <li><a href="categories_product.php">Chart JS</a></li>
+                      <li><a href="categories_product.php">Chart JS2</a></li>
+                      <li><a href="categories_product.php">Moris JS</a></li>
+
+                    </ul>
+                  </a>
                   </li>
                   <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>食譜管理<span class="fa fa-chevron-down"></span></a>
                   </li>
@@ -326,6 +344,13 @@
                             <div class="card-box table-responsive">
 
                     <table id="datatable" class="table table-striped table-bordered" style="width:100%">
+                      <thead>
+                        <tr>
+                          <th>分類ID</th>
+                          <th>名稱</th>
+                          <th>簡短介紹</th>
+                        </tr>
+                      </thead>
                     </table>
                   </div>
                   </div>
