@@ -393,7 +393,7 @@ $rowsClassCategories = $resultClassCategories->fetch_all(MYSQLI_ASSOC);
                             <?php foreach ($rowsClass as $rowClass) : ?>
                               <tr>
                                 <td><?= $rowClass["Class_ID"] ?></td>
-                                <td><?= $rowClass["Class_name"] ?></td>
+                                <td><a href="e_commerce.php"><?= $rowClass["Class_name"] ?></a></td>
                                 <td><?= $rowClass["Class_description"] ?></td>
                                 <td class="text-nowrap">$ <?= number_format($rowClass["C_price"]) ?></td>
                                 <td class="text-nowrap"><?= $rowClass["Speaker_name"] ?></td>
