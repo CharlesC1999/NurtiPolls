@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "admin";
 $password = "111111";
-$dbname = "my_test_db";
+$dbname = "nutripolls_version_1";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
