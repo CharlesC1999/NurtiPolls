@@ -1,5 +1,5 @@
 <?php
-require_once("/xampp/htdocs/db_connect.php");
+require_once("./php_connect/db_connect.php");
 
 //all class
 $sqlClass = ""
