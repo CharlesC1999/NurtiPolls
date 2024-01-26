@@ -7,6 +7,8 @@ if (isset($_GET["Class_cate_ID"])) {
   if ($Class_cate_ID == "") {
     $whereClause = "";
   }
+} else {
+  $whereClause = "";
 }
 
 //join class, speaker and category 
