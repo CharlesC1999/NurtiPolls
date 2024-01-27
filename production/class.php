@@ -1,5 +1,5 @@
 <?php
-require_once("/xampp/htdocs/project/php_connect/db_connect_project.php");
+require_once("/xampp/htdocs/project/php_connect/db_connect.php");
 $now = date("Y-m-d");
 
 if (isset($_GET["Class_cate_ID"])) {
@@ -110,6 +110,7 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
   <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
   <!-- Font Awesome -->
   <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <!-- NProgress -->
   <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
   <!-- iCheck -->
@@ -124,6 +125,12 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
 
   <!-- Custom Theme Style -->
   <link href="../build/css/custom.min.css" rel="stylesheet">
+  <style>
+    .add-class {
+      font-size: 16px;
+      padding: 6px 10px;
+    }
+  </style>
 </head>
 
 <body class="nav-md">
@@ -432,7 +439,7 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
                         <p class="text-muted font-13 m-b-30">
                           DataTables has most features enabled by default, so all you need to do to use it with your own tables is to call the construction function: <code>$().DataTable();</code>
                         </p>
-                        <div class="row mb-2">
+                        <div class="row mb-2 align-items-center ">
                           <div class="col-sm-8">
                             <a class="btn btn-light rounded-pill <?php if ($status == 1 || !isset($status)) echo "active" ?>" href=" class.php?Class_cate_ID=<?= $Class_cate_ID ?>&status=1">
                               全部課程 <span class="badge bg-light text-dark rounded-pill"><?= $rowsCountAllClass ?></span>
@@ -453,7 +460,11 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
                               已結束課程 <span class="badge bg-light text-dark rounded-pill"><?= $rowsCountClassEnded ?></span>
                             </a>
                           </div>
-                          <div class="col-sm-4"></div>
+                          <div class="col-sm-4 d-flex justify-content-end  ">
+                            <a href="" class="bg-warning rounded add-class">
+                              <i class="fa-regular fa-square-plus"></i> 新增課程
+                            </a>
+                          </div>
                         </div>
                         <table id="datatable" class="table table-striped table-bordered text-center table-hover" style="width:100%">
                           <thead>
