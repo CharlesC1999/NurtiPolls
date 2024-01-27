@@ -1,3 +1,29 @@
+<?php
+require_once("/xampp/htdocs/project/php_connect/db_connect_project.php");
+$now = date("Y-m-d");
+
+if (isset($_GET["Class_cate_ID"])) {
+  $Class_cate_ID = $_GET["Class_cate_ID"];
+  $whereClause = "WHERE Class_category_ID = '$Class_cate_ID'";
+  $whereClauseStatic = "WHERE Class_category_ID = '$Class_cate_ID'";
+  if ($Class_cate_ID == "") {
+    $whereClause = "";
+    $whereClauseStatic = "";
+  }
+} else {
+  $whereClause = "";
+  $whereClauseStatic = "";
+}
+
+
+//class_categories
+$sqlClassCategories = "SELECT * FROM class_categories";
+$resultClassCategories = $conn->query($sqlClassCategories);
+$rowsClassCategories = $resultClassCategories->fetch_all(MYSQLI_ASSOC);
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -101,7 +127,13 @@
                 </li>
                 <li><a href="tables_dynamic.php"><i class="fa fa-table"></i>講師管理<span class="fa fa-chevron-down"></span></a>
                 </li>
-                <li><a href="class.php"><i class="fa fa-table"></i>課程管理</a>
+                <li><a><i class="fa fa-table"></i> 課程管理 <span class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu">
+                    <li class="<?php if ($Class_cate_ID == "") echo "active" ?>"><a href="class.php?Class_cate_ID=">所有類別</a></li>
+                    <?php foreach ($rowsClassCategories as $rowClassCategories) : ?>
+                      <li class="<?php if ($rowClassCategories["Class_cate_ID"] == $Class_cate_ID) echo "active" ?>"><a href="class.php?Class_cate_ID=<?= $rowClassCategories["Class_cate_ID"] ?>"><?= $rowClassCategories["Class_cate_name"] ?></a></li>
+                    <?php endforeach; ?>
+                  </ul>
                 </li>
                 <li><a href="tables_dynamic.php"><i class="fa fa-table"></i>優惠卷管理<span class="fa fa-chevron-down"></span></a>
                 </li>

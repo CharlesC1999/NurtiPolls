@@ -1,14 +1,40 @@
 <?php
 require_once("/xampp/htdocs/project/php_connect/db_connect_project.php");
+$now = date("Y-m-d");
 
 if (isset($_GET["Class_cate_ID"])) {
   $Class_cate_ID = $_GET["Class_cate_ID"];
   $whereClause = "WHERE Class_category_ID = '$Class_cate_ID'";
+  $whereClauseStatic = "WHERE Class_category_ID = '$Class_cate_ID'";
   if ($Class_cate_ID == "") {
     $whereClause = "";
+    $whereClauseStatic = "";
   }
 } else {
   $whereClause = "";
+  $whereClauseStatic = "";
+}
+
+if (isset($_GET["status"])) {
+  $status = $_GET["status"];
+
+  switch ($status) {
+    case "2":
+      $whereClause = "$whereClause && Start_date > '$now'";
+      break;
+    case "3":
+      $whereClause = "$whereClause && Start_date <= '$now' && End_date >= '$now'";
+      break;
+    case "4":
+      $whereClause = "$whereClause && End_date <= '$now'";
+      break;
+    case "5":
+      $whereClause = "$whereClause && Class_date = '$now'";
+      break;
+    case "6":
+      $whereClause = "$whereClause && Class_date < '$now'";
+      break;
+  }
 }
 
 
@@ -28,35 +54,35 @@ $resultClassCategories = $conn->query($sqlClassCategories);
 $rowsClassCategories = $resultClassCategories->fetch_all(MYSQLI_ASSOC);
 
 
-$now = date("Y-m-d");
+
 //class rowsCount
 //all class
-$sqlAllClass = "SELECT * FROM class $whereClause";
+$sqlAllClass = "SELECT * FROM class $whereClauseStatic";
 $resultAllClass = $conn->query($sqlAllClass);
 $rowsCountAllClass = $resultAllClass->num_rows;
 //yet started
-if ($whereClause == "") {
-  $whereClause = "WHERE ";
+if ($whereClauseStatic == "") {
+  $whereClauseStatic = "WHERE ";
 } else {
-  $whereClause = "$whereClause &&";
+  $whereClauseStatic = "$whereClauseStatic &&";
 }
-$sqlNstarted = "SELECT * FROM class $whereClause Start_date > '$now'";
+$sqlNstarted = "SELECT * FROM class $whereClauseStatic Start_date > '$now'";
 $resultNstarted = $conn->query($sqlNstarted);
 $rowsCountNstarted = $resultNstarted->num_rows;
 //sign up in progress
-$sqlInProgress = "SELECT * FROM class $whereClause Start_date <= '$now' && End_date >= '$now'";
+$sqlInProgress = "SELECT * FROM class $whereClauseStatic Start_date <= '$now' && End_date >= '$now'";
 $resultInProgress = $conn->query($sqlInProgress);
 $rowsCountInProgress = $resultInProgress->num_rows;
 //closed sign up
-$sqlClosed = "SELECT * FROM class $whereClause End_date < '$now'";
+$sqlClosed = "SELECT * FROM class $whereClauseStatic End_date < '$now'";
 $resultClosed = $conn->query($sqlClosed);
 $rowsCountClosed = $resultClosed->num_rows;
 //class in progress
-$sqlClassInProgress = "SELECT * FROM class $whereClause Class_date = '$now'";
+$sqlClassInProgress = "SELECT * FROM class $whereClauseStatic Class_date = '$now'";
 $resultClassInProgress = $conn->query($sqlClassInProgress);
 $rowsCountClassInProgress = $resultClassInProgress->num_rows;
 //class end
-$sqlClassEnded = "SELECT * FROM class $whereClause Class_date < '$now'";
+$sqlClassEnded = "SELECT * FROM class $whereClauseStatic Class_date < '$now'";
 $resultClassEnded = $conn->query($sqlClassEnded);
 $rowsCountClassEnded = $resultClassEnded->num_rows;
 ?>
@@ -408,24 +434,24 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
                         </p>
                         <div class="row mb-2">
                           <div class="col-sm-8">
-                            <button type="button" class="btn btn-light rounded-pill">
+                            <a class="btn btn-light rounded-pill <?php if ($status == 1 || !isset($status)) echo "active" ?>" href=" class.php?Class_cate_ID=<?= $Class_cate_ID ?>&status=1">
                               全部課程 <span class="badge bg-light text-dark rounded-pill"><?= $rowsCountAllClass ?></span>
-                            </button>
-                            <button type="button" class="btn btn-light rounded-pill">
+                            </a>
+                            <a class="btn btn-light rounded-pill <?php if ($status == 2) echo "active" ?>" href="class.php?Class_cate_ID=<?= $Class_cate_ID ?>&status=2">
                               報名未開放 <span class="badge bg-light text-dark rounded-pill"><?= $rowsCountNstarted ?></span>
-                            </button>
-                            <button type="button" class="btn btn-light rounded-pill">
+                            </a>
+                            <a class="btn btn-light rounded-pill <?php if ($status == 3) echo "active" ?>" href="class.php?Class_cate_ID=<?= $Class_cate_ID ?>&status=3">
                               開放報名中 <span class="badge bg-light text-dark rounded-pill"><?= $rowsCountInProgress ?></span>
-                            </button>
-                            <button type="button" class="btn btn-light rounded-pill">
+                            </a>
+                            <a class="btn btn-light rounded-pill <?php if ($status == 4) echo "active" ?>" href="class.php?Class_cate_ID=<?= $Class_cate_ID ?>&status=4">
                               報名截止 <span class="badge bg-light text-dark rounded-pill"><?= $rowsCountClosed ?></span>
-                            </button>
-                            <button type="button" class="btn btn-light rounded-pill">
+                            </a>
+                            <a class="btn btn-light rounded-pill <?php if ($status == 5) echo "active" ?>" href="class.php?Class_cate_ID=<?= $Class_cate_ID ?>&status=5">
                               課程進行中 <span class="badge bg-light text-dark rounded-pill"><?= $rowsCountClassInProgress ?></span>
-                            </button>
-                            <button type="button" class="btn btn-light rounded-pill">
+                            </a>
+                            <a class="btn btn-light rounded-pill <?php if ($status == 6) echo "active" ?>" href="class.php?Class_cate_ID=<?= $Class_cate_ID ?>&status=6">
                               已結束課程 <span class="badge bg-light text-dark rounded-pill"><?= $rowsCountClassEnded ?></span>
-                            </button>
+                            </a>
                           </div>
                           <div class="col-sm-4"></div>
                         </div>
