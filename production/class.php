@@ -397,10 +397,11 @@ $rowsClassCategories = $resultClassCategories->fetch_all(MYSQLI_ASSOC);
                                     $Start_date = $rowClass["Start_date"];
                                     $End_date = $rowClass["End_date"];
                                     $now = date("Y-m-d");
-                                    if ($now >= $Start_date && $now <= $End_date) : $text_color  = "text-success";
+                                    if ($now >= $Start_date && $now <= $End_date) : $text_color  = "text-success ";
                                     elseif ($now < $Start_date || $now > $End_date) :
                                       $text_color  = "text-danger";
-                                    ?> class="<?= $text_color; ?>" <?php endif; ?>>
+                                    endif;
+                                    ?> class="<?= $text_color; ?>">
                                   <?php
                                   $Start_date = $rowClass["Start_date"];
                                   $End_date = $rowClass["End_date"];
