@@ -1,4 +1,5 @@
 <?php
+
 require_once("../db-connect.php");
 
 $sql = "SELECT * FROM speaker ORDER BY Speaker_ID DESC"; //->DESC降冪(最新在前面)
