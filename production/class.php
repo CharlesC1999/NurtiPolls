@@ -400,8 +400,10 @@ $rowsClassCategories = $resultClassCategories->fetch_all(MYSQLI_ASSOC);
                                   $now = date("Y-m-d");
                                   if ($now >= $Start_date && $now <= $End_date) {
                                     echo "報名開放中";
-                                  } else {
+                                  } elseif ($now < $Start_date) {
                                     echo "尚未開放報名";
+                                  } elseif ($now > $End_date) {
+                                    echo "報名已截止";
                                   }
                                   ?>
                                 </td>
