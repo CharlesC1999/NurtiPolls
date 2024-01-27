@@ -11,6 +11,7 @@ if (isset($_GET["Class_cate_ID"])) {
   $whereClause = "";
 }
 
+
 //join class, speaker and category 
 $sqlClass = "SELECT class.*, speaker.Speaker_name, class_categories.Class_cate_name
  FROM class 
@@ -26,6 +27,38 @@ $sqlClassCategories = "SELECT * FROM class_categories";
 $resultClassCategories = $conn->query($sqlClassCategories);
 $rowsClassCategories = $resultClassCategories->fetch_all(MYSQLI_ASSOC);
 
+
+$now = date("Y-m-d");
+//class rowsCount
+//all class
+$sqlAllClass = "SELECT * FROM class $whereClause";
+$resultAllClass = $conn->query($sqlAllClass);
+$rowsCountAllClass = $resultAllClass->num_rows;
+//yet started
+if ($whereClause == "") {
+  $whereClause = "WHERE ";
+} else {
+  $whereClause = "$whereClause &&";
+}
+$sqlNstarted = "SELECT * FROM class $whereClause Start_date > '$now'";
+$resultNstarted = $conn->query($sqlNstarted);
+$rowsCountNstarted = $resultNstarted->num_rows;
+//sign up in progress
+$sqlInProgress = "SELECT * FROM class $whereClause Start_date <= '$now' && End_date >= '$now'";
+$resultInProgress = $conn->query($sqlInProgress);
+$rowsCountInProgress = $resultInProgress->num_rows;
+//closed sign up
+$sqlClosed = "SELECT * FROM class $whereClause End_date < '$now'";
+$resultClosed = $conn->query($sqlClosed);
+$rowsCountClosed = $resultClosed->num_rows;
+//class in progress
+$sqlClassInProgress = "SELECT * FROM class $whereClause Class_date = '$now'";
+$resultClassInProgress = $conn->query($sqlClassInProgress);
+$rowsCountClassInProgress = $resultClassInProgress->num_rows;
+//class end
+$sqlClassEnded = "SELECT * FROM class $whereClause Class_date < '$now'";
+$resultClassEnded = $conn->query($sqlClassEnded);
+$rowsCountClassEnded = $resultClassEnded->num_rows;
 ?>
 
 <!-- <pre>
@@ -373,7 +406,30 @@ $rowsClassCategories = $resultClassCategories->fetch_all(MYSQLI_ASSOC);
                         <p class="text-muted font-13 m-b-30">
                           DataTables has most features enabled by default, so all you need to do to use it with your own tables is to call the construction function: <code>$().DataTable();</code>
                         </p>
-                        <table id="datatable" class="table table-striped table-bordered text-center " style="width:100%">
+                        <div class="row mb-2">
+                          <div class="col-sm-8">
+                            <button type="button" class="btn btn-light rounded-pill">
+                              全部課程 <span class="badge bg-light text-dark rounded-pill"><?= $rowsCountAllClass ?></span>
+                            </button>
+                            <button type="button" class="btn btn-light rounded-pill">
+                              報名未開放 <span class="badge bg-light text-dark rounded-pill"><?= $rowsCountNstarted ?></span>
+                            </button>
+                            <button type="button" class="btn btn-light rounded-pill">
+                              開放報名中 <span class="badge bg-light text-dark rounded-pill"><?= $rowsCountInProgress ?></span>
+                            </button>
+                            <button type="button" class="btn btn-light rounded-pill">
+                              報名截止 <span class="badge bg-light text-dark rounded-pill"><?= $rowsCountClosed ?></span>
+                            </button>
+                            <button type="button" class="btn btn-light rounded-pill">
+                              課程進行中 <span class="badge bg-light text-dark rounded-pill"><?= $rowsCountClassInProgress ?></span>
+                            </button>
+                            <button type="button" class="btn btn-light rounded-pill">
+                              已結束課程 <span class="badge bg-light text-dark rounded-pill"><?= $rowsCountClassEnded ?></span>
+                            </button>
+                          </div>
+                          <div class="col-sm-4"></div>
+                        </div>
+                        <table id="datatable" class="table table-striped table-bordered text-center table-hover" style="width:100%">
                           <thead>
                             <tr>
                               <th class="align-middle">課程編號</th>
