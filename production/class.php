@@ -393,7 +393,14 @@ $rowsClassCategories = $resultClassCategories->fetch_all(MYSQLI_ASSOC);
                               <tr>
                                 <td><?= $rowClass["Class_ID"] ?></td>
                                 <td><a href="e_commerce.php?Class_ID=<?= $rowClass["Class_ID"] ?>"><?= $rowClass["Class_name"] ?></a></td>
-                                <td>
+                                <td <?php
+                                    $Start_date = $rowClass["Start_date"];
+                                    $End_date = $rowClass["End_date"];
+                                    $now = date("Y-m-d");
+                                    if ($now >= $Start_date && $now <= $End_date) : $text_color  = "text-success";
+                                    elseif ($now < $Start_date || $now > $End_date) :
+                                      $text_color  = "text-danger";
+                                    ?> class="<?= $text_color; ?>" <?php endif; ?>>
                                   <?php
                                   $Start_date = $rowClass["Start_date"];
                                   $End_date = $rowClass["End_date"];
