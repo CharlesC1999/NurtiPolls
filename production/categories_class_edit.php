@@ -38,6 +38,8 @@ $product_type_count = $result_all_product->num_rows;
 
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
+      <!-- icon連結 https://cdnjs.com/libraries/font-awesome-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" >
   </head>
 
   <body class="nav-md">
@@ -321,9 +323,9 @@ $product_type_count = $result_all_product->num_rows;
               <div class="col-md-12 col-sm-12 ">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>課程分類 <small>Class categories</small></h2>
+                    <h2>商品分類 <small>Product categories</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link" href="categories_class_edit.php"><i class="fa fa fa-wrench"></i></a></li>
+                      <li><a class="collapse-link" href="categories_class.php"><i class="fa fa fa-arrow-left"></i></a></li>
                       <!-- <li><a class="close-link"><i class="fa fa-close"></i></a>
                       </li> -->
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -342,6 +344,7 @@ $product_type_count = $result_all_product->num_rows;
                           <th>分類ID</th>
                           <th>名稱</th>
                           <th>簡短介紹</th>
+                          <th>操作</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -354,6 +357,12 @@ foreach ($rows as $cate):
                             <td><?=$cate["Class_cate_ID"]?></td>
                             <td><?=$cate["Class_cate_name"]?></td>
                             <td><?=$cate["C_Description"]?></td>
+                            <td>
+                              <div class="d-flex justify-content-between">
+                                <a href="#" data-id="<?=$cate["Class_cate_ID"]?>" data-name="<?=$cate["Class_cate_name"]?>" data-description="<?=$cate["C_Description"]?>" class="btn btn-success border-0 edit-btn" onclick="fillModal(this)"><i class="fa-solid fa-edit fa-fw"></i></a>
+                                <a href="#" id="remove" class="btn btn-danger border-0"><i class="fa-solid fa-trash fa-fw"></i></a>
+                              </div>
+                            </td>
                           </tr>
                           <?php endforeach;?>
                       </tbody>
@@ -372,7 +381,35 @@ foreach ($rows as $cate):
           </div>
         </div>
         <!-- /page content -->
-
+        <!-- Modal -->
+        <div class="modal fade" id="editCategoryModal" tabindex="-1" aria-labelledby="editCategoryModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="editCategoryModalLabel">編輯分類</h5>
+                <button type="button" class="btn-close border-0 bg-white" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-chevron-up fa-fw"></i></button>
+              </div>
+                <div class="modal-body">
+                  <form id="editCategoryForm" method="POST" action="do_edit_class.php">
+                    <input type="hidden" name="id" id="id" value="<?php echo $rows[0]["Class_cate_ID"]; ?>">
+                    <div class="form-group">
+                      <label for="categoryName">分類名稱</label>
+                      <input type="text" class="form-control" id="categoryName" name="categoryName" value="<?php echo $rows[0]["Class_cate_name"]; ?>">
+                    </div>
+                    <div class="form-group">
+                      <label for="categoryDescription">分類描述</label>
+                      <textarea class="form-control" id="categoryDescription" name="categoryDescription"><?=htmlspecialchars($rows["C_Description"])?></textarea>
+                    </div>
+                  </form>
+                </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+                <button type="button" class="btn btn-primary" onclick="confirmSave()">提交修改</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Modal -->
         <!-- footer content -->
         <footer>
           <div class="pull-right">
@@ -387,7 +424,8 @@ foreach ($rows as $cate):
     <!-- jQuery -->
     <script src="../vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
-   <script src="../vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- FastClick -->
     <script src="../vendors/fastclick/lib/fastclick.js"></script>
     <!-- NProgress -->
@@ -413,6 +451,6 @@ foreach ($rows as $cate):
 
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
-
+    <script src="edit_check.js"></script>
   </body>
 </html>
