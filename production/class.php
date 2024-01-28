@@ -461,9 +461,20 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
                             </a>
                           </div>
                           <div class="col-sm-4 d-flex justify-content-end  ">
-                            <a href="" class="bg-warning rounded add-class">
+                            <a href="" class="bg-warning rounded text-decoration-none text-dark add-class">
                               <i class="fa-regular fa-square-plus"></i> 新增課程
                             </a>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-4">
+                            <div>價格</div>
+                            <div class="input-group mb-3">
+                              <input type="number" class="form-control" aria-label="Username">
+                              <span class="input-group-text">~</span>
+                              <input type="number" class="form-control" aria-label="Server">
+                            </div>
+
                           </div>
                         </div>
                         <table id="datatable" class="table table-striped table-bordered text-center table-hover" style="width:100%">
