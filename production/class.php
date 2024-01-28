@@ -52,6 +52,14 @@ if (isset($_GET["min"]) && isset($_GET["max"])) {
   }
 
   $whereClause = "$whereClause && C_price BETWEEN '$min' AND '$max'";
+
+  if ($whereClauseStatic == "") {
+    $whereClauseStatic = "WHERE ";
+  } else {
+    $whereClauseStatic = "$whereClauseStatic && ";
+  }
+
+  $whereClauseStatic = "$whereClauseStatic  C_price BETWEEN '$min' AND '$max'";
 }
 
 
