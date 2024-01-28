@@ -2,6 +2,7 @@
 require_once("/xampp/htdocs/project/php_connect/db_connect.php");
 $now = date("Y-m-d");
 
+//分類
 if (isset($_GET["Class_cate_ID"])) {
   $Class_cate_ID = $_GET["Class_cate_ID"];
   $whereClause = "WHERE Class_category_ID = '$Class_cate_ID'";
@@ -14,7 +15,10 @@ if (isset($_GET["Class_cate_ID"])) {
   $whereClause = "";
   $whereClauseStatic = "";
 }
+echo "分類：" . $whereClause;
+echo "<br>";
 
+//開課狀態
 if (isset($_GET["status"])) {
   $status = $_GET["status"];
 
@@ -37,6 +41,22 @@ if (isset($_GET["status"])) {
   }
 }
 
+
+//價格篩選
+if (isset($_GET["min"]) && isset($_GET["max"])) {
+  $min = $_GET["min"];
+  $max = $_GET["max"];
+
+  if ($max == 0) {
+    $max == 99999;
+  } elseif ($min >= $max) {
+    $max = $min;
+  }
+
+  $whereClause = "$whereClause && C_price BETWEEN '$min' AND '$max'";
+}
+
+echo "價格：" . $whereClause;
 
 //join class, speaker and category 
 $sqlClass = "SELECT class.*, speaker.Speaker_name, class_categories.Class_cate_name
@@ -468,14 +488,33 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
                         </div>
                         <div class="row">
                           <div class="col-sm-4">
-                            <div>價格</div>
-                            <div class="input-group mb-3">
-                              <input type="number" class="form-control" aria-label="Username">
-                              <span class="input-group-text">~</span>
-                              <input type="number" class="form-control" aria-label="Server">
-                            </div>
-
+                            <form action="">
+                              <div>價格</div>
+                              <div class="input-group mb-3 d-flex ">
+                                <?php if (isset($min) && isset($max)) : ?>
+                                  <a name="" id="" class="btn btn-danger" href="#" role="button"><i class="fa-solid fa-filter-circle-xmark mt-1 "></i></a>
+                                <?php endif; ?>
+                                <?php
+                                $minVal = 0;
+                                if (isset($_GET["min"])) {
+                                  $minVal = $_GET["min"];
+                                }
+                                ?>
+                                <input type="number" class="form-control" aria-label="Username" name="min" min="0" value="<?= $minVal ?>">
+                                <span class="mx-1 align-self-center "> ~ </span>
+                                <?php
+                                $maxVal = 99999;
+                                if (isset($_GET["max"])) {
+                                  $maxVal = $_GET["max"];
+                                }
+                                ?>
+                                <input type="number" class="form-control" aria-label="Server" name="max" min="0" value="<?= $maxVal ?>">
+                                <button class="btn btn-secondary">
+                                  送出
+                                </button>
+                              </div>
                           </div>
+                          </form>
                         </div>
                         <table id="datatable" class="table table-striped table-bordered text-center table-hover" style="width:100%">
                           <thead>
