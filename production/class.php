@@ -505,6 +505,7 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
                         <div class="row">
                           <div class="col-sm-4">
                             <form action="">
+                              <input type="hidden" name="">
                               <input type="hidden" name="Class_cate_ID" value="<?= $Class_cate_ID ?>">
                               <input type="hidden" name="status" <?php
                                                                   $statusVal = "";
@@ -513,7 +514,7 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
                                                                   } ?> value="<?= $statusVal ?>">
                               <div>價格</div>
                               <div class="input-group mb-3 d-flex ">
-                                <a name="" id="" class="btn btn-danger" href="class.php?Class_cate_ID=<?= $Class_cate_ID ?>&status=<?= $status ?>&min=0&max=99999" role="button"><i class="fa-solid fa-filter-circle-xmark mt-1 "></i></a>
+                                <a name="" id="" class="btn btn-danger" href="class.php?Class_cate_ID=<?= $Class_cate_ID ?>&status=<?= $status ?>&min=0&max=99999" role="button"><i class="fa-solid fa-xmark"></i></a>
                                 <input type="number" class="form-control" aria-label="Username" name="min" min="0" value="<?= $minVal ?>">
                                 <span class="mx-1 align-self-center "> ~ </span>
 
