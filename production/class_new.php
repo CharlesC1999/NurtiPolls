@@ -134,7 +134,6 @@ $resultSnackClassCategories = $conn->query($sqlCountSnackClassCategories);
 $rowsCountSnackClassCategories = $resultSnackClassCategories->num_rows;
 
 
-
 //課程狀態及數量
 //全部課程
 $sqlAllClass = "SELECT * FROM class $whereClauseStatus";
