@@ -1,5 +1,5 @@
 <?php
-require_once("../db-connect.php");
+require_once "../db_connect.php";
 $sql = "SELECT * FROM speaker WHERE valid=1"; //SELECT * FROM 讀取資料
 
 $result = $conn->query($sql); //吐出資料
@@ -48,7 +48,7 @@ $speakerCount = $result->num_rows; //result裡面有幾筆(num_rows)
       <div class="col-md-3 left_col">
         <div class="left_col scroll-view">
           <div class="navbar nav_title" style="border: 0;">
-            <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentelella Alela!</span></a>
+            <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>營養大選 Nutripoll</span></a>
           </div>
 
           <div class="clearfix"></div>
@@ -76,7 +76,13 @@ $speakerCount = $result->num_rows; //result裡面有幾筆(num_rows)
                 </li>
                 <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>商品管理 <span class="fa fa-chevron-down"></span></a>
                 </li>
-                <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>分類管理<span class="fa fa-chevron-down"></span></a>
+                <li><a ><i class="fa fa-table"></i>分類管理<span class="fa fa-chevron-down"></span>
+                    <ul class="nav child_menu">
+                      <li><a href="categories_product.php">商品</a></li>
+                      <li><a href="categories_product.php">課程</a></li>
+                      <li><a href="categories_product.php">食譜</a></li>
+                    </ul>
+                  </a>
                 </li>
                 <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>食譜管理<span class="fa fa-chevron-down"></span></a>
                 </li>
@@ -242,7 +248,7 @@ $speakerCount = $result->num_rows; //result裡面有幾筆(num_rows)
                       <div class="card-box table-responsive">
                         <div class="d-flex justify-content-between align-items-center">
                           <div>
-                            共幾 <?= $speakerCount ?> 位
+                            共幾 <?=$speakerCount?> 位
                           </div>
                           <a class="h6 text-end" href="speaker_add.php" role="button">新增教師<i class="fa-solid fa-user-plus"></i></a>
                         </div>
@@ -261,29 +267,29 @@ $speakerCount = $result->num_rows; //result裡面有幾筆(num_rows)
                           <tbody>
                             <!-- 跑 foreach 找關聯式陣列 -->
                             <?php
-                            $rows = $result->fetch_all(MYSQLI_ASSOC); //轉換關聯式陣列
-                            foreach ($rows as $speaker) :
-                            ?>
+$rows = $result->fetch_all(MYSQLI_ASSOC); //轉換關聯式陣列
+foreach ($rows as $speaker):
+?>
                               <tr>
                                 <!-- 文字置中垂直 text-center,align-middle -->
-                                <td class="text-center align-middle"><?= $speaker["Speaker_name"] ?></td>
-                                <td><?= $speaker["Speaker_description"] ?></td>
-                                
+                                <td class="text-center align-middle"><?=$speaker["Speaker_name"]?></td>
+                                <td><?=$speaker["Speaker_description"]?></td>
+
                                 <td>
                                   <div class="d-flex justify-content-between">
                                     <!-- 去到speakeruser.php網頁丟id過去做處理(點擊到哪一位的id) -->
-                                    <a role="button" class="btn btn-primary" href="speaker_user.php?id=<?= $speaker["Speaker_ID"] ?>"><i class="fa-solid fa-eye fa-fw"></i></a>
-                                    
+                                    <a role="button" class="btn btn-primary" href="speaker_user.php?id=<?=$speaker["Speaker_ID"]?>"><i class="fa-solid fa-eye fa-fw"></i></a>
+
                                     <!--button modal 做更改-->
-                                    <a name="" id="" class="btn btn-primary" href="speaker_edit.php?id=<?= $speaker["Speaker_ID"] ?>" role="button"><i class="fa-solid fa-user-pen fa-fw"></i></a>
-                                    
+                                    <a name="" id="" class="btn btn-primary" href="speaker_edit.php?id=<?=$speaker["Speaker_ID"]?>" role="button"><i class="fa-solid fa-user-pen fa-fw"></i></a>
+
                                     <!--button modal 做刪除-->
                                     <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmModal"><i class="fa-solid fa-trash fa-fw"></i></button>
                                   </div>
                                 </td>
 
                               </tr>
-                            <?php endforeach; ?>
+                            <?php endforeach;?>
                           </tbody>
                         </table>
                       </div>

@@ -1,10 +1,9 @@
 <?php
-require_once("../db-connect.php");
+require_once "../db_connect.php";
 
 $sql = "SELECT * FROM speaker ORDER BY Speaker_ID DESC"; //->DESC降冪(最新在前面)
-$result = $conn->query($sql);  //吐出資料
+$result = $conn->query($sql); //吐出資料
 $rows = $result->fetch_all(MYSQLI_ASSOC); //轉換關聯式陣列
-
 
 ?>
 
