@@ -103,7 +103,7 @@ $product_type_count = $result_all_product->num_rows;
                     </ul>
                   </li> -->
                   <li><a href="tables_dynamic.html"><i class="fa fa-table"></i> 會員管理 <span class="fa fa-chevron-down"></span></a>
-                  </li><li><a href="tables_dynamic.html"><i class="fa fa-table"></i>商品管理 <span class="fa fa-chevron-down"></span></a>
+                  </li><li><a href="product.php"><i class="fa fa-table"></i>商品管理 <span class="fa fa-chevron-down"></span></a>
                   </li>
                   <li><a><i class="fa fa-table"></i>分類管理<span class="fa fa-chevron-down"></span>
                   <ul class="nav child_menu">
