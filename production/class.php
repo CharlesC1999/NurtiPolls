@@ -15,8 +15,6 @@ if (isset($_GET["Class_cate_ID"])) {
   $whereClause = "";
   $whereClauseStatic = "";
 }
-echo "分類：" . $whereClause;
-echo "<br>";
 
 //開課狀態
 if (isset($_GET["status"])) {
@@ -56,7 +54,6 @@ if (isset($_GET["min"]) && isset($_GET["max"])) {
   $whereClause = "$whereClause && C_price BETWEEN '$min' AND '$max'";
 }
 
-echo "價格：" . $whereClause;
 
 //join class, speaker and category 
 $sqlClass = "SELECT class.*, speaker.Speaker_name, class_categories.Class_cate_name
@@ -105,6 +102,7 @@ $rowsCountClassInProgress = $resultClassInProgress->num_rows;
 $sqlClassEnded = "SELECT * FROM class $whereClauseStatic Class_date < '$now'";
 $resultClassEnded = $conn->query($sqlClassEnded);
 $rowsCountClassEnded = $resultClassEnded->num_rows;
+
 ?>
 
 <!-- <pre>
@@ -461,22 +459,32 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
                         </p>
                         <div class="row mb-2 align-items-center ">
                           <div class="col-sm-8">
-                            <a class="btn btn-light rounded-pill <?php if ($status == 1 || !isset($status)) echo "active" ?>" href=" class.php?Class_cate_ID=<?= $Class_cate_ID ?>&status=1">
+                            <?php
+                            $minVal = 0;
+                            if (isset($_GET["min"])) {
+                              $minVal = $_GET["min"];
+                            }
+                            $maxVal = 99999;
+                            if (isset($_GET["max"])) {
+                              $maxVal = $_GET["max"];
+                            }
+                            ?>
+                            <a class="btn btn-light rounded-pill <?php if ($status == 1 || !isset($status) || $status == "") echo "active" ?>" href=" class.php?Class_cate_ID=<?= $Class_cate_ID ?>&status=1&min=<?= $minVal ?>&max=<?= $maxVal ?>">
                               全部課程 <span class="badge bg-light text-dark rounded-pill"><?= $rowsCountAllClass ?></span>
                             </a>
-                            <a class="btn btn-light rounded-pill <?php if ($status == 2) echo "active" ?>" href="class.php?Class_cate_ID=<?= $Class_cate_ID ?>&status=2">
+                            <a class="btn btn-light rounded-pill <?php if ($status == 2) echo "active" ?>" href="class.php?Class_cate_ID=<?= $Class_cate_ID ?>&status=2&min=<?= $minVal ?>&max=<?= $maxVal ?>">
                               報名未開放 <span class="badge bg-light text-dark rounded-pill"><?= $rowsCountNstarted ?></span>
                             </a>
-                            <a class="btn btn-light rounded-pill <?php if ($status == 3) echo "active" ?>" href="class.php?Class_cate_ID=<?= $Class_cate_ID ?>&status=3">
+                            <a class="btn btn-light rounded-pill <?php if ($status == 3) echo "active" ?>" href="class.php?Class_cate_ID=<?= $Class_cate_ID ?>&status=3&min=<?= $minVal ?>&max=<?= $maxVal ?>">
                               開放報名中 <span class="badge bg-light text-dark rounded-pill"><?= $rowsCountInProgress ?></span>
                             </a>
-                            <a class="btn btn-light rounded-pill <?php if ($status == 4) echo "active" ?>" href="class.php?Class_cate_ID=<?= $Class_cate_ID ?>&status=4">
+                            <a class="btn btn-light rounded-pill <?php if ($status == 4) echo "active" ?>" href="class.php?Class_cate_ID=<?= $Class_cate_ID ?>&status=4&min=<?= $minVal ?>&max=<?= $maxVal ?>">
                               報名截止 <span class="badge bg-light text-dark rounded-pill"><?= $rowsCountClosed ?></span>
                             </a>
-                            <a class="btn btn-light rounded-pill <?php if ($status == 5) echo "active" ?>" href="class.php?Class_cate_ID=<?= $Class_cate_ID ?>&status=5">
+                            <a class="btn btn-light rounded-pill <?php if ($status == 5) echo "active" ?>" href="class.php?Class_cate_ID=<?= $Class_cate_ID ?>&status=5&min=<?= $minVal ?>&max=<?= $maxVal ?>">
                               課程進行中 <span class="badge bg-light text-dark rounded-pill"><?= $rowsCountClassInProgress ?></span>
                             </a>
-                            <a class="btn btn-light rounded-pill <?php if ($status == 6) echo "active" ?>" href="class.php?Class_cate_ID=<?= $Class_cate_ID ?>&status=6">
+                            <a class="btn btn-light rounded-pill <?php if ($status == 6) echo "active" ?>" href="class.php?Class_cate_ID=<?= $Class_cate_ID ?>&status=6&min=<?= $minVal ?>&max=<?= $maxVal ?>">
                               已結束課程 <span class="badge bg-light text-dark rounded-pill"><?= $rowsCountClassEnded ?></span>
                             </a>
                           </div>
@@ -489,25 +497,18 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
                         <div class="row">
                           <div class="col-sm-4">
                             <form action="">
+                              <input type="hidden" name="Class_cate_ID" value="<?= $Class_cate_ID ?>">
+                              <input type="hidden" name="status" <?php
+                                                                  $statusVal = "";
+                                                                  if (isset($_GET["status"])) {
+                                                                    $statusVal = $_GET["status"];
+                                                                  } ?> value="<?= $statusVal ?>">
                               <div>價格</div>
                               <div class="input-group mb-3 d-flex ">
-                                <?php if (isset($min) && isset($max)) : ?>
-                                  <a name="" id="" class="btn btn-danger" href="#" role="button"><i class="fa-solid fa-filter-circle-xmark mt-1 "></i></a>
-                                <?php endif; ?>
-                                <?php
-                                $minVal = 0;
-                                if (isset($_GET["min"])) {
-                                  $minVal = $_GET["min"];
-                                }
-                                ?>
+                                <a name="" id="" class="btn btn-danger" href="class.php?Class_cate_ID=<?= $Class_cate_ID ?>&status=<?= $status ?>&min=0&max=99999" role="button"><i class="fa-solid fa-filter-circle-xmark mt-1 "></i></a>
                                 <input type="number" class="form-control" aria-label="Username" name="min" min="0" value="<?= $minVal ?>">
                                 <span class="mx-1 align-self-center "> ~ </span>
-                                <?php
-                                $maxVal = 99999;
-                                if (isset($_GET["max"])) {
-                                  $maxVal = $_GET["max"];
-                                }
-                                ?>
+
                                 <input type="number" class="form-control" aria-label="Server" name="max" min="0" value="<?= $maxVal ?>">
                                 <button class="btn btn-secondary">
                                   送出
