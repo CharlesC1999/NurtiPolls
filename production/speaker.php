@@ -1,6 +1,6 @@
 <?php
-require_once("../db-connect.php");
-$sql = "SELECT * FROM speaker WHERE valid=1 ORDER by Speaker_ID ASC"; //SELECT * FROM 讀取資料
+require_once "../db_connect.php";
+$sql = "SELECT * FROM speaker WHERE valid=1"; //SELECT * FROM 讀取資料
 
 if (isset($_GET["search"])) {
   $search = $_GET["search"];
@@ -62,7 +62,7 @@ $speakerCount = $result->num_rows; //result裡面有幾筆(num_rows)
       <div class="col-md-3 left_col">
         <div class="left_col scroll-view">
           <div class="navbar nav_title" style="border: 0;">
-            <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentelella Alela!</span></a>
+            <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>營養大選 Nutripoll</span></a>
           </div>
 
           <div class="clearfix"></div>
@@ -88,9 +88,15 @@ $speakerCount = $result->num_rows; //result裡面有幾筆(num_rows)
               <ul class="nav side-menu">
                 <li><a href="tables_dynamic.html"><i class="fa fa-table"></i> 會員管理 <span class="fa fa-chevron-down"></span></a>
                 </li>
-                <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>商品管理 <span class="fa fa-chevron-down"></span></a>
+                <li><a href="product.php"><i class="fa fa-table"></i>商品管理 <span class="fa fa-chevron-down"></span></a>
                 </li>
-                <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>分類管理<span class="fa fa-chevron-down"></span></a>
+                <li><a ><i class="fa fa-table"></i>分類管理<span class="fa fa-chevron-down"></span>
+                    <ul class="nav child_menu">
+                      <li><a href="categories_product.php">商品</a></li>
+                      <li><a href="categories_product.php">課程</a></li>
+                      <li><a href="categories_product.php">食譜</a></li>
+                    </ul>
+                  </a>
                 </li>
                 <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>食譜管理<span class="fa fa-chevron-down"></span></a>
                 </li>
@@ -308,7 +314,7 @@ $speakerCount = $result->num_rows; //result裡面有幾筆(num_rows)
                                 </td>
 
                               </tr>
-                            <?php endforeach; ?>
+                            <?php endforeach;?>
                           </tbody>
                         </table>
                       </div>

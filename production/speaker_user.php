@@ -1,5 +1,5 @@
 <?php
-require_once("../db-connect.php");
+require_once "../db_connect.php";
 if (!isset($_GET["id"])) {
     $id = 0;
     echo "請由正常管道進入";
@@ -15,7 +15,6 @@ $result = $conn->query($sql);
 $row = $result->fetch_assoc();
 
 $rowCount = $result->num_rows; //result裡面有幾筆(num_rows)
-
 
 ?>
 
@@ -78,15 +77,15 @@ $rowCount = $result->num_rows; //result裡面有幾筆(num_rows)
     </div>
     <div class="container">
         <div class="row justify-content-center ">
-            <div class="h2 text-center">教師 <?= $row["Speaker_name"] ?> 個人資訊</div>
+            <div class="h2 text-center">教師 <?=$row["Speaker_name"]?> 個人資訊</div>
             <div class="box">
-                <img src="Speaker_pic/<?= $row["Image"] ?>" class="object-fit-cover" alt="...">
+                <img src="Speaker_pic/<?=$row["Image"]?>" class="object-fit-cover" alt="...">
             </div>
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">姓名: <?= $row["Speaker_name"] ?></h5>
+                    <h5 class="card-title">姓名: <?=$row["Speaker_name"]?></h5>
                     <p class="">
-                    <h5>簡介: </h5><?= $row["Speaker_description"] ?></p>
+                    <h5>簡介: </h5><?=$row["Speaker_description"]?></p>
                 </div>
             </div>
             <div class="d-grid gap-2 d-md-flex justify-content-center py-3">
