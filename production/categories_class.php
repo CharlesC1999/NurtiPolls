@@ -323,7 +323,7 @@ $product_type_count = $result_all_class->num_rows;
                   <div class="x_title">
                     <h2>課程分類 <small>Class categories</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link" href="categories_class_edit.php"><i class="fa fa fa-wrench"></i></a></li>
+                      <li><a class="collapse-link text-success" href="categories_class_edit.php"><i class="fa fa fa-wrench"> 修改</i></a></li>
                       <!-- <li><a class="close-link"><i class="fa fa-close"></i></a>
                       </li> -->
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
