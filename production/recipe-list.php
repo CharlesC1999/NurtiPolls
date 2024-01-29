@@ -363,7 +363,7 @@ $recipeCount=$result->num_rows;
                           <td><?=$recipe["Title_R_name"]?></td>
                           <td class="">
                            <div class="ratio ratio-1x1">
-                            <img class="object-fit-cover" src="/nurtipolls/rimages/<?=$recipe["Image_URL"]?>" alt="<?=$recipe["Title_R_name"]?>">
+                            <img class="object-fit-cover" src="rimages/<?=$recipe["Image_URL"]?>" alt="<?=$recipe["Title_R_name"]?>">
                             </div>
                           </td>
                           <td><?=$recipe["Content"]?></td>
