@@ -40,6 +40,11 @@ require_once("/xampp/htdocs/project/php_connect/db_connect_project.php");
       width: 800px;
       margin-inline: auto;
     }
+
+    .classDescription {
+      width: 100%;
+      height: 80px;
+    }
   </style>
 </head>
 
@@ -346,57 +351,80 @@ require_once("/xampp/htdocs/project/php_connect/db_connect_project.php");
                 <div class="form-content row g-2 ">
                   <div class="col-12 mb-3">
                     <label for="className" class="form-label">課程名稱</label>
-                    <input type="text" class="form-control" id="className">
+                    <input type="text" class="form-control" id="className" name="className">
                   </div>
 
 
                   <div class="col-6 mb-3">
+                    <!-- <label for="classCategory" class="form-label">課程類別</label>
+                    <input type="text" class="form-control" id="classCategory" name="classCategory" required> -->
                     <label for="classCategory" class="form-label">課程類別</label>
-                    <input type="text" class="form-control" id="classCategory">
+                    <select name="classCategory" id="classCategory" class="form-control">
+                      <option value="">請選擇類別</option>
+                      <option value="1">台式料理</option>
+                      <option value="2">中式料理</option>
+                      <option value="3">西式料理</option>
+                      <option value="4">異國料理</option>
+                      <option value="5">健康養生/素食</option>
+                      <option value="6">烘焙/點心</option>
+                    </select>
+
                   </div>
+
                   <div class="col-6 mb-3">
                     <label for="speaker" class="form-label">講師名稱</label>
-                    <input type="text" class="form-control" id="speaker">
+                    <input type="text" class="form-control" id="speaker" name="speaker" required>
                   </div>
 
 
                   <div class="col-6 mb-3">
                     <label for="classPrice" class="form-label">課程價格</label>
-                    <input type="number" class="form-control" id="classPrice">
+                    <input type="number" class="form-control" id="classPrice" name="classPrice" required>
                   </div>
                   <div class="col-6 mb-3">
                     <label for="personLimit" class="form-label">名額限制</label>
-                    <input type="number" class="form-control" id="personLimit">
+                    <input type="number" class="form-control" id="personLimit" name="personLimit" required>
                   </div>
 
 
                   <div class="col-4 mb-3">
                     <label for="startDate" class="form-label">報名起始</label>
-                    <input type="date" class="form-control" id="startDate" name="startDate">
+                    <input type="date" class="form-control" id="startDate" name="startDate" required>
                   </div>
 
                   <div class="col-4 mb-3">
                     <label for="endDate" class="form-label">報名截止</label>
-                    <input type="date" class="form-control" id="endDate" name="endDate">
+                    <input type="date" class="form-control" id="endDate" name="endDate" required>
                   </div>
 
                   <div class="col-4 mb-3">
                     <label for="classDate" class="form-label">開課日期</label>
-                    <input type="date" class="form-control" id="classDate" name="classDate">
+                    <input type="date" class="form-control" id="classDate" name="classDate" required>
                   </div>
 
                   <div class="col-12 mb-3">
                     <label for="classDescription" class="form-label">課程敘述</label>
-                    <textarea name="classDescription" id="classDescription" cols="30" rows="8"></textarea>
+                    <textarea class="classDescription" name="classDescription" id="classDescription" required></textarea>
                   </div>
 
-                  <button type="submit" class="btn btn-primary">
-                    送出
-                  </button>
+                  <div class="col-6 mb-3">
+                    <label for="fileUpload" class="form-label">課程圖片</label>
+                    <div></div>
+                    <input type="file" class="" id="fileUpload" name="fileUpload" required>
+                  </div>
 
-                  <a class="btn btn-danger text-white">
-                    取消
-                  </a>
+                  <div class="col-12"></div>
+
+                  <div class="col-3 m-auto">
+                    <button type="submit" class="btn btn-primary">
+                      送出
+                    </button>
+                    <a class="btn btn-danger text-white">
+                      取消
+                    </a>
+                  </div>
+
+
 
                 </div>
 
