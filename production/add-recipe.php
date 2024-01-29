@@ -17,6 +17,9 @@ require_once("../db_connectn.php");
 
     <body>
         <div class="container">
+         <div class="py-2">
+                <a href="recipe-list.php" class="btn btn-primary" role="button">回食譜列表</a>
+            </div>
             <form action="doAddRecipe.php" method="post" enctype="multipart/form-data">
                 <div class="mb-2">
                     <label for="" class="form-label">食譜名稱</label>
