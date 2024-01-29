@@ -1,3 +1,21 @@
+<?php
+require_once("../db_connectn.php");
+$sql = "SELECT recipe.*,recipe_categories.Recipe_cate_name AS category_name FROM recipe
+JOIN recipe_categories ON recipe.Recipe_Category_ID = recipe_categories.Recipe_cate_ID
+ WHERE valid=1 ORDER BY Recipe_ID ASC";
+$result = $conn->query($sql); 
+
+$recipeCount=$result->num_rows; 
+
+?>
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -8,7 +26,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>DataTables | Gentelella</title>
-
+    <?php require_once("../css.php"); ?>
     <!-- Bootstrap -->
     <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -29,6 +47,7 @@
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
   </head>
 
   <body class="nav-md">
@@ -91,18 +110,18 @@
                       <li><a href="calendar.html">Calendar</a></li>
                     </ul>
                   </li> -->
-                  <li><a href="tables_dynamic.html"><i class="fa fa-table"></i> 會員管理 <span class="fa fa-chevron-down"></span></a>
-                  </li><li><a href="tables_dynamic.html"><i class="fa fa-table"></i>商品管理 <span class="fa fa-chevron-down"></span></a>
+                  <li><a href=""><i class="fa fa-table"></i> 會員管理 <span class="fa fa-chevron-down"></span></a>
+                  </li><li><a href=""><i class="fa fa-table"></i>商品管理 <span class="fa fa-chevron-down"></span></a>
                   </li>
-                  <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>分類管理<span class="fa fa-chevron-down"></span></a>
+                  <li><a href=""><i class="fa fa-table"></i>分類管理<span class="fa fa-chevron-down"></span></a>
                   </li>
-                  <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>食譜管理<span class="fa fa-chevron-down"></span></a>
+                  <li><a href="recipe-list.php"><i class="fa fa-table"></i>食譜管理<span class="fa fa-chevron-down"></span></a>
                   </li>
-                  <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>講師管理<span class="fa fa-chevron-down"></span></a>
+                  <li><a href=""><i class="fa fa-table"></i>講師管理<span class="fa fa-chevron-down"></span></a>
                   </li>
-                  <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>課程管理<span class="fa fa-chevron-down"></span></a>
+                  <li><a href=""><i class="fa fa-table"></i>課程管理<span class="fa fa-chevron-down"></span></a>
                   </li>
-                  <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>優惠卷管理<span class="fa fa-chevron-down"></span></a>
+                  <li><a href=""><i class="fa fa-table"></i>優惠卷管理<span class="fa fa-chevron-down"></span></a>
                   </li>
                   <!-- <li><a><i class="fa fa-bar-chart-o"></i> Data Presentation <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
@@ -307,7 +326,8 @@
                   <div class="x_title">
                     <h2>食譜管理<small>Users</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
-                      <button class="btn btn-primary">新增</button>
+                      <!-- <button class="btn btn-primary">新增</button> -->
+                      <a href="add-recipe.php"><i class="fa-solid fa-plus"></i>新增</a>
                     </ul>
                     <div class="clearfix"></div>
                   </div>
@@ -316,7 +336,7 @@
                           <div class="col-sm-12">
                             <div class="card-box table-responsive">
                     <p class="text-muted font-13 m-b-30">
-                      這段文字是在談論DataTables這個JavaScript函式庫的使用方法。具體來說，它在默認情況下啟用了大多數功能，因此，要在自己的表格中使用它，只需調用構造函數：$().DataTable();。簡而言之，這行代碼是在初始化（initialization）一個DataTable對象，以啟用DataTables提供的功能，並使其應用在你的HTML表格上要研究請看原始檔<code>$().DataTable();</code>
+                        共<?=$recipeCount?>份
                     </p>
                     <table id="datatable" class="table table-striped table-bordered" style="width:100%">
                       <thead>
@@ -335,28 +355,38 @@
 
 
                       <tbody>
+                      <?php 
+                      $rows=$result->fetch_all(MYSQLI_ASSOC);
+                      foreach($rows as $recipe):
+                       ?>
                         <tr>
-                          <td>Tiger Nixon</td>
-                          <td>System Architect</td>
-                          <td>Edinburgh</td>
-                          <td>61</td>
-                          <td>2011/04/25</td>
+                          <td><?=$recipe["Title_R_name"]?></td>
+                          <td class="">
+                           <div class="ratio ratio-1x1">
+                            <img class="object-fit-cover" src="/nurtipolls/rimages/<?=$recipe["Image_URL"]?>" alt="<?=$recipe["Title_R_name"]?>">
+                            </div>
+                          </td>
+                          <td><?=$recipe["Content"]?></td>
+                          <td><?=$recipe["Publish_date"]?></td>
+                          <td><?=$recipe["category_name"]?></td>
                           <td>
-                            <a href="">
+                            <a href="recipe.php?Recipe_ID=<?=$recipe["Recipe_ID"]?>">
                              <i class="fa-solid fa-eye"></i>
                              </a>
-                            <a href="">
+                            <a href="recipe-edit.php?Recipe_ID=<?=$recipe["Recipe_ID"]?>">
                               <i class="fa-solid fa-pencil"></i>
                             </a>
-                            <a href="">
+                            <!-- <a href="doDeleteRecipe.php?Recipe_ID=
+                                 $recipe["Recipe_ID"]?>
+                            ">
                               <i class="fa-solid fa-trash"></i>
-                            </a>
+                            </a> -->
                             
                            
                           </td>
                          
                         </tr>
-                        
+                        <?php endforeach; ?>
                       </tbody>
                     </table>
                   </div>
@@ -419,6 +449,6 @@
 
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
-
+    <?php require_once("../js.php"); ?>
   </body>
 </html>

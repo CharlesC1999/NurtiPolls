@@ -1,3 +1,19 @@
+<?php
+require_once("../db_connectn.php");
+$sql = "SELECT * FROM recipe WHERE valid=1";
+$result = $conn->query($sql); 
+
+$recipeCount=$result->num_rows; 
+
+?>
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -8,6 +24,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>DataTables | Gentelella</title>
+    
 
     <!-- Bootstrap -->
     <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
@@ -29,8 +46,10 @@
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    
   </head>
-
+  
   <body class="nav-md">
     <div class="container body">
       <div class="main_container">
@@ -307,7 +326,8 @@
                   <div class="x_title">
                     <h2>食譜管理<small>Users</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
-                      <button class="btn btn-primary">新增</button>
+                      <!-- <button class="btn btn-primary">新增</button> -->
+                      <a href="add-recipe.php"><i class="fa-solid fa-plus"></i>新增</a>
                     </ul>
                     <div class="clearfix"></div>
                   </div>
@@ -316,7 +336,7 @@
                           <div class="col-sm-12">
                             <div class="card-box table-responsive">
                     <p class="text-muted font-13 m-b-30">
-                      這段文字是在談論DataTables這個JavaScript函式庫的使用方法。具體來說，它在默認情況下啟用了大多數功能，因此，要在自己的表格中使用它，只需調用構造函數：$().DataTable();。簡而言之，這行代碼是在初始化（initialization）一個DataTable對象，以啟用DataTables提供的功能，並使其應用在你的HTML表格上要研究請看原始檔<code>$().DataTable();</code>
+                        共<?=$recipeCount?>份
                     </p>
                     <table id="datatable" class="table table-striped table-bordered" style="width:100%">
                       <thead>
@@ -335,28 +355,50 @@
 
 
                       <tbody>
+                      <?php 
+                      $rows=$result->fetch_all(MYSQLI_ASSOC);
+                      foreach($rows as $recipe):
+                       ?>
+                       
                         <tr>
-                          <td>Tiger Nixon</td>
-                          <td>System Architect</td>
-                          <td>Edinburgh</td>
-                          <td>61</td>
-                          <td>2011/04/25</td>
+                          <td><?=$recipe["Title_R_name"]?></td>
+                          <td><?=$recipe["Image_URL"]?></td>
+                          <td><?=$recipe["Content"]?></td>
+                          <td><?=$recipe["Publish_date"]?></td>
+                          <td><?=$recipe["Recipe_category_ID"]?></td>
                           <td>
-                            <a href="">
+                            <a class="btn btn-primary" role="button" href="recipe.php?Recipe_ID=<?=$recipe["Recipe_ID"]?>">
                              <i class="fa-solid fa-eye"></i>
                              </a>
-                            <a href="">
+                            <a class="btn btn-primary" role="button" href="recipe-edit.php?Recipe_ID=<?=$recipe["Recipe_ID"]?>">
                               <i class="fa-solid fa-pencil"></i>
                             </a>
-                            <a href="">
-                              <i class="fa-solid fa-trash"></i>
-                            </a>
+                            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmModal" >
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                        <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">提示 </h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-x"></i></button>
+      </div>
+      <div class="modal-body">
+        確認刪除嗎?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-danger"><a href="doDeleteRecipe.php?Recipe_ID=<?=$recipe["Recipe_ID"]?>">確定</a></button>
+      </div>
+    </div>
+  </div>
+</div>
                             
                            
                           </td>
                          
                         </tr>
-                        
+                        <?php endforeach; ?>
                       </tbody>
                     </table>
                   </div>
@@ -419,6 +461,16 @@
 
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
+    <script
+            src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+            integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+            crossorigin="anonymous"
+        ></script>
 
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+            integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+            crossorigin="anonymous"
+        ></script>
   </body>
 </html>
