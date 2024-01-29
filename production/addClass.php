@@ -1,5 +1,10 @@
 <?php
-require_once("/xampp/htdocs/project/php_connect/db_connect_project.php");
+require_once("/xampp/htdocs/project/php_connect/db_connect.php");
+
+//join class and speaker
+$sql = "SELECT * FROM speaker";
+$result = $conn->query($sql);
+$rows = $result->fetch_all(MYSQLI_ASSOC);
 
 ?>
 
@@ -359,7 +364,7 @@ require_once("/xampp/htdocs/project/php_connect/db_connect_project.php");
                     <!-- <label for="classCategory" class="form-label">課程類別</label>
                     <input type="text" class="form-control" id="classCategory" name="classCategory" required> -->
                     <label for="classCategory" class="form-label">課程類別</label>
-                    <select name="classCategory" id="classCategory" class="form-control">
+                    <select name="classCategory" id="classCategory" class="form-control" required>
                       <option value="">請選擇類別</option>
                       <option value="1">台式料理</option>
                       <option value="2">中式料理</option>
@@ -373,7 +378,13 @@ require_once("/xampp/htdocs/project/php_connect/db_connect_project.php");
 
                   <div class="col-6 mb-3">
                     <label for="speaker" class="form-label">講師名稱</label>
-                    <input type="text" class="form-control" id="speaker" name="speaker" required>
+                    <!-- <input type="text" class="form-control" id="speaker" name="speaker" required> -->
+                    <select name="speaker" id="speaker" class="form-control" required>
+                      <option value="">請選擇講師</option>
+                      <?php foreach ($rows as $row) : ?>
+                        <option value="<?= $row["Speaker_ID"] ?>"><?= $row["Speaker_name"] ?></option>
+                      <?php endforeach; ?>
+                    </select>
                   </div>
 
 

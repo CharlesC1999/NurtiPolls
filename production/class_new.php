@@ -1,5 +1,5 @@
 <?php
-require_once("/xampp/htdocs/project/php_connect/db_connect_project.php");
+require_once("/xampp/htdocs/project/php_connect/db_connect.php");
 $now = date("Y-m-d");
 
 //分類

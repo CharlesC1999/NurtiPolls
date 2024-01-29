@@ -1,6 +1,5 @@
 <?php
-require_once("/xampp/htdocs/project/php_connect/db_connect_project.php");
-
+require_once("/xampp/htdocs/project/php_connect/db_connect.php");
 if (!isset($_POST["className"])) {
     $data = [
         "status" => 0,
@@ -53,27 +52,38 @@ $formattedClassDate = date("Y-m-d", strtotime($classDate));
 // 確認資料正確後新增課程
 $sql = "INSERT INTO class (Class_name, Class_description, C_price, F_Speaker_ID, Class_person_limit, Start_date, End_date, Class_date, Class_category_ID, valid) VALUES ('$className', '$classDescription', '$classPrice', '$speaker', '$personLimit', '$formattedStartDate', '$formattedEndDate','$formattedClassDate','$classCategory',1)";
 
+
+//執行新增課程並取得新插入資料的id
+if ($conn->query($sql)) {
+    $data = [
+        "status" => 1,
+        "id" => $conn->insert_id
+    ];
+    echo json_encode($data);
+    $insert_id = $conn->insert_id;
+} else {
+    $data = [
+        "status" => 0,
+        "message" => "新增課程失敗"
+    ];
+    echo json_encode($data);
+    exit;
+}
+
+
 //時間戳記取代檔名
 if ($_FILES["fileUpload"]["error"] == 0) {
     $filename = time();
     $fileExt = pathinfo($_FILES["fileUpload"]["name"], PATHINFO_EXTENSION);
     $filename = $filename . "." . $fileExt;
-}
 
-// if ($conn->query($sql)) {
-//     $data = [
-//         "status" => 1,
-//         "id" => $conn->insert_id
-//     ];
-//     echo json_encode($data);
-//     header("location: addClass.php");
-// } else {
-//     $data = [
-//         "status" => 0,
-//         "message" => "新增課程失敗"
-//     ];
-//     echo json_encode($data);
-//     exit;
-// }
+    if (move_uploaded_file($_FILES["fileUpload"]["tmp_name"], "../fileUpload/" . $filename)) {
+        $now = date("Y-m-d H:i:s");
+        $sqlImage = "UPDATE class_image SET F_Class_ID = '$insert_id', Image_URL = '$filename', Upload_date = '$now'";
+        echo '$sqlImage';
+    } else {
+        echo "資料上傳失敗";
+    }
+}
 
 // $conn->close();
