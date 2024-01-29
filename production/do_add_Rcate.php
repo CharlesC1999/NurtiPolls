@@ -15,7 +15,7 @@ if (empty($cate_name) || empty($cate_description)) {
 
 $now = date('Y-m-d H:i:s');
 
-$sql = "INSERT INTO product_categories (Product_cate_name, P_Description, `valid`)
+$sql = "INSERT INTO recipe_categories (Recipe_cate_name, R_Description, `valid`)
 -- valid是保留字
 VALUES ('$cate_name', '$cate_description', 1)";
 
@@ -33,4 +33,4 @@ if ($conn->query($sql)) {
 $conn->close();
 // 透過介面新增資料
 
-header("location: categories_product.php");
+header("location: categories_recipe.php");
