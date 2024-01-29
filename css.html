@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>text overflow</title>
+    <style>
+        .card{
+            width: 200px;
+            padding: 16px;
+            margin: 10px;
+            border: 1px solid#aaa;
+            float: left;
+        }
+        /*一行省略寫法*/
+        .card h2{
+            white-space: nowrap; /*強制文字不換行*/
+            overflow: hidden; /*把多的字拆掉*/
+            text-overflow: ellipsis; /*再加這行才會把多的字變成...*/
+        }
+
+        /*多行省略寫法*/
+        .card p{
+            overflow: hidden;
+            /*陳列在box , 水平且垂直排列為3行*/
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 3;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2 title="叫賣哥前妻爆出軌陳子強？　經紀人：無奈有這樣的謠言">叫賣哥前妻爆出軌陳子強？　經紀人：無奈有這樣的謠言</h2>
+        <p>叫賣哥（葉昇峻）與歌手老婆周卉姍離婚，竟傳出周卉姍與陳子強因拍攝《欺妻49天》走太近，還被目睹兩人工作時住在同一間房間，對此陳子強經紀人無奈解釋緣由。         
+        </p>
+    </div>
+    <div class="card">
+        <h2 title="主播不念「煮剝」！陳海茵陪女兒寫作業震驚：跟我小時候學的不一樣">主播不念「煮剝」！陳海茵陪女兒寫作業震驚：跟我小時候學的不一樣</h2>
+        <p>陳海茵曾是主播，近年轉戰網路主持旅遊生活節目，也不時會透過社群網站分享育兒日常，近日陪女兒寫作業時，赫然發現原來主播的「播」讀音並非「剝」，而是四聲「ㄅㄛˋ」，為此不禁驚呼「跟我小時候學的不一樣」。
+        </p>
+    </div>
+</body>
+</html>
