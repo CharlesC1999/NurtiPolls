@@ -1,6 +1,40 @@
 <?php
 require_once("../db_connect.php");
 
+
+// if (isset($_POST['submit'])) { // 检查是否点击了提交按钮
+//     // 获取表单数据
+//     $productName = $_POST['product_name']; // 确保字段名称与表单中的名称相匹配
+//     $productPrice = $_POST['product_price'];
+//     $quantity = $_POST['quantity'];
+//     $category = $_POST['category'];
+//     // 其他字段...
+
+//     // 连接数据库
+//     require_once("../db_connect.php");
+
+//     // 插入数据到数据库
+//     $sql = "INSERT INTO your_table_name (column1, column2, column3, ...) VALUES (?, ?, ?, ...)";
+//     $stmt = $conn->prepare($sql);
+//     $stmt->bind_param("类型", $productName, $productPrice, $quantity, ...); // '类型' 代表数据类型，例如 's' 代表字符串，'i' 代表整数
+//     $stmt->execute();
+
+//     if ($stmt->affected_rows > 0) {
+//         echo "数据添加成功";
+//     } else {
+//         echo "添加数据失败: " . $conn->error;
+//     }
+
+//     $stmt->close();
+//     $conn->close();
+// }
+// $sql="SELECT * FROM product";
+// $result = $conn->query($sql);
+
+$sqlCategory = "SELECT * FROM product_categories";
+$resultCategory = $conn->query($sqlCategory);
+$rowsCategory = $resultCategory->fetch_all(MYSQLI_ASSOC);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,6 +50,8 @@ require_once("../db_connect.php");
 
   <!-- Bootstrap -->
   <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+
   <!-- Font Awesome -->
   <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
   <!-- NProgress -->
@@ -311,46 +347,48 @@ require_once("../db_connect.php");
                 </div>
                 <div class="x_content justify-content-center">
                   <!-- Smart Wizard -->
-                  <div id="step-1 justify-content-center">
-                    <form class="form-horizontal form-label-left ">
+                  <div id="justify-content-center">
+                    <form action="" class="form-horizontal form-label-left" enctype="multipart/form-data">
                       <div class="form-group row ">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="name">商品名稱<span class="required">*</span>
+                        <label class="col-form-label col-md-3 col-sm-3 label-align">商品名稱<span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6">
-                          <input type="text" id="name" required="required" class="form-control" />
+                          <input type="text" name="product_name" required="required" class="form-control" />
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">價錢<span class="required">*</span>
+                        <label class="col-form-label col-md-3 col-sm-3 label-align">價錢<span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6">
-                          <input type="number" id="price" name="last-name" required="required" class="form-control" />
+                          <input type="number" name="product_price" required="required" class="form-control" />
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">數量<span class="required">*</span>
+                        <label class="col-form-label col-md-3 col-sm-3 label-align">數量<span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6">
-                          <input type="number" id="last-name" name="last-name" required="required" class="form-control" />
+                          <input type="number" name="quantity" required="required" class="form-control" />
                         </div>
                       </div>
                       <div class="form-group row">
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">分類<span class="required">*</span>
                         </label>
+
                         <div class="col-md-6 col-sm-6">
-                          <select type="number" id="last-name" name="last-name" required="required" class="form-control">
-                            <option value="">項目一</option>
-                            <option value="">項目二</option>
-                            <option value="">項目三</option>
+
+                          <select name="category" required="required" class="form-control">
+                            <?php foreach ($rowsCategory as $cate) : ?>
+                              <option value="<?= $cate["Product_cate_ID"] ?>"><?= $cate["Product_cate_name"] ?></option>
+                            <?php endforeach; ?>
                           </select>
                         </div>
+
                       </div>
                       <div class="form-group row">
                         <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">圖片上傳</label>
                         <div class="col-md-6 col-sm-6">
-                          <div class="input-group mb-3">
-                            <input type="file" class="form-control" id="inputGroupFile02">
-                            <label class="input-group-text" for="inputGroupFile02">Upload</label>
+                          <div class="input-group">
+                            <input type="file" class="form-control" name="product_image">
                           </div>
                         </div>
                       </div>
@@ -366,15 +404,16 @@ require_once("../db_connect.php");
                           </button>
                         </div>
                       </div>
-                    </form>
-                    <div class="row">
-                      <div class="col-md-12 d-flex justify-content-center">
-                        <!-- 取消按鈕 -->
-                        <button type="button" class="btn btn-secondary mr-2">取消</button>
-                        <!-- 確認按鈕 -->
-                        <button type="button" class="btn btn-secondary">確認</button>
+
+                      <div class="row">
+                        <div class="col-md-12 d-flex justify-content-end">
+                          <!-- 確認按鈕 -->
+                          <button type="submit" class="btn btn-secondary mr-2" name="submit">確認</button>
+                          <!-- 取消按鈕 -->
+                          <a href="addProduct.php" class="btn btn-secondary">取消</a>
+                        </div>
                       </div>
-                    </div>
+                    </form>
                   </div>
                   <!-- End SmartWizard Content -->
                 </div>
