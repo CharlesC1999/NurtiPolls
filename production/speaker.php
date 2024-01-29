@@ -1,8 +1,18 @@
 <?php
 require_once("../db-connect.php");
-$sql = "SELECT * FROM speaker WHERE valid=1"; //SELECT * FROM 讀取資料
+$sql = "SELECT * FROM speaker WHERE valid=1 ORDER by Speaker_ID ASC"; //SELECT * FROM 讀取資料
 
+if (isset($_GET["search"])) {
+  $search = $_GET["search"];
+  //記得加入 valid=1 (否則軟刪除也會顯示出來)
+  $sql = "SELECT * FROM speaker WHERE Speaker_name LIKE '%$search%' AND valid=1";
+} else {
+  //SELECT * FROM 讀取資料
+  $sql = "SELECT * FROM speaker WHERE valid=1";
+}
 $result = $conn->query($sql); //吐出資料
+$rows = $result->fetch_all(MYSQLI_ASSOC); //轉換關聯式陣列
+
 $speakerCount = $result->num_rows; //result裡面有幾筆(num_rows)
 
 ?>
@@ -34,6 +44,10 @@ $speakerCount = $result->num_rows; //result裡面有幾筆(num_rows)
   <link href="../vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
   <link href="../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
   <link href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+
+  <!-- Bootstrap CSS v5.2.1 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+
 
   <!-- Custom Theme Style -->
   <link href="../build/css/custom.min.css" rel="stylesheet">
@@ -202,16 +216,28 @@ $speakerCount = $result->num_rows; //result裡面有幾筆(num_rows)
               <h3>Gentelella <small>Alela!</small></h3>
             </div>
 
+            
             <div class="title_right">
               <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                <div class="input-group">
-                  <input type="text" class="form-control" placeholder="Search for...">
-                  <span class="input-group-btn">
-                    <button class="btn btn-secondary" type="button">Go!</button>
-                  </span>
-                </div>
+                <form action="">
+                  <div class="input-group">
+                    <!-- 判斷是否有搜尋,有的話[返回箭頭icon] -->
+                    <?php if (isset($_GET["search"])) : ?>
+                      <a name="" id="" class="btn btn-primary" href="speaker.php" role="button"><i class="fa-solid fa-arrow-left fa-fw"></i></a>
+                    <?php endif; ?>
+
+                    <!-- input的type="search" name="search" -->
+                    <!-- button的type="submit" -->
+                    <!-- 搜尋基本都用 GET 去做處理 (同個頁面上面)-->
+                    <input type="search" class="form-control" placeholder="Search for..." name="search">
+                    <span class="input-group-btn">
+                      <button class="btn btn-secondary" type="submit">Go!</button>
+                    </span>
+                  </div>
+                </form>
               </div>
             </div>
+
           </div>
 
           <div class="clearfix"></div>
@@ -227,8 +253,8 @@ $speakerCount = $result->num_rows; //result裡面有幾筆(num_rows)
                     <li class="dropdown">
                       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
                       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#">Settings 1</a>
-                        <a class="dropdown-item" href="#">Settings 2</a>
+                        <a class="dropdown-item" href="#">升密</a>
+                        <a class="dropdown-item" href="#">降冪</a>
                       </div>
                     </li>
                     <li><a class="close-link"><i class="fa fa-close"></i></a>
@@ -242,43 +268,42 @@ $speakerCount = $result->num_rows; //result裡面有幾筆(num_rows)
                       <div class="card-box table-responsive">
                         <div class="d-flex justify-content-between align-items-center">
                           <div>
-                            共幾 <?= $speakerCount ?> 位
+                            教師共 <?= $speakerCount ?> 位
                           </div>
-                          <a class="h6 text-end" href="speaker_add.php" role="button">新增教師<i class="fa-solid fa-user-plus"></i></a>
+                          <a class="h6 text-end link-success" href="speaker_add.php" role="button">新增教師 <i class="fa-solid fa-user-plus"></i></a>
                         </div>
                         <p class="text-muted font-13 m-b-30">
-                          <!-- DataTables has most features enabled by default, so all you need to do to use it with your own tables is to call the construction function: <code>$().DataTable();</code> -->
-                          <!-- DataTables套件是一種JQuery外掛套件，特別針對table此種資料的呈現方式，內部已實作了各種相關操作的功能，並提供具有彈性的客製化選項，開發人員只需要下載並引用相關函式庫，即可輕鬆實作出功能豐富的table介面。 -->
+                          <!--datatable DataTables has most features enabled by default, so all you need to do to use it with your own tables is to call the construction function: <code>$().DataTable();</code> -->
+                          <!-- DataTables套件是一種JQuery外掛套件，特別針對table此種資料的呈現方式，內部已實作了各種相關操作的功能，並提供具有彈性的客製化選項，開發人員只需要下載並引用相關函式庫，即可輕鬆實作出功能豐富的table介面。https://www.it145.com/9/77315.html -->
                         </p>
+
                         <table id="datatable" class="table table-striped table-bordered" style="width:100%">
                           <thead>
                             <tr>
                               <th>Speaker_Name</th>
                               <th>Speaker_description</th>
-                              <th></th>
+                              <th>操作</th>
                             </tr>
                           </thead>
                           <tbody>
                             <!-- 跑 foreach 找關聯式陣列 -->
                             <?php
-                            $rows = $result->fetch_all(MYSQLI_ASSOC); //轉換關聯式陣列
+
                             foreach ($rows as $speaker) :
                             ?>
                               <tr>
                                 <!-- 文字置中垂直 text-center,align-middle -->
-                                <td class="text-center align-middle"><?= $speaker["Speaker_name"] ?></td>
-                                <td><?= $speaker["Speaker_description"] ?></td>
-                                
+                                <td class="align-middle"><?= $speaker["Speaker_name"] ?></td>
+                                <td class="align-middle"><?= $speaker["Speaker_description"] ?></td>
+
                                 <td>
                                   <div class="d-flex justify-content-between">
                                     <!-- 去到speakeruser.php網頁丟id過去做處理(點擊到哪一位的id) -->
-                                    <a role="button" class="btn btn-primary" href="speaker_user.php?id=<?= $speaker["Speaker_ID"] ?>"><i class="fa-solid fa-eye fa-fw"></i></a>
-                                    
-                                    <!--button modal 做更改-->
-                                    <a name="" id="" class="btn btn-primary" href="speaker_edit.php?id=<?= $speaker["Speaker_ID"] ?>" role="button"><i class="fa-solid fa-user-pen fa-fw"></i></a>
-                                    
-                                    <!--button modal 做刪除-->
-                                    <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmModal"><i class="fa-solid fa-trash fa-fw"></i></button>
+                                    <a role="button" class="btn btn-outline-secondary" href="speaker_user.php?id=<?= $speaker["Speaker_ID"] ?>"><i class="fa-regular fa-eye"></i></a>
+
+                                    <!--button 做更改-->
+                                    <a name="" id="" class="btn btn-outline-success" href="speaker_edit.php?id=<?= $speaker["Speaker_ID"] ?>" role="button"><i class="fa-regular fa-pen-to-square"></i></a>
+
                                   </div>
                                 </td>
 
@@ -301,6 +326,14 @@ $speakerCount = $result->num_rows; //result裡面有幾筆(num_rows)
   </div>
   </div>
   </div>
+  <script>
+    // https://datatables.net/examples/basic_init/filter_only.html
+    //     new DataTable('#datatable', {
+    //       info: false,
+    //       ordering: false,
+    //       paging: false
+    // });
+  </script>
   <!-- /page content -->
 
   <!-- footer content -->
@@ -340,6 +373,7 @@ $speakerCount = $result->num_rows; //result裡面有幾筆(num_rows)
   <script src="../vendors/jszip/dist/jszip.min.js"></script>
   <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
   <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
+
 
   <!-- Custom Theme Scripts -->
   <script src="../build/js/custom.min.js"></script>

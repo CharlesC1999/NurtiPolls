@@ -21,10 +21,21 @@ $rows = $result->fetch_all(MYSQLI_ASSOC); //轉換關聯式陣列
     <!-- Bootstrap CSS v5.2.1 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
     <style>
-        .box{
+        .box {
             width: 300px;
             height: 500px;
         }
+        .box1 {
+            width: 275px;
+            height: 250px;
+           
+        }
+        .object-fit-cover {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+      
     </style>
 </head>
 
@@ -45,9 +56,15 @@ $rows = $result->fetch_all(MYSQLI_ASSOC); //轉換關聯式陣列
                         <textarea class="form-control" id="exampleFormControlTextarea1" rows="6" name="description"></textarea>
                     </div>
                     <!-- 記得type="file" (選擇檔案) -->
-                    <div class="mb-2">
-                        <label for="" class="form-label">上傳圖片 : </label>
-                        <input type="file" class="form-control" name="pic">
+                    <div class="mb-2 py-2">
+                        <label for="" class="form-label">預覽圖片 :</label>
+                        <!-- 建立一個img(output)作為縮圖的容器，設定好id並以display:none隱藏起來 並做js事件onchange當檔案值做變化時 -->
+                        <div class="box1">
+                            <img id="output" height="200" style="display:none" class="rounded mx-auto d-block object-fit-cover">
+                        </div>
+                        <div class="pt-3">
+                            <input type="file" class="form-control " name="pic" onchange="openFile(event)">
+                        </div>
                     </div>
                     <!-- d-grid gap-2 d-md-flex justify-content-md-end py-2 同靠右邊-->
                     <div class="d-flex justify-content-between align-items-center py-2">
@@ -58,6 +75,19 @@ $rows = $result->fetch_all(MYSQLI_ASSOC); //轉換關聯式陣列
             </div>
         </div>
     </div>
+    <script>
+        function openFile(event) {
+            var input = event.target; //取得上傳檔案
+            var reader = new FileReader(); //建立FileReader物件
+
+            reader.readAsDataURL(input.files[0]); //以.readAsDataURL將上傳檔案轉換為base64字串
+
+            reader.onload = function() { //FileReader取得上傳檔案後執行以下內容
+                var dataURL = reader.result; //設定變數dataURL為上傳圖檔的base64字串
+                $('#output').attr('src', dataURL).show(); //將img的src設定為dataURL並顯示
+            };
+        }
+    </script>
 
 
 

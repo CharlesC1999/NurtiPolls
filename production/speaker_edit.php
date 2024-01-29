@@ -64,7 +64,10 @@ $rowCount = $result->num_rows; //result裡面有幾筆(num_rows)
             <div class="row justify-content-center ">
                 <div class="h2 text-center">修改教師 <?= $row["Speaker_name"] ?> 個人資訊</div>
                 <div class="box">
-                    <img src="Speaker_pic/<?= $row["Image"] ?>" class="object-fit-cover" alt="...">
+                    <!-- 把原本的圖片資訊存在 hidden 裡，post 之後用來判斷是否要替換圖片 -->
+                    <input type="hidden" name="old_img" value="<?=$row["Image"]?>">
+                    <!-- 建立一個img(output)作為縮圖的容器，設定好id並以display:none隱藏起來 並做js事件onchange當檔案值做變化時 -->
+                    <img id="output" height="200" style="display:none" class="rounded mx-auto d-block object-fit-cover" src="Speaker_pic/<?= $row["Image"] ?>">
                 </div>
                 <div class="card">
                     <div class="card-body">
@@ -72,17 +75,32 @@ $rowCount = $result->num_rows; //result裡面有幾筆(num_rows)
                         <input type="text" class="form-control" value="<?= $row["Speaker_name"] ?>" name="name">
                         <p class="">
                             <label for="" class="form-label">個人簡介 :</label>
-                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="8" name="description"><?= $row["Speaker_description"] ?></textarea>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="7" name="description"><?= $row["Speaker_description"] ?></textarea>
                         </p>
                     </div>
                 </div>
             </div>
+            <!-- d-flex justify-content-between -->
             <div class="container d-flex justify-content-center py-3" >
-                <!-- <div class="px-3"><input type="file" class="form-control" name="pic"></div> -->
-                <div><button class="btn btn-outline-secondary" type="submit">確定修改</button></div>
+                <div class="px-3"><input type="file" class="form-control " name="pic" onchange="openFile(event)"></div>
+                <a name="" id="" class="btn btn-outline-secondary " href="speaker.php" role="button">返回列表</a>
+                <div class="px-3" ><button class="btn btn-outline-secondary " type="submit">確定修改</button></div>
             </div>
         </form>
     </div>
+    <script>
+        function openFile(event) {
+            var input = event.target; //取得上傳檔案
+            var reader = new FileReader(); //建立FileReader物件
+
+            reader.readAsDataURL(input.files[0]); //以.readAsDataURL將上傳檔案轉換為base64字串
+
+            reader.onload = function() { //FileReader取得上傳檔案後執行以下內容
+                var dataURL = reader.result; //設定變數dataURL為上傳圖檔的base64字串
+                $('#output').attr('src', dataURL).show(); //將img的src設定為dataURL並顯示
+            };
+        }
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>

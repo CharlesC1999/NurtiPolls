@@ -62,4 +62,5 @@ if($_FILES["pic"]["error"]==0){
 
 
 $conn->close();
+header("location: speaker.php");
 ?>
