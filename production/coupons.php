@@ -329,7 +329,7 @@ $conn->close();
           <div class="page-title">
             <div class="title_left">
               <h3>我的優惠券</h3>
-              <a href="#" class="btn my-3 btn-info">建立優惠券</a>
+              <a href="add-coupon.php" class="btn my-3 btn-info">建立優惠券</a>
             </div>
 
             <div class="title_right">
