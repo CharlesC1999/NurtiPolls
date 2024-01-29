@@ -325,7 +325,8 @@ $product_type_count = $result_all_product->num_rows;
                   <div class="x_title">
                     <h2>商品分類 <small>Product categories</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link" href="categories_product.php"><i class="fa fa fa-arrow-left"></i></a></li>
+                      <li><a class="collapse-link text-success" href="categories_product_re.php"><i class="fa fa-wrench"> 下架分類管理 </i></a></li>
+                      <li><a class="collapse-link text-success" href="categories_product.php"><i class="fa fa fa-arrow-left"></i> 返回</a></li>
                       <!-- <li><a class="close-link"><i class="fa fa-close"></i></a>
                       </li> -->
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -404,7 +405,7 @@ foreach ($rows as $cate):
                 </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
-                <button type="button" class="btn btn-primary" onclick="confirmSave()">提交修改</button>
+                <button type="button" class="btn btn-success btn-gradient border-0" onclick="confirmSave()">提交修改</button>
               </div>
             </div>
           </div>

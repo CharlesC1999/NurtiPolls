@@ -2,7 +2,7 @@
 
 require_once "../db_connect.php";
 
-$sql_cate_product = "SELECT * FROM class_categories WHERE valid = 1 ORDER BY Class_cate_ID";
+$sql_cate_product = "SELECT * FROM recipe_categories WHERE valid = 0 ORDER BY Recipe_cate_ID";
 $result_all_product = $conn->query($sql_cate_product);
 $product_type_count = $result_all_product->num_rows;
 
@@ -19,6 +19,8 @@ $product_type_count = $result_all_product->num_rows;
 
     <title>營養大選 Nutripoll</title>
 
+    <!-- Ajax -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- Bootstrap -->
     <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -325,8 +327,7 @@ $product_type_count = $result_all_product->num_rows;
                   <div class="x_title">
                     <h2>商品分類 <small>Product categories</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link text-success" href="categories_class_re.php"><i class="fa fa-wrench"> 下架分類管理 </i></a></li>
-                      <li><a class="collapse-link text-success" href="categories_class.php"><i class="fa fa fa-arrow-left"></i> 返回</a></li>
+                      <li><a class="collapse-link text-success" href="categories_recipe_edit.php"><i class="fa fa fa-arrow-left"></i> 返回修改頁面</a></li>
                       <!-- <li><a class="close-link"><i class="fa fa-close"></i></a>
                       </li> -->
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -355,13 +356,12 @@ $rows = $result_all_product->fetch_all(MYSQLI_ASSOC);
 foreach ($rows as $cate):
 ?>
                           <tr>
-                            <td><?=$cate["Class_cate_ID"]?></td>
-                            <td><?=$cate["Class_cate_name"]?></td>
-                            <td><?=$cate["C_Description"]?></td>
+                            <td><?=$cate["Recipe_cate_ID"]?></td>
+                            <td><?=$cate["Recipe_cate_name"]?></td>
+                            <td><?=$cate["R_Description"]?></td>
                             <td>
                               <div class="d-flex justify-content-between">
-                                <a href="#" data-id="<?=$cate["Class_cate_ID"]?>" data-name="<?=$cate["Class_cate_name"]?>" data-description="<?=$cate["C_Description"]?>" class="btn btn-success border-0 edit-btn" onclick="fillModal(this)"><i class="fa-solid fa-edit fa-fw"></i></a>
-                                <a href="#" data-id="<?=$cate["Class_cate_ID"]?>" class="btn btn-danger border-0 remove-btn" data-bs-toggle="modal" data-bs-target="#removeModal" ><i class="fa-solid fa-trash fa-fw"></i></a>
+                                <a href="#" data-id="<?=$cate["Recipe_cate_ID"]?>" class="btn btn-success border-0 remove-btn"><i class="fa-solid fa-mail-reply fa-fw"></i></a>
                               </div>
                             </td>
                           </tr>
@@ -382,57 +382,31 @@ foreach ($rows as $cate):
           </div>
         </div>
         <!-- /page content -->
-        <!-- Modal -->
-        <div class="modal fade" id="editCategoryModal" tabindex="-1" aria-labelledby="editCategoryModalLabel" aria-hidden="true">
-          <div class="modal-dialog modal-xl">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="editCategoryModalLabel">編輯分類</h5>
-                <button type="button" class="btn-close border-0 bg-white" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-chevron-up fa-fw"></i></button>
-              </div>
-                <div class="modal-body">
-                  <form id="editCategoryForm" method="POST" action="do_edit_class.php">
-                    <input type="hidden" name="id" id="id" value="<?php echo $rows[0]["Class_cate_ID"]; ?>">
-                    <div class="form-group">
-                      <label for="categoryName">分類名稱</label>
-                      <input type="text" class="form-control" id="categoryName" name="categoryName" value="<?php echo $rows[0]["Class_cate_name"]; ?>">
-                    </div>
-                    <div class="form-group">
-                      <label for="categoryDescription">分類描述</label>
-                      <textarea class="form-control" id="categoryDescription" name="categoryDescription"><?=htmlspecialchars($rows["C_Description"])?></textarea>
-                    </div>
-                  </form>
-                </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
-                <button type="button" class="btn btn-success btn-gradient border-0" onclick="confirmSave()">提交修改</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Modal -->
-        <!-- Modal -->
-        <div class="modal fade" id="removeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title text-danger" id="exampleModalLabel">警告</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        確認刪除嗎?
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <form action="do_Ccate_soft_delete.php" method="post">
-                            <input type="hidden" name="Class_cate_ID" value="<?php echo $rows[0]["Class_cate_ID"]; ?>">
-                            <button type="submit" class="btn btn-danger">刪除</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Modal -->
+
+        <script>
+            $(document).ready(function() {
+                $(".remove-btn").click(function(e) {
+                    e.preventDefault(); // 防止默認動作
+
+                    var cateId = $(this).data("id"); // 從 data-id 屬性獲取 Product_cate_ID
+
+                    $.ajax({
+                        type: "POST",
+                        url: "do_Rcate_re.php",
+                        data: { "Recipe_cate_ID": cateId },
+                        success: function(response) {
+                            // 處理成功的響應，如刷新頁面或顯示一個消息
+                            // alert("復原成功");
+                            location.reload(); // 重新加載頁面以看到更新
+                        },
+                        error: function(xhr, status, error) {
+
+                            console.error(error);
+                        }
+                    });
+                });
+            });
+        </script>
         <!-- footer content -->
         <footer>
           <div class="pull-right">
@@ -446,6 +420,7 @@ foreach ($rows as $cate):
 
     <!-- jQuery -->
     <script src="../vendors/jquery/dist/jquery.min.js"></script>
+
     <!-- Bootstrap -->
     <script src="../vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
