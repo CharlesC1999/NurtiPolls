@@ -22,6 +22,7 @@ if(!isset($_POST["name"])){
 $name=$_POST["name"];
 $description=$_POST["description"];
 
+
 //ppt.481 接收圖片是用$_FILES接住
 // $file=$_FILES["pic"];
 // var_dump($file);
@@ -61,4 +62,5 @@ if($_FILES["pic"]["error"]==0){
 
 
 $conn->close();
+header("location: speaker.php");
 ?>
