@@ -1,41 +1,39 @@
 <!-- 會員資料列表 ui -->
 <?php
-require_once("../connect.php");
+require_once "../db_connect.php";
 
-$perPage=10;
+$perPage = 10;
 // 下面是搜尋的if
 
-$sqlAll="SELECT * FROM member WHERE valid=1";
+$sqlAll = "SELECT * FROM member WHERE valid=1";
 $resultAll = $conn->query($sqlAll);
-$userTotslCount=$resultAll->num_rows;
-   
+$userTotslCount = $resultAll->num_rows;
 
-    $pageCount=ceil($userTotslCount/$perPage);
-    // echo $pageCount;
+$pageCount = ceil($userTotslCount / $perPage);
+// echo $pageCount;
 
 if (isset($_GET["search"])) {
     $search = $_GET["search"];
     $sql = "SELECT * FROM member WHERE User_name LIKE '%$search%' AND valid=1";
 }
 // 頁數的條件
-elseif(isset($_GET["p"])){
-    $p=$_GET["p"];
-    $startIndex=($p-1)*$perPage;
+elseif (isset($_GET["p"])) {
+    $p = $_GET["p"];
+    $startIndex = ($p - 1) * $perPage;
 
     $sql = "SELECT * FROM member WHERE valid=1 LIMIT $startIndex,$perPage";
-} 
-else {
+} else {
     // 沒有選擇頁數時p=1
-    $p=1;
+    $p = 1;
     $sql = "SELECT * FROM member WHERE valid=1 LIMIT $perPage";
 }
 
 $result = $conn->query($sql);
 
-if(isset($_GET["search"])){
-    $userCount=$result->num_rows;
-}else{
-    $userCount=$userTotslCount;
+if (isset($_GET["search"])) {
+    $userCount = $result->num_rows;
+} else {
+    $userCount = $userTotslCount;
 }
 
 ?>
@@ -48,7 +46,7 @@ if(isset($_GET["search"])){
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>DataTables | Gentelella</title>
+    <title>營養大選 Nutripoll</title>
 
     <!-- Bootstrap -->
     <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
@@ -60,7 +58,7 @@ if(isset($_GET["search"])){
     <!-- iCheck -->
     <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
     <!-- Datatables -->
-    
+
     <link href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
     <link href="../vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
     <link href="../vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
@@ -78,7 +76,7 @@ if(isset($_GET["search"])){
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentelella Alela!</span></a>
+            <a href="HomePage.html" class="site_title"><i class="fa fa-paw"></i> <span>營養大選 Nutripoll</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -132,18 +130,25 @@ if(isset($_GET["search"])){
                       <li><a href="calendar.html">Calendar</a></li>
                     </ul>
                   </li> -->
-                  <li><a href="tables_dynamic.html"><i class="fa fa-table"></i> 會員管理 <span class="fa fa-chevron-down"></span></a>
-                  </li><li><a href="tables_dynamic.html"><i class="fa fa-table"></i>商品管理 <span class="fa fa-chevron-down"></span></a>
+                  <li><a href="member.php"><i class="fa fa-table"></i> 會員管理 <span class="fa fa-chevron-down"></span></a>
+                  </li><li><a href="product.php"><i class="fa fa-table"></i>商品管理 <span class="fa fa-chevron-down"></span></a>
                   </li>
-                  <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>分類管理<span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-table"></i>分類管理<span class="fa fa-chevron-down"></span>
+                  <ul class="nav child_menu">
+                      <li><a href="categories_product.php" style="font-size: 16px;">商品</a></li>
+                      <li><a href="categories_class.php" style="font-size: 16px;">課程</a></li>
+                      <li><a href="categories_recipe.php" style="font-size: 16px;">食譜</a></li>
+
+                    </ul>
+
                   </li>
-                  <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>食譜管理<span class="fa fa-chevron-down"></span></a>
+                  <li><a href="recipe-list.php"><i class="fa fa-table"></i>食譜管理<span class="fa fa-chevron-down"></span></a>
                   </li>
-                  <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>講師管理<span class="fa fa-chevron-down"></span></a>
+                  <li><a href="speaker.php"><i class="fa fa-table"></i>講師管理<span class="fa fa-chevron-down"></span></a>
                   </li>
-                  <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>課程管理<span class="fa fa-chevron-down"></span></a>
+                  <li><a href="redirectClass.php"><i class="fa fa-table"></i>課程管理<span class="fa fa-chevron-down"></span></a>
                   </li>
-                  <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>優惠卷管理<span class="fa fa-chevron-down"></span></a>
+                  <li><a href="coupons.php"><i class="fa fa-table"></i>優惠卷管理<span class="fa fa-chevron-down"></span></a>
                   </li>
                   <!-- <li><a><i class="fa fa-bar-chart-o"></i> Data Presentation <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
@@ -200,7 +205,7 @@ if(isset($_GET["search"])){
                         <li><a href="#level1_2">Level One</a>
                         </li>
                     </ul>
-                  </li>                  
+                  </li>
                   <li><a href="javascript:void(0)"><i class="fa fa-laptop"></i> Landing Page <span class="label label-success pull-right">Coming Soon</span></a></li>
                 </ul>
               </div> -->
@@ -249,7 +254,7 @@ if(isset($_GET["search"])){
                       <a class="dropdown-item"  href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
                     </div>
                   </li>
-  
+
                   <li role="presentation" class="nav-item dropdown open">
                     <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1" data-toggle="dropdown" aria-expanded="false">
                       <i class="fa fa-envelope-o"></i>
@@ -339,24 +344,24 @@ if(isset($_GET["search"])){
                 </div>
               </div> -->
             </div>
-            
-        
+
+
             <!-- <div class="clearfix"></div> -->
-            
+
             <!-- 搜尋條 -->
             <div class="py-2">
             <div class="row g-3">
                 <!-- 搜尋的返回按鍵 -->
-                <?php if (isset($_GET["search"])) : ?>
+                <?php if (isset($_GET["search"])): ?>
                     <div class="col-auto">
                         <a name="" id="" class="btn btn-secondary" href="member.php" role="button"><i class="fa-solid fa-arrow-left"></i></a>
                     </div>
-                <?php endif; ?>
+                <?php endif;?>
                 <div class="col">
                     <!-- 搜尋欄位 -->
                     <form action="" method="get">
                         <div class="input-group mb-3">
-                            <input type="search" class="form-control" placeholder="Name" aria-label="Recipient's username" aria-describedby="button-addon2" name="search" <?php if (isset($_GET["search"])) :  $searchValue = $_GET["search"]; ?> value="<?= $searchValue ?>" <?php endif ?>>
+                            <input type="search" class="form-control" placeholder="Name" aria-label="Recipient's username" aria-describedby="button-addon2" name="search" <?php if (isset($_GET["search"])): $searchValue = $_GET["search"];?> value="<?=$searchValue?>" <?php endif?>>
                             <button class="btn btn-outline-secondary" type="submit" id="button-addon2"><i class="fa-solid fa-magnifying-glass"></i></button>
                         </div>
                     </form>
@@ -367,15 +372,15 @@ if(isset($_GET["search"])){
             <!-- 共多少人、新增人數 -->
             <div class="d-flex justify-content-between">
             <div>
-                共 <?= $userCount ?> 人
+                共 <?=$userCount?> 人
             </div>
             <div class="mb-2">
                 <a name="" id="" class="btn btn-secondary" href="add-user.php" role="button"><i class="fa-solid fa-user-plus"></i></a>
             </div>
-        </div>      
+        </div>
         <?php
-        if ($userCount > 0) :
-        ?>
+if ($userCount > 0):
+?>
             <div class="row">
               <div class="col-md-12 col-sm-12 ">
                 <div class="x_panel">
@@ -415,38 +420,41 @@ if(isset($_GET["search"])){
                       </thead>
                       <tbody>
                       <?php $rows = $result->fetch_all(MYSQLI_ASSOC);
-                    foreach ($rows as $user) : ?>
+foreach ($rows as $user): ?>
                         <tr>
-                            <td><?= $user["id"] ?></td>
-                            <td><?= $user["User_name"] ?></td>
-                            <td><?= $user["Account"] ?></td>
-                            <td><?= $user["Phone"] ?></td>
+                            <td><?=$user["id"]?></td>
+                            <td><?=$user["User_name"]?></td>
+                            <td><?=$user["Account"]?></td>
+                            <td><?=$user["Phone"]?></td>
                             <td class=" d-flex justify-content-center">
-                                <a class="btn btn-secondary" href="user.php?id=<?= $user["id"] ?>" role="button"><i class="fa-solid fa-user"></i></a>
+                                <a class="btn btn-secondary" href="user.php?id=<?=$user["id"]?>" role="button"><i class="fa-solid fa-user"></i></a>
                             </td>
                         </tr>
-                    <?php endforeach; ?>
+                    <?php endforeach;?>
                       </tbody>
                     </table>
 
 
-                    <?php if(!isset($_GET["search"])):?>
+                    <?php if (!isset($_GET["search"])): ?>
                 <!-- 判斷在search不顯示分頁 -->
                 <nav aria-label="Page navigation example">
                 <ul class="pagination">
-                    <?php for($i=1;$i<=$pageCount;$i++) :?>
-                    <li class="page-item <?php if($i==$p)echo "active";?>">
-                        <a class="page-link" 
+                    <?php for ($i = 1; $i <= $pageCount; $i++): ?>
+                    <li class="page-item <?php if ($i == $p) {
+    echo "active";
+}
+?>">
+                        <a class="page-link"
                     href="member.php?p=<?=$i?>"><?=$i?></a></li>
-                    
+
                     <?php endfor;?>
                 </ul>
             </nav>
             <?php endif;?>
-        <?php else : ?>
+        <?php else: ?>
             沒有使用者
-        <?php endif; ?>
-					
+        <?php endif;?>
+
                   </div>
                 </div>
               </div>
@@ -499,7 +507,7 @@ if(isset($_GET["search"])){
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
       <?php
-        include("./js.php");
-        ?>
+include "./js.php";
+?>
   </body>
 </html>

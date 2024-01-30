@@ -4,29 +4,29 @@ require_once "../db_connect.php";
 $p = 0;
 
 if (isset($_GET["sort_by"])) {
-    $sortBy = $_GET["sort_by"];
+  $sortBy = $_GET["sort_by"];
 
-    switch ($sortBy) {
-        case 'id_asc':
-            $orderBY = "ORDER BY  product_id ASC";
-            break;
-        case 'id_desc':
-            $orderBY = "ORDER BY  product_id DESC";
-            break;
-        case 'price_asc':
-            $orderBY = "ORDER BY    product.price ASC";
-            break;
-        case 'price_desc':
-            $orderBY = "ORDER BY  product.price  DESC";
-            break;
-        case 'date_asc':
-            $orderBY = "ORDER BY upload_date ASC";
-            break;
-        case 'date_desc':
-            $orderBY = "ORDER BY upload_date DESC";
-    }
+  switch ($sortBy) {
+    case 'id_asc':
+      $orderBY = "ORDER BY  product_id ASC";
+      break;
+    case 'id_desc':
+      $orderBY = "ORDER BY  product_id DESC";
+      break;
+    case 'price_asc':
+      $orderBY = "ORDER BY    product.price ASC";
+      break;
+    case 'price_desc':
+      $orderBY = "ORDER BY  product.price  DESC";
+      break;
+    case 'date_asc':
+      $orderBY = "ORDER BY upload_date ASC";
+      break;
+    case 'date_desc':
+      $orderBY = "ORDER BY upload_date DESC";
+  }
 } else {
-    $orderBY = "ORDER BY product.id ASC"; // 預設排序方式
+  $orderBY = "ORDER BY product.id ASC"; // 預設排序方式
 }
 
 $sql = "SELECT
@@ -34,7 +34,7 @@ $sql = "SELECT
     product.id AS product_id,
     product.name AS product_name,
     (SELECT image_url FROM product_image WHERE F_product_id = product.id AND sort_order = 0 LIMIT 1) AS single_image_url,
-    product_categories.Product_cate_ID AS category_id,
+    product_categories.Product_cate_ID AS category_id, 
     product_categories.Product_cate_name AS category_name
 FROM product
 JOIN product_image ON product.id = product_image.F_product_id
@@ -45,7 +45,7 @@ $orderBY";
 $result = $conn->query($sql);
 $rows = $result->fetch_all(MYSQLI_ASSOC);
 $rowsCount = $result->num_rows;
-$imagePath = 'p_image/' . str_replace('\\', '/', $rows['image_url']);
+
 
 $sqlCategories = "SELECT Product_cate_ID, Product_cate_name FROM product_categories";
 $resultCategories = $conn->query($sqlCategories);
@@ -62,7 +62,7 @@ $categories = $resultCategories->fetch_all(MYSQLI_ASSOC);
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>DataTables | Gentelella</title>
+  <title>營養大選 Nutripoll</title>
 
   <!-- Bootstrap -->
   <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
@@ -84,7 +84,7 @@ $categories = $resultCategories->fetch_all(MYSQLI_ASSOC);
 
   <!-- Custom Theme Style -->
   <link href="../build/css/custom.min.css" rel="stylesheet">
-  <?php include_once "../css.php";?>
+  <?php include_once "../css.php"; ?>
 </head>
 
 <body class="nav-md">
@@ -93,7 +93,7 @@ $categories = $resultCategories->fetch_all(MYSQLI_ASSOC);
       <div class="col-md-3 left_col">
         <div class="left_col scroll-view">
           <div class="navbar nav_title" style="border: 0;">
-            <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentelella Alela!</span></a>
+            <a href="HomePage.html" class="site_title"><i class="fa fa-paw"></i> <span>營養大選 Nutripoll</span></a>
           </div>
 
           <div class="clearfix"></div>
@@ -147,19 +147,26 @@ $categories = $resultCategories->fetch_all(MYSQLI_ASSOC);
                       <li><a href="calendar.html">Calendar</a></li>
                     </ul>
                   </li> -->
-                <li><a href="tables_dynamic.html"><i class="fa fa-table"></i> 會員管理 <span class="fa fa-chevron-down"></span></a>
+                <li><a href="member.php"><i class="fa fa-table"></i> 會員管理 <span class="fa fa-chevron-down"></span></a>
                 </li>
-                <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>商品管理 <span class="fa fa-chevron-down"></span></a>
+                <li><a href="product.php"><i class="fa fa-table"></i>商品管理 <span class="fa fa-chevron-down"></span></a>
                 </li>
-                <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>分類管理<span class="fa fa-chevron-down"></span></a>
+                <li><a><i class="fa fa-table"></i>分類管理<span class="fa fa-chevron-down"></span>
+                    <ul class="nav child_menu">
+                      <li><a href="categories_product.php" style="font-size: 16px;">商品</a></li>
+                      <li><a href="categories_class.php" style="font-size: 16px;">課程</a></li>
+                      <li><a href="categories_recipe.php" style="font-size: 16px;">食譜</a></li>
+
+                    </ul>
+
                 </li>
-                <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>食譜管理<span class="fa fa-chevron-down"></span></a>
+                <li><a href="recipe-list.php"><i class="fa fa-table"></i>食譜管理<span class="fa fa-chevron-down"></span></a>
                 </li>
-                <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>講師管理<span class="fa fa-chevron-down"></span></a>
+                <li><a href="speaker.php"><i class="fa fa-table"></i>講師管理<span class="fa fa-chevron-down"></span></a>
                 </li>
-                <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>課程管理<span class="fa fa-chevron-down"></span></a>
+                <li><a href="redirectClass.php"><i class="fa fa-table"></i>課程管理<span class="fa fa-chevron-down"></span></a>
                 </li>
-                <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>優惠卷管理<span class="fa fa-chevron-down"></span></a>
+                <li><a href="coupons.php"><i class="fa fa-table"></i>優惠卷管理<span class="fa fa-chevron-down"></span></a>
                 </li>
                 <!-- <li><a><i class="fa fa-bar-chart-o"></i> Data Presentation <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
@@ -383,14 +390,14 @@ $categories = $resultCategories->fetch_all(MYSQLI_ASSOC);
                         <option value="date_asc" name="date_asc">更新時間 遠->近</option>
 
                       </select>
-                    </form>
+
                   </div>
                   <div class="col-auto">
                     <select class="form-select form-select-sm" aria-label="Small select example">
                       <option selected>分類</option>
-                      <?php foreach ($categories as $category): ?>
-                        <option value="<?=htmlspecialchars($category["id"])?>"><?=htmlspecialchars($category["name"])?></option>
-                      <?php endforeach;?>
+                      <?php foreach ($categories as $category) : ?>
+                        <option value="<?= htmlspecialchars($category["Product_cate_ID"]) ?>"><?= htmlspecialchars($category["Product_cate_name"]) ?></option>
+                      <?php endforeach; ?>
                     </select>
                   </div>
                   <div class="col-2">
@@ -413,19 +420,21 @@ $categories = $resultCategories->fetch_all(MYSQLI_ASSOC);
 
                   </div>
                   <div class="col-auto">
-                    <a href="addProduct.php" class="btn btn-sm btn-secondary">
-                      新增商品
-                    </a>
+
+                    <li class="list-unstyled"><a href="addProduct.php" class="btn btn-sm btn-secondary">
+                        新增商品
+                      </a></li>
 
                   </div>
                   <div class="col-auto">
-                    <button type="submit" class="btn-sm btn-secondary">
-                      管理下架商品
-                    </button>
+                    <li class="list-unstyled"><a href="addProduct.php" class="btn btn-sm btn-secondary" name="addProduct">
+                        管理下架商品
+                      </a></li>
 
                   </div>
+                  </form>
                   <div class="col-auto">
-                    <h5>共<?=$rowsCount?> 筆資料</h5>
+                    <h5>共<?= $rowsCount ?> 筆資料</h5>
                   </div>
                 </div>
 
@@ -446,21 +455,22 @@ $categories = $resultCategories->fetch_all(MYSQLI_ASSOC);
                           <th></th>
                         </tr>
                       </thead>
-                      <?php foreach ($rows as $product): ?>
-                        <?php $imagePath = 'p_image/images/' . str_replace('\\', '/', $product['single_image_url']);?>
+                      <?php foreach ($rows as $product) : ?>
+                        <?php $imagePath = './p_image/' . $product['single_image_url']; ?>
+
                         <tbody>
                           <tr>
-                            <td><?=$product["product_id"]?></td>
-                            <td><img src="<?=htmlspecialchars($imagePath)?>" style="width: 100px; height: auto;" alt="<?=htmlspecialchars($product["product_name"])?> " class="object-fit"></td>
-                            <td><?=htmlspecialchars($product["product_name"])?></td>
-                            <td><?=htmlspecialchars($product["category_name"])?></td>
-                            <td><?=htmlspecialchars($product["upload_date"])?></td>
-                            <td><?=htmlspecialchars($product["price"])?> $</td>
-                            <td><?=htmlspecialchars($product["stock_quantity"])?></td>
+                            <td><?= $product["product_id"] ?></td>
+                            <td><img src="<?= $imagePath ?>" style="width: 100px; height: auto;" alt="<?= $product["product_name"] ?> " class="object-fit"></td>
+                            <td><?= $product["product_name"] ?></td>
+                            <td><?= $product["category_name"] ?></td>
+                            <td><?= $product["upload_date"] ?></td>
+                            <td><?= $product["price"] ?> $</td>
+                            <td><?= $product["stock_quantity"] ?></td>
                             <td><i class="fa fa-pencil fa-fw"></i> <i class="fa fa-trash fa-fw mx-1"></i></td>
                           </tr>
                         </tbody>
-                      <?php endforeach;?>
+                      <?php endforeach; ?>
 
                     </table>
                     <nav aria-label="Page navigation example">
@@ -502,7 +512,7 @@ $categories = $resultCategories->fetch_all(MYSQLI_ASSOC);
   <!-- /footer content -->
   </div>
   </div>
-  <?php include_once "../js.php";?>
+  <?php include_once "../js.php"; ?>
   <!-- jQuery -->
   <script src="../vendors/jquery/dist/jquery.min.js"></script>
   <!-- Bootstrap -->

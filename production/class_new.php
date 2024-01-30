@@ -179,7 +179,7 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>DataTables | Gentelella</title>
+  <title>營養大選 Nutripoll</title>
 
   <!-- Bootstrap -->
   <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
@@ -215,7 +215,7 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
       <div class="col-md-3 left_col">
         <div class="left_col scroll-view">
           <div class="navbar nav_title" style="border: 0;">
-            <a href="index.html" class="site_title"><span>營養大選NutriPolls</span></a>
+          <a href="HomePage.html" class="site_title"><i class="fa fa-paw"></i> <span>營養大選 Nutripoll</span></a>
           </div>
 
           <div class="clearfix"></div>
@@ -269,16 +269,20 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
                       <li><a href="calendar.html">Calendar</a></li>
                     </ul>
                   </li> -->
-                <li><a href="tables_dynamic.php"><i class="fa fa-table"></i> 會員管理 <span class="fa fa-chevron-down"></span></a>
-                </li>
-                <li><a href="tables_dynamic.php"><i class="fa fa-table"></i>商品管理 <span class="fa fa-chevron-down"></span></a>
-                </li>
-                <li><a href="tables_dynamic.php"><i class="fa fa-table"></i>分類管理<span class="fa fa-chevron-down"></span></a>
-                </li>
-                <li><a href="tables_dynamic.php"><i class="fa fa-table"></i>食譜管理<span class="fa fa-chevron-down"></span></a>
-                </li>
-                <li><a href="tables_dynamic.php"><i class="fa fa-table"></i>講師管理<span class="fa fa-chevron-down"></span></a>
-                </li>
+                  <li><a href="member.php"><i class="fa fa-table"></i> 會員管理 <span class="fa fa-chevron-down"></span></a>
+                  </li><li><a href="product.php"><i class="fa fa-table"></i>商品管理 <span class="fa fa-chevron-down"></span></a>
+                  </li>
+                  <li><a><i class="fa fa-table"></i>分類管理<span class="fa fa-chevron-down"></span>
+                  <ul class="nav child_menu">
+                      <li><a href="categories_product.php" style="font-size: 16px;">商品</a></li>
+                      <li><a href="categories_class.php" style="font-size: 16px;">課程</a></li>
+                      <li><a href="categories_recipe.php" style="font-size: 16px;">食譜</a></li>
+                  </ul>
+                  </li>
+                  <li><a href="recipe-list.php"><i class="fa fa-table"></i>食譜管理<span class="fa fa-chevron-down"></span></a>
+                  </li>
+                  <li><a href="speaker.php"><i class="fa fa-table"></i>講師管理<span class="fa fa-chevron-down"></span></a>
+                  </li>
                 <li><a><i class="fa fa-table"></i> 課程管理 <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu">
                     <li class="<?php if ($Class_cate_ID == "") {
@@ -293,7 +297,7 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
                     <?php endforeach;?>
                   </ul>
                 </li>
-                <li><a href="tables_dynamic.php"><i class="fa fa-table"></i>優惠卷管理<span class="fa fa-chevron-down"></span></a>
+                <li><a href="coupons.php"><i class="fa fa-table"></i>優惠卷管理<span class="fa fa-chevron-down"></span></a>
                 </li>
                 <!-- <li><a><i class="fa fa-bar-chart-o"></i> Data Presentation <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
