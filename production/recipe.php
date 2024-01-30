@@ -4,7 +4,7 @@ if(!isset($_GET["Recipe_ID"])){
 }else{
     $Recipe_ID=$_GET["Recipe_ID"];
 }
-require_once("../db_connectn.php");
+require_once("../db_connect.php");
 // $id=$_GET["id"];
 
 $sql="SELECT recipe.*,recipe_categories.Recipe_cate_name AS category_name FROM recipe

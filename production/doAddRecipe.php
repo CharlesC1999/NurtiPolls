@@ -1,6 +1,6 @@
 <?php
 
-require_once("../db_connectn.php");
+require_once("../db_connect.php");
 
 if(!isset($_POST["Title_R_name"])){
     echo "請循正常管道進入";

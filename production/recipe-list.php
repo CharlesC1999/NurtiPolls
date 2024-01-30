@@ -1,5 +1,5 @@
 <?php
-require_once("../db_connectn.php");
+require_once("../db_connect.php");
 $sql = "SELECT recipe.*,recipe_categories.Recipe_cate_name AS category_name FROM recipe
 JOIN recipe_categories ON recipe.Recipe_Category_ID = recipe_categories.Recipe_cate_ID
  WHERE valid=1 ORDER BY Recipe_ID ASC";
@@ -326,7 +326,7 @@ $recipeCount=$result->num_rows;
                     <h2>食譜管理<small>Users</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <!-- <button class="btn btn-primary">新增</button> -->
-                      <a href="add-recipe.php"><i class="fa-solid fa-plus"></i>新增</a>
+                      <a href="add-recipe.php" role="button" class="btn btn-secondary"><i class="fa-solid fa-plus"></i>新增</a>
                     </ul>
                     <div class="clearfix"></div>
                   </div>

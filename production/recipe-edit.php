@@ -4,7 +4,7 @@ if (!isset($_GET["Recipe_ID"])) {
 } else {
     $Recipe_ID = $_GET["Recipe_ID"];
 }
-require_once("../db_connectn.php");
+require_once("../db_connect.php");
 
 $sql = "SELECT * FROM recipe WHERE Recipe_ID=$Recipe_ID";
 $result = $conn->query($sql);
