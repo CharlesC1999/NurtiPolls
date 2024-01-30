@@ -2,7 +2,7 @@
 
 require_once "../db_connect.php";
 
-$sql_cate_product = "SELECT * FROM class_categories ORDER BY Class_cate_ID";
+$sql_cate_product = "SELECT * FROM class_categories WHERE valid = 1 ORDER BY Class_cate_ID";
 $result_all_class = $conn->query($sql_cate_product);
 $product_type_count = $result_all_class->num_rows;
 

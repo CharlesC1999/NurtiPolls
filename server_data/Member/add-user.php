@@ -1,6 +1,6 @@
 <!-- wu 新增 會員 ui 會員表格連線 -->
 <?php
-require_once "./connect.php";
+require_once "../../db_connect.php";
 ?>
 
 <!doctype html>

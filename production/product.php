@@ -8,16 +8,16 @@ if (isset($_GET["sort_by"])) {
 
     switch ($sortBy) {
         case 'id_asc':
-            $orderBY = "ORDER BY  product_id ASC";
+            $orderBY = "ORDER BY product_id ASC";
             break;
         case 'id_desc':
-            $orderBY = "ORDER BY  product_id DESC";
+            $orderBY = "ORDER BY product_id DESC";
             break;
         case 'price_asc':
-            $orderBY = "ORDER BY    product.price ASC";
+            $orderBY = "ORDER BY product.price ASC";
             break;
         case 'price_desc':
-            $orderBY = "ORDER BY  product.price  DESC";
+            $orderBY = "ORDER BY product.price  DESC";
             break;
         case 'date_asc':
             $orderBY = "ORDER BY upload_date ASC";
@@ -39,8 +39,7 @@ $sql = "SELECT
 FROM product
 JOIN product_image ON product.id = product_image.F_product_id
 JOIN product_categories ON product.category_id = product_categories.Product_cate_ID
-WHERE product_image.sort_order = 0
-$orderBY";
+WHERE product_image.sort_order = 0 $orderBY";
 
 $result = $conn->query($sql);
 $rows = $result->fetch_all(MYSQLI_ASSOC);

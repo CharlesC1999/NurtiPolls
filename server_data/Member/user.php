@@ -5,7 +5,7 @@ if (!isset($_GET["id"])) {
 } else {
     $id = $_GET["id"];
 }
-require_once "./connect.php";
+require_once "../../db_connect.php";
 $sql = "SELECT * FROM member WHERE id=$id AND valid=1";
 $result = $conn->query($sql);
 $rowCount = $result->num_rows;

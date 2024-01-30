@@ -2,7 +2,7 @@
 
 require_once "../db_connect.php";
 
-$sql_cate_product = "SELECT * FROM recipe_categories ORDER BY Recipe_cate_ID";
+$sql_cate_product = "SELECT * FROM recipe_categories WHERE valid = 1 ORDER BY Recipe_cate_ID";
 $result_all_product = $conn->query($sql_cate_product);
 $product_type_count = $result_all_product->num_rows;
 
