@@ -52,7 +52,7 @@ $orderBY";
 $result = $conn->query($sql);
 $rows = $result->fetch_all(MYSQLI_ASSOC);
 $rowsCount = $result->num_rows;
-$imagePath = 'p_image/' . str_replace('\\', '/', $row['image_url']);
+
 
 $sqlCategories = "SELECT Product_cate_ID, Product_cate_name FROM product_categories";
 $resultCategories = $conn->query($sqlCategories);
@@ -393,7 +393,7 @@ $categories = $resultCategories->fetch_all(MYSQLI_ASSOC);
                         <option value="date_asc" name="date_asc">更新時間 遠->近</option>
 
                       </select>
-                    </form>
+
                   </div>
                   <div class="col-auto">
                     <select class="form-select form-select-sm" aria-label="Small select example">
@@ -423,17 +423,19 @@ $categories = $resultCategories->fetch_all(MYSQLI_ASSOC);
 
                   </div>
                   <div class="col-auto">
-                    <a href="addProduct.php" class="btn btn-sm btn-secondary">
-                      新增商品
-                    </a>
+
+                    <li class="list-unstyled"><a href="addProduct.php" class="btn btn-sm btn-secondary">
+                        新增商品
+                      </a></li>
 
                   </div>
                   <div class="col-auto">
-                    <button type="submit" class="btn-sm btn-secondary">
-                      管理下架商品
-                    </button>
+                    <li class="list-unstyled"><a href="addProduct.php" class="btn btn-sm btn-secondary" name="addProduct">
+                        管理下架商品
+                      </a></li>
 
                   </div>
+                  </form>
                   <div class="col-auto">
                     <h5>共<?= $rowsCount ?> 筆資料</h5>
                   </div>
@@ -457,16 +459,17 @@ $categories = $resultCategories->fetch_all(MYSQLI_ASSOC);
                         </tr>
                       </thead>
                       <?php foreach ($rows as $product) : ?>
-                        <?php $imagePath = 'p_image/images/' . str_replace('\\', '/', $product['single_image_url']); ?>
+                        <?php $imagePath = './p_image/' . $product['single_image_url']; ?>
+
                         <tbody>
                           <tr>
                             <td><?= $product["product_id"] ?></td>
-                            <td><img src="<?= htmlspecialchars($imagePath) ?>" style="width: 100px; height: auto;" alt="<?= htmlspecialchars($product["product_name"]) ?> " class="object-fit"></td>
-                            <td><?= htmlspecialchars($product["product_name"]) ?></td>
-                            <td><?= htmlspecialchars($product["category_name"]) ?></td>
-                            <td><?= htmlspecialchars($product["upload_date"]) ?></td>
-                            <td><?= htmlspecialchars($product["price"]) ?> $</td>
-                            <td><?= htmlspecialchars($product["stock_quantity"]) ?></td>
+                            <td><img src="<?= $imagePath ?>" style="width: 100px; height: auto;" alt="<?= $product["product_name"] ?> " class="object-fit"></td>
+                            <td><?= $product["product_name"] ?></td>
+                            <td><?= $product["category_name"] ?></td>
+                            <td><?= $product["upload_date"] ?></td>
+                            <td><?= $product["price"] ?> $</td>
+                            <td><?= $product["stock_quantity"] ?></td>
                             <td><i class="fa fa-pencil fa-fw"></i> <i class="fa fa-trash fa-fw mx-1"></i></td>
                           </tr>
                         </tbody>
