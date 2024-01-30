@@ -323,7 +323,8 @@ $product_type_count = $result_all_product->num_rows;
                   <div class="x_title">
                     <h2>商品分類 <small>Product categories</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link" href="categories_recipe_edit.php"><i class="fa fa fa-wrench"></i></a></li>
+                      <li><a class="text-success" data-id="<?=$cate["Recipe_cate_ID"]?>" data-bs-toggle="modal" data-bs-target="#addModal"><i class="fa fa-plus-circle"> 新增分類</i></a></li>
+                      <li><a class="collapse-link text-success" href="categories_recipe_edit.php"><i class="fa fa fa-wrench"> 修改</i></a></li>
                       <!-- <li><a class="close-link"><i class="fa fa-close"></i></a>
                       </li> -->
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -372,7 +373,34 @@ foreach ($rows as $cate):
           </div>
         </div>
         <!-- /page content -->
-
+        <!-- Modal -->
+        <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-success" id="exampleModalLabel">新增分類</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="editCategoryForm" method="POST" action="do_add_Rcate.php">
+                            <div class="form-group">
+                                <label for="categoryName">分類名稱</label>
+                                <input type="text" class="form-control" id="categoryName" name="categoryName" value="">
+                            </div>
+                            <div class="form-group">
+                                <label for="categoryDescription">分類描述</label>
+                                <textarea class="form-control" id="categoryDescription" name="categoryDescription"></textarea>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+                                <button type="submit" class="btn btn-success">新增</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal -->
         <!-- footer content -->
         <footer>
           <div class="pull-right">
@@ -387,7 +415,8 @@ foreach ($rows as $cate):
     <!-- jQuery -->
     <script src="../vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
-   <script src="../vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- FastClick -->
     <script src="../vendors/fastclick/lib/fastclick.js"></script>
     <!-- NProgress -->

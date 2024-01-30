@@ -34,20 +34,20 @@ $sql = "SELECT
     product.id AS product_id,
     product.name AS product_name,
     (SELECT image_url FROM product_image WHERE F_product_id = product.id AND sort_order = 0 LIMIT 1) AS single_image_url,
-    product_categories.id AS category_id,
-    product_categories.name AS category_name
+    product_categories.Product_cate_ID AS category_id,
+    product_categories.Product_cate_name AS category_name
 FROM product
 JOIN product_image ON product.id = product_image.F_product_id
-JOIN product_categories ON product.category_id = product_categories.id
+JOIN product_categories ON product.category_id = product_categories.Product_cate_ID
 WHERE product_image.sort_order = 0
 $orderBY";
 
 $result = $conn->query($sql);
 $rows = $result->fetch_all(MYSQLI_ASSOC);
 $rowsCount = $result->num_rows;
-$imagePath = 'p_image/' . str_replace('\\', '/', $row['image_url']);
+$imagePath = 'p_image/' . str_replace('\\', '/', $rows['image_url']);
 
-$sqlCategories = "SELECT id, name FROM product_categories";
+$sqlCategories = "SELECT Product_cate_ID, Product_cate_name FROM product_categories";
 $resultCategories = $conn->query($sqlCategories);
 $categories = $resultCategories->fetch_all(MYSQLI_ASSOC);
 

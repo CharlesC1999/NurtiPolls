@@ -1,102 +1,99 @@
 <?php
-require_once("/xampp/htdocs/project/php_connect/db_connect_project.php");
+require_once "../db_connect.php";
 $now = date("Y-m-d");
 
 //分類
 if (isset($_GET["Class_cate_ID"])) {
-  $Class_cate_ID = $_GET["Class_cate_ID"];
-  $whereClause = "WHERE Class_category_ID = '$Class_cate_ID'";
-  $whereClauseStatus = "WHERE Class_category_ID = '$Class_cate_ID'";
+    $Class_cate_ID = $_GET["Class_cate_ID"];
+    $whereClause = "WHERE Class_category_ID = '$Class_cate_ID'";
+    $whereClauseStatus = "WHERE Class_category_ID = '$Class_cate_ID'";
 
-  if ($Class_cate_ID == "") {
+    if ($Class_cate_ID == "") {
+        $whereClause = "";
+        $whereClauseStatus = "";
+    }
+} else {
     $whereClause = "";
     $whereClauseStatus = "";
-  }
-} else {
-  $whereClause = "";
-  $whereClauseStatus = "";
 }
 
 //開課狀態
 if (isset($_GET["status"])) {
-  $status = $_GET["status"];
+    $status = $_GET["status"];
 
-  if ($whereClause == "") {
-    $whereClause = "WHERE ";
-  } else {
-    $whereClause = "$whereClause && ";
-  }
-
-  switch ($status) {
-    case "1":
-      if ($whereClause == "WHERE ") {
+    if ($whereClause == "") {
         $whereClause = "WHERE ";
-      } else {
-        $whereClause = "WHERE Class_category_ID = '$Class_cate_ID'";
-      }
-      $whereClauseForCategories = "WHERE ";
-      break;
-    case "2":
-      $whereClause = "$whereClause  Start_date > '$now'";
-      $whereClauseForCategories = "WHERE Start_date > '$now' && ";
-      break;
-    case "3":
-      $whereClause = "$whereClause  Start_date <= '$now' && End_date >= '$now'";
-      $whereClauseForCategories = "WHERE Start_date <= '$now' && End_date >= '$now' && ";
-      break;
-    case "4":
-      $whereClause = "$whereClause  End_date <= '$now'";
-      $whereClauseForCategories = "WHERE End_date <= '$now' && ";
-      break;
-    case "5":
-      $whereClause = "$whereClause  Class_date = '$now'";
-      $whereClauseForCategories = "WHERE Class_date = '$now' && ";
-      break;
-    case "6":
-      $whereClause = "$whereClause  Class_date < '$now'";
-      $whereClauseForCategories = "WHERE Class_date < '$now' && ";
-      break;
-  }
+    } else {
+        $whereClause = "$whereClause && ";
+    }
+
+    switch ($status) {
+        case "1":
+            if ($whereClause == "WHERE ") {
+                $whereClause = "WHERE ";
+            } else {
+                $whereClause = "WHERE Class_category_ID = '$Class_cate_ID'";
+            }
+            $whereClauseForCategories = "WHERE ";
+            break;
+        case "2":
+            $whereClause = "$whereClause  Start_date > '$now'";
+            $whereClauseForCategories = "WHERE Start_date > '$now' && ";
+            break;
+        case "3":
+            $whereClause = "$whereClause  Start_date <= '$now' && End_date >= '$now'";
+            $whereClauseForCategories = "WHERE Start_date <= '$now' && End_date >= '$now' && ";
+            break;
+        case "4":
+            $whereClause = "$whereClause  End_date <= '$now'";
+            $whereClauseForCategories = "WHERE End_date <= '$now' && ";
+            break;
+        case "5":
+            $whereClause = "$whereClause  Class_date = '$now'";
+            $whereClauseForCategories = "WHERE Class_date = '$now' && ";
+            break;
+        case "6":
+            $whereClause = "$whereClause  Class_date < '$now'";
+            $whereClauseForCategories = "WHERE Class_date < '$now' && ";
+            break;
+    }
 }
 
 //價格篩選
 if (isset($_GET["min"]) && isset($_GET["max"])) {
-  $min = $_GET["min"];
-  $max = $_GET["max"];
+    $min = $_GET["min"];
+    $max = $_GET["max"];
 
-  if ($max == 0) {
-    $max == 99999;
-  } elseif ($min >= $max) {
-    $max = $min;
-  }
+    if ($max == 0) {
+        $max == 99999;
+    } elseif ($min >= $max) {
+        $max = $min;
+    }
 
-  if ($whereClause == "WHERE ") {
-    $whereClause = "WHERE C_price BETWEEN '$min' AND '$max'";
-  } else {
-    $whereClause = "$whereClause && C_price BETWEEN '$min' AND '$max'";
-  }
+    if ($whereClause == "WHERE ") {
+        $whereClause = "WHERE C_price BETWEEN '$min' AND '$max'";
+    } else {
+        $whereClause = "$whereClause && C_price BETWEEN '$min' AND '$max'";
+    }
 
+    if ($whereClauseStatus == "") {
+        $whereClauseStatus = "WHERE ";
+    } else {
+        $whereClauseStatus = "$whereClauseStatus && ";
+    }
 
-
-  if ($whereClauseStatus == "") {
-    $whereClauseStatus = "WHERE ";
-  } else {
-    $whereClauseStatus = "$whereClauseStatus && ";
-  }
-
-  $whereClauseStatus = "$whereClauseStatus  C_price BETWEEN '$min' AND '$max'";
-  $whereClauseForCategories = "$whereClauseForCategories C_price BETWEEN '$min' AND '$max'";
+    $whereClauseStatus = "$whereClauseStatus  C_price BETWEEN '$min' AND '$max'";
+    $whereClauseForCategories = "$whereClauseForCategories C_price BETWEEN '$min' AND '$max'";
 }
 
-//join class, speaker and category 
+//join class, speaker and category
 $sqlClass = "SELECT class.*, speaker.Speaker_name, class_categories.Class_cate_name
- FROM class 
+ FROM class
  JOIN speaker ON class.F_Speaker_ID = speaker.Speaker_ID
  JOIN class_categories ON class.Class_category_ID = class_categories.Class_cate_ID
  $whereClause";
 $resultClass = $conn->query($sqlClass);
 $rowsClass = $resultClass->fetch_all(MYSQLI_ASSOC);
-
 
 //class_categories
 $sqlClassCategories = "SELECT * FROM class_categories";
@@ -133,7 +130,6 @@ $sqlCountSnackClassCategories = "SELECT * FROM class $whereClauseForCategories &
 $resultSnackClassCategories = $conn->query($sqlCountSnackClassCategories);
 $rowsCountSnackClassCategories = $resultSnackClassCategories->num_rows;
 
-
 //課程狀態及數量
 //全部課程
 $sqlAllClass = "SELECT * FROM class $whereClauseStatus";
@@ -141,9 +137,9 @@ $resultAllClass = $conn->query($sqlAllClass);
 $rowsCountAllClass = $resultAllClass->num_rows;
 //報名未開放
 if ($whereClauseStatus == "") {
-  $whereClauseStatus = "WHERE ";
+    $whereClauseStatus = "WHERE ";
 } else {
-  $whereClauseStatus = "$whereClauseStatus &&";
+    $whereClauseStatus = "$whereClauseStatus &&";
 }
 $sqlNstarted = "SELECT * FROM class $whereClauseStatus Start_date > '$now'";
 $resultNstarted = $conn->query($sqlNstarted);
@@ -168,7 +164,7 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
 ?>
 
 <!-- <pre>
-  <?php print_r($rowsClass); ?>
+  <?php print_r($rowsClass);?>
 </pre>
  -->
 
@@ -285,10 +281,16 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
                 </li>
                 <li><a><i class="fa fa-table"></i> 課程管理 <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu">
-                    <li class="<?php if ($Class_cate_ID == "") echo "active" ?>"><a href="class_new.php?Class_cate_ID=">所有類別</a></li>
-                    <?php foreach ($rowsClassCategories as $rowClassCategories) : ?>
-                      <li class="<?php if ($rowClassCategories["Class_cate_ID"] == $Class_cate_ID) echo "active" ?>"><a href="class_new.php?Class_cate_ID=<?= $rowClassCategories["Class_cate_ID"] ?>"><?= $rowClassCategories["Class_cate_name"] ?></a></li>
-                    <?php endforeach; ?>
+                    <li class="<?php if ($Class_cate_ID == "") {
+    echo "active";
+}
+?>"><a href="class_new.php?Class_cate_ID=">所有類別</a></li>
+                    <?php foreach ($rowsClassCategories as $rowClassCategories): ?>
+                      <li class="<?php if ($rowClassCategories["Class_cate_ID"] == $Class_cate_ID) {
+    echo "active";
+}
+?>"><a href="class_new.php?Class_cate_ID=<?=$rowClassCategories["Class_cate_ID"]?>"><?=$rowClassCategories["Class_cate_name"]?></a></li>
+                    <?php endforeach;?>
                   </ul>
                 </li>
                 <li><a href="tables_dynamic.php"><i class="fa fa-table"></i>優惠卷管理<span class="fa fa-chevron-down"></span></a>
@@ -348,7 +350,7 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
                         <li><a href="#level1_2">Level One</a>
                         </li>
                     </ul>
-                  </li>                  
+                  </li>
                   <li><a href="javascript:void(0)"><i class="fa fa-laptop"></i> Landing Page <span class="label label-success pull-right">Coming Soon</span></a></li>
                 </ul>
               </div> -->
@@ -522,48 +524,69 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
 
                         <!-- 判斷min與maxVal -->
                         <?php
-                        $minVal = 0;
-                        if (isset($_GET["min"])) {
-                          $minVal = $_GET["min"];
-                        }
-                        $maxVal = 99999;
-                        if (isset($_GET["max"])) {
-                          $maxVal = $_GET["max"];
-                        }
-                        ?>
+$minVal = 0;
+if (isset($_GET["min"])) {
+    $minVal = $_GET["min"];
+}
+$maxVal = 99999;
+if (isset($_GET["max"])) {
+    $maxVal = $_GET["max"];
+}
+?>
                         <div class="row mb-2 ">
                           <div class="col-sm-10">
                             <?php if (!isset($_GET["status"])) {
-                              $status = 1;
-                            } else {
-                              $status = $_GET["status"];
-                            } ?>
-                            <a href="class_new.php?Class_cate_ID=&status=<?= $status ?>&min=<?= $minVal ?>&max=<?= $maxVal ?>" class=" btn btn-light <?php if ($Class_cate_ID == "") echo "active" ?>">
-                              所有類別 <span class="badge bg-light"><?= $rowsCountAllClassCategories ?></span>
+    $status = 1;
+} else {
+    $status = $_GET["status"];
+}?>
+                            <a href="class_new.php?Class_cate_ID=&status=<?=$status?>&min=<?=$minVal?>&max=<?=$maxVal?>" class=" btn btn-light <?php if ($Class_cate_ID == "") {
+    echo "active";
+}
+?>">
+                              所有類別 <span class="badge bg-light"><?=$rowsCountAllClassCategories?></span>
                             </a>
 
-                            <a class=" btn btn-light <?php if ($Class_cate_ID == 1) echo "active" ?>" href="class_new.php?Class_cate_ID=1&status=<?= $status ?>&min=<?= $minVal ?>&max=<?= $maxVal ?>">
-                              台式料理 <span class="badge bg-light"><?= $rowsCountTWClassCategories ?></span>
+                            <a class=" btn btn-light <?php if ($Class_cate_ID == 1) {
+    echo "active";
+}
+?>" href="class_new.php?Class_cate_ID=1&status=<?=$status?>&min=<?=$minVal?>&max=<?=$maxVal?>">
+                              台式料理 <span class="badge bg-light"><?=$rowsCountTWClassCategories?></span>
                             </a>
 
-                            <a class=" btn btn-light<?php if ($Class_cate_ID == 2) echo "active" ?>" href="class_new.php?Class_cate_ID=2&status=<?= $status ?>&min=<?= $minVal ?>&max=<?= $maxVal ?>">
-                              中式料理 <span class="badge bg-light"><?= $rowsCountCNClassCategories ?></span>
+                            <a class=" btn btn-light<?php if ($Class_cate_ID == 2) {
+    echo "active";
+}
+?>" href="class_new.php?Class_cate_ID=2&status=<?=$status?>&min=<?=$minVal?>&max=<?=$maxVal?>">
+                              中式料理 <span class="badge bg-light"><?=$rowsCountCNClassCategories?></span>
                             </a>
 
-                            <a class=" btn btn-light<?php if ($Class_cate_ID == 3) echo "active" ?>" href="class_new.php?Class_cate_ID=3&status=<?= $status ?>&min=<?= $minVal ?>&max=<?= $maxVal ?>">
-                              西式料理 <span class="badge bg-light"><?= $rowsCountWestClassCategories ?></span>
+                            <a class=" btn btn-light<?php if ($Class_cate_ID == 3) {
+    echo "active";
+}
+?>" href="class_new.php?Class_cate_ID=3&status=<?=$status?>&min=<?=$minVal?>&max=<?=$maxVal?>">
+                              西式料理 <span class="badge bg-light"><?=$rowsCountWestClassCategories?></span>
                             </a>
 
-                            <a class=" btn btn-light<?php if ($Class_cate_ID == 4) echo "active" ?>" href="class_new.php?Class_cate_ID=4&status=<?= $status ?>&min=<?= $minVal ?>&max=<?= $maxVal ?>">
-                              異國料理 <span class="badge bg-light"><?= $rowsCountExoticClassCategories ?></span>
+                            <a class=" btn btn-light<?php if ($Class_cate_ID == 4) {
+    echo "active";
+}
+?>" href="class_new.php?Class_cate_ID=4&status=<?=$status?>&min=<?=$minVal?>&max=<?=$maxVal?>">
+                              異國料理 <span class="badge bg-light"><?=$rowsCountExoticClassCategories?></span>
                             </a>
 
-                            <a class=" btn btn-light<?php if ($Class_cate_ID == 5) echo "active" ?>" href="class_new.php?Class_cate_ID=5&status=<?= $status ?>&min=<?= $minVal ?>&max=<?= $maxVal ?>">
-                              健康養生/素食 <span class="badge bg-light"><?= $rowsCountHealthyClassCategories ?></span>
+                            <a class=" btn btn-light<?php if ($Class_cate_ID == 5) {
+    echo "active";
+}
+?>" href="class_new.php?Class_cate_ID=5&status=<?=$status?>&min=<?=$minVal?>&max=<?=$maxVal?>">
+                              健康養生/素食 <span class="badge bg-light"><?=$rowsCountHealthyClassCategories?></span>
                             </a>
 
-                            <a class=" btn btn-light<?php if ($Class_cate_ID == 6) echo "active" ?>" href="class_new.php?Class_cate_ID=6&status=<?= $status ?>&min=<?= $minVal ?>&max=<?= $maxVal ?>">
-                              烘焙/點心 <span class="badge bg-light"><?= $rowsCountSnackClassCategories ?></span>
+                            <a class=" btn btn-light<?php if ($Class_cate_ID == 6) {
+    echo "active";
+}
+?>" href="class_new.php?Class_cate_ID=6&status=<?=$status?>&min=<?=$minVal?>&max=<?=$maxVal?>">
+                              烘焙/點心 <span class="badge bg-light"><?=$rowsCountSnackClassCategories?></span>
                             </a>
 
 
@@ -572,23 +595,41 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
                         <div class="row mb-2 align-items-center ">
                           <div class="col-sm-8">
 
-                            <a class="btn btn-light rounded-pill <?php if ($status == 1 || !isset($status) || $status == "") echo "active" ?>" href=" class_new.php?Class_cate_ID=<?= $Class_cate_ID ?>&status=1&min=<?= $minVal ?>&max=<?= $maxVal ?>">
-                              全部課程 <span class="badge bg-light text-dark rounded-pill"><?= $rowsCountAllClass ?></span>
+                            <a class="btn btn-light rounded-pill <?php if ($status == 1 || !isset($status) || $status == "") {
+    echo "active";
+}
+?>" href=" class_new.php?Class_cate_ID=<?=$Class_cate_ID?>&status=1&min=<?=$minVal?>&max=<?=$maxVal?>">
+                              全部課程 <span class="badge bg-light text-dark rounded-pill"><?=$rowsCountAllClass?></span>
                             </a>
-                            <a class="btn btn-light rounded-pill <?php if ($status == 2) echo "active" ?>" href="class_new.php?Class_cate_ID=<?= $Class_cate_ID ?>&status=2&min=<?= $minVal ?>&max=<?= $maxVal ?>">
-                              報名未開放 <span class="badge bg-light text-dark rounded-pill"><?= $rowsCountNstarted ?></span>
+                            <a class="btn btn-light rounded-pill <?php if ($status == 2) {
+    echo "active";
+}
+?>" href="class_new.php?Class_cate_ID=<?=$Class_cate_ID?>&status=2&min=<?=$minVal?>&max=<?=$maxVal?>">
+                              報名未開放 <span class="badge bg-light text-dark rounded-pill"><?=$rowsCountNstarted?></span>
                             </a>
-                            <a class="btn btn-light rounded-pill <?php if ($status == 3) echo "active" ?>" href="class_new.php?Class_cate_ID=<?= $Class_cate_ID ?>&status=3&min=<?= $minVal ?>&max=<?= $maxVal ?>">
-                              開放報名中 <span class="badge bg-light text-dark rounded-pill"><?= $rowsCountInProgress ?></span>
+                            <a class="btn btn-light rounded-pill <?php if ($status == 3) {
+    echo "active";
+}
+?>" href="class_new.php?Class_cate_ID=<?=$Class_cate_ID?>&status=3&min=<?=$minVal?>&max=<?=$maxVal?>">
+                              開放報名中 <span class="badge bg-light text-dark rounded-pill"><?=$rowsCountInProgress?></span>
                             </a>
-                            <a class="btn btn-light rounded-pill <?php if ($status == 4) echo "active" ?>" href="class_new.php?Class_cate_ID=<?= $Class_cate_ID ?>&status=4&min=<?= $minVal ?>&max=<?= $maxVal ?>">
-                              報名截止 <span class="badge bg-light text-dark rounded-pill"><?= $rowsCountClosed ?></span>
+                            <a class="btn btn-light rounded-pill <?php if ($status == 4) {
+    echo "active";
+}
+?>" href="class_new.php?Class_cate_ID=<?=$Class_cate_ID?>&status=4&min=<?=$minVal?>&max=<?=$maxVal?>">
+                              報名截止 <span class="badge bg-light text-dark rounded-pill"><?=$rowsCountClosed?></span>
                             </a>
-                            <a class="btn btn-light rounded-pill <?php if ($status == 5) echo "active" ?>" href="class_new.php?Class_cate_ID=<?= $Class_cate_ID ?>&status=5&min=<?= $minVal ?>&max=<?= $maxVal ?>">
-                              課程進行中 <span class="badge bg-light text-dark rounded-pill"><?= $rowsCountClassInProgress ?></span>
+                            <a class="btn btn-light rounded-pill <?php if ($status == 5) {
+    echo "active";
+}
+?>" href="class_new.php?Class_cate_ID=<?=$Class_cate_ID?>&status=5&min=<?=$minVal?>&max=<?=$maxVal?>">
+                              課程進行中 <span class="badge bg-light text-dark rounded-pill"><?=$rowsCountClassInProgress?></span>
                             </a>
-                            <a class="btn btn-light rounded-pill <?php if ($status == 6) echo "active" ?>" href="class_new.php?Class_cate_ID=<?= $Class_cate_ID ?>&status=6&min=<?= $minVal ?>&max=<?= $maxVal ?>">
-                              已結束課程 <span class="badge bg-light text-dark rounded-pill"><?= $rowsCountClassEnded ?></span>
+                            <a class="btn btn-light rounded-pill <?php if ($status == 6) {
+    echo "active";
+}
+?>" href="class_new.php?Class_cate_ID=<?=$Class_cate_ID?>&status=6&min=<?=$minVal?>&max=<?=$maxVal?>">
+                              已結束課程 <span class="badge bg-light text-dark rounded-pill"><?=$rowsCountClassEnded?></span>
                             </a>
                           </div>
                           <div class="col-sm-4 d-flex justify-content-end  ">
@@ -601,19 +642,19 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
                           <div class="col-sm-4">
                             <form action="">
                               <input type="hidden" name="">
-                              <input type="hidden" name="Class_cate_ID" value="<?= $Class_cate_ID ?>">
+                              <input type="hidden" name="Class_cate_ID" value="<?=$Class_cate_ID?>">
                               <input type="hidden" name="status" <?php
-                                                                  $statusVal = "";
-                                                                  if (isset($_GET["status"])) {
-                                                                    $statusVal = $_GET["status"];
-                                                                  } ?> value="<?= $statusVal ?>">
+$statusVal = "";
+if (isset($_GET["status"])) {
+    $statusVal = $_GET["status"];
+}?> value="<?=$statusVal?>">
                               <div>價格</div>
                               <div class="input-group mb-3 d-flex ">
-                                <a name="" id="" class="btn btn-danger" href="class_new.php?Class_cate_ID=<?= $Class_cate_ID ?>&status=<?= $status ?>&min=0&max=99999" role="button"><i class="fa-solid fa-xmark mt-1"></i></a>
-                                <input type="number" class="form-control" aria-label="Username" name="min" min="0" value="<?= $minVal ?>">
+                                <a name="" id="" class="btn btn-danger" href="class_new.php?Class_cate_ID=<?=$Class_cate_ID?>&status=<?=$status?>&min=0&max=99999" role="button"><i class="fa-solid fa-xmark mt-1"></i></a>
+                                <input type="number" class="form-control" aria-label="Username" name="min" min="0" value="<?=$minVal?>">
                                 <span class="mx-1 align-self-center "> ~ </span>
 
-                                <input type="number" class="form-control" aria-label="Server" name="max" min="0" value="<?= $maxVal ?>">
+                                <input type="number" class="form-control" aria-label="Server" name="max" min="0" value="<?=$maxVal?>">
                                 <button class="btn btn-secondary">
                                   送出
                                 </button>
@@ -637,44 +678,44 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
 
 
                           <tbody>
-                            <?php foreach ($rowsClass as $rowClass) : ?>
+                            <?php foreach ($rowsClass as $rowClass): ?>
                               <tr>
-                                <td><?= $rowClass["Class_ID"] ?></td>
-                                <td><a href="e_commerce.php?Class_ID=<?= $rowClass["Class_ID"] ?>"><?= $rowClass["Class_name"] ?></a></td>
+                                <td><?=$rowClass["Class_ID"]?></td>
+                                <td><a href="e_commerce.php?Class_ID=<?=$rowClass["Class_ID"]?>"><?=$rowClass["Class_name"]?></a></td>
                                 <td <?php
-                                    $Start_date = $rowClass["Start_date"];
-                                    $End_date = $rowClass["End_date"];
-                                    $now = date("Y-m-d");
-                                    if ($now >= $Start_date && $now <= $End_date) : $text_color  = "text-success ";
-                                    elseif ($now < $Start_date || $now > $End_date) :
-                                      $text_color  = "text-danger";
-                                    endif;
-                                    ?> class="<?= $text_color; ?>">
+$Start_date = $rowClass["Start_date"];
+$End_date = $rowClass["End_date"];
+$now = date("Y-m-d");
+if ($now >= $Start_date && $now <= $End_date): $text_color = "text-success ";
+elseif ($now < $Start_date || $now > $End_date):
+    $text_color = "text-danger";
+endif;
+?> class="<?=$text_color;?>">
                                   <?php
-                                  $Start_date = $rowClass["Start_date"];
-                                  $End_date = $rowClass["End_date"];
-                                  $now = date("Y-m-d");
-                                  if ($now >= $Start_date && $now <= $End_date) {
-                                    echo "報名開放中";
-                                  } elseif ($now < $Start_date) {
-                                    echo "尚未開放報名";
-                                  } elseif ($now > $End_date) {
-                                    echo "報名已截止";
-                                  }
-                                  ?>
+$Start_date = $rowClass["Start_date"];
+$End_date = $rowClass["End_date"];
+$now = date("Y-m-d");
+if ($now >= $Start_date && $now <= $End_date) {
+    echo "報名開放中";
+} elseif ($now < $Start_date) {
+    echo "尚未開放報名";
+} elseif ($now > $End_date) {
+    echo "報名已截止";
+}
+?>
                                 </td>
-                                <td class="text-nowrap">$ <?= number_format($rowClass["C_price"]) ?></td>
-                                <td class="text-nowrap"><?= $rowClass["Speaker_name"] ?></td>
-                                <td><?= $rowClass["Class_person_limit"] ?></td>
+                                <td class="text-nowrap">$ <?=number_format($rowClass["C_price"])?></td>
+                                <td class="text-nowrap"><?=$rowClass["Speaker_name"]?></td>
+                                <td><?=$rowClass["Class_person_limit"]?></td>
                                 <td>
-                                  <?= $rowClass["Start_date"] ?>
+                                  <?=$rowClass["Start_date"]?>
                                   <br>
                                   <div>|</div>
-                                  <?= $rowClass["End_date"] ?>
+                                  <?=$rowClass["End_date"]?>
                                 </td>
-                                <td><?= $rowClass["Class_date"] ?></td>
+                                <td><?=$rowClass["Class_date"]?></td>
                               </tr>
-                            <?php endforeach; ?>
+                            <?php endforeach;?>
                           </tbody>
                         </table>
                       </div>
@@ -2905,7 +2946,7 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
                     <p class="text-muted font-13 m-b-30">
                       Responsive is an extension for DataTables that resolves that problem by optimising the table's layout for different screen sizes through the dynamic insertion and removal of columns from the table.
                     </p>
-					
+
                     <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                       <thead>
                         <tr>
