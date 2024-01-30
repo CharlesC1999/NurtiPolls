@@ -1,26 +1,73 @@
 <?php
 require_once "../db_connect.php";
-$sql = "SELECT * FROM speaker WHERE valid=1"; //SELECT * FROM 讀取資料
 
+$perPage = 10; //預設10筆,寫成變數之後好改顯示筆數
+
+$sqlAll = "SELECT * FROM speaker WHERE valid=1"; //SELECT * FROM 讀取資料
+
+$resultAll = $conn->query($sqlAll); //吐出資料
+$speakerToCount = $resultAll->num_rows; //總共筆數
+
+
+//總共需要多少頁(下面用迴圈跑掉) celi無條件進位 筆數/頁數
+$pageCount = ceil($speakerToCount / $perPage);
+
+//判斷排序 丟給 搜尋處理( sql語法 要丟 $orderString進去)
+if(isset($_GET["order"])){
+  $order=$_GET["order"];
+  
+  if($order==1){
+      $orderString="ORDER BY Speaker_ID ASC";
+  }elseif($order==2){
+      $orderString="ORDER BY Speaker_ID DESC";
+  }
+  elseif($order==3){
+      $orderString="ORDER BY Speaker_name ASC";
+  }
+  elseif($order==4){
+      $orderString="ORDER BY Speaker_name DESC";
+  }
+}
+
+//判斷如果是搜尋 or 頁數 or 在預設值 (做的事情 -> 判斷完吐資料)
 if (isset($_GET["search"])) {
   $search = $_GET["search"];
   //記得加入 valid=1 (否則軟刪除也會顯示出來)
   $sql = "SELECT * FROM speaker WHERE Speaker_name LIKE '%$search%' AND valid=1";
-} else {
-  //SELECT * FROM 讀取資料
-  $sql = "SELECT * FROM speaker WHERE valid=1";
 }
-$result = $conn->query($sql); //吐出資料
-$rows = $result->fetch_all(MYSQLI_ASSOC); //轉換關聯式陣列
+//elseif 判斷分頁頁面,從0開始,顯示幾筆 ($stratIndex,$perPage)
+elseif (isset($_GET["p"])) {
+  $p = $_GET["p"];
+  $startIndex = ($p - 1) * $perPage; // (1-1)*10 = 0 從0後面開始 10筆
+  // (2-1)*10 = 10 從10後面開始 10筆
+  $sql = "SELECT * FROM speaker WHERE valid=1 $orderString LIMIT $startIndex, $perPage";
+} else {
+  $p = 1; //預設第一頁
 
-$speakerCount = $result->num_rows; //result裡面有幾筆(num_rows)
+  $order=1;
+  $orderString="ORDER BY Speaker_ID ASC";  //預設直 (升冪)
+
+  //SELECT * FROM 讀取資料
+  $sql = "SELECT * FROM speaker WHERE valid=1 $orderString LIMIT $perPage";
+}
+
+$result = $conn->query($sql); //if判斷完 -> 吐資料 -> 升冪降冪
+
+//判斷 在搜尋裡總共有幾筆 or 預設值全部筆數
+if (isset($_GET["search"])) {
+  $speakerCount = $result->num_rows;
+} else {
+  $speakerCount = $speakerToCount;
+}
+
 
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+
+  </style>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <!-- Meta, title, CSS, favicons, etc. -->
   <meta charset="utf-8">
@@ -90,7 +137,7 @@ $speakerCount = $result->num_rows; //result裡面有幾筆(num_rows)
                 </li>
                 <li><a href="product.php"><i class="fa fa-table"></i>商品管理 <span class="fa fa-chevron-down"></span></a>
                 </li>
-                <li><a ><i class="fa fa-table"></i>分類管理<span class="fa fa-chevron-down"></span>
+                <li><a><i class="fa fa-table"></i>分類管理<span class="fa fa-chevron-down"></span>
                     <ul class="nav child_menu">
                       <li><a href="categories_product.php">商品</a></li>
                       <li><a href="categories_product.php">課程</a></li>
@@ -222,20 +269,25 @@ $speakerCount = $result->num_rows; //result裡面有幾筆(num_rows)
               <h3>Gentelella <small>Alela!</small></h3>
             </div>
 
-            
+
             <div class="title_right">
               <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
                 <form action="">
                   <div class="input-group">
                     <!-- 判斷是否有搜尋,有的話[返回箭頭icon] -->
                     <?php if (isset($_GET["search"])) : ?>
-                      <a name="" id="" class="btn btn-primary" href="speaker.php" role="button"><i class="fa-solid fa-arrow-left fa-fw"></i></a>
+                      <a name="" id="" class="btn btn-secondary" href="speaker.php" role="button"><i class="fa-solid fa-arrow-left fa-fw"></i></a>
                     <?php endif; ?>
 
                     <!-- input的type="search" name="search" -->
                     <!-- button的type="submit" -->
                     <!-- 搜尋基本都用 GET 去做處理 (同個頁面上面)-->
-                    <input type="search" class="form-control" placeholder="Search for..." name="search">
+                    <input type="search" class="form-control" placeholder="Search for name..." name="search" 
+                    <?php
+                      if (isset($_GET["search"])) :
+                          $searchValue = $_GET["search"];
+                          ?> value="<?= $searchValue ?>" 
+                    <?php endif; ?>>
                     <span class="input-group-btn">
                       <button class="btn btn-secondary" type="submit">Go!</button>
                     </span>
@@ -254,17 +306,21 @@ $speakerCount = $result->num_rows; //result裡面有幾筆(num_rows)
                 <div class="x_title">
                   <h2>教師管理</h2>
                   <ul class="nav navbar-right panel_toolbox">
-                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    <!-- <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a> -->
                     </li>
                     <li class="dropdown">
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                      <a href="#" class="dropdown-toggle text-info" data-toggle="dropdown" role="button" aria-expanded="false">排序</a>
+                      <!-- ?order=1 升冪 , ?order=2 降冪 & 加分頁-->
+                      <!-- if= "active"?>" 判斷在哪個選項裡(顏色不一樣) -->
                       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#">升密</a>
-                        <a class="dropdown-item" href="#">降冪</a>
+                        <a class="dropdown-item <?php if($order==1)echo "active"?>" href="speaker.php?order=1&p=<?=$p?>">由舊到新</a>
+                        <a class="dropdown-item <?php if($order==2)echo "active"?>" href="speaker.php?order=2&p=<?=$p?>">由新到舊</a>
+                        <a class="dropdown-item <?php if($order==3)echo "active"?>" href="speaker.php?order=3&p=<?=$p?>">姓名升冪</a>
+                        <a class="dropdown-item <?php if($order==4)echo "active"?>" href="speaker.php?order=4&p=<?=$p?>">姓名降冪</a>
                       </div>
-                    </li>
+                    <!-- </li>
                     <li><a class="close-link"><i class="fa fa-close"></i></a>
-                    </li>
+                    </li> -->
                   </ul>
                   <div class="clearfix"></div>
                 </div>
@@ -276,25 +332,25 @@ $speakerCount = $result->num_rows; //result裡面有幾筆(num_rows)
                           <div>
                             教師共 <?= $speakerCount ?> 位
                           </div>
-                          <a class="h6 text-end link-success" href="speaker_add.php" role="button">新增教師 <i class="fa-solid fa-user-plus"></i></a>
+                          <a class="h6 text-end link-info" href="speaker_add.php" role="button">新增教師 <i class="fa-solid fa-user-plus"></i></a>
                         </div>
                         <p class="text-muted font-13 m-b-30">
                           <!--datatable DataTables has most features enabled by default, so all you need to do to use it with your own tables is to call the construction function: <code>$().DataTable();</code> -->
                           <!-- DataTables套件是一種JQuery外掛套件，特別針對table此種資料的呈現方式，內部已實作了各種相關操作的功能，並提供具有彈性的客製化選項，開發人員只需要下載並引用相關函式庫，即可輕鬆實作出功能豐富的table介面。https://www.it145.com/9/77315.html -->
                         </p>
 
-                        <table id="datatable" class="table table-striped table-bordered" style="width:100%">
+                        <table id="" class="table table-striped table-bordered table table-striped table-hover" style="width:100%">
                           <thead>
                             <tr>
-                              <th>Speaker_Name</th>
-                              <th>Speaker_description</th>
-                              <th>操作</th>
+                              <th class="col-1">姓名 <i class="fa-sharp fa-solid fa-signature"></i></th>
+                              <th class="col-10">簡介 <i class="fa-solid fa-file-signature"></i></th>
+                              <th class="">操作 <i class="fa fa-wrench"></i></th>
                             </tr>
                           </thead>
                           <tbody>
                             <!-- 跑 foreach 找關聯式陣列 -->
                             <?php
-
+                            $rows = $result->fetch_all(MYSQLI_ASSOC);
                             foreach ($rows as $speaker) :
                             ?>
                               <tr>
@@ -308,15 +364,32 @@ $speakerCount = $result->num_rows; //result裡面有幾筆(num_rows)
                                     <a role="button" class="btn btn-outline-secondary" href="speaker_user.php?id=<?= $speaker["Speaker_ID"] ?>"><i class="fa-regular fa-eye"></i></a>
 
                                     <!--button 做更改-->
-                                    <a name="" id="" class="btn btn-outline-success" href="speaker_edit.php?id=<?= $speaker["Speaker_ID"] ?>" role="button"><i class="fa-regular fa-pen-to-square"></i></a>
+                                    <a name="" id="" class="btn btn-outline-info" href="speaker_edit.php?id=<?= $speaker["Speaker_ID"] ?>" role="button"><i class="fa-regular fa-pen-to-square"></i></a>
 
                                   </div>
                                 </td>
 
                               </tr>
-                            <?php endforeach;?>
+                            <?php endforeach; ?>
                           </tbody>
                         </table>
+
+                        <?php if(!isset($_GET["search"])):?>
+                        <nav aria-label="Page navigation example">
+                          <ul class="pagination justify-content-end">
+                            <!-- 依據 href="speaker.php?p=1" ["p"]做分頁-->
+                            <!-- 跑迴圈做處理page-item (一定要有空格) -->
+                            <!-- active 顯示出在第幾頁 -->
+                            <a class="page-link" href="speaker.php?order=<?=$order?>&p=1" tabindex="-1" aria-disabled="true">首頁</a>
+                            <?php for ($i = 1; $i <= $pageCount; $i++) : ?>
+                              <li class="page-item <?php if ($i == $p) echo "active" ?>">
+                              <a class="page-link" href="speaker.php?order=<?=$order?>&p=<?=$i?>"><?=$i?></a>
+                              </li>
+                            <?php endfor; ?>
+                            <a class="page-link" href="speaker.php?order=<?=$order?>&p=<?=$pageCount?>">尾頁</a>
+                          </ul>
+                        </nav>
+                        <?php endif;?>
                       </div>
                     </div>
                   </div>

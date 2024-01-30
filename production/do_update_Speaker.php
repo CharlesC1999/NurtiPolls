@@ -34,7 +34,7 @@ if ($_FILES['file']['error'] == 0){
 $sql="UPDATE speaker SET Speaker_name='$name', Speaker_description='$description',Image='$filename' WHERE Speaker_ID=$id";
 
 if($conn->query($sql) === TRUE){
-    echo "更新成功";
+    echo $filename."更新成功";
 }else{
     echo "更新資料錯誤" .$conn->error;
 }
