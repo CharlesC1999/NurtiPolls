@@ -1,27 +1,9 @@
 <?php
 require_once("../db_connect.php");
-$todayDate = date('Y-m-d');
-$sqlFilter = "";
+$sql = "SELECT * from coupons WHERE valid=1";
+$result = $conn->query($sql);
 
-if (isset($_GET["status"])) {
-  if ($_GET["status"] == "upcoming") {
-    // 未開始
-    $sqlFilter = " AND Valid_start_date > '$todayDate'";
-  } elseif ($_GET["status"] == "ongoing") {
-    // 進行中
-    $sqlFilter = " AND Valid_start_date <= '$todayDate' AND Valid_end_date >= '$todayDate'";
-  } elseif ($_GET["status"] == "expired") {
-    // 已結束
-    $sqlFilter = " AND Valid_end_date < '$todayDate'";
-  }
-}
-
-$sqlAll = "SELECT * FROM coupons WHERE valid=1 $sqlFilter";
-
-// $sqlAll = "SELECT * FROM coupons WHERE valid=1";
-$resultAll = $conn->query($sqlAll);
-
-$conn->close();
+$row = $result->fetch_assoc();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -39,6 +21,8 @@ $conn->close();
   <!-- Bootstrap -->
   <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
   <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+   <!-- Bootstrap 5.3.2-->
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   <!-- Font Awesome -->
   <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
   <!-- NProgress -->
@@ -104,36 +88,6 @@ $conn->close();
             <div class="menu_section">
               <h3>General</h3>
               <ul class="nav side-menu">
-                <!-- <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="index.html">Dashboard</a></li>
-                      <li><a href="index2.html">Dashboard2</a></li>
-                      <li><a href="index3.html">Dashboard3</a></li>
-                    </ul>
-                  </li> -->
-                <!-- <li><a><i class="fa fa-edit"></i> Forms <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="form.html">General Form</a></li>
-                      <li><a href="form_advanced.html">Advanced Components</a></li>
-                      <li><a href="form_validation.html">Form Validation</a></li>
-                      <li><a href="form_wizards.html">Form Wizard</a></li>
-                      <li><a href="form_upload.html">Form Upload</a></li>
-                      <li><a href="form_buttons.html">Form Buttons</a></li>
-                    </ul>
-                  </li> -->
-                <!-- <li><a><i class="fa fa-desktop"></i> UI Elements <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="general_elements.html">General Elements</a></li>
-                      <li><a href="media_gallery.html">Media Gallery</a></li>
-                      <li><a href="typography.html">Typography</a></li>
-                      <li><a href="icons.html">Icons</a></li>
-                      <li><a href="glyphicons.html">Glyphicons</a></li>
-                      <li><a href="widgets.html">Widgets</a></li>
-                      <li><a href="invoice.html">Invoice</a></li>
-                      <li><a href="inbox.html">Inbox</a></li>
-                      <li><a href="calendar.html">Calendar</a></li>
-                    </ul>
-                  </li> -->
                 <li><a href="tables_dynamic.html"><i class="fa fa-table"></i> 會員管理 <span class="fa fa-chevron-down"></span></a>
                 </li>
                 <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>商品管理 <span class="fa fa-chevron-down"></span></a>
@@ -165,63 +119,11 @@ $conn->close();
                   </li>
                 </ul> -->
             </div>
-            <!-- <div class="menu_section">
-                <h3>Live On</h3>
-                <ul class="nav side-menu">
-                  <li><a><i class="fa fa-bug"></i> Additional Pages <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="e_commerce.html">E-commerce</a></li>
-                      <li><a href="projects.html">Projects</a></li>
-                      <li><a href="project_detail.html">Project Detail</a></li>
-                      <li><a href="contacts.html">Contacts</a></li>
-                      <li><a href="profile.html">Profile</a></li>
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-windows"></i> Extras <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="page_403.html">403 Error</a></li>
-                      <li><a href="page_404.html">404 Error</a></li>
-                      <li><a href="page_500.html">500 Error</a></li>
-                      <li><a href="plain_page.html">Plain Page</a></li>
-                      <li><a href="login.html">Login Page</a></li>
-                      <li><a href="pricing_tables.html">Pricing Tables</a></li>
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-sitemap"></i> Multilevel Menu <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                        <li><a href="#level1_1">Level One</a>
-                        <li><a>Level One<span class="fa fa-chevron-down"></span></a>
-                          <ul class="nav child_menu">
-                            <li class="sub_menu"><a href="level2.html">Level Two</a>
-                            </li>
-                            <li><a href="#level2_1">Level Two</a>
-                            </li>
-                            <li><a href="#level2_2">Level Two</a>
-                            </li>
-                          </ul>
-                        </li>
-                        <li><a href="#level1_2">Level One</a>
-                        </li>
-                    </ul>
-                  </li>                  
-                  <li><a href="javascript:void(0)"><i class="fa fa-laptop"></i> Landing Page <span class="label label-success pull-right">Coming Soon</span></a></li>
-                </ul>
-              </div> -->
-
           </div>
           <!-- /sidebar menu -->
 
           <!-- /menu footer buttons -->
           <div class="sidebar-footer hidden-small">
-            <!-- <a data-toggle="tooltip" data-placement="top" title="Settings">
-                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-              </a> -->
-            <!-- <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Lock">
-                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-              </a> -->
             <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
               <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
             </a>
@@ -326,129 +228,74 @@ $conn->close();
       <!-- page content -->
       <div class="right_col" role="main">
         <div class="">
-          <div class="page-title">
-            <div class="title_left">
-              <h3>我的優惠券</h3>
-              <a href="add-coupon.php" class="btn my-3 btn-info">建立優惠券</a>
-            </div>
-
-            <div class="title_right">
-              <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                <div class="input-group">
-                  <input type="text" class="form-control" placeholder="Search for...">
-                  <span class="input-group-btn">
-                    <button class="btn btn-secondary" type="button">Go!</button>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
+          
 
           <div class="clearfix"></div>
-
-          <div class="row">
-            <div class="col-md-12 col-sm-12 ">
-              <div class="x_panel">
-                <?php
-                // 確定當前篩選狀態
-                $status = isset($_GET['status']) ? $_GET['status'] : 'all';
-                ?>
-                <div class="filter-buttons x_title">
-                  <a href="coupons.php" class="btn custom-btn <?php if ($status == 'all') echo 'active'; ?>">全部</a>
-                  <a href="?status=ongoing" class="btn custom-btn <?php if ($status == 'ongoing') echo 'active'; ?>">進行中的活動</a>
-                  <a href="?status=upcoming" class="btn custom-btn <?php if ($status == 'upcoming') echo 'active'; ?>">接下來的活動</a>
-                  <a href="?status=expired" class="btn custom-btn <?php if ($status == 'expired') echo 'active'; ?>">已結束</a>
-                </div>
-
-
-
-                <div class="x_content">
-                  <div class="row">
-                    <div class="col-sm-12">
-                      <div class="card-box table-responsive">
-
-                        <table id="datatable" class="table table-striped table-bordered" style="width:100%">
-                          <thead>
-                            <tr>
-                              <th>編號</th>
-                              <th>優惠券名稱</th>
-                              <th>優惠券代碼</th>
-                              <th>優惠券種類</th>
-                              <th>折扣額度</th>
-                              <th>開始日期</th>
-                              <th>結束日期</th>
-                              <th>操作</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <?php
-                            $rows = $resultAll->fetch_all(MYSQLI_ASSOC);
-
-                            foreach ($rows as $coupon) :
-                            ?>
-                              <tr>
-                                <td><?= $coupon["Coupon_ID"] ?></td>
-                                <td><?= $coupon["C_name"] ?></td>
-                                <td><?= $coupon["C_code"] ?></td>
-                                <td><?= $coupon["Discount_type"] ?></td>
-                                <td><?= $coupon["Discount_amount"] ?></td>
-                                <td><?= $coupon["Valid_start_date"] ?></td>
-                                <td><?= $coupon["Valid_end_date"] ?></td>
-                                <td>
-                               
-                                <div class="modal fade" id="confirmModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h2 class="modal-title fs-5" id="exampleModalLabel">刪除優惠券</h2>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          確認刪除?
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-          <a role="button" class="btn btn-danger" href="doDeleteCoupon.php?id=<?=$coupon["Coupon_ID"] ?>">確認</a>
-        </div>
-      </div>
-    </div>
-  </div>
-                                  <?php
-                                  // 判斷優惠券狀態
-                                  if ($coupon["Valid_start_date"] > $todayDate) {
-                                    // 未開始
-                                    echo '<a href="coupon-edit.php?id=<?=$coupon["id"]?> 編輯</a> ';
-                                    echo '<a
-                                    href="#"
-                    data-toggle="modal" data-target="#confirmModal"
-                    >刪除</a>';
-                                  } elseif ($coupon["Valid_start_date"] <= $todayDate && $coupon["Valid_end_date"] >= $todayDate) {
-                                    // 進行中
-                                    echo '<a href="coupon-edit.php?id=<?=$coupon["id"]?>編輯</a> ';
-                                    echo '<a
-                                    href="#"
-                    data-toggle="modal" data-target="#confirmModal"
-                    >刪除</a>';
-                                  } else {
-                                    // 已結束
-                                    echo '<a href="details.php?id=' . $coupon["Coupon_ID"] . '">顯示詳情</a>';
-                                  }
-                                  ?>
-                                   </tr>
-
-                             
-                            <?php endforeach; ?>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+          <div class="container">
+        <h2 class="my-3">建立優惠券</h2>
+        <form action="updateCoupon.php" method="post">
+            <table>
+                <tr>
+                    <th>優惠券名稱</th>
+                    <td>
+                    <input type="text" class="form-control" name="name" value="<?=$row["C_name"]?>">
+                    </td>
+                </tr>
+            </table>
+        <div class="mb-3">
+                <label class="form-label" for="">優惠券名稱</label>
+                <input type="text" class="form-control" name="name">
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="couponCode">優惠券代碼</label>
+                    <input type="text" class="form-control" id="couponCode" placeholder="請填入八位英數混合數字" name="code">
             </div>
 
 
-          </div>
+
+            <div class="row mb-3">
+                <label class="form-label" for="">優惠券使用時間</label>
+                <div class="form-group col-auto">
+                    <input type="date" class="form-control" id="datePicker" name="validStartDate">
+                </div>
+                <div class="col-auto">~</div>
+                <div class="form-group col-auto">
+                    <input type="date" class="form-control" id="datePicker" name="validEndDate">
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="" class="form-label">折扣方式</label>
+                <div class="form-check col-auto">
+                    <input class="form-check-input" type="radio" name="discount_type" id="" value="百分比">
+                    <label class="form-check-label" for="flexRadioDefault1">
+                        百分比
+                    </label>
+                </div>
+                <div class="form-check col-auto">
+                    <input class="form-check-input" type="radio" name="discount_type" id="" value="金額" checked>
+                    <label class="form-check-label" for="flexRadioDefault2">
+                        金額
+                    </label>
+                </div>
+            </div>
+            <div class="mb-3">
+                    <label for="" class="form-label">優惠券面額</label>
+                    <input type="text" class="form-control" id="couponCode" placeholder="請填入數字 / 折數，例如300或0.9" name="couponAmount">
+                </div>
+
+            <div class="mb-3">
+                <label for="" class="form-label">最低消費金額</label>
+                <input type="number" class="form-control" name="min_amount">
+            </div>
+            <div class="py-2">
+                <button type="submit" class="btn btn-info me-3" role="button" style="background-color: #17a2b8;color:#fff">確認</button>
+                <a type="" class="btn btn-secondary" href="coupons.php" role="button">取消</a>
+
+            </div>
+        </form>
+    </div>
+          
         </div>
       </div>
       <!-- /page content -->
@@ -487,7 +334,18 @@ $conn->close();
 
   <!-- Custom Theme Scripts -->
   <script src="../build/js/custom.min.js"></script>
+ <!-- Bootstrap JavaScript Libraries -->
+ <script
+            src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+            integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+            crossorigin="anonymous"
+        ></script>
 
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+            integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+            crossorigin="anonymous"
+        ></script>
 </body>
 
 </html>
