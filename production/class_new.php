@@ -1,5 +1,5 @@
 <?php
-require_once("/xampp/htdocs/project/php_connect/db_connect.php");
+require_once("/xampp/htdocs/project/php_connect/db_connect_project.php");
 $now = date("Y-m-d");
 
 //分類
@@ -93,7 +93,7 @@ $sqlClass = "SELECT class.*, speaker.Speaker_name, class_categories.Class_cate_n
  FROM class 
  JOIN speaker ON class.F_Speaker_ID = speaker.Speaker_ID
  JOIN class_categories ON class.Class_category_ID = class_categories.Class_cate_ID
- $whereClause";
+ $whereClause && valid = 1";
 $resultClass = $conn->query($sqlClass);
 $rowsClass = $resultClass->fetch_all(MYSQLI_ASSOC);
 
@@ -531,38 +531,78 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
                         }
                         ?>
                         <div class="row mb-2 ">
-                          <div class="col-sm-10">
+                          <div class="col-sm-10 categoryText">
                             <?php if (!isset($_GET["status"])) {
                               $status = 1;
                             } else {
                               $status = $_GET["status"];
                             } ?>
-                            <a href="class_new.php?Class_cate_ID=&status=<?= $status ?>&min=<?= $minVal ?>&max=<?= $maxVal ?>" class=" btn btn-light <?php if ($Class_cate_ID == "") echo "active" ?>">
-                              所有類別 <span class="badge bg-light"><?= $rowsCountAllClassCategories ?></span>
+                            <a href="class_new.php?Class_cate_ID=&status=<?= $status ?>&min=<?= $minVal ?>&max=<?= $maxVal ?>" class=" btn 
+                             <?php if ($Class_cate_ID == "") {
+                                echo "btn-secondary";
+                              } else {
+                                echo "btn-light";
+                              }; ?>">
+                              所有類別 <span class="badge bg-light text-dark"><?= $rowsCountAllClassCategories ?></span>
                             </a>
 
-                            <a class=" btn btn-light <?php if ($Class_cate_ID == 1) echo "active" ?>" href="class_new.php?Class_cate_ID=1&status=<?= $status ?>&min=<?= $minVal ?>&max=<?= $maxVal ?>">
-                              台式料理 <span class="badge bg-light"><?= $rowsCountTWClassCategories ?></span>
+                            <a class=" btn 
+                            <?php if ($Class_cate_ID == 1) {
+                              echo "btn-secondary";
+                            } else {
+                              echo "btn-light";
+                            }; ?>
+                            " href="class_new.php?Class_cate_ID=1&status=<?= $status ?>&min=<?= $minVal ?>&max=<?= $maxVal ?>">
+                              台式料理 <span class="badge bg-light text-dark"><?= $rowsCountTWClassCategories ?></span>
                             </a>
 
-                            <a class=" btn btn-light<?php if ($Class_cate_ID == 2) echo "active" ?>" href="class_new.php?Class_cate_ID=2&status=<?= $status ?>&min=<?= $minVal ?>&max=<?= $maxVal ?>">
-                              中式料理 <span class="badge bg-light"><?= $rowsCountCNClassCategories ?></span>
+                            <a class=" btn 
+                            <?php if ($Class_cate_ID == 2) {
+                              echo "btn-secondary";
+                            } else {
+                              echo "btn-light";
+                            }; ?>" href="class_new.php?Class_cate_ID=2&status=<?= $status ?>&min=<?= $minVal ?>&max=<?= $maxVal ?>">
+                              中式料理 <span class="badge bg-light text-dark"><?= $rowsCountCNClassCategories ?></span>
                             </a>
 
-                            <a class=" btn btn-light<?php if ($Class_cate_ID == 3) echo "active" ?>" href="class_new.php?Class_cate_ID=3&status=<?= $status ?>&min=<?= $minVal ?>&max=<?= $maxVal ?>">
-                              西式料理 <span class="badge bg-light"><?= $rowsCountWestClassCategories ?></span>
+                            <a class=" btn
+                            <?php if ($Class_cate_ID == 3) {
+                              echo "btn-secondary";
+                            } else {
+                              echo "btn-light";
+                            }; ?>
+                            " href="class_new.php?Class_cate_ID=3&status=<?= $status ?>&min=<?= $minVal ?>&max=<?= $maxVal ?>">
+                              西式料理 <span class="badge bg-light text-dark"><?= $rowsCountWestClassCategories ?></span>
                             </a>
 
-                            <a class=" btn btn-light<?php if ($Class_cate_ID == 4) echo "active" ?>" href="class_new.php?Class_cate_ID=4&status=<?= $status ?>&min=<?= $minVal ?>&max=<?= $maxVal ?>">
-                              異國料理 <span class="badge bg-light"><?= $rowsCountExoticClassCategories ?></span>
+                            <a class=" btn 
+                            <?php if ($Class_cate_ID == 4) {
+                              echo "btn-secondary";
+                            } else {
+                              echo "btn-light";
+                            }; ?>
+                            " href="class_new.php?Class_cate_ID=4&status=<?= $status ?>&min=<?= $minVal ?>&max=<?= $maxVal ?>">
+                              異國料理 <span class="badge bg-light text-dark"><?= $rowsCountExoticClassCategories ?></span>
                             </a>
 
-                            <a class=" btn btn-light<?php if ($Class_cate_ID == 5) echo "active" ?>" href="class_new.php?Class_cate_ID=5&status=<?= $status ?>&min=<?= $minVal ?>&max=<?= $maxVal ?>">
-                              健康養生/素食 <span class="badge bg-light"><?= $rowsCountHealthyClassCategories ?></span>
+                            <a class=" btn 
+                            <?php if ($Class_cate_ID == 5) {
+                              echo "btn-secondary";
+                            } else {
+                              echo "btn-light";
+                            }; ?>
+                            " href="class_new.php?Class_cate_ID=5&status=<?= $status ?>&min=<?= $minVal ?>&max=<?= $maxVal ?>">
+                              健康養生/素食 <span class="badge bg-light text-dark"><?= $rowsCountHealthyClassCategories ?></span>
                             </a>
 
-                            <a class=" btn btn-light<?php if ($Class_cate_ID == 6) echo "active" ?>" href="class_new.php?Class_cate_ID=6&status=<?= $status ?>&min=<?= $minVal ?>&max=<?= $maxVal ?>">
-                              烘焙/點心 <span class="badge bg-light"><?= $rowsCountSnackClassCategories ?></span>
+                            <a class=" btn 
+                            <?php if ($Class_cate_ID == 6) {
+                              echo "btn-secondary";
+                            } else {
+                              echo "btn-light";
+                            }; ?>
+                            " href="class_new.php?Class_cate_ID=6&status=<?= $status ?>&min=<?= $minVal ?>&max=<?= $maxVal ?>">
+                              烘焙/點心 <span class="badge bg-light text-dark"><?= $rowsCountSnackClassCategories ?></span>
                             </a>
 
 
@@ -571,24 +611,61 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
                         <div class="row mb-2 align-items-center ">
                           <div class="col-sm-8">
 
-                            <a class="btn btn-light rounded-pill <?php if ($status == 1 || !isset($status) || $status == "") echo "active" ?>" href=" class_new.php?Class_cate_ID=<?= $Class_cate_ID ?>&status=1&min=<?= $minVal ?>&max=<?= $maxVal ?>">
+                            <a class="btn rounded-pill
+                             <?php if ($status == 1 || !isset($status) || $status == "") {
+                                echo "btn-secondary";
+                              } else {
+                                echo "btn-light";
+                              }
+                              ?>" href=" class_new.php?Class_cate_ID=<?= $Class_cate_ID ?>&status=1&min=<?= $minVal ?>&max=<?= $maxVal ?>">
                               全部課程 <span class="badge bg-light text-dark rounded-pill"><?= $rowsCountAllClass ?></span>
                             </a>
-                            <a class="btn btn-light rounded-pill <?php if ($status == 2) echo "active" ?>" href="class_new.php?Class_cate_ID=<?= $Class_cate_ID ?>&status=2&min=<?= $minVal ?>&max=<?= $maxVal ?>">
+
+                            <a class="btn  rounded-pill
+                             <?php if ($status == 2) {
+                                echo "btn-secondary";
+                              } else {
+                                echo "btn-light";
+                              } ?>" href="class_new.php?Class_cate_ID=<?= $Class_cate_ID ?>&status=2&min=<?= $minVal ?>&max=<?= $maxVal ?>">
                               報名未開放 <span class="badge bg-light text-dark rounded-pill"><?= $rowsCountNstarted ?></span>
                             </a>
-                            <a class="btn btn-light rounded-pill <?php if ($status == 3) echo "active" ?>" href="class_new.php?Class_cate_ID=<?= $Class_cate_ID ?>&status=3&min=<?= $minVal ?>&max=<?= $maxVal ?>">
+
+                            <a class="btn  rounded-pill
+                             <?php if ($status == 3) {
+                                echo "btn-secondary";
+                              } else {
+                                echo "btn-light";
+                              } ?>" href="class_new.php?Class_cate_ID=<?= $Class_cate_ID ?>&status=3&min=<?= $minVal ?>&max=<?= $maxVal ?>">
                               開放報名中 <span class="badge bg-light text-dark rounded-pill"><?= $rowsCountInProgress ?></span>
                             </a>
-                            <a class="btn btn-light rounded-pill <?php if ($status == 4) echo "active" ?>" href="class_new.php?Class_cate_ID=<?= $Class_cate_ID ?>&status=4&min=<?= $minVal ?>&max=<?= $maxVal ?>">
+
+                            <a class="btn  rounded-pill
+                            <?php if ($status == 4) {
+                              echo "btn-secondary";
+                            } else {
+                              echo "btn-light";
+                            } ?>" href="class_new.php?Class_cate_ID=<?= $Class_cate_ID ?>&status=4&min=<?= $minVal ?>&max=<?= $maxVal ?>">
                               報名截止 <span class="badge bg-light text-dark rounded-pill"><?= $rowsCountClosed ?></span>
                             </a>
-                            <a class="btn btn-light rounded-pill <?php if ($status == 5) echo "active" ?>" href="class_new.php?Class_cate_ID=<?= $Class_cate_ID ?>&status=5&min=<?= $minVal ?>&max=<?= $maxVal ?>">
+
+                            <a class="btn  rounded-pill
+                            <?php if ($status == 5) {
+                              echo "btn-secondary";
+                            } else {
+                              echo "btn-light";
+                            } ?>" href="class_new.php?Class_cate_ID=<?= $Class_cate_ID ?>&status=5&min=<?= $minVal ?>&max=<?= $maxVal ?>">
                               課程進行中 <span class="badge bg-light text-dark rounded-pill"><?= $rowsCountClassInProgress ?></span>
                             </a>
-                            <a class="btn btn-light rounded-pill <?php if ($status == 6) echo "active" ?>" href="class_new.php?Class_cate_ID=<?= $Class_cate_ID ?>&status=6&min=<?= $minVal ?>&max=<?= $maxVal ?>">
+
+                            <a class="btn rounded-pill
+                            <?php if ($status == 6) {
+                              echo "btn-secondary";
+                            } else {
+                              echo "btn-light";
+                            } ?>" href="class_new.php?Class_cate_ID=<?= $Class_cate_ID ?>&status=6&min=<?= $minVal ?>&max=<?= $maxVal ?>">
                               已結束課程 <span class="badge bg-light text-dark rounded-pill"><?= $rowsCountClassEnded ?></span>
                             </a>
+
                           </div>
                           <div class="col-sm-4 d-flex justify-content-end  ">
                             <a href="addClass.php" class="bg-warning rounded text-decoration-none text-dark add-class">
