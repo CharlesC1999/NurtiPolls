@@ -411,24 +411,53 @@ foreach ($rows as $coupon):
                                 <td><?=$coupon["Valid_start_date"]?></td>
                                 <td><?=$coupon["Valid_end_date"]?></td>
                                 <td>
+                               
+                                <div class="modal fade" id="confirmModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title fs-5" id="exampleModalLabel">刪除優惠券</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          確認刪除?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+          <a role="button" class="btn btn-danger" href="doDeleteCoupon.php?id=<?=$coupon["Coupon_ID"] ?>">確認</a>
+        </div>
+      </div>
+    </div>
+  </div>
                                   <?php
-// 判斷優惠券狀態
-if ($coupon["Valid_start_date"] > $todayDate) {
-    // 未開始
-    echo '<a href="edit.php?id=' . $coupon["Coupon_ID"] . '">編輯</a> ';
-    echo '<a href="delete.php?id=' . $coupon["Coupon_ID"] . '">刪除</a>';
-} elseif ($coupon["Valid_start_date"] <= $todayDate && $coupon["Valid_end_date"] >= $todayDate) {
-    // 進行中
-    echo '<a href="edit.php?id=' . $coupon["Coupon_ID"] . '">編輯</a> ';
-    echo '<a href="delete.php?id=' . $coupon["Coupon_ID"] . '">刪除</a>';
-} else {
-    // 已結束
-    echo '<a href="details.php?id=' . $coupon["Coupon_ID"] . '">顯示詳情</a>';
-}
-?>
 
-                              </tr>
-                            <?php endforeach;?>
+                                  // 判斷優惠券狀態
+                                  if ($coupon["Valid_start_date"] > $todayDate) {
+                                    // 未開始
+                                    echo '<a href="coupon-edit.php?id=<?=$coupon["id"]?> 編輯</a> ';
+                                    echo '<a
+                                    href="#"
+                    data-toggle="modal" data-target="#confirmModal"
+                    >刪除</a>';
+                                  } elseif ($coupon["Valid_start_date"] <= $todayDate && $coupon["Valid_end_date"] >= $todayDate) {
+                                    // 進行中
+                                    echo '<a href="coupon-edit.php?id=<?=$coupon["id"]?>編輯</a> ';
+                                    echo '<a
+                                    href="#"
+                    data-toggle="modal" data-target="#confirmModal"
+                    >刪除</a>';
+                                  } else {
+                                    // 已結束
+                                    echo '<a href="details.php?id=' . $coupon["Coupon_ID"] . '">顯示詳情</a>';
+                                  }
+                                  ?>
+                                   </tr>
+
+                             
+                            <?php endforeach; ?>
+
+
+
                           </tbody>
                         </table>
                       </div>

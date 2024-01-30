@@ -1,26 +1,9 @@
 <?php
 require_once("../db_connect.php");
-$todayDate = date('Y-m-d');
-$sqlFilter = "";
+$sql = "SELECT * from coupons WHERE valid=1";
+$result = $conn->query($sql);
 
-if (isset($_GET["status"])) {
-  if ($_GET["status"] == "upcoming") {
-    // 未開始
-    $sqlFilter = " AND Valid_start_date > '$todayDate'";
-  } elseif ($_GET["status"] == "ongoing") {
-    // 進行中
-    $sqlFilter = " AND Valid_start_date <= '$todayDate' AND Valid_end_date >= '$todayDate'";
-  } elseif ($_GET["status"] == "expired") {
-    // 已結束
-    $sqlFilter = " AND Valid_end_date < '$todayDate'";
-  }
-}
-
-$sqlAll = "SELECT * FROM coupons WHERE valid=1 $sqlFilter";
-
-$resultAll = $conn->query($sqlAll);
-
-$conn->close();
+$row = $result->fetch_assoc();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -76,23 +59,6 @@ $conn->close();
 </head>
 
 <body class="nav-md">
-  <div class="modal fade" id="confirmModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h2 class="modal-title fs-5" id="exampleModalLabel">刪除優惠券</h2>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          確認刪除?
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-          <a role="button" class="btn btn-danger" href="doDeleteCoupon.php?id=<?=$row["Coupon_ID"]?>">確認</a>
-        </div>
-      </div>
-    </div>
-  </div>
   <div class="container body">
     <div class="main_container">
       <div class="col-md-3 left_col">
@@ -122,36 +88,6 @@ $conn->close();
             <div class="menu_section">
               <h3>General</h3>
               <ul class="nav side-menu">
-                <!-- <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="index.html">Dashboard</a></li>
-                      <li><a href="index2.html">Dashboard2</a></li>
-                      <li><a href="index3.html">Dashboard3</a></li>
-                    </ul>
-                  </li> -->
-                <!-- <li><a><i class="fa fa-edit"></i> Forms <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="form.html">General Form</a></li>
-                      <li><a href="form_advanced.html">Advanced Components</a></li>
-                      <li><a href="form_validation.html">Form Validation</a></li>
-                      <li><a href="form_wizards.html">Form Wizard</a></li>
-                      <li><a href="form_upload.html">Form Upload</a></li>
-                      <li><a href="form_buttons.html">Form Buttons</a></li>
-                    </ul>
-                  </li> -->
-                <!-- <li><a><i class="fa fa-desktop"></i> UI Elements <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="general_elements.html">General Elements</a></li>
-                      <li><a href="media_gallery.html">Media Gallery</a></li>
-                      <li><a href="typography.html">Typography</a></li>
-                      <li><a href="icons.html">Icons</a></li>
-                      <li><a href="glyphicons.html">Glyphicons</a></li>
-                      <li><a href="widgets.html">Widgets</a></li>
-                      <li><a href="invoice.html">Invoice</a></li>
-                      <li><a href="inbox.html">Inbox</a></li>
-                      <li><a href="calendar.html">Calendar</a></li>
-                    </ul>
-                  </li> -->
                 <li><a href="tables_dynamic.html"><i class="fa fa-table"></i> 會員管理 <span class="fa fa-chevron-down"></span></a>
                 </li>
                 <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>商品管理 <span class="fa fa-chevron-down"></span></a>
@@ -183,63 +119,11 @@ $conn->close();
                   </li>
                 </ul> -->
             </div>
-            <!-- <div class="menu_section">
-                <h3>Live On</h3>
-                <ul class="nav side-menu">
-                  <li><a><i class="fa fa-bug"></i> Additional Pages <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="e_commerce.html">E-commerce</a></li>
-                      <li><a href="projects.html">Projects</a></li>
-                      <li><a href="project_detail.html">Project Detail</a></li>
-                      <li><a href="contacts.html">Contacts</a></li>
-                      <li><a href="profile.html">Profile</a></li>
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-windows"></i> Extras <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="page_403.html">403 Error</a></li>
-                      <li><a href="page_404.html">404 Error</a></li>
-                      <li><a href="page_500.html">500 Error</a></li>
-                      <li><a href="plain_page.html">Plain Page</a></li>
-                      <li><a href="login.html">Login Page</a></li>
-                      <li><a href="pricing_tables.html">Pricing Tables</a></li>
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-sitemap"></i> Multilevel Menu <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                        <li><a href="#level1_1">Level One</a>
-                        <li><a>Level One<span class="fa fa-chevron-down"></span></a>
-                          <ul class="nav child_menu">
-                            <li class="sub_menu"><a href="level2.html">Level Two</a>
-                            </li>
-                            <li><a href="#level2_1">Level Two</a>
-                            </li>
-                            <li><a href="#level2_2">Level Two</a>
-                            </li>
-                          </ul>
-                        </li>
-                        <li><a href="#level1_2">Level One</a>
-                        </li>
-                    </ul>
-                  </li>                  
-                  <li><a href="javascript:void(0)"><i class="fa fa-laptop"></i> Landing Page <span class="label label-success pull-right">Coming Soon</span></a></li>
-                </ul>
-              </div> -->
-
           </div>
           <!-- /sidebar menu -->
 
           <!-- /menu footer buttons -->
           <div class="sidebar-footer hidden-small">
-            <!-- <a data-toggle="tooltip" data-placement="top" title="Settings">
-                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-              </a> -->
-            <!-- <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Lock">
-                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-              </a> -->
             <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
               <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
             </a>
@@ -349,8 +233,16 @@ $conn->close();
           <div class="clearfix"></div>
           <div class="container">
         <h2 class="my-3">建立優惠券</h2>
-        <form action="doAddCoupon.php" method="post">
-            <div class="mb-3">
+        <form action="updateCoupon.php" method="post">
+            <table>
+                <tr>
+                    <th>優惠券名稱</th>
+                    <td>
+                    <input type="text" class="form-control" name="name" value="<?=$row["C_name"]?>">
+                    </td>
+                </tr>
+            </table>
+        <div class="mb-3">
                 <label class="form-label" for="">優惠券名稱</label>
                 <input type="text" class="form-control" name="name">
             </div>
