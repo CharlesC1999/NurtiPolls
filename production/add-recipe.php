@@ -1,5 +1,5 @@
 <?php
-require_once("../db_connectn.php");
+require_once "../db_connect.php";
 ?>
 <!doctype html>
 <html lang="en">
@@ -12,7 +12,7 @@ require_once("../db_connectn.php");
             content="width=device-width, initial-scale=1, shrink-to-fit=no"
         />
 
-       <?php require_once("../css.php");  ?>
+       <?php require_once "../css.php";?>
     </head>
 
     <body>
@@ -43,17 +43,17 @@ require_once("../db_connectn.php");
                             <option value="4">飲品</option>
                             <option value="5">點心</option>
                             <option value="6">沙拉</option>
-                        </select> 
+                        </select>
                 </div>
-                
-                
-                
+
+
+
                 <button class="btn btn-primary" type="submit">送出</button>
             </form>
         </div>
-       
 
 
-        <?php require_once("../js.php");  ?>
+
+        <?php require_once "../js.php";?>
     </body>
 </html>

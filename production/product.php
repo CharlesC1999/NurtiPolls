@@ -45,7 +45,6 @@ $orderBY";
 $result = $conn->query($sql);
 $rows = $result->fetch_all(MYSQLI_ASSOC);
 $rowsCount = $result->num_rows;
-$imagePath = 'p_image/' . str_replace('\\', '/', $rows['image_url']);
 
 $sqlCategories = "SELECT Product_cate_ID, Product_cate_name FROM product_categories";
 $resultCategories = $conn->query($sqlCategories);
@@ -84,7 +83,7 @@ $categories = $resultCategories->fetch_all(MYSQLI_ASSOC);
 
   <!-- Custom Theme Style -->
   <link href="../build/css/custom.min.css" rel="stylesheet">
-  <?php include_once "../css.php";?>
+
 </head>
 
 <body class="nav-md">
@@ -147,20 +146,58 @@ $categories = $resultCategories->fetch_all(MYSQLI_ASSOC);
                       <li><a href="calendar.html">Calendar</a></li>
                     </ul>
                   </li> -->
-                <li><a href="tables_dynamic.html"><i class="fa fa-table"></i> 會員管理 <span class="fa fa-chevron-down"></span></a>
-                </li>
-                <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>商品管理 <span class="fa fa-chevron-down"></span></a>
-                </li>
-                <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>分類管理<span class="fa fa-chevron-down"></span></a>
-                </li>
-                <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>食譜管理<span class="fa fa-chevron-down"></span></a>
-                </li>
-                <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>講師管理<span class="fa fa-chevron-down"></span></a>
-                </li>
-                <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>課程管理<span class="fa fa-chevron-down"></span></a>
-                </li>
-                <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>優惠卷管理<span class="fa fa-chevron-down"></span></a>
-                </li>
+                  <li>
+                    <a href="member.php"
+                      ><i class="fa fa-table"></i> 會員管理
+                      <span class="fa fa-chevron-down"></span
+                    ></a>
+                  </li>
+                  <li>
+                    <a href="product.php"
+                      ><i class="fa fa-table"></i>商品管理
+                      <span class="fa fa-chevron-down"></span
+                    ></a>
+                  </li>
+                  <li>
+                    <a
+                      ><i class="fa fa-table"></i>分類管理<span
+                        class="fa fa-chevron-down"
+                      ></span>
+                      <ul class="nav child_menu">
+                        <li><a href="categories_product.php">商品</a></li>
+                        <li><a href="categories_product.php">課程</a></li>
+                        <li><a href="categories_product.php">食譜</a></li>
+                      </ul>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="recipe-list.php"
+                      ><i class="fa fa-table"></i>食譜管理<span
+                        class="fa fa-chevron-down"
+                      ></span
+                    ></a>
+                  </li>
+                  <li>
+                    <a href="speaker.php"
+                      ><i class="fa fa-table"></i>講師管理<span
+                        class="fa fa-chevron-down"
+                      ></span
+                    ></a>
+                  </li>
+                  <li>
+                    <a href="redirectClass.php"
+                      ><i class="fa fa-table"></i>課程管理<span
+                        class="fa fa-chevron-down"
+                      ></span
+                    ></a>
+                  </li>
+                  <li>
+                    <a href="coupons.php"
+                      ><i class="fa fa-table"></i>優惠卷管理<span
+                        class="fa fa-chevron-down"
+                      ></span
+                    ></a>
+                  </li>
                 <!-- <li><a><i class="fa fa-bar-chart-o"></i> Data Presentation <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="chartjs.html">Chart JS</a></li>
@@ -383,13 +420,13 @@ $categories = $resultCategories->fetch_all(MYSQLI_ASSOC);
                         <option value="date_asc" name="date_asc">更新時間 遠->近</option>
 
                       </select>
-                    </form>
+
                   </div>
                   <div class="col-auto">
                     <select class="form-select form-select-sm" aria-label="Small select example">
                       <option selected>分類</option>
                       <?php foreach ($categories as $category): ?>
-                        <option value="<?=htmlspecialchars($category["id"])?>"><?=htmlspecialchars($category["name"])?></option>
+                        <option value="<?=htmlspecialchars($category["Product_cate_ID"])?>"><?=htmlspecialchars($category["Product_cate_name"])?></option>
                       <?php endforeach;?>
                     </select>
                   </div>
@@ -413,17 +450,19 @@ $categories = $resultCategories->fetch_all(MYSQLI_ASSOC);
 
                   </div>
                   <div class="col-auto">
-                    <a href="addProduct.php" class="btn btn-sm btn-secondary">
-                      新增商品
-                    </a>
+
+                    <li class="list-unstyled"><a href="addProduct.php" class="btn btn-sm btn-secondary">
+                        新增商品
+                      </a></li>
 
                   </div>
                   <div class="col-auto">
-                    <button type="submit" class="btn-sm btn-secondary">
-                      管理下架商品
-                    </button>
+                    <li class="list-unstyled"><a href="addProduct.php" class="btn btn-sm btn-secondary" name="addProduct">
+                        管理下架商品
+                      </a></li>
 
                   </div>
+                  </form>
                   <div class="col-auto">
                     <h5>共<?=$rowsCount?> 筆資料</h5>
                   </div>
@@ -447,16 +486,17 @@ $categories = $resultCategories->fetch_all(MYSQLI_ASSOC);
                         </tr>
                       </thead>
                       <?php foreach ($rows as $product): ?>
-                        <?php $imagePath = 'p_image/images/' . str_replace('\\', '/', $product['single_image_url']);?>
+                        <?php $imagePath = './p_image/' . $product['single_image_url'];?>
+
                         <tbody>
                           <tr>
                             <td><?=$product["product_id"]?></td>
-                            <td><img src="<?=htmlspecialchars($imagePath)?>" style="width: 100px; height: auto;" alt="<?=htmlspecialchars($product["product_name"])?> " class="object-fit"></td>
-                            <td><?=htmlspecialchars($product["product_name"])?></td>
-                            <td><?=htmlspecialchars($product["category_name"])?></td>
-                            <td><?=htmlspecialchars($product["upload_date"])?></td>
-                            <td><?=htmlspecialchars($product["price"])?> $</td>
-                            <td><?=htmlspecialchars($product["stock_quantity"])?></td>
+                            <td><img src="<?=$imagePath?>" style="width: 100px; height: auto;" alt="<?=$product["product_name"]?> " class="object-fit"></td>
+                            <td><?=$product["product_name"]?></td>
+                            <td><?=$product["category_name"]?></td>
+                            <td><?=$product["upload_date"]?></td>
+                            <td><?=$product["price"]?> $</td>
+                            <td><?=$product["stock_quantity"]?></td>
                             <td><i class="fa fa-pencil fa-fw"></i> <i class="fa fa-trash fa-fw mx-1"></i></td>
                           </tr>
                         </tbody>

@@ -1,19 +1,19 @@
 <?php
-require_once("../db_connect.php");
+require_once "../db_connect.php";
 $todayDate = date('Y-m-d');
 $sqlFilter = "";
 
 if (isset($_GET["status"])) {
-  if ($_GET["status"] == "upcoming") {
-    // 未開始
-    $sqlFilter = " AND Valid_start_date > '$todayDate'";
-  } elseif ($_GET["status"] == "ongoing") {
-    // 進行中
-    $sqlFilter = " AND Valid_start_date <= '$todayDate' AND Valid_end_date >= '$todayDate'";
-  } elseif ($_GET["status"] == "expired") {
-    // 已結束
-    $sqlFilter = " AND Valid_end_date < '$todayDate'";
-  }
+    if ($_GET["status"] == "upcoming") {
+        // 未開始
+        $sqlFilter = " AND Valid_start_date > '$todayDate'";
+    } elseif ($_GET["status"] == "ongoing") {
+        // 進行中
+        $sqlFilter = " AND Valid_start_date <= '$todayDate' AND Valid_end_date >= '$todayDate'";
+    } elseif ($_GET["status"] == "expired") {
+        // 已結束
+        $sqlFilter = " AND Valid_end_date < '$todayDate'";
+    }
 }
 
 $sqlAll = "SELECT * FROM coupons WHERE valid=1 $sqlFilter";
@@ -33,7 +33,7 @@ $conn->close();
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>coupons</title>
+  <title>營養大選 Nutripoll</title>
   <!-- fontawesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <!-- Bootstrap -->
@@ -80,7 +80,7 @@ $conn->close();
       <div class="col-md-3 left_col">
         <div class="left_col scroll-view">
           <div class="navbar nav_title" style="border: 0;">
-            <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentelella Alela!</span></a>
+          <a href="HomePage.html" class="site_title"><i class="fa fa-paw"></i> <span>營養大選 Nutripoll</span></a>
           </div>
 
           <div class="clearfix"></div>
@@ -134,20 +134,24 @@ $conn->close();
                       <li><a href="calendar.html">Calendar</a></li>
                     </ul>
                   </li> -->
-                <li><a href="tables_dynamic.html"><i class="fa fa-table"></i> 會員管理 <span class="fa fa-chevron-down"></span></a>
-                </li>
-                <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>商品管理 <span class="fa fa-chevron-down"></span></a>
-                </li>
-                <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>分類管理<span class="fa fa-chevron-down"></span></a>
-                </li>
-                <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>食譜管理<span class="fa fa-chevron-down"></span></a>
-                </li>
-                <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>講師管理<span class="fa fa-chevron-down"></span></a>
-                </li>
-                <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>課程管理<span class="fa fa-chevron-down"></span></a>
-                </li>
-                <li><a href="coupons.php"><i class="fa fa-table"></i>優惠卷管理<span class="fa fa-chevron-down"></span></a>
-                </li>
+                  <li><a href="member.php"><i class="fa fa-table"></i> 會員管理 <span class="fa fa-chevron-down"></span></a>
+                  </li><li><a href="product.php"><i class="fa fa-table"></i>商品管理 <span class="fa fa-chevron-down"></span></a>
+                  </li>
+                  <li><a><i class="fa fa-table"></i>分類管理<span class="fa fa-chevron-down"></span>
+                  <ul class="nav child_menu">
+                      <li><a href="categories_product.php" style="font-size: 16px;">商品</a></li>
+                      <li><a href="categories_class.php" style="font-size: 16px;">課程</a></li>
+                      <li><a href="categories_recipe.php" style="font-size: 16px;">食譜</a></li>
+                  </ul>
+                  </li>
+                  <li><a href="recipe-list.php"><i class="fa fa-table"></i>食譜管理<span class="fa fa-chevron-down"></span></a>
+                  </li>
+                  <li><a href="speaker.php"><i class="fa fa-table"></i>講師管理<span class="fa fa-chevron-down"></span></a>
+                  </li>
+                  <li><a href="redirectClass.php"><i class="fa fa-table"></i>課程管理<span class="fa fa-chevron-down"></span></a>
+                  </li>
+                  <li><a href="coupons.php"><i class="fa fa-table"></i>優惠卷管理<span class="fa fa-chevron-down"></span></a>
+                  </li>
                 <!-- <li><a><i class="fa fa-bar-chart-o"></i> Data Presentation <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="chartjs.html">Chart JS</a></li>
@@ -203,7 +207,7 @@ $conn->close();
                         <li><a href="#level1_2">Level One</a>
                         </li>
                     </ul>
-                  </li>                  
+                  </li>
                   <li><a href="javascript:void(0)"><i class="fa fa-laptop"></i> Landing Page <span class="label label-success pull-right">Coming Soon</span></a></li>
                 </ul>
               </div> -->
@@ -350,14 +354,26 @@ $conn->close();
             <div class="col-md-12 col-sm-12 ">
               <div class="x_panel">
                 <?php
-                // 確定當前篩選狀態
-                $status = isset($_GET['status']) ? $_GET['status'] : 'all';
-                ?>
+// 確定當前篩選狀態
+$status = isset($_GET['status']) ? $_GET['status'] : 'all';
+?>
                 <div class="filter-buttons x_title">
-                  <a href="coupons.php" class="btn custom-btn <?php if ($status == 'all') echo 'active'; ?>">全部</a>
-                  <a href="?status=ongoing" class="btn custom-btn <?php if ($status == 'ongoing') echo 'active'; ?>">進行中的活動</a>
-                  <a href="?status=upcoming" class="btn custom-btn <?php if ($status == 'upcoming') echo 'active'; ?>">接下來的活動</a>
-                  <a href="?status=expired" class="btn custom-btn <?php if ($status == 'expired') echo 'active'; ?>">已結束</a>
+                  <a href="coupons.php" class="btn custom-btn <?php if ($status == 'all') {
+    echo 'active';
+}
+?>">全部</a>
+                  <a href="?status=ongoing" class="btn custom-btn <?php if ($status == 'ongoing') {
+    echo 'active';
+}
+?>">進行中的活動</a>
+                  <a href="?status=upcoming" class="btn custom-btn <?php if ($status == 'upcoming') {
+    echo 'active';
+}
+?>">接下來的活動</a>
+                  <a href="?status=expired" class="btn custom-btn <?php if ($status == 'expired') {
+    echo 'active';
+}
+?>">已結束</a>
                 </div>
 
 
@@ -382,18 +398,18 @@ $conn->close();
                           </thead>
                           <tbody>
                             <?php
-                            $rows = $resultAll->fetch_all(MYSQLI_ASSOC);
+$rows = $resultAll->fetch_all(MYSQLI_ASSOC);
 
-                            foreach ($rows as $coupon) :
-                            ?>
+foreach ($rows as $coupon):
+?>
                               <tr>
-                                <td><?= $coupon["Coupon_ID"] ?></td>
-                                <td><?= $coupon["C_name"] ?></td>
-                                <td><?= $coupon["C_code"] ?></td>
-                                <td><?= $coupon["Discount_type"] ?></td>
-                                <td><?= $coupon["Discount_amount"] ?></td>
-                                <td><?= $coupon["Valid_start_date"] ?></td>
-                                <td><?= $coupon["Valid_end_date"] ?></td>
+                                <td><?=$coupon["Coupon_ID"]?></td>
+                                <td><?=$coupon["C_name"]?></td>
+                                <td><?=$coupon["C_code"]?></td>
+                                <td><?=$coupon["Discount_type"]?></td>
+                                <td><?=$coupon["Discount_amount"]?></td>
+                                <td><?=$coupon["Valid_start_date"]?></td>
+                                <td><?=$coupon["Valid_end_date"]?></td>
                                 <td>
                                
                                 <div class="modal fade" id="confirmModal" tabindex="-1" aria-hidden="true">
@@ -414,6 +430,7 @@ $conn->close();
     </div>
   </div>
                                   <?php
+
                                   // 判斷優惠券狀態
                                   if ($coupon["Valid_start_date"] > $todayDate) {
                                     // 未開始
@@ -438,6 +455,9 @@ $conn->close();
 
                              
                             <?php endforeach; ?>
+
+
+
                           </tbody>
                         </table>
                       </div>
