@@ -1,5 +1,5 @@
 <?php
-require_once("/xampp/htdocs/project/php_connect/db_connect_project.php");
+require_once("/xampp/htdocs/project/php_connect/db_connect.php");
 $now = date("Y-m-d");
 
 //分類
@@ -705,9 +705,12 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
                               <th class="align-middle">狀態</th>
                               <th class="align-middle">費用</th>
                               <th class="align-middle">講師</th>
-                              <th class="align-middle">學員名額</th>
+                              <!-- <th class="align-middle">學員名額</th> -->
                               <th class="align-middle">報名 <br> 日期</th>
                               <th class="align-middle">實際<br> 開課日</th>
+                              <th class="align-middle">修改</th>
+                              <th class="align-middle">下架</th>
+                              <!--  <th class="align-middle">上架</th> -->
                             </tr>
                           </thead>
 
@@ -716,7 +719,7 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
                             <?php foreach ($rowsClass as $rowClass) : ?>
                               <tr>
                                 <td><?= $rowClass["Class_ID"] ?></td>
-                                <td><a href="e_commerce.php?Class_ID=<?= $rowClass["Class_ID"] ?>"><?= $rowClass["Class_name"] ?></a></td>
+                                <td><a href="classDetail.php?Class_ID=<?= $rowClass["Class_ID"] ?>"><?= $rowClass["Class_name"] ?></a></td>
                                 <td <?php
                                     $Start_date = $rowClass["Start_date"];
                                     $End_date = $rowClass["End_date"];
@@ -741,7 +744,7 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
                                 </td>
                                 <td class="text-nowrap">$ <?= number_format($rowClass["C_price"]) ?></td>
                                 <td class="text-nowrap"><?= $rowClass["Speaker_name"] ?></td>
-                                <td><?= $rowClass["Class_person_limit"] ?></td>
+                                <!-- <td><?= $rowClass["Class_person_limit"] ?></td> -->
                                 <td>
                                   <?= $rowClass["Start_date"] ?>
                                   <br>
@@ -749,6 +752,8 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
                                   <?= $rowClass["End_date"] ?>
                                 </td>
                                 <td><?= $rowClass["Class_date"] ?></td>
+                                <td><a href="classEdit.php?Class_ID=<?= $rowClass["Class_ID"] ?>"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                                <td><a href="" class="link-danger"><i class="fa-solid fa-trash-can" style="color: #c82828;"></i></a></td>
                               </tr>
                             <?php endforeach; ?>
                           </tbody>

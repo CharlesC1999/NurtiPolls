@@ -1,10 +1,22 @@
 <?php
 require_once("/xampp/htdocs/project/php_connect/db_connect.php");
 
-//join class and speaker
-$sql = "SELECT * FROM speaker";
+if (!isset($_GET["Class_ID"])) {
+  die("請循正常管道進入此頁");
+}
+
+$Class_ID = $_GET["Class_ID"];
+
+//class detail
+$sql = "SELECT class.*, speaker.Speaker_name, class_image.Image_URL, class_categories.Class_cate_name
+ FROM class 
+ JOIN speaker ON class.F_Speaker_ID = speaker.Speaker_ID
+ JOIN class_image ON class.Class_ID = class_image.F_Class_ID
+ JOIN class_categories ON class.Class_category_ID = class_categories.Class_cate_ID
+ WHERE Class_ID = '$Class_ID'";
 $result = $conn->query($sql);
 $rows = $result->fetch_all(MYSQLI_ASSOC);
+
 
 ?>
 
@@ -54,13 +66,18 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
 
     .classDescription {
       width: 100%;
-      height: 80px;
+      height: 300px;
+    }
+
+    .classPic {
+      width: 100%;
     }
 
     /* .fullPage {
       height: calc(100vh - 50px);
     } */
   </style>
+
 </head>
 
 <body class="nav-md">
@@ -202,15 +219,17 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
           <div class="col-md-12 col-sm-12 ">
             <div class="x_panel">
               <div class="x_title">
-                <h1>新增課程 <!-- <small>Users</small> --> </h1>
+                <h1>課程詳情 <!-- <small>Users</small> --> </h1>
+                <a name="" id="" class="btn btn-primary" href="class_new.php?Class_cate_ID=&status=1&min=0&max=99999" role="button">Back</a>
+
                 <div class="clearfix"></div>
               </div>
 
-              <!-- 表單內容 -->
+              <!-- class content -->
               <div class="form-content row g-2 ">
                 <div class="col-12 mb-3">
                   <label for="className" class="form-label">課程名稱</label>
-                  <input type="text" class="form-control" id="className" name="className">
+                  <input type="text" class="form-control" id="className" name="className" value="<?= $rows[0]["Class_name"] ?>" readonly>
                 </div>
 
 
@@ -218,75 +237,52 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
                   <!-- <label for="classCategory" class="form-label">課程類別</label>
                     <input type="text" class="form-control" id="classCategory" name="classCategory" required> -->
                   <label for="classCategory" class="form-label">課程類別</label>
-                  <select name="classCategory" id="classCategory" class="form-select" required>
-                    <option value="">請選擇類別</option>
-                    <option value="1">台式料理</option>
-                    <option value="2">中式料理</option>
-                    <option value="3">西式料理</option>
-                    <option value="4">異國料理</option>
-                    <option value="5">健康養生/素食</option>
-                    <option value="6">烘焙/點心</option>
-                  </select>
-
+                  <input type="text" class="form-control" id="classCategory" name="classCategory" value="<?= $rows[0]["Class_cate_name"] ?>" readonly>
                 </div>
 
                 <div class="col-6 mb-3">
                   <label for="speaker" class="form-label">講師名稱</label>
-                  <!-- <input type="text" class="form-control" id="speaker" name="speaker" required> -->
-                  <select name="speaker" id="speaker" class="form-select" required>
-                    <option value="">請選擇講師</option>
-                    <?php foreach ($rows as $row) : ?>
-                      <option value="<?= $row["Speaker_ID"] ?>"><?= $row["Speaker_name"] ?></option>
-                    <?php endforeach; ?>
-                  </select>
+                  <input type="text" class="form-control" id="speaker" name="speaker" value="<?= $rows[0]["Speaker_name"] ?>" readonly>
                 </div>
 
                 <div class="col-6 mb-3">
                   <label for="classPrice" class="form-label">課程價格</label>
-                  <input type="number" class="form-control" id="classPrice" name="classPrice" required>
+                  <input type="number" class="form-control " id="classPrice" name="classPrice" value="<?= $rows[0]["C_price"] ?>" readonly>
                 </div>
                 <div class="col-6 mb-3">
                   <label for="personLimit" class="form-label">名額限制</label>
-                  <input type="number" class="form-control" id="personLimit" name="personLimit" required>
+                  <input type="number" class="form-control" id="personLimit" name="personLimit" value="<?= $rows[0]["Class_person_limit"] ?>" readonly>
                 </div>
 
                 <div class="col-4 mb-3">
                   <label for="startDate" class="form-label">報名起始</label>
-                  <input type="date" class="form-control" id="startDate" name="startDate" required>
+                  <input type="text" class="form-control" id="startDate" name="startDate" value="<?= $rows[0]["Start_date"] ?>" readonly>
                 </div>
 
                 <div class="col-4 mb-3">
                   <label for="endDate" class="form-label">報名截止</label>
-                  <input type="date" class="form-control" id="endDate" name="endDate" required>
+                  <input type="text" class="form-control" id="endDate" name="endDate" value="<?= $rows[0]["End_date"] ?>" readonly>
                 </div>
 
                 <div class="col-4 mb-3">
                   <label for="classDate" class="form-label">開課日期</label>
-                  <input type="date" class="form-control" id="classDate" name="classDate" required>
+                  <input type="text" class="form-control" id="classDate" name="classDate" value="<?= $rows[0]["Class_date"] ?>" readonly>
                 </div>
 
                 <div class="col-12 mb-3">
                   <label for="classDescription" class="form-label">課程敘述</label>
-                  <textarea class="classDescription" name="classDescription" id="classDescription" required></textarea>
+                  <textarea class="classDescription" name="classDescription" id="classDescription" placeholder="<?= $rows[0]["Class_description"] ?>" readonly></textarea>
                 </div>
 
-                <div class="col-6 mb-3">
-                  <label for="fileUpload" class="form-label">課程圖片</label>
-                  <div></div>
-                  <input type="file" id="fileUpload" name="fileUpload" required>
-                </div>
+                <!-- <div class="col-2 mb-3">
+                  <label for="classPic" class="form-label">課程圖片</label>
+                </div> -->
 
-                <div class="col-12"></div>
-
-                <div class="col-3 m-auto">
-                  <button type="submit" class="btn btn-info text-light" id="submit">
-                    送出
-                  </button>
-                  <a href="class_new.php?Class_cate_ID=&status=1&min=0&max=99999" class="btn btn-danger text-white">
-                    取消
-                  </a>
-                </div>
-
+                <?php foreach ($rows as $row) : ?>
+                  <div class="col-6">
+                    <img src="../classImg/<?= $row["Image_URL"] ?>" class="classPic" alt="">
+                  </div>
+                <?php endforeach; ?>
               </div>
 
             </div>
