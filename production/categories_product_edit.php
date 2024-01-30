@@ -114,7 +114,7 @@ $product_type_count = $result_all_product->num_rows;
                     </ul>
 
                   </li>
-                  <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>食譜管理<span class="fa fa-chevron-down"></span></a>
+                  <li><a href="recipe-list.php"><i class="fa fa-table"></i>食譜管理<span class="fa fa-chevron-down"></span></a>
                   </li>
                   <li><a href="speaker.php"><i class="fa fa-table"></i>講師管理<span class="fa fa-chevron-down"></span></a>
                   </li>
@@ -417,7 +417,7 @@ foreach ($rows as $cate):
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title text-danger" id="exampleModalLabel">警告</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close border-0 bg-white" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-chevron-up fa-fw"></i></button>
                     </div>
                     <div class="modal-body">
                         確認刪除嗎?

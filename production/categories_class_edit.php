@@ -102,25 +102,57 @@ $product_type_count = $result_all_product->num_rows;
                       <li><a href="calendar.html">Calendar</a></li>
                     </ul>
                   </li> -->
-                  <li><a href="member.php"><i class="fa fa-table"></i> 會員管理 <span class="fa fa-chevron-down"></span></a>
-                  </li><li><a href="product.php"><i class="fa fa-table"></i>商品管理 <span class="fa fa-chevron-down"></span></a>
+                  <li>
+                    <a href="member.php"
+                      ><i class="fa fa-table"></i> 會員管理
+                      <span class="fa fa-chevron-down"></span
+                    ></a>
                   </li>
-                  <li><a><i class="fa fa-table"></i>分類管理<span class="fa fa-chevron-down"></span>
-                  <ul class="nav child_menu">
-                      <li><a href="categories_product.php" style="font-size: 16px;">商品</a></li>
-                      <li><a href="categories_class.php" style="font-size: 16px;">課程</a></li>
-                      <li><a href="categories_recipe.php" style="font-size: 16px;">食譜</a></li>
-
-                    </ul>
-
+                  <li>
+                    <a href="product.php"
+                      ><i class="fa fa-table"></i>商品管理
+                      <span class="fa fa-chevron-down"></span
+                    ></a>
                   </li>
-                  <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>食譜管理<span class="fa fa-chevron-down"></span></a>
+                  <li>
+                    <a
+                      ><i class="fa fa-table"></i>分類管理<span
+                        class="fa fa-chevron-down"
+                      ></span>
+                      <ul class="nav child_menu">
+                        <li><a href="categories_product.php">商品</a></li>
+                        <li><a href="categories_product.php">課程</a></li>
+                        <li><a href="categories_product.php">食譜</a></li>
+                      </ul>
+                    </a>
                   </li>
-                  <li><a href="speaker.php"><i class="fa fa-table"></i>講師管理<span class="fa fa-chevron-down"></span></a>
+                  <li>
+                    <a href="recipe-list.php"
+                      ><i class="fa fa-table"></i>食譜管理<span
+                        class="fa fa-chevron-down"
+                      ></span
+                    ></a>
                   </li>
-                  <li><a href="redirectClass.php"><i class="fa fa-table"></i>課程管理<span class="fa fa-chevron-down"></span></a>
+                  <li>
+                    <a href="speaker.php"
+                      ><i class="fa fa-table"></i>講師管理<span
+                        class="fa fa-chevron-down"
+                      ></span
+                    ></a>
                   </li>
-                  <li><a href="coupons.php"><i class="fa fa-table"></i>優惠卷管理<span class="fa fa-chevron-down"></span></a>
+                  <li>
+                    <a href="redirectClass.php"
+                      ><i class="fa fa-table"></i>課程管理<span
+                        class="fa fa-chevron-down"
+                      ></span
+                    ></a>
+                  </li>
+                  <li>
+                    <a href="coupons.php"
+                      ><i class="fa fa-table"></i>優惠卷管理<span
+                        class="fa fa-chevron-down"
+                      ></span
+                    ></a>
                   </li>
                   <!-- <li><a><i class="fa fa-bar-chart-o"></i> Data Presentation <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
@@ -417,7 +449,7 @@ foreach ($rows as $cate):
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title text-danger" id="exampleModalLabel">警告</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close border-0 bg-white" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-chevron-up fa-fw"></i></button>
                     </div>
                     <div class="modal-body">
                         確認刪除嗎?

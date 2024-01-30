@@ -1,20 +1,20 @@
 <?php
-if(!isset($_GET["Recipe_ID"])){
-    $Recipe_ID=0;
-}else{
-    $Recipe_ID=$_GET["Recipe_ID"];
+if (!isset($_GET["Recipe_ID"])) {
+    $Recipe_ID = 0;
+} else {
+    $Recipe_ID = $_GET["Recipe_ID"];
 }
-require_once("../db_connectn.php");
+require_once "../db_connect.php";
 // $id=$_GET["id"];
 
-$sql="SELECT recipe.*,recipe_categories.Recipe_cate_name AS category_name FROM recipe
+$sql = "SELECT recipe.*,recipe_categories.Recipe_cate_name AS category_name FROM recipe
 JOIN recipe_categories ON recipe.Recipe_Category_ID = recipe_categories.Recipe_cate_ID
  WHERE Recipe_ID=$Recipe_ID";
-$result=$conn->query($sql);
+$result = $conn->query($sql);
 
-$rowCount=$result->num_rows;
-if($rowCount!=0){
-    $row=$result->fetch_assoc();
+$rowCount = $result->num_rows;
+if ($rowCount != 0) {
+    $row = $result->fetch_assoc();
 }
 ?>
 
@@ -33,9 +33,9 @@ if($rowCount!=0){
             content="width=device-width, initial-scale=1, shrink-to-fit=no"
         />
 
-        
-       
-        <?php require_once("../css.php"); ?>
+
+
+        <?php require_once "../css.php";?>
     </head>
 
     <body>
@@ -61,15 +61,15 @@ if($rowCount!=0){
             <div class="py-2">
                 <a href="recipe-list.php" class="btn btn-primary" role="button">回食譜列表</a>
             </div>
-            <?php if($rowCount==0): ?>
+            <?php if ($rowCount == 0): ?>
                 沒有食譜
 
-                <?php else: 
-                   
-                    ?>
+                <?php else:
+
+?>
                     <input type="hidden" name="Recipe_ID" value="<?=$row["Recipe_ID"]?>">
                     <table class="table table-bordered">
-                    
+
                         <tr>
                             <th>食譜名稱</th>
                             <td><?=$row["Title_R_name"]?></td>
@@ -102,9 +102,9 @@ if($rowCount!=0){
                         </button>
                     </div>
 
-                <?php endif; ?>
-              
+                <?php endif;?>
+
         </div>
-        <?php require_once("../js.php"); ?>
+        <?php require_once "../js.php";?>
     </body>
 </html>

@@ -1,11 +1,11 @@
 <?php
-require_once("../db_connectn.php");
+require_once "../db_connect.php";
 $sql = "SELECT recipe.*,recipe_categories.Recipe_cate_name AS category_name FROM recipe
 JOIN recipe_categories ON recipe.Recipe_Category_ID = recipe_categories.Recipe_cate_ID
  WHERE valid=1 ORDER BY Recipe_ID ASC";
-$result = $conn->query($sql); 
+$result = $conn->query($sql);
 
-$recipeCount=$result->num_rows; 
+$recipeCount = $result->num_rows;
 
 ?>
 
@@ -25,8 +25,8 @@ $recipeCount=$result->num_rows;
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>DataTables | Gentelella</title>
-    <?php require_once("../css.php"); ?>
+    <title>營養大選 Nutripoll</title>
+    <?php require_once "../css.php";?>
     <!-- Bootstrap -->
     <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -37,7 +37,7 @@ $recipeCount=$result->num_rows;
     <!-- iCheck -->
     <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
     <!-- Datatables -->
-    
+
     <link href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
     <link href="../vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
     <link href="../vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
@@ -47,7 +47,7 @@ $recipeCount=$result->num_rows;
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
+
   </head>
 
   <body class="nav-md">
@@ -56,7 +56,7 @@ $recipeCount=$result->num_rows;
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span class="small">NurtiPolls營養大選</span></a>
+            <a href="HomePage.html" class="site_title"><i class="fa fa-paw"></i> <span>營養大選 Nutripoll</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -110,18 +110,57 @@ $recipeCount=$result->num_rows;
                       <li><a href="calendar.html">Calendar</a></li>
                     </ul>
                   </li> -->
-                  <li><a href=""><i class="fa fa-table"></i> 會員管理 <span class="fa fa-chevron-down"></span></a>
-                  </li><li><a href=""><i class="fa fa-table"></i>商品管理 <span class="fa fa-chevron-down"></span></a>
+                  <li>
+                    <a href="member.php"
+                      ><i class="fa fa-table"></i> 會員管理
+                      <span class="fa fa-chevron-down"></span
+                    ></a>
                   </li>
-                  <li><a href=""><i class="fa fa-table"></i>分類管理<span class="fa fa-chevron-down"></span></a>
+                  <li>
+                    <a href="product.php"
+                      ><i class="fa fa-table"></i>商品管理
+                      <span class="fa fa-chevron-down"></span
+                    ></a>
                   </li>
-                  <li><a href="recipe-list.php"><i class="fa fa-table"></i>食譜管理<span class="fa fa-chevron-down"></span></a>
+                  <li>
+                    <a
+                      ><i class="fa fa-table"></i>分類管理<span
+                        class="fa fa-chevron-down"
+                      ></span>
+                      <ul class="nav child_menu">
+                        <li><a href="categories_product.php">商品</a></li>
+                        <li><a href="categories_product.php">課程</a></li>
+                        <li><a href="categories_product.php">食譜</a></li>
+                      </ul>
+                    </a>
                   </li>
-                  <li><a href=""><i class="fa fa-table"></i>講師管理<span class="fa fa-chevron-down"></span></a>
+                  <li>
+                    <a href="recipe-list.php"
+                      ><i class="fa fa-table"></i>食譜管理<span
+                        class="fa fa-chevron-down"
+                      ></span
+                    ></a>
                   </li>
-                  <li><a href=""><i class="fa fa-table"></i>課程管理<span class="fa fa-chevron-down"></span></a>
+                  <li>
+                    <a href="speaker.php"
+                      ><i class="fa fa-table"></i>講師管理<span
+                        class="fa fa-chevron-down"
+                      ></span
+                    ></a>
                   </li>
-                  <li><a href=""><i class="fa fa-table"></i>優惠卷管理<span class="fa fa-chevron-down"></span></a>
+                  <li>
+                    <a href="redirectClass.php"
+                      ><i class="fa fa-table"></i>課程管理<span
+                        class="fa fa-chevron-down"
+                      ></span
+                    ></a>
+                  </li>
+                  <li>
+                    <a href="coupons.php"
+                      ><i class="fa fa-table"></i>優惠卷管理<span
+                        class="fa fa-chevron-down"
+                      ></span
+                    ></a>
                   </li>
                   <!-- <li><a><i class="fa fa-bar-chart-o"></i> Data Presentation <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
@@ -178,7 +217,7 @@ $recipeCount=$result->num_rows;
                         <li><a href="#level1_2">Level One</a>
                         </li>
                     </ul>
-                  </li>                  
+                  </li>
                   <li><a href="javascript:void(0)"><i class="fa fa-laptop"></i> Landing Page <span class="label label-success pull-right">Coming Soon</span></a></li>
                 </ul>
               </div> -->
@@ -227,10 +266,10 @@ $recipeCount=$result->num_rows;
                       <a class="dropdown-item"  href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
                     </div>
                   </li>
-  
+
                   <li role="presentation" class="nav-item dropdown open">
                     <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1" data-toggle="dropdown" aria-expanded="false">
-                      
+
                     </a>
                     <ul class="dropdown-menu list-unstyled msg_list" role="menu" aria-labelledby="navbarDropdown1">
                       <li class="nav-item">
@@ -346,18 +385,18 @@ $recipeCount=$result->num_rows;
                           <th>建立日期</th>
                           <th>分類</th>
                           <th></th>
-                          
-                            
-                          
+
+
+
                         </tr>
                       </thead>
 
 
                       <tbody>
-                      <?php 
-                      $rows=$result->fetch_all(MYSQLI_ASSOC);
-                      foreach($rows as $recipe):
-                       ?>
+                      <?php
+$rows = $result->fetch_all(MYSQLI_ASSOC);
+foreach ($rows as $recipe):
+?>
                         <tr>
                           <td><?=$recipe["Title_R_name"]?></td>
                           <td class="">
@@ -380,12 +419,12 @@ $recipeCount=$result->num_rows;
                             ">
                               <i class="fa-solid fa-trash"></i>
                             </a> -->
-                            
-                           
+
+
                           </td>
-                         
+
                         </tr>
-                        <?php endforeach; ?>
+                        <?php endforeach;?>
                       </tbody>
                     </table>
                   </div>
@@ -395,14 +434,14 @@ $recipeCount=$result->num_rows;
                 </div>
               </div>
 
-              
-              
 
-              
 
-              
 
-              
+
+
+
+
+
             </div>
           </div>
         </div>
@@ -448,6 +487,6 @@ $recipeCount=$result->num_rows;
 
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
-    <?php require_once("../js.php"); ?>
+    <?php require_once "../js.php";?>
   </body>
 </html>
