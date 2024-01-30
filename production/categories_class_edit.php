@@ -393,7 +393,7 @@ foreach ($rows as $cate):
                             <td>
                               <div class="d-flex justify-content-between">
                                 <a href="#" data-id="<?=$cate["Class_cate_ID"]?>" data-name="<?=$cate["Class_cate_name"]?>" data-description="<?=$cate["C_Description"]?>" class="btn btn-success border-0 edit-btn" onclick="fillModal(this)"><i class="fa-solid fa-edit fa-fw"></i></a>
-                                <a href="#" data-id="<?=$cate["Class_cate_ID"]?>" class="btn btn-danger border-0 remove-btn" data-bs-toggle="modal" data-bs-target="#removeModal" ><i class="fa-solid fa-trash fa-fw"></i></a>
+                                <a href="#" class="btn btn-danger border-0 remove-btn" data-bs-toggle="modal" data-bs-target="#removeModal" data-id="<?=$cate["Class_cate_ID"]?>" onclick="setDeleteId(this)"><i class="fa-solid fa-trash fa-fw"></i></a>
                               </div>
                             </td>
                           </tr>
@@ -444,6 +444,13 @@ foreach ($rows as $cate):
         </div>
         <!-- Modal -->
         <!-- Modal -->
+        <script>
+        function setDeleteId(element) {
+            var classCateId = element.getAttribute('data-id');
+            var modal = document.getElementById('removeModal');
+            modal.querySelector('input[name="Class_cate_ID"]').value = classCateId;
+        }
+        </script>
         <div class="modal fade" id="removeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
