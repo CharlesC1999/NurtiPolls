@@ -406,7 +406,7 @@ if($rowCount!=0){
               
             </div>
           </div>
-        </div>
+        
         <!-- /page content -->
 
         <!-- footer content -->

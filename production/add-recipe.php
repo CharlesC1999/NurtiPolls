@@ -11,7 +11,8 @@ require_once("../db_connect.php");
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- Meta, title, CSS, favicons, etc. -->
     <meta charset="utf-8">
@@ -30,7 +31,7 @@ require_once("../db_connect.php");
     <!-- iCheck -->
     <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
     <!-- Datatables -->
-    
+
     <link href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
     <link href="../vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
     <link href="../vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
@@ -39,52 +40,55 @@ require_once("../db_connect.php");
 
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
-  </head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-  <body class="nav-md">
-  
+</head>
+
+<body class="nav-md">
+
 
 
 
     <div class="container body">
-      <div class="main_container">
-        <div class="col-md-3 left_col">
-          <div class="left_col scroll-view">
-            <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span class="small">NurtiPolls營養大選</span></a>
-            </div>
+        <div class="main_container">
+            <div class="col-md-3 left_col">
+                <div class="left_col scroll-view">
+                    <div class="navbar nav_title" style="border: 0;">
+                        <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span
+                                class="small">NurtiPolls營養大選</span></a>
+                    </div>
 
-            <div class="clearfix"></div>
+                    <div class="clearfix"></div>
 
-            <!-- menu profile quick info -->
-            <div class="profile clearfix">
-              <div class="profile_pic">
-                <img src="images/img.jpg" alt="..." class="img-circle profile_img">
-              </div>
-              <div class="profile_info">
-                <span>Welcome,</span>
-                <h2>John Doe</h2>
-              </div>
-            </div>
-            <!-- /menu profile quick info -->
+                    <!-- menu profile quick info -->
+                    <div class="profile clearfix">
+                        <div class="profile_pic">
+                            <img src="images/img.jpg" alt="..." class="img-circle profile_img">
+                        </div>
+                        <div class="profile_info">
+                            <span>Welcome,</span>
+                            <h2>John Doe</h2>
+                        </div>
+                    </div>
+                    <!-- /menu profile quick info -->
 
-            <br />
+                    <br />
 
-            <!-- sidebar menu -->
-            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-              <div class="menu_section">
-                <h3>General</h3>
-                <ul class="nav side-menu">
-                  <!-- <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
+                    <!-- sidebar menu -->
+                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                        <div class="menu_section">
+                            <h3>General</h3>
+                            <ul class="nav side-menu">
+                                <!-- <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="index.html">Dashboard</a></li>
                       <li><a href="index2.html">Dashboard2</a></li>
                       <li><a href="index3.html">Dashboard3</a></li>
                     </ul>
                   </li> -->
-                  <!-- <li><a><i class="fa fa-edit"></i> Forms <span class="fa fa-chevron-down"></span></a>
+                                <!-- <li><a><i class="fa fa-edit"></i> Forms <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="form.html">General Form</a></li>
                       <li><a href="form_advanced.html">Advanced Components</a></li>
@@ -94,7 +98,7 @@ require_once("../db_connect.php");
                       <li><a href="form_buttons.html">Form Buttons</a></li>
                     </ul>
                   </li> -->
-                  <!-- <li><a><i class="fa fa-desktop"></i> UI Elements <span class="fa fa-chevron-down"></span></a>
+                                <!-- <li><a><i class="fa fa-desktop"></i> UI Elements <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="general_elements.html">General Elements</a></li>
                       <li><a href="media_gallery.html">Media Gallery</a></li>
@@ -107,20 +111,28 @@ require_once("../db_connect.php");
                       <li><a href="calendar.html">Calendar</a></li>
                     </ul>
                   </li> -->
-                  <li><a href=""><i class="fa fa-table"></i> 會員管理 <span class="fa fa-chevron-down"></span></a>
-                  </li><li><a href=""><i class="fa fa-table"></i>商品管理 <span class="fa fa-chevron-down"></span></a>
-                  </li>
-                  <li><a href=""><i class="fa fa-table"></i>分類管理<span class="fa fa-chevron-down"></span></a>
-                  </li>
-                  <li><a href="recipe-list.php"><i class="fa fa-table"></i>食譜管理<span class="fa fa-chevron-down"></span></a>
-                  </li>
-                  <li><a href=""><i class="fa fa-table"></i>講師管理<span class="fa fa-chevron-down"></span></a>
-                  </li>
-                  <li><a href=""><i class="fa fa-table"></i>課程管理<span class="fa fa-chevron-down"></span></a>
-                  </li>
-                  <li><a href=""><i class="fa fa-table"></i>優惠卷管理<span class="fa fa-chevron-down"></span></a>
-                  </li>
-                  <!-- <li><a><i class="fa fa-bar-chart-o"></i> Data Presentation <span class="fa fa-chevron-down"></span></a>
+                                <li><a href=""><i class="fa fa-table"></i> 會員管理 <span
+                                            class="fa fa-chevron-down"></span></a>
+                                </li>
+                                <li><a href=""><i class="fa fa-table"></i>商品管理 <span
+                                            class="fa fa-chevron-down"></span></a>
+                                </li>
+                                <li><a href=""><i class="fa fa-table"></i>分類管理<span
+                                            class="fa fa-chevron-down"></span></a>
+                                </li>
+                                <li><a href="recipe-list.php"><i class="fa fa-table"></i>食譜管理<span
+                                            class="fa fa-chevron-down"></span></a>
+                                </li>
+                                <li><a href=""><i class="fa fa-table"></i>講師管理<span
+                                            class="fa fa-chevron-down"></span></a>
+                                </li>
+                                <li><a href=""><i class="fa fa-table"></i>課程管理<span
+                                            class="fa fa-chevron-down"></span></a>
+                                </li>
+                                <li><a href=""><i class="fa fa-table"></i>優惠卷管理<span
+                                            class="fa fa-chevron-down"></span></a>
+                                </li>
+                                <!-- <li><a><i class="fa fa-bar-chart-o"></i> Data Presentation <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="chartjs.html">Chart JS</a></li>
                       <li><a href="chartjs2.html">Chart JS2</a></li>
@@ -136,8 +148,8 @@ require_once("../db_connect.php");
                     </ul>
                   </li>
                 </ul> -->
-              </div>
-              <!-- <div class="menu_section">
+                        </div>
+                        <!-- <div class="menu_section">
                 <h3>Live On</h3>
                 <ul class="nav side-menu">
                   <li><a><i class="fa fa-bug"></i> Additional Pages <span class="fa fa-chevron-down"></span></a>
@@ -180,205 +192,215 @@ require_once("../db_connect.php");
                 </ul>
               </div> -->
 
-       </div>
-            <!-- /sidebar menu -->
+                    </div>
+                    <!-- /sidebar menu -->
 
-            <!-- /menu footer buttons -->
-            <div class="sidebar-footer hidden-small">
-              <!-- <a data-toggle="tooltip" data-placement="top" title="Settings">
+                    <!-- /menu footer buttons -->
+                    <div class="sidebar-footer hidden-small">
+                        <!-- <a data-toggle="tooltip" data-placement="top" title="Settings">
                 <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
               </a> -->
-              <!-- <a data-toggle="tooltip" data-placement="top" title="FullScreen">
+                        <!-- <a data-toggle="tooltip" data-placement="top" title="FullScreen">
                 <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
               </a>
               <a data-toggle="tooltip" data-placement="top" title="Lock">
                 <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
               </a> -->
-              <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
-                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-              </a>
-            </div>
-            <!-- /menu footer buttons -->
-          </div>
-        </div>
-
-        <!-- top navigation -->
-        <div class="top_nav">
-            <div class="nav_menu">
-                <div class="nav toggle">
-                  <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-                </div>
-                <nav class="nav navbar-nav">
-                <ul class=" navbar-right">
-                  <li class="nav-item dropdown open" style="padding-left: 15px;">
-                    <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                      <img src="images/img.jpg" alt="">John Doe
-                    </a>
-                    <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
-                      <a class="dropdown-item"  href="javascript:;"> Profile</a>
-                        <a class="dropdown-item"  href="javascript:;">
-                          <span class="badge bg-red pull-right">50%</span>
-                          <span>Settings</span>
+                        <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
+                            <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
                         </a>
-                    <a class="dropdown-item"  href="javascript:;">Help</a>
-                      <a class="dropdown-item"  href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
                     </div>
-                  </li>
-  
-                  <li role="presentation" class="nav-item dropdown open">
-                    <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1" data-toggle="dropdown" aria-expanded="false">
-                      
-                    </a>
-                    <ul class="dropdown-menu list-unstyled msg_list" role="menu" aria-labelledby="navbarDropdown1">
-                      <li class="nav-item">
-                        <a class="dropdown-item">
-                          <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                          <span>
-                            <span>John Smith</span>
-                            <span class="time">3 mins ago</span>
-                          </span>
-                          <span class="message">
-                            Film festivals used to be do-or-die moments for movie makers. They were where...
-                          </span>
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="dropdown-item">
-                          <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                          <span>
-                            <span>John Smith</span>
-                            <span class="time">3 mins ago</span>
-                          </span>
-                          <span class="message">
-                            Film festivals used to be do-or-die moments for movie makers. They were where...
-                          </span>
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="dropdown-item">
-                          <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                          <span>
-                            <span>John Smith</span>
-                            <span class="time">3 mins ago</span>
-                          </span>
-                          <span class="message">
-                            Film festivals used to be do-or-die moments for movie makers. They were where...
-                          </span>
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="dropdown-item">
-                          <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                          <span>
-                            <span>John Smith</span>
-                            <span class="time">3 mins ago</span>
-                          </span>
-                          <span class="message">
-                            Film festivals used to be do-or-die moments for movie makers. They were where...
-                          </span>
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <div class="text-center">
-                          <a class="dropdown-item">
-                            <strong>See All Alerts</strong>
-                            <i class="fa fa-angle-right"></i>
-                          </a>
-                        </div>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-              </nav>
+                    <!-- /menu footer buttons -->
+                </div>
             </div>
-          </div>
-        <!-- /top navigation -->
 
-        <!-- page content -->
-        <div class="right_col" role="main">
-          <div class="">
-            
+            <!-- top navigation -->
+            <div class="top_nav">
+                <div class="nav_menu">
+                    <div class="nav toggle">
+                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                    </div>
+                    <nav class="nav navbar-nav">
+                        <ul class=" navbar-right">
+                            <li class="nav-item dropdown open" style="padding-left: 15px;">
+                                <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true"
+                                    id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
+                                    <img src="images/img.jpg" alt="">John Doe
+                                </a>
+                                <div class="dropdown-menu dropdown-usermenu pull-right"
+                                    aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="javascript:;"> Profile</a>
+                                    <a class="dropdown-item" href="javascript:;">
+                                        <span class="badge bg-red pull-right">50%</span>
+                                        <span>Settings</span>
+                                    </a>
+                                    <a class="dropdown-item" href="javascript:;">Help</a>
+                                    <a class="dropdown-item" href="login.html"><i class="fa fa-sign-out pull-right"></i>
+                                        Log Out</a>
+                                </div>
+                            </li>
 
-            <div class="clearfix"></div>
+                            <li role="presentation" class="nav-item dropdown open">
+                                <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1"
+                                    data-toggle="dropdown" aria-expanded="false">
 
-            <div class="row">
-              <div class="col-md-12 col-sm-12 ">
-                <div class="x_panel">
-                  <div class="x_title">
-                    <h2>食譜管理<small>Users</small></h2>
-                    
+                                </a>
+                                <ul class="dropdown-menu list-unstyled msg_list" role="menu"
+                                    aria-labelledby="navbarDropdown1">
+                                    <li class="nav-item">
+                                        <a class="dropdown-item">
+                                            <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                                            <span>
+                                                <span>John Smith</span>
+                                                <span class="time">3 mins ago</span>
+                                            </span>
+                                            <span class="message">
+                                                Film festivals used to be do-or-die moments for movie makers. They were
+                                                where...
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="dropdown-item">
+                                            <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                                            <span>
+                                                <span>John Smith</span>
+                                                <span class="time">3 mins ago</span>
+                                            </span>
+                                            <span class="message">
+                                                Film festivals used to be do-or-die moments for movie makers. They were
+                                                where...
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="dropdown-item">
+                                            <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                                            <span>
+                                                <span>John Smith</span>
+                                                <span class="time">3 mins ago</span>
+                                            </span>
+                                            <span class="message">
+                                                Film festivals used to be do-or-die moments for movie makers. They were
+                                                where...
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="dropdown-item">
+                                            <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                                            <span>
+                                                <span>John Smith</span>
+                                                <span class="time">3 mins ago</span>
+                                            </span>
+                                            <span class="message">
+                                                Film festivals used to be do-or-die moments for movie makers. They were
+                                                where...
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <div class="text-center">
+                                            <a class="dropdown-item">
+                                                <strong>See All Alerts</strong>
+                                                <i class="fa fa-angle-right"></i>
+                                            </a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <!-- /top navigation -->
+
+            <!-- page content -->
+            <div class="right_col" role="main">
+                <div class="">
+
+
                     <div class="clearfix"></div>
-                  </div>
-                  <div class="container">
-         <div class="py-2">
-                <a href="recipe-list.php" class="btn btn-secondary" role="button">回食譜列表</a>
+
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 ">
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <h2>食譜管理<small>Users</small></h2>
+
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="container">
+                                    <div class="py-2">
+                                        <a href="recipe-list.php" class="btn btn-secondary" role="button">回食譜列表</a>
+                                    </div>
+                                    <form action="doAddRecipe.php" method="post" enctype="multipart/form-data">
+                                        <div class="mb-2">
+                                            <label for="" class="form-label">食譜名稱</label>
+                                            <input type="text" class="form-control" name="Title_R_name">
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="" class="form-label">展示圖片</label>
+                                            <input type="file" class="form-control" name="pic">
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="" class="form-label">內容</label>
+                                            <textarea type="text" class="form-control" name="Content" rows="6"
+                                                cols="70"> </textarea>
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="" class="form-label">分類</label>
+                                            <select name="Recipe_categoey_ID" id="" class="form-select">
+                                                <option value="">選擇分類</option>
+                                                <option value="1">主食</option>
+                                                <option value="2">醬料</option>
+                                                <option value="3">湯品</option>
+                                                <option value="4">飲品</option>
+                                                <option value="5">點心</option>
+                                                <option value="6">沙拉</option>
+                                            </select>
+                                        </div>
+
+
+
+                                        <button class="btn btn-secondary" type="submit">送出</button>
+                                    </form>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <form action="doAddRecipe.php" method="post" enctype="multipart/form-data">
-                <div class="mb-2">
-                    <label for="" class="form-label">食譜名稱</label>
-                    <input type="text" class="form-control" name="Title_R_name">
-                </div>
-                <div class="mb-2">
-                    <label for="" class="form-label">展示圖片</label>
-                    <input type="file" class="form-control" name="pic" >
-                </div>
-                <div class="mb-2">
-                    <label for="" class="form-label">內容</label>
-                    <textarea type="text" class="form-control" name="Content" rows="6" cols="70"> </textarea>
-                </div>
-                <div class="mb-2">
-                    <label for="" class="form-label">分類</label>
-                    <select name="Recipe_categoey_ID" id="" class="form-select">
-                            <option value="">選擇分類</option>
-                            <option value="1">主食</option>
-                            <option value="2">醬料</option>
-                            <option value="3">湯品</option>
-                            <option value="4">飲品</option>
-                            <option value="5">點心</option>
-                            <option value="6">沙拉</option>
-                        </select> 
-                </div>
-                
-                
-                
-                <button class="btn btn-secondary" type="submit">送出</button>
-            </form>
+
+
+
+
+
+
+
+
+
         </div>
-       
-                  </div>
-              </div>
-            </div>
-                </div>
-              </div>
+    </div>
+    
+    <!-- /page content -->
 
-              
-              
-
-              
-
-              
-
-              
-            </div>
-          </div>
-        </div>
-        <!-- /page content -->
-
-        <!-- footer content -->
-        <footer>
-          <div class="pull-right">
+    <!-- footer content -->
+    <footer>
+        <div class="pull-right">
             Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
-          </div>
-          <div class="clearfix"></div>
-        </footer>
-        <!-- /footer content -->
-      </div>
+        </div>
+        <div class="clearfix"></div>
+    </footer>
+    <!-- /footer content -->
+    </div>
     </div>
 
     <!-- jQuery -->
     <script src="../vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
-   <script src="../vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <!-- FastClick -->
     <script src="../vendors/fastclick/lib/fastclick.js"></script>
     <!-- NProgress -->
@@ -405,5 +427,6 @@ require_once("../db_connect.php");
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
     <?php require_once("../js.php"); ?>
-  </body>
+</body>
+
 </html>

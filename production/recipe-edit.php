@@ -323,58 +323,60 @@ $rowCount = $result->num_rows;
         <div class="py-2">
             <a href="recipe-list.php" class="btn btn-secondary" role="button">回食譜列表</a>
         </div>
-        <?php if ($rowCount == 0) : ?>
-            沒有食譜
-        <?php else :
-            $row = $result->fetch_assoc();
-        ?>
-            <form action="updateRecipe.php" method="post" enctype="multipart/form-data">
-                <input type="hidden" name="Recipe_ID" value="<?= $row["Recipe_ID"] ?>">
-                <table class="table table-bordered">
-                    <tr>
-                        <th>食譜名稱</th>
-                        <td><input type="text" class="form-control" value="<?= $row["Title_R_name"] ?>" name="Title_R_name"></td>
-                    </tr>
-                    <tr>
-                        <th>展示圖片</th>
-                        <td>
-                            <input type="hidden" name="old_img" value="<?= $row["Image_URL"] ?>">
-                            <img class="object-fit-cover" src="rimages/<?= $row["Image_URL"] ?>" alt="">
-                            <input type="file" name="file">
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>簡介</th>
-                        <td>
-                        <textarea class="form-control" name="Content" cols="30" rows="10"><?= $row["Content"] ?></textarea>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>分類</th>
-                        <td>
-                            <select name="Recipe_category_ID" id="" class="form-select">
-                                
-                                <option value="1">主食</option>
-                                <option value="2">醬料</option>
-                                <option value="3">湯品</option>
-                                <option value="4">飲品</option>
-                                <option value="5">點心</option>
-                                <option value="6">沙拉</option>
-                            </select>
-                        </td>
-                    </tr>
-                </table>
-                <div>
-                    <button type="submit" class="btn btn-secondary">修改</button>
+        <?php if ($rowCount == 0): ?>
+                                    沒有食譜
+                                <?php else:
+                                    $row = $result->fetch_assoc();
+                                    ?>
+                                    <form action="updateRecipe.php" method="post" enctype="multipart/form-data">
+                                        <input type="hidden" name="Recipe_ID" value="<?= $row["Recipe_ID"] ?>">
+                                        <table class="table table-bordered">
+                                            <tr>
+                                                <th>食譜名稱</th>
+                                                <td><input type="text" class="form-control" value="<?= $row["Title_R_name"] ?>"
+                                                        name="Title_R_name"></td>
+                                            </tr>
+                                            <tr>
+                                                <th>展示圖片</th>
+                                                <td>
+                                                    <input type="hidden" name="old_img" value="<?= $row["Image_URL"] ?>">
+                                                    <img class="object-fit-cover" src="rimages/<?= $row["Image_URL"] ?>" alt="">
+                                                    <input type="file" name="file">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>簡介</th>
+                                                <td>
+                                                    <textarea class="form-control" name="Content" cols="30"
+                                                        rows="10"><?= $row["Content"] ?></textarea>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>分類</th>
+                                                <td>
+                                                    <select name="Recipe_category_ID" id="" class="form-select">
+        
+                                                        <option value="1">主食</option>
+                                                        <option value="2">醬料</option>
+                                                        <option value="3">湯品</option>
+                                                        <option value="4">飲品</option>
+                                                        <option value="5">點心</option>
+                                                        <option value="6">沙拉</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <div>
+                                            <button type="submit" class="btn btn-secondary">修改</button>
+                                        </div>
+                                    </form>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </form>
-        <?php endif; ?>
-    </div>
-                  </div>
-              </div>
             </div>
-                </div>
-              </div>
+        </div>
 
               
               
@@ -386,7 +388,7 @@ $rowCount = $result->num_rows;
               
             </div>
           </div>
-        </div>
+        
         <!-- /page content -->
 
         <!-- footer content -->
