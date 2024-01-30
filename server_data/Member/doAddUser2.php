@@ -1,4 +1,4 @@
-<!-- wu 增加會員連線中的處理 後台-->
+<!-- wu 練習增加會員連線中的處理 後台-->
 <?php
 require_once "./connect.php";
 
@@ -12,7 +12,9 @@ $email = $_POST["email"];
 $phone = $_POST["phone"];
 
 if (empty($name) || empty($email) || empty($phone)) {
-    echo "請填入必要欄位";
+    $error = "請填入必要欄位";
+    session_start();
+    $_SESSION['error'] = $error;
     header("add-user.php");
     exit();
 }
@@ -31,5 +33,3 @@ if ($conn->query($sql)) {
     echo "新增資料錯誤" . $conn->error;
 }
 $conn->close();
-
-header("location:member3.php");

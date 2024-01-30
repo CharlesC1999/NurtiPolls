@@ -1,4 +1,4 @@
-<!-- wu 會員資料列表 ui -->
+<!-- wu 會員資料列表練習 ui -->
 <?php
 require_once "./connect.php";
 
@@ -406,19 +406,19 @@ if ($userCount > 0):
                 <a class="btn btn-secondary <?php if ($order == 1) {
     echo "active";
 }
-?>" href="member.php?order=1&p=<?=$p?>"><i class="fa-solid fa-arrow-down-1-9 fa-fw"></i></a>
+?>" href="member3.php?order=1&p=<?=$p?>"><i class="fa-solid fa-arrow-down-1-9 fa-fw"></i></a>
                 <a class="btn btn-secondary <?php if ($order == 2) {
     echo "active";
 }
-?>" href="member.php?order=2&p=<?=$p?>"><i class="fa-solid fa-arrow-up-1-9"></i></a>
+?>" href="member3.php?order=2&p=<?=$p?>"><i class="fa-solid fa-arrow-up-1-9"></i></a>
                 <a class="btn btn-secondary <?php if ($order == 3) {
     echo "active";
 }
-?>" href="member.php?order=3&p=<?=$p?>"><i class="fa-solid fa-arrow-down-a-z"></i></a>
+?>" href="member3.php?order=3&p=<?=$p?>"><i class="fa-solid fa-arrow-down-a-z"></i></a>
                 <a class="btn btn-secondary <?php if ($order == 4) {
     echo "active";
 }
-?>" href="member.php?order=4&p=<?=$p?>"><i class="fa-solid fa-arrow-up-a-z"></i></a>
+?>" href="member3.php?order=4&p=<?=$p?>"><i class="fa-solid fa-arrow-up-a-z"></i></a>
             </div>
                 </div>
 <!--  -->
@@ -468,7 +468,7 @@ foreach ($rows as $user): ?>
                             <td><?=$user["Account"]?></td>
                             <td><?=$user["Phone"]?></td>
                             <td class=" d-flex justify-content-center">
-                                <a class="btn btn-secondary" href="user.php?id=<?=$user["id"]?>" role="button"><i class="fa-solid fa-user"></i></a>
+                                <a class="btn btn-secondary" href="user2.php?id=<?=$user["id"]?>" role="button"><i class="fa-solid fa-user"></i></a>
                             </td>
                         </tr>
                     <?php endforeach;?>
@@ -486,7 +486,7 @@ foreach ($rows as $user): ?>
 }
 ?>">
                         <a class="page-link"
-                    href="member.php?order=<?=$order?>&p=<?=$i?>"><?=$i?></a></li>
+                    href="member3.php?order=<?=$order?>&p=<?=$i?>"><?=$i?></a></li>
 
                     <?php endfor;?>
                 </ul>

@@ -1,4 +1,4 @@
-<!-- 新增 會員 ui -->
+<!-- wu 新增 會員 ui 會員表格連線 -->
 <?php
 require_once "./connect.php";
 ?>
@@ -45,7 +45,9 @@ include "./css.php";
             <div class="mt-2">
             <button type="submit" class="btn btn-primary">送出</button>
             </div>
+
         </form>
+
     </div>
     <?php
 include "./js.php";
