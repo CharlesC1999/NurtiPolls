@@ -1,6 +1,6 @@
-<!-- 註冊前台 -->
-<?php 
- require_once("./connect.php");
+<!-- wu 註冊前台 -->
+<?php
+require_once "./connect.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -8,9 +8,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <?php 
-        include("../css.php");
-        ?>
+    <?php
+include "../css.php";
+?>
 </head>
 <body>
 <body>
@@ -23,12 +23,12 @@
                     <label for="" class="form-label">account</label>
                     <input type="text" class="form-control" name="account">
                 </div>
-               
+
                 <div class="mb-2">
                     <label for="" class="form-label">password</label>
                     <input type="text" class="form-control" name="password">
                 </div>
-                
+
                 <div class="mb-2">
                     <label for="" class="form-label">Retype-Password</label>
                     <input type="text" class="form-control" name="repassword">
@@ -38,9 +38,9 @@
             </div>
         </div>
         </div>
-    <?php 
-        include("../js.php");
-        ?>
+    <?php
+include "../js.php";
+?>
     </body>
 </html>
 </body>
