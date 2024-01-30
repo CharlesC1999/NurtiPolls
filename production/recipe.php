@@ -78,7 +78,7 @@ if($rowCount!=0){
                             <th>展示圖片</th>
                             <td>
                                 <div class="ratio ratio-1x1">
-                                <img class="object-fit-cover" src="/nurtipolls/rimages/<?=$row["Image_URL"]?>" alt="">
+                                <img class="object-fit-cover" src="rimages/<?=$row["Image_URL"]?>" alt="">
                                 </div>
                             </td>
                         </tr>
