@@ -761,9 +761,9 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
                                   $End_date = $rowClass["End_date"];
                                   $now = date("Y-m-d");
                                   if ($now >= $Start_date && $now <= $End_date) {
-                                    echo "報名開放中";
+                                    echo "開放報名中";
                                   } elseif ($now < $Start_date) {
-                                    echo "尚未開放報名";
+                                    echo "報名尚未開放";
                                   } elseif ($now > $End_date) {
                                     echo "報名已截止";
                                   }
