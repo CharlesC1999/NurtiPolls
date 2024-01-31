@@ -10,15 +10,28 @@ if (!isset($_POST["name"])) {
 $name = $_POST["name"];
 $email = $_POST["email"];
 $phone = $_POST["phone"];
+$img = $_POST["img"];
 
 if (empty($name) || empty($email) || empty($phone)) {
     echo "請填入必要欄位";
     header("add-user.php");
     exit();
 }
+// if ($_FILES['img']['error'] == 0) {
+// $filename = $_FILES['img']['name'];
+
+// if (move_uploaded_file($_FILES['img']['images'], './image_members/' . $filename)) {
+//     echo "success";
+// } else {
+//     echo "fail";
+//     // } else {
+//     //     echo $_FILES['img']['error'];
+
+//     // }
+// }
 
 $now = date('Y-m-d H:i:s');
-$sql = "INSERT INTO member (User_name,Email,Phone,Create_date,valid) VALUES('$name','$email','$phone','$now',1)";
+$sql = "INSERT INTO member (User_name,Email,Phone,Create_date,valid,User_image) VALUES('$name','$email','$phone','$now',1,$img)";
 
 // echo $sql;
 // exit;

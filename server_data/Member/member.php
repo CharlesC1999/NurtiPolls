@@ -465,7 +465,7 @@ foreach ($rows as $user): ?>
                         <tr>
                             <td><?=$user["id"]?></td>
                             <td><?=$user["User_name"]?></td>
-                            <td><?=$user["Account"]?></td>
+                            <td><?=$user["Email"]?></td>
                             <td><?=$user["Phone"]?></td>
                             <td class=" d-flex justify-content-center">
                                 <a class="btn btn-secondary" href="user.php?id=<?=$user["id"]?>" role="button"><i class="fa-solid fa-user"></i></a>

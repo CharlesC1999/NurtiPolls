@@ -13,8 +13,25 @@ $email = $_POST["email"];
 $phone = $_POST["phone"];
 $birth = $_POST["birth"];
 $id = $_POST["id"];
+$img = $_POST["img"];
+$filename = "";
 
-$sql = "UPDATE member SET User_name='$name',Gender='$gender',Email='$email',Phone='$phone',date_of_birth='$birth' WHERE id=$id";
+if ($_FILES['img']['error'] == 0) {
+    $filename = $_FILES['img']['name'];
+    // echo $filename;
+
+    if (move_uploaded_file($_FILES['img']['tmp_name'], './image_members/' . $filename)) {
+        echo "success";
+    } else {
+        echo "fail";
+        // } else {
+        //     echo $_FILES['img']['error'];
+
+        // }
+    }
+}
+
+$sql = "UPDATE member SET User_name='$name',Gender='$gender',Email='$email',Phone='$phone',date_of_birth='$birth',User_image='$filename' WHERE id=$id";
 
 if ($conn->query($sql) === true) {
     echo "更新成功";
@@ -23,4 +40,4 @@ if ($conn->query($sql) === true) {
 }
 
 $conn->close();
-header("location: user.php?id=$id");
+// header("location: user.php?id=$id");
