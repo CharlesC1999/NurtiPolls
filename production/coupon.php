@@ -11,7 +11,7 @@ $sql = "SELECT * from coupons WHERE valid=1";
 $result = $conn->query($sql);
 
 $row = $result->fetch_assoc();
-$discount_type=$row["Discount_type"];
+$discount_type = $row["Discount_type"];
 $conn->close();
 ?>
 <!DOCTYPE html>
@@ -93,22 +93,6 @@ $conn->close();
                                 </li>
                                 <li><a href="coupons.php"><i class="fa fa-table"></i>優惠卷管理<span class="fa fa-chevron-down"></span></a>
                                 </li>
-                                <!-- <li><a><i class="fa fa-bar-chart-o"></i> Data Presentation <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="chartjs.html">Chart JS</a></li>
-                      <li><a href="chartjs2.html">Chart JS2</a></li>
-                      <li><a href="morisjs.html">Moris JS</a></li>
-                      <li><a href="echarts.html">ECharts</a></li>
-                      <li><a href="other_charts.html">Other Charts</a></li>
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-clone"></i>Layouts <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="fixed_sidebar.html">Fixed Sidebar</a></li>
-                      <li><a href="fixed_footer.html">Fixed Footer</a></li>
-                    </ul>
-                  </li>
-                </ul> -->
                         </div>
                     </div>
                     <!-- /sidebar menu -->
@@ -219,32 +203,35 @@ $conn->close();
             <!-- page content -->
             <div class="right_col" role="main">
                 <div class="container">
-                    <h2 class="my-3">修改優惠券</h2>
+                    <div class="py-3">
+                        <a type="submit" class="btn btn-info" href="coupons.php" role="button">返回列表</a>
+                    </div>
+                    <h2 class="my-3">優惠券詳情</h2>
                     <input type="hidden" name="id" value="<?= $row["Coupon_ID"] ?>">
                     <form action="updateCoupon.php" method="post">
                         <table>
                             <tr>
                                 <th>優惠券名稱</th>
                                 <td class="p-3">
-                                    <input type="text" class="form-control" name="name" value="<?= $row["C_name"] ?>">
+                                    <?= $row["C_name"] ?>
                                 </td>
                             </tr>
                             <tr>
                                 <th>優惠券代碼</th>
                                 <td class="p-3">
-                                    <input type="text" class="form-control" id="couponCode" placeholder="" name="code" value="<?= $row["C_code"] ?>">
+                                    <?= $row["C_code"] ?>
                                 </td>
                             </tr>
                             <tr>
                                 <th>優惠券使用時間</th>
                                 <td class="p-3">
                                     <div class="row">
-                                        <div class="form-group col-auto">
-                                            <input type="date" class="form-control" id="datePicker" name="validStartDate" value="<?= $row["Valid_start_date"] ?>">
+                                        <div class="col-auto">
+                                            <?= $row["Valid_start_date"] ?>
                                         </div>
-                                        <span class="col-auto">~</span>
-                                        <div class="form-group col-auto">
-                                            <input type="date" class="form-control" id="datePicker" name="validEndDate" value="<?= $row["Valid_end_date"] ?>">
+                                        <div class="col-auto">~</div>
+                                        <div class="col-auto">
+                                            <?= $row["Valid_end_date"] ?>
                                         </div>
                                     </div>
                                 </td>
@@ -252,38 +239,32 @@ $conn->close();
                             <tr>
                                 <th>折扣方式</th>
                                 <td class="p-3">
-                                    <div class="row">
-                                        <div class="form-check col-auto">
-                                            <input class="form-check-input" type="radio" name="discount_type" id="radio" value="百分比" <?php if ($discount_type == "百分比") echo "checked"; ?>>
-                                            <label class="form-check-label" for="flexRadioDefault1">
-                                                百分比
-                                            </label>
-                                        </div>
-
-                                        <div class="form-check col-auto">
-                                            <input class="form-check-input" type="radio" name="discount_type" id="" value="金額"  <?php if ($discount_type == "金額") echo "checked"; ?> >
-                                            <label class="form-check-label" for="flexRadioDefault2">
-                                                金額
-                                            </label>
-                                        </div>
+                                    <?= $row["Discount_type"] ?>
                                 </td>
                             </tr>
                             <tr>
                                 <th>優惠券面額</th>
                                 <td class="p-3">
-                                    <input type="text" class="form-control" id="couponCode" placeholder="" name="code" value="<?= $row["Discount_amount"] ?>">
+                                    <?= $row["Discount_amount"] ?>
                                 </td>
                             </tr>
                             <tr>
                                 <th>最低消費金額</th>
                                 <td class="p-3">
-                                    <input type="number" class="form-control" name="min_amount" value="<?= $row["minimum_spend"] ?>">
+                                    <?= $row["minimum_spend"] ?>
                                 </td>
                             </tr>
+                            <tr>
+                                <th>優惠說明</th>
+                                <td class="p-3">
+                                    <?= $row["Coupon_description"] ?>
+                                </td>
+                            </tr>
+                            
+                           
+
                         </table>
-                        <div class="py-3">
-                            <button type="submit" class="btn btn-info" role="button">儲存</button>
-                        </div>
+
                     </form>
                 </div>
             </div>
