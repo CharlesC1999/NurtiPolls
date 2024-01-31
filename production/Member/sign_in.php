@@ -1,6 +1,6 @@
 <!-- wu 註冊前台 ui-->
 <?php
-require_once "./connect.php";
+require_once "../../db_connect.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
