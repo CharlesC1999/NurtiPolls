@@ -346,55 +346,64 @@ if($rowCount!=0){
             <div class="py-2">
                 <a href="recipe-list.php" class="btn btn-secondary" role="button">回食譜列表</a>
             </div>
-            <?php if($rowCount==0): ?>
-                沒有食譜
+            <?php if ($rowCount == 0): ?>
+                                    沒有食譜
+        
+                                <?php else:
 
-                <?php else: 
-                   
-                    ?>
-                    <input type="hidden" name="Recipe_ID" value="<?=$row["Recipe_ID"]?>">
-                    <table class="table table-bordered">
-                    
-                        <tr>
-                            <th>食譜名稱</th>
-                            <td><?=$row["Title_R_name"]?></td>
-                        </tr>
-                        <tr>
-                            <th>展示圖片</th>
-                            <td>
-                                <div class="ratio ratio-1x1">
-                                <img class="object-fit-cover" src="rimages/<?=$row["Image_URL"]?>" alt="">
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>簡介</th>
-                            <td><?=$row["Content"]?></td>
-                        </tr>
-                        <tr>
-                            <th>建立日期</th>
-                            <td><?=$row["Publish_date"]?></td>
-                        </tr>
-                        <tr>
-                            <th>分類</th>
-                            <td><?=$row["category_name"]?></td>
-                        </tr>
-                    </table>
-                    <div class="d-flex justify-content-between">
-                    <a href="recipe-edit.php?Recipe_ID=<?=$row["Recipe_ID"]?>" role="button" class="btn btn-secondary"><i class="fa-solid fa-wand-magic-sparkles"></i>修改</a>
-                    <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmModal" >
-                        <i class="fa-solid fa-trash"></i>
-                        </button>
+                                    ?>
+                                    <input type="hidden" name="Recipe_ID" value="<?= $row["Recipe_ID"] ?>">
+                                    <table class="table table-bordered">
+        
+                                        <tr>
+                                            <th>食譜名稱</th>
+                                            <td>
+                                                <?= $row["Title_R_name"] ?>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>展示圖片</th>
+                                            <td>
+                                                <div class="ratio ratio-1x1">
+                                                    <img class="object-fit-cover" src="rimages/<?= $row["Image_URL"] ?>" alt="">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>簡介</th>
+                                            <td>
+                                                <?= $row["Content"] ?>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>建立日期</th>
+                                            <td>
+                                                <?= $row["Publish_date"] ?>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>分類</th>
+                                            <td>
+                                                <?= $row["category_name"] ?>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <div class="d-flex justify-content-between">
+                                        <a href="recipe-edit.php?Recipe_ID=<?= $row["Recipe_ID"] ?>" role="button"
+                                            class="btn btn-secondary"><i class="fa-solid fa-wand-magic-sparkles"></i>修改</a>
+                                        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmModal">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </div>
+        
+                                <?php endif; ?>
+        
+                            </div>
+                        </div>
                     </div>
-
-                <?php endif; ?>
-              
-        </div>
-                  </div>
-              </div>
-            </div>
                 </div>
-              </div>
+            </div>
+        </div>
 
               
               

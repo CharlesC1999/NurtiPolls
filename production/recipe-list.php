@@ -1,8 +1,25 @@
 <?php
 require_once("../db_connect.php");
+
+$sqlCategory="SELECT * FROM recipe_categories";
+$resultCategory=$conn->query($sqlCategory);
+$rowsCategory=$resultCategory->fetch_all(MYSQLI_ASSOC);
+
 $sql = "SELECT recipe.*,recipe_categories.Recipe_cate_name AS category_name FROM recipe
 JOIN recipe_categories ON recipe.Recipe_Category_ID = recipe_categories.Recipe_cate_ID
  WHERE valid=1 ORDER BY Recipe_ID ASC";
+
+if (isset($_GET["cate"])) {
+    $cate = $_GET["cate"];
+    $sql = "SELECT  recipe.*,recipe_categories.Recipe_cate_name AS category_name FROM recipe
+    JOIN recipe_categories ON recipe.Recipe_Category_ID = recipe_categories.Recipe_cate_ID 
+    WHERE recipe.Recipe_Category_ID = $cate AND valid=1
+    ORDER BY Recipe_ID ASC";
+} 
+
+
+
+
 $result = $conn->query($sql);
 
 $recipeCount = $result->num_rows;
@@ -53,7 +70,21 @@ $recipeCount = $result->num_rows;
 
 </head>
 
-<body class="nav-md">
+<body class="nav-md">    
+        
+            <?php
+            $categories=[];
+            foreach($rowsCategory as $cate){
+                $categories[$cate["Recipe_cate_ID"]]=$cate["Recipe_cate_name"];
+            }
+             //print_r($categories);
+            ?>
+        
+
+
+
+
+
   <div class="container body">
     <div class="main_container">
       <div class="col-md-3 left_col">
@@ -347,6 +378,19 @@ $recipeCount = $result->num_rows;
                           共
                           <?= $recipeCount ?>份
                         </p>
+                 <div class="mb-2">      
+                        <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link text-success" aria-current="page" href="recipe-list.php">全部</a>
+                </li>
+                <?php foreach ($rowsCategory as $category): ?>
+                    <a class="nav-link text-secondary" aria-current="page" href="recipe-list.php?cate=<?= $category["Recipe_cate_ID"] ?>">
+                        <?= $category["Recipe_cate_name"] ?>
+                    </a>
+                <?php endforeach; ?>
+
+            </ul>
+            </div> 
                         <table id="datatable" class="table table-striped table-bordered" style="width:100%">
                           <thead>
                             <tr>
