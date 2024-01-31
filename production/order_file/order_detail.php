@@ -1,19 +1,47 @@
 <?php
-
+session_start();
 require_once "../../db_connect.php";
 
-$sql_order = "SELECT buy.Order_ID, buy.Status, member.User_name, buy.Order_date, SUM(buy_item.total_item_price) AS total_price
-FROM buy
-JOIN member ON buy.Member_ID = member.id
-JOIN buy_item ON buy.Order_ID = buy_item.Order_ID
-GROUP BY buy.Order_ID
-ORDER BY buy.Order_ID";
-$result_order = $conn->query($sql_order);
-$order_count = $result_order->num_rows;
-// $sql_order_item = "SELECT * FROM order_item";
-// $result_items = $conn->query($sql_order_item);
-// $order_item_count = $result_items->num_rows;
-session_start();
+// $sql_order = "SELECT * FROM buy
+// JOIN member ON buy.Member_ID = member.id
+// JOIN buy_item ON buy.Order_ID = buy_item.Order_ID
+// ORDER BY buy.Order_ID";
+// $result_order = $conn->query($sql_order);
+// $order_count = $result_order->num_rows;
+
+$rowCount = 0; // 在條件外部定義 $rowCount 變量
+
+if (isset($_POST['Order_ID'])) {
+    $orderID = $_POST['Order_ID'];
+
+    $sql_order_detail = "SELECT * FROM buy_item WHERE Order_ID = ?";
+    $stmt = $conn->prepare($sql_order_detail);
+
+    if ($stmt === false) {
+        die("準備 SQL 語句失敗：" . $conn->error);
+    }
+
+    $stmt->bind_param("i", $orderID);
+
+    if ($stmt->execute()) {
+        $result = $stmt->get_result();
+        $rowCount = $result->num_rows;
+
+        if ($rowCount > 0) {
+            $row = $result->fetch_assoc();
+            // 這裡處理您的結果...
+        } else {
+            echo "沒有找到對應的訂單詳情。";
+        }
+    } else {
+        die("執行語句失敗：" . $stmt->error);
+    }
+
+    $stmt->close();
+} else {
+    echo "未提供訂單 ID。";
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -111,13 +139,13 @@ session_start();
                     </ul>
                   </li> -->
                   <li>
-                    <a href="Member/member.php"
+                    <a href="../Member/member.php"
                       ><i class="fa fa-table"></i> 會員管理
                       <span class="fa fa-chevron-down"></span
                     ></a>
                   </li>
                   <li>
-                    <a href="product.php"
+                    <a href="../product.php"
                       ><i class="fa fa-table"></i>商品管理
                       <span class="fa fa-chevron-down"></span
                     ></a>
@@ -128,35 +156,35 @@ session_start();
                         class="fa fa-chevron-down"
                       ></span>
                       <ul class="nav child_menu">
-                        <li><a href="categories_product.php">商品</a></li>
-                        <li><a href="categories_class.php">課程</a></li>
-                        <li><a href="categories_recipe.php">食譜</a></li>
+                        <li><a href="../categories_product.php">商品</a></li>
+                        <li><a href="../categories_class.php">課程</a></li>
+                        <li><a href="../categories_recipe.php">食譜</a></li>
                       </ul>
                     </a>
                   </li>
                   <li>
-                    <a href="recipe-list.php"
+                    <a href="../recipe-list.php"
                       ><i class="fa fa-table"></i>食譜管理<span
                         class="fa fa-chevron-down"
                       ></span
                     ></a>
                   </li>
                   <li>
-                    <a href="speaker.php"
+                    <a href="../speaker.php"
                       ><i class="fa fa-table"></i>講師管理<span
                         class="fa fa-chevron-down"
                       ></span
                     ></a>
                   </li>
                   <li>
-                    <a href="redirectClass.php"
+                    <a href="../redirectClass.php"
                       ><i class="fa fa-table"></i>課程管理<span
                         class="fa fa-chevron-down"
                       ></span
                     ></a>
                   </li>
                   <li>
-                    <a href="coupons.php"
+                    <a href="../coupons.php"
                       ><i class="fa fa-table"></i>優惠卷管理<span
                         class="fa fa-chevron-down"
                       ></span
@@ -372,7 +400,7 @@ session_start();
               <div class="col-md-12 col-sm-12 ">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>訂單管理 <small>Orders</small></h2>
+                    <h2>訂單詳情 <small>Orders detail</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
 
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -381,44 +409,21 @@ session_start();
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                      <div class="row">
-                          <div class="col-sm-12">
-                            <div class="card-box table-responsive">
+                  <div class="row">
+                  <div class="col-sm-12">
+                <div class="card-box table-responsive">
+<?php if ($rowCount == 0): ?>
+ 使用者不存在
+<?php else:
 
-                    <table id="datatable" class="table table-striped table-bordered" style="width:100%">
-                      <thead>
-                        <tr>
-                          <th class="d-none"></th>
-                          <th>訂單狀態</th>
-                          <th>會員名稱</th>
-                          <th>下單時間</th>
-                          <th>總金額</th>
-                          <th style="width: 8vw;">訂單詳細</th>
-                        </tr>
-                      </thead>
-                      <tbody>
+?>
+                    <div>
+                        <div class="d-flex">
 
-<?php
-$rows = $result_order->fetch_all(MYSQLI_ASSOC);
-foreach ($rows as $cate): ?>
-                        <tr>
-                            <td class="d-none"><?=$cate["Order_ID"]?></td>
-                            <td><?=$cate["Status"]?></td>
-                            <td><?=$cate["User_name"]?></td>
-                            <td><?=$cate["Order_date"]?></td>
-                            <td><?=intval($cate["total_price"])?></td>
-                            <td style="width: 8vw;">
-                                <form action="order_detail.php" method="post">
-                                    <input type="hidden" name="Order_ID" value="<?=$cate['Order_ID']?>">
-                                    <button type="submit" class="btn btn-info text-white">
-                                        <i class="fa-solid fa-eye fa-fw"></i> 檢視訂單
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-<?php endforeach;?>
-                      </tbody>
-                    </table>
+                        </div>
+                    </div>
+
+<?php endif?>
                   </div>
                   </div>
               </div>
