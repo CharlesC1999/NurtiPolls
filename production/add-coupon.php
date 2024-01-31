@@ -396,6 +396,10 @@ $conn->close();
                 <label for="" class="form-label">最低消費金額</label>
                 <input type="number" class="form-control" name="min_amount">
             </div>
+            <div class="mb-3">
+                <label for="" class="form-label">使用說明（選填）</label>
+                <input type="text" class="form-control" name="coupon_description">
+            </div>
             <div class="py-2">
                 <button type="submit" class="btn btn-info me-3" role="button" style="background-color: #17a2b8;color:#fff">確認</button>
                 <a type="" class="btn btn-secondary" href="coupons.php" role="button">取消</a>

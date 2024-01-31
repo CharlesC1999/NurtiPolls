@@ -4,22 +4,33 @@ $todayDate = date('Y-m-d');
 $sqlFilter = "";
 
 if (isset($_GET["status"])) {
-    if ($_GET["status"] == "upcoming") {
-        // 未開始
-        $sqlFilter = " AND Valid_start_date > '$todayDate'";
-    } elseif ($_GET["status"] == "ongoing") {
-        // 進行中
-        $sqlFilter = " AND Valid_start_date <= '$todayDate' AND Valid_end_date >= '$todayDate'";
-    } elseif ($_GET["status"] == "expired") {
-        // 已結束
-        $sqlFilter = " AND Valid_end_date < '$todayDate'";
-    }
+  if ($_GET["status"] == "all") {
+    // 顯示所有資料
+    $sqlFilter = "";
+  } elseif ($_GET["status"] == "upcoming") {
+    // 未開始
+    $sqlFilter = " AND Valid_start_date > '$todayDate'";
+  } elseif ($_GET["status"] == "ongoing") {
+    // 進行中
+    $sqlFilter = " AND Valid_start_date <= '$todayDate' AND Valid_end_date >= '$todayDate'";
+  } elseif ($_GET["status"] == "expired") {
+    // 已結束
+    $sqlFilter = " AND Valid_end_date < '$todayDate'";
+  }
 }
 
 $sqlAll = "SELECT * FROM coupons WHERE valid=1 $sqlFilter";
-
-// $sqlAll = "SELECT * FROM coupons WHERE valid=1";
 $resultAll = $conn->query($sqlAll);
+
+$sql = "SELECT * FROM coupons WHERE valid=1";
+$result = $conn->query($sql);
+$row = $result->fetch_assoc();
+
+if (!isset($_GET["Coupon_ID"])) {
+  $Coupon_ID = 0;
+} else {
+  $Coupon_ID = $_GET["Coupon_ID"];
+}
 
 $conn->close();
 ?>
@@ -80,7 +91,7 @@ $conn->close();
       <div class="col-md-3 left_col">
         <div class="left_col scroll-view">
           <div class="navbar nav_title" style="border: 0;">
-          <a href="HomePage.html" class="site_title"><i class="fa fa-paw"></i> <span>營養大選 Nutripoll</span></a>
+            <a href="HomePage.html" class="site_title"><i class="fa fa-paw"></i> <span>營養大選 Nutripoll</span></a>
           </div>
 
           <div class="clearfix"></div>
@@ -104,54 +115,26 @@ $conn->close();
             <div class="menu_section">
               <h3>General</h3>
               <ul class="nav side-menu">
-                <!-- <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
+               
+                <li><a href="member.php"><i class="fa fa-table"></i> 會員管理 <span class="fa fa-chevron-down"></span></a>
+                </li>
+                <li><a href="product.php"><i class="fa fa-table"></i>商品管理 <span class="fa fa-chevron-down"></span></a>
+                </li>
+                <li><a><i class="fa fa-table"></i>分類管理<span class="fa fa-chevron-down"></span>
                     <ul class="nav child_menu">
-                      <li><a href="index.html">Dashboard</a></li>
-                      <li><a href="index2.html">Dashboard2</a></li>
-                      <li><a href="index3.html">Dashboard3</a></li>
-                    </ul>
-                  </li> -->
-                <!-- <li><a><i class="fa fa-edit"></i> Forms <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="form.html">General Form</a></li>
-                      <li><a href="form_advanced.html">Advanced Components</a></li>
-                      <li><a href="form_validation.html">Form Validation</a></li>
-                      <li><a href="form_wizards.html">Form Wizard</a></li>
-                      <li><a href="form_upload.html">Form Upload</a></li>
-                      <li><a href="form_buttons.html">Form Buttons</a></li>
-                    </ul>
-                  </li> -->
-                <!-- <li><a><i class="fa fa-desktop"></i> UI Elements <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="general_elements.html">General Elements</a></li>
-                      <li><a href="media_gallery.html">Media Gallery</a></li>
-                      <li><a href="typography.html">Typography</a></li>
-                      <li><a href="icons.html">Icons</a></li>
-                      <li><a href="glyphicons.html">Glyphicons</a></li>
-                      <li><a href="widgets.html">Widgets</a></li>
-                      <li><a href="invoice.html">Invoice</a></li>
-                      <li><a href="inbox.html">Inbox</a></li>
-                      <li><a href="calendar.html">Calendar</a></li>
-                    </ul>
-                  </li> -->
-                  <li><a href="member.php"><i class="fa fa-table"></i> 會員管理 <span class="fa fa-chevron-down"></span></a>
-                  </li><li><a href="product.php"><i class="fa fa-table"></i>商品管理 <span class="fa fa-chevron-down"></span></a>
-                  </li>
-                  <li><a><i class="fa fa-table"></i>分類管理<span class="fa fa-chevron-down"></span>
-                  <ul class="nav child_menu">
                       <li><a href="categories_product.php" style="font-size: 16px;">商品</a></li>
                       <li><a href="categories_class.php" style="font-size: 16px;">課程</a></li>
                       <li><a href="categories_recipe.php" style="font-size: 16px;">食譜</a></li>
-                  </ul>
-                  </li>
-                  <li><a href="recipe-list.php"><i class="fa fa-table"></i>食譜管理<span class="fa fa-chevron-down"></span></a>
-                  </li>
-                  <li><a href="speaker.php"><i class="fa fa-table"></i>講師管理<span class="fa fa-chevron-down"></span></a>
-                  </li>
-                  <li><a href="redirectClass.php"><i class="fa fa-table"></i>課程管理<span class="fa fa-chevron-down"></span></a>
-                  </li>
-                  <li><a href="coupons.php"><i class="fa fa-table"></i>優惠卷管理<span class="fa fa-chevron-down"></span></a>
-                  </li>
+                    </ul>
+                </li>
+                <li><a href="recipe-list.php"><i class="fa fa-table"></i>食譜管理<span class="fa fa-chevron-down"></span></a>
+                </li>
+                <li><a href="speaker.php"><i class="fa fa-table"></i>講師管理<span class="fa fa-chevron-down"></span></a>
+                </li>
+                <li><a href="redirectClass.php"><i class="fa fa-table"></i>課程管理<span class="fa fa-chevron-down"></span></a>
+                </li>
+                <li><a href="coupons.php"><i class="fa fa-table"></i>優惠卷管理<span class="fa fa-chevron-down"></span></a>
+                </li>
                 <!-- <li><a><i class="fa fa-bar-chart-o"></i> Data Presentation <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="chartjs.html">Chart JS</a></li>
@@ -169,63 +152,14 @@ $conn->close();
                   </li>
                 </ul> -->
             </div>
-            <!-- <div class="menu_section">
-                <h3>Live On</h3>
-                <ul class="nav side-menu">
-                  <li><a><i class="fa fa-bug"></i> Additional Pages <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="e_commerce.html">E-commerce</a></li>
-                      <li><a href="projects.html">Projects</a></li>
-                      <li><a href="project_detail.html">Project Detail</a></li>
-                      <li><a href="contacts.html">Contacts</a></li>
-                      <li><a href="profile.html">Profile</a></li>
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-windows"></i> Extras <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="page_403.html">403 Error</a></li>
-                      <li><a href="page_404.html">404 Error</a></li>
-                      <li><a href="page_500.html">500 Error</a></li>
-                      <li><a href="plain_page.html">Plain Page</a></li>
-                      <li><a href="login.html">Login Page</a></li>
-                      <li><a href="pricing_tables.html">Pricing Tables</a></li>
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-sitemap"></i> Multilevel Menu <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                        <li><a href="#level1_1">Level One</a>
-                        <li><a>Level One<span class="fa fa-chevron-down"></span></a>
-                          <ul class="nav child_menu">
-                            <li class="sub_menu"><a href="level2.html">Level Two</a>
-                            </li>
-                            <li><a href="#level2_1">Level Two</a>
-                            </li>
-                            <li><a href="#level2_2">Level Two</a>
-                            </li>
-                          </ul>
-                        </li>
-                        <li><a href="#level1_2">Level One</a>
-                        </li>
-                    </ul>
-                  </li>
-                  <li><a href="javascript:void(0)"><i class="fa fa-laptop"></i> Landing Page <span class="label label-success pull-right">Coming Soon</span></a></li>
-                </ul>
-              </div> -->
+            
 
           </div>
           <!-- /sidebar menu -->
 
           <!-- /menu footer buttons -->
           <div class="sidebar-footer hidden-small">
-            <!-- <a data-toggle="tooltip" data-placement="top" title="Settings">
-                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-              </a> -->
-            <!-- <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Lock">
-                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-              </a> -->
+           
             <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
               <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
             </a>
@@ -354,26 +288,26 @@ $conn->close();
             <div class="col-md-12 col-sm-12 ">
               <div class="x_panel">
                 <?php
-// 確定當前篩選狀態
-$status = isset($_GET['status']) ? $_GET['status'] : 'all';
-?>
+                // 確定當前篩選狀態
+                $status = isset($_GET['status']) ? $_GET['status'] : 'all';
+                ?>
                 <div class="filter-buttons x_title">
-                  <a href="coupons.php" class="btn custom-btn <?php if ($status == 'all') {
-    echo 'active';
-}
-?>">全部</a>
+                  <a href="?status=all" class="btn custom-btn <?php if ($status == 'all') {
+                                                                echo 'active';
+                                                              }
+                                                              ?>">全部</a>
                   <a href="?status=ongoing" class="btn custom-btn <?php if ($status == 'ongoing') {
-    echo 'active';
-}
-?>">進行中的活動</a>
+                                                                    echo 'active';
+                                                                  }
+                                                                  ?>">進行中的活動</a>
                   <a href="?status=upcoming" class="btn custom-btn <?php if ($status == 'upcoming') {
-    echo 'active';
-}
-?>">接下來的活動</a>
+                                                                      echo 'active';
+                                                                    }
+                                                                    ?>">接下來的活動</a>
                   <a href="?status=expired" class="btn custom-btn <?php if ($status == 'expired') {
-    echo 'active';
-}
-?>">已結束</a>
+                                                                    echo 'active';
+                                                                  }
+                                                                  ?>">已結束</a>
                 </div>
 
 
@@ -398,64 +332,45 @@ $status = isset($_GET['status']) ? $_GET['status'] : 'all';
                           </thead>
                           <tbody>
                             <?php
-$rows = $resultAll->fetch_all(MYSQLI_ASSOC);
-
-foreach ($rows as $coupon):
-?>
+                            $rows = $resultAll->fetch_all(MYSQLI_ASSOC);
+                            foreach ($rows as $coupon) :
+                            ?>
                               <tr>
-                                <td><?=$coupon["Coupon_ID"]?></td>
-                                <td><?=$coupon["C_name"]?></td>
-                                <td><?=$coupon["C_code"]?></td>
-                                <td><?=$coupon["Discount_type"]?></td>
-                                <td><?=$coupon["Discount_amount"]?></td>
-                                <td><?=$coupon["Valid_start_date"]?></td>
-                                <td><?=$coupon["Valid_end_date"]?></td>
+                                <td><?= $coupon["Coupon_ID"] ?></td>
+                                <td><?= $coupon["C_name"] ?></td>
+                                <td><?= $coupon["C_code"] ?></td>
+                                <td><?= $coupon["Discount_type"] ?></td>
+                                <td><?= $coupon["Discount_amount"] ?></td>
+                                <td><?= $coupon["Valid_start_date"] ?></td>
+                                <td><?= $coupon["Valid_end_date"] ?></td>
                                 <td>
-                               
-                                <div class="modal fade" id="confirmModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h2 class="modal-title fs-5" id="exampleModalLabel">刪除優惠券</h2>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          確認刪除?
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-          <a role="button" class="btn btn-danger" href="doDeleteCoupon.php?id=<?=$coupon["Coupon_ID"] ?>">確認</a>
-        </div>
-      </div>
-    </div>
-  </div>
-                                  <?php
+                                  <a name="" id=""  href="coupon-edit.php?Coupon_ID=<?= $coupon["Coupon_ID"] ?>" role="button">編輯</a>
+                                  <a name="" id="" href="coupon.php?Coupon_ID=<?= $coupon["Coupon_ID"] ?>" role="button">顯示詳情</a>
+                                  <a href="#" data-toggle="modal" data-target="#confirmModal">刪除</ㄇ>
 
-                                  // 判斷優惠券狀態
-                                  if ($coupon["Valid_start_date"] > $todayDate) {
-                                    // 未開始
-                                    echo '<a href="coupon-edit.php?id=<?=$coupon["id"]?> 編輯</a> ';
-                                    echo '<a
-                                    href="#"
-                    data-toggle="modal" data-target="#confirmModal"
-                    >刪除</a>';
-                                  } elseif ($coupon["Valid_start_date"] <= $todayDate && $coupon["Valid_end_date"] >= $todayDate) {
-                                    // 進行中
-                                    echo '<a href="coupon-edit.php?id=<?=$coupon["id"]?>編輯</a> ';
-                                    echo '<a
-                                    href="#"
-                    data-toggle="modal" data-target="#confirmModal"
-                    >刪除</a>';
-                                  } else {
-                                    // 已結束
-                                    echo '<a href="details.php?id=' . $coupon["Coupon_ID"] . '">顯示詳情</a>';
-                                  }
-                                  ?>
-                                   </tr>
+                                </td>
 
-                             
+                              </tr>
+                            
+
+                            <div class="modal fade" id="confirmModal" tabindex="-1" aria-hidden="true">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h2 class="modal-title fs-5" id="exampleModalLabel">刪除優惠券</h2>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                  </div>
+                                  <div class="modal-body">
+                                    確認刪除?
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                                    <a role="button" class="btn btn-danger" href="doDeleteCoupon.php?Coupon_ID=<?= $coupon["Coupon_ID"] ?>">確認</a>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                             <?php endforeach; ?>
-
 
 
                           </tbody>
