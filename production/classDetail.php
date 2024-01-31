@@ -1,5 +1,5 @@
 <?php
-require_once("/xampp/htdocs/project/php_connect/db_connect.php");
+require_once("../db_connect_class.php");
 
 if (!isset($_GET["Class_ID"])) {
   die("請循正常管道進入此頁");
@@ -150,13 +150,13 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
                 </li>
                 <li><a href="tables_dynamic.php"><i class="fa fa-table"></i>講師管理<span class="fa fa-chevron-down"></span></a>
                 </li>
-                <li><a><i class="fa fa-table"></i> 課程管理 <span class="fa fa-chevron-down"></span></a>
-                  <ul class="nav child_menu">
+                <li class="active"><a href=" class_new.php?Class_cate_ID=&status=1&min=0&max=99999"><i class="fa fa-table"></i> 課程管理 </a>
+                  <!-- <ul class="nav child_menu">
                     <li class="<?php if ($Class_cate_ID == "") echo "active" ?>"><a href="class_new.php?Class_cate_ID=">所有類別</a></li>
                     <?php foreach ($rowsClassCategories as $rowClassCategories) : ?>
                       <li class="<?php if ($rowClassCategories["Class_cate_ID"] == $Class_cate_ID) echo "active" ?>"><a href="class_new.php?Class_cate_ID=<?= $rowClassCategories["Class_cate_ID"] ?>"><?= $rowClassCategories["Class_cate_name"] ?></a></li>
                     <?php endforeach; ?>
-                  </ul>
+                  </ul> -->
                 </li>
                 <li><a href="tables_dynamic.php"><i class="fa fa-table"></i>優惠卷管理<span class="fa fa-chevron-down"></span></a>
                 </li>
@@ -219,15 +219,28 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
           <div class="col-md-12 col-sm-12 ">
             <div class="x_panel">
               <div class="x_title">
-                <h1>課程詳情 <!-- <small>Users</small> --> </h1>
-                <a name="" id="" class="btn btn-primary" href="class_new.php?Class_cate_ID=&status=1&min=0&max=99999" role="button">Back</a>
+
+                <div class="row align-items-center">
+                  <div class="col-auto">
+                    <h1>課程詳情 <!-- <small>Users</small> --> </h1>
+                  </div>
+                  <div class="col-auto">
+                    <a name="" id="" class="btn btn-secondary" href="class_new.php?Class_cate_ID=&status=1&min=0&max=99999" role="button">所有課程</a>
+                    <a name="" id="" class="btn btn-info text-light" href="classEdit.php?Class_ID=<?= $Class_ID ?>" role="button">編輯</a>
+                  </div>
+                </div>
 
                 <div class="clearfix"></div>
               </div>
 
               <!-- class content -->
-              <div class="form-content row g-2 ">
-                <div class="col-12 mb-3">
+              <div class="form-content row g-3 ">
+                <div class="col-2 mb-3">
+                  <label for="classID" class="form-label">課程編號</label>
+                  <input type="text" class="form-control" id="classID" name="classID" value="<?= $rows[0]["Class_ID"] ?>" readonly>
+                </div>
+
+                <div class="col-10 mb-3">
                   <label for="className" class="form-label">課程名稱</label>
                   <input type="text" class="form-control" id="className" name="className" value="<?= $rows[0]["Class_name"] ?>" readonly>
                 </div>
@@ -271,7 +284,7 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
 
                 <div class="col-12 mb-3">
                   <label for="classDescription" class="form-label">課程敘述</label>
-                  <textarea class="classDescription" name="classDescription" id="classDescription" placeholder="<?= $rows[0]["Class_description"] ?>" readonly></textarea>
+                  <textarea class="classDescription" name="classDescription" id="classDescription" readonly><?= $rows[0]["Class_description"] ?></textarea>
                 </div>
 
                 <!-- <div class="col-2 mb-3">

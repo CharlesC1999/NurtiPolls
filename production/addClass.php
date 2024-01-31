@@ -1,5 +1,5 @@
 <?php
-require_once("/xampp/htdocs/project/php_connect/db_connect.php");
+require_once("../db_connect_class.php");
 
 //join class and speaker
 $sql = "SELECT * FROM speaker";
@@ -133,13 +133,13 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
                 </li>
                 <li><a href="tables_dynamic.php"><i class="fa fa-table"></i>講師管理<span class="fa fa-chevron-down"></span></a>
                 </li>
-                <li><a><i class="fa fa-table"></i> 課程管理 <span class="fa fa-chevron-down"></span></a>
-                  <ul class="nav child_menu">
+                <li class="active"><a href=" class_new.php?Class_cate_ID=&status=1&min=0&max=99999"><i class="fa fa-table"></i> 課程管理</a>
+                  <!-- <ul class="nav child_menu">
                     <li class="<?php if ($Class_cate_ID == "") echo "active" ?>"><a href="class_new.php?Class_cate_ID=">所有類別</a></li>
                     <?php foreach ($rowsClassCategories as $rowClassCategories) : ?>
                       <li class="<?php if ($rowClassCategories["Class_cate_ID"] == $Class_cate_ID) echo "active" ?>"><a href="class_new.php?Class_cate_ID=<?= $rowClassCategories["Class_cate_ID"] ?>"><?= $rowClassCategories["Class_cate_name"] ?></a></li>
                     <?php endforeach; ?>
-                  </ul>
+                  </ul> -->
                 </li>
                 <li><a href="tables_dynamic.php"><i class="fa fa-table"></i>優惠卷管理<span class="fa fa-chevron-down"></span></a>
                 </li>

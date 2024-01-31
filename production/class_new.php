@@ -1,5 +1,5 @@
 <?php
-require_once("/xampp/htdocs/project/php_connect/db_connect.php");
+require_once("../db_connect_class.php");
 $now = date("Y-m-d");
 
 //分類
@@ -203,6 +203,11 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
   <link href="../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
   <link href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
 
+
+  <!-- bootstrap 5.3.2 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.min.js" integrity="sha512-WW8/jxkELe2CAiE4LvQfwm1rajOS8PHasCCx+knHG0gBHt8EXxS6T6tJRTGuDQVnluuAvMxWF4j8SNFDKceLFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
   <!-- Custom Theme Style -->
   <link href="../build/css/custom.min.css" rel="stylesheet">
   <style>
@@ -283,13 +288,13 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
                 </li>
                 <li><a href="tables_dynamic.php"><i class="fa fa-table"></i>講師管理<span class="fa fa-chevron-down"></span></a>
                 </li>
-                <li><a><i class="fa fa-table"></i> 課程管理 <span class="fa fa-chevron-down"></span></a>
-                  <ul class="nav child_menu">
+                <li class="active"><a href=" class_new.php?Class_cate_ID=&status=1&min=0&max=99999"><i class="fa fa-table"></i> 課程管理 </a>
+                  <!-- <ul class="nav child_menu">
                     <li class="<?php if ($Class_cate_ID == "") echo "active" ?>"><a href="class_new.php?Class_cate_ID=">所有類別</a></li>
                     <?php foreach ($rowsClassCategories as $rowClassCategories) : ?>
                       <li class="<?php if ($rowClassCategories["Class_cate_ID"] == $Class_cate_ID) echo "active" ?>"><a href="class_new.php?Class_cate_ID=<?= $rowClassCategories["Class_cate_ID"] ?>"><?= $rowClassCategories["Class_cate_name"] ?></a></li>
                     <?php endforeach; ?>
-                  </ul>
+                  </ul> -->
                 </li>
                 <li><a href="tables_dynamic.php"><i class="fa fa-table"></i>優惠卷管理<span class="fa fa-chevron-down"></span></a>
                 </li>
@@ -697,6 +702,29 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
                           </div>
                           </form>
                         </div>
+
+                        <!-- Button trigger modal -->
+
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="confirmDelete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">刪除課程</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body" id="modalBody">
+                                ...
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                                <a id="cfmDelBtn" class="btn btn-danger link-light">確認</a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
                         <table id="datatable" class="table table-striped table-bordered text-center table-hover" style="width:100%">
                           <thead>
                             <tr>
@@ -713,7 +741,6 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
                               <!--  <th class="align-middle">上架</th> -->
                             </tr>
                           </thead>
-
 
                           <tbody>
                             <?php foreach ($rowsClass as $rowClass) : ?>
@@ -752,8 +779,13 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
                                   <?= $rowClass["End_date"] ?>
                                 </td>
                                 <td><?= $rowClass["Class_date"] ?></td>
-                                <td><a href="classEdit.php?Class_ID=<?= $rowClass["Class_ID"] ?>"><i class="fa-solid fa-pen-to-square"></i></a></td>
-                                <td><a href="" class="link-danger"><i class="fa-solid fa-trash-can" style="color: #c82828;"></i></a></td>
+                                <td><a href="classEdit.php?Class_ID=<?= $rowClass["Class_ID"] ?>"><i class="fa-solid fa-pen-to-square fa-lg"></i></a></td>
+                                <td class="align-top">
+                                  <button type="button" class="btn p-0 deleteBtns" data-bs-toggle="modal" data-bs-target="#confirmDelete" data-class-id="<?= $rowClass["Class_ID"] ?>">
+                                    <i class="fa-solid fa-trash-can" style="color: #c82828;"></i>
+                                  </button>
+                                  <!-- <a href="" class="link-danger"><i class="fa-solid fa-trash-can" style="color: #c82828;"></i></a> -->
+                                </td>
                               </tr>
                             <?php endforeach; ?>
                           </tbody>
@@ -3685,6 +3717,47 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
   <!-- Custom Theme Scripts -->
   <script src="../build/js/custom.min.js"></script>
 
+  <script>
+    const deleteBtns = document.querySelectorAll(".deleteBtns");
+    const modalBody = document.querySelector("#modalBody");
+    const cfmDelBtn = document.querySelector("#cfmDelBtn");
+
+    for (let i = 0; i < deleteBtns.length; i++) {
+      deleteBtns[i].addEventListener("click", function() {
+        // console.log("click");
+        let classId = this.dataset.classId;
+        // console.log(id);
+
+        $.ajax({
+            method: "GET", //or GET
+            url: "./classAPI.php",
+            dataType: "json",
+            data: {
+              classId: classId
+            }
+          })
+          .done(function(response) {
+            // console.log(response);
+            let status = response.status;
+            if (status == 0) {
+              alert(response.message);
+              return;
+            };
+            let classRow = response.class;
+            let className = response.class.Class_name;
+            // console.log(classRow);
+
+            modalBody.innerText = "是否確認刪除課程?\n課程編號: " + classId + "\n" + " 課程名稱: " + className;
+
+            cfmDelBtn.setAttribute("href", "doClassSoftDelete.php?Class_ID=" + classId);
+
+          }).fail(function(jqXHR, textStatus) {
+            console.log("Request failed: " + textStatus);
+          });
+
+      })
+    }
+  </script>
 </body>
 
 </html>
