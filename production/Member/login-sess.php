@@ -1,3 +1,5 @@
+<!-- SESS登入 -->
+
 <?php
 session_start();
 

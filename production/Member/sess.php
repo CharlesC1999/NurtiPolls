@@ -1,4 +1,4 @@
-<!-- 用來看session的狀況 -->
+<!-- 用來session的狀況 -->
 <?php
 session_start();
 

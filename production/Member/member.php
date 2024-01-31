@@ -1,4 +1,4 @@
-<!-- wu 會員資料列表 ui -->
+<!-- wu 會員資料列表主頁面 ui -->
 <?php
 require_once "./connect.php";
 

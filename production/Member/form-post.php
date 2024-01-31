@@ -1,4 +1,4 @@
-<!-- 註冊會員ui -->
+<!-- WU 註冊會員ui -->
 
 <?php
 require_once "./connect.php";

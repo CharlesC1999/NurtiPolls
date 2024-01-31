@@ -1,4 +1,4 @@
-<!-- wu 註冊後台 -->
+<!-- WU 註冊後台 -->
 <?php
 require_once "./connect.php";
 

@@ -1,4 +1,4 @@
-<!-- wu connect -->
+<!-- wu connect 連線 -->
 <?php
 $servename = "localhost";
 $username = "admin";

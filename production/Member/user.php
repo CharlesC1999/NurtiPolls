@@ -1,4 +1,4 @@
-<!-- wu 會員個人 ui -->
+<!-- wu 會員個人 ui頁面 -->
 <?php
 if (!isset($_GET["id"])) {
     $id = 0;

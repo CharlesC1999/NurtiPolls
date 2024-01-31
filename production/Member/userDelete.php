@@ -1,4 +1,4 @@
-<!-- wu 會員軟刪除 後台 -->
+<!-- WU 會員軟刪除 後台 -->
 <?php require_once "./connect.php";
 if (!isset($_GET["id"])) {
     echo "請循正常管道";

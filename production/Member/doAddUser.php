@@ -1,4 +1,4 @@
-<!-- wu 增加會員連線中的處理 後台-->
+<!-- WU 增加會員連線中的處理 後台-->
 <?php
 require_once "./connect.php";
 

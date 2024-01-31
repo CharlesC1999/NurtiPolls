@@ -1,4 +1,4 @@
-<!-- wu 新增 會員 ui 會員表格連線 -->
+<!-- wu 新增加會員 ui 會員表格連線 -->
 <?php
 require_once "./connect.php";
 ?>

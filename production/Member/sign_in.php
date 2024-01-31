@@ -1,4 +1,4 @@
-<!-- wu 註冊前台 -->
+<!-- wu 註冊前台 ui-->
 <?php
 require_once "./connect.php";
 ?>

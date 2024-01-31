@@ -1,4 +1,4 @@
-<!-- wu儲存資料 後台 -->
+<!-- wu儲存資料 後台 ui -->
 <?php
 require_once "./connect.php";
 
