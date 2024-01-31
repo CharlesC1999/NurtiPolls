@@ -1,5 +1,5 @@
 <?php
-require_once "./connect.php";
+require_once "../../db_connect.php";
 $sql = "SELECT * FROM member WHERE id=$id AND valid=1";
 
 ?>
@@ -10,8 +10,8 @@ $sql = "SELECT * FROM member WHERE id=$id AND valid=1";
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>delete</title>
 
-    <? include("./css.php");
-    ?>
+    <?include "./css.php";
+?>
 </head>
 <body>
 <div class="row">
@@ -99,7 +99,7 @@ foreach ($rows as $user): ?>
         </div>
 
 
-<? include("./js.php");
-    ?>
+<?include "./js.php";
+?>
 </body>
 </html>

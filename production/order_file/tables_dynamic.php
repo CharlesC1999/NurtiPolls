@@ -1,19 +1,9 @@
-<!-- wu 會員個人 ui頁面 -->
 <?php
-if (!isset($_GET["id"])) {
-    $id = 0;
-} else {
-    $id = $_GET["id"];
-}
-require_once "../../db_connect.php";
-$sql = "SELECT * FROM member WHERE id=$id AND valid=1";
-$result = $conn->query($sql);
-$rowCount = $result->num_rows;
 
-if ($rowCount != 0) {
-    $row = $result->fetch_assoc();
-}
+require_once "../../db_connect.php";
+
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -53,7 +43,7 @@ if ($rowCount != 0) {
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="../HomePage.html" class="site_title"><span>營養大選 Nutripoll</span></a>
+              <a href="../HomePage.html" class="site_title"><i class="fa fa-paw"></i> <span>營養大選 Nutripoll</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -107,19 +97,59 @@ if ($rowCount != 0) {
                       <li><a href="calendar.html">Calendar</a></li>
                     </ul>
                   </li> -->
-                  <li><a href=><i class="fa fa-table"></i> 會員管理 <span class="fa fa-chevron-down"></span></a>
-                  </li><li><a href="tables_dynamic.html"><i class="fa fa-table"></i>商品管理 <span class="fa fa-chevron-down"></span></a>
+                  <li>
+                    <a href="../Member/member.php"
+                      ><i class="fa fa-table"></i> 會員管理
+                      <span class="fa fa-chevron-down"></span
+                    ></a>
                   </li>
-                  <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>分類管理<span class="fa fa-chevron-down"></span></a>
+                  <li>
+                    <a href="../product.php"
+                      ><i class="fa fa-table"></i>商品管理
+                      <span class="fa fa-chevron-down"></span
+                    ></a>
                   </li>
-                  <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>食譜管理<span class="fa fa-chevron-down"></span></a>
+                  <li>
+                    <a
+                      ><i class="fa fa-table"></i>分類管理<span
+                        class="fa fa-chevron-down"
+                      ></span>
+                      <ul class="nav child_menu">
+                        <li><a href="../categories_product.php">商品</a></li>
+                        <li><a href="../categories_class.php">課程</a></li>
+                        <li><a href="../categories_recipe.php">食譜</a></li>
+                      </ul>
+                    </a>
                   </li>
-                  <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>講師管理<span class="fa fa-chevron-down"></span></a>
+                  <li>
+                    <a href="../recipe-list.php"
+                      ><i class="fa fa-table"></i>食譜管理<span
+                        class="fa fa-chevron-down"
+                      ></span
+                    ></a>
                   </li>
-                  <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>課程管理<span class="fa fa-chevron-down"></span></a>
+                  <li>
+                    <a href="../speaker.php"
+                      ><i class="fa fa-table"></i>講師管理<span
+                        class="fa fa-chevron-down"
+                      ></span
+                    ></a>
                   </li>
-                  <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>優惠卷管理<span class="fa fa-chevron-down"></span></a>
+                  <li>
+                    <a href="../redirectClass.php"
+                      ><i class="fa fa-table"></i>課程管理<span
+                        class="fa fa-chevron-down"
+                      ></span
+                    ></a>
                   </li>
+                  <li>
+                    <a href="../coupons.php"
+                      ><i class="fa fa-table"></i>優惠卷管理<span
+                        class="fa fa-chevron-down"
+                      ></span
+                    ></a>
+                  </li>
+                  </ul>
                   <!-- <li><a><i class="fa fa-bar-chart-o"></i> Data Presentation <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="chartjs.html">Chart JS</a></li>
@@ -185,15 +215,15 @@ if ($rowCount != 0) {
 
             <!-- /menu footer buttons -->
             <div class="sidebar-footer hidden-small">
-              <!-- <a data-toggle="tooltip" data-placement="top" title="Settings">
+              <a data-toggle="tooltip" data-placement="top" title="Settings">
                 <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-              </a> -->
-              <!-- <a data-toggle="tooltip" data-placement="top" title="FullScreen">
+              </a>
+              <a data-toggle="tooltip" data-placement="top" title="FullScreen">
                 <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
               </a>
               <a data-toggle="tooltip" data-placement="top" title="Lock">
                 <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-              </a> -->
+              </a>
               <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
                 <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
               </a>
@@ -300,136 +330,87 @@ if ($rowCount != 0) {
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>個人資料</h3>
+                <h3>Users <small>您好</small></h3>
               </div>
 
-              <!-- <div class="title_right">
+              <div class="title_right">
                 <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                  <div class="input-group">
+                  <!-- <div class="input-group">
                     <input type="text" class="form-control" placeholder="Search for...">
                     <span class="input-group-btn">
                       <button class="btn btn-secondary" type="button">Go!</button>
                     </span>
-                  </div>
+                  </div> -->
                 </div>
-              </div> -->
+              </div>
             </div>
 
+            <div class="clearfix"></div>
 
-            <!-- <div class="clearfix"></div> -->
+            <div class="row">
+              <div class="col-md-12 col-sm-12 ">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>訂單管理 <small>Orders</small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
 
-            <!-- 搜尋條 -->
-            <div class="modal fade" id="confirmModal" tabindex="-1"  aria-hidden="true">
-                    <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">刪除使用者</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        確認刪除?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-        <a role="button" class="btn btn-danger"
-        href="userDelete.php?id=<?=$row["id"]?>"
-        >確認</a>
-		<!-- 連結到 doDeleteUser並做軟刪除-->
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                      <div class="row">
+                          <div class="col-sm-12">
+                            <div class="card-box table-responsive">
+
+                    <table id="datatable" class="table table-striped table-bordered" style="width:100%">
+                      <thead>
+                        <tr>
+                          <th>分類ID</th>
+                          <th>名稱</th>
+                          <th>簡短介紹</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <?php
+$rows = $result_all_class->fetch_all(MYSQLI_ASSOC);
+
+foreach ($rows as $cate):
+?>
+                          <tr>
+                            <td><?=$cate["Class_cate_ID"]?></td>
+                            <td><?=$cate["Class_cate_name"]?></td>
+                            <td><?=$cate["C_Description"]?></td>
+                          </tr>
+                          <?php endforeach;?>
+                      </tbody>
+                    </table>
+                  </div>
+                  </div>
+              </div>
+            </div>
+                </div>
+              </div>
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /page content -->
+
+        <!-- footer content -->
+        <footer>
+          <div class="pull-right">
+            Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+          </div>
+          <div class="clearfix"></div>
+        </footer>
+        <!-- /footer content -->
       </div>
     </div>
-  </div>
-</div>
-
-
-
-        <div class="container">
-
-
-            </div>
-        <?php if ($rowCount == 0): ?>
-            使用者不存在
-            <?php else:
-
-?>
-
-
-            <!-- 使用者照片 -->
-            <div class="container d-flex justify-content-start">
-            <div class="py-2 ">
-            <a
-                    name=""
-                    id=""
-                    class="btn btn-secondary "
-                    href="member.php"
-                    role="button"
-                    > <i class="fa-solid fa-arrow-left"></i> 回使用者列表</a
-                >
-            </div>
-            </div>
-            <table class="table table-bordered">
-                 <tr>
-                    <td>使用者照片</td>
-                    <td><img src="./image_members/<?=$row["User_image"]?>" alt=""></td>
-                </tr>
-                <tr>
-                 <td>ID</td>
-                 <td><?=$row["id"]?></td>
-                 </tr>
-                <tr>
-                    <td>Name</td>
-                 <td><?=$row["User_name"]?></td>
-                 </tr>
-                <tr>
-                    <td>gender</td>
-                 <td><?=$row["Gender"]?></td>
-                 </tr>
-                <!-- <tr>
-                <td>Account</td>
-                 <td>?=$row["Account"]?</td>
-                 </tr>
-                <tr>
-                <td>Password</td>
-                 <td>?=$row["Password"]?</td>
-                 </tr> -->
-                <tr>
-                <td>Email</td>
-                 <td><?=$row["Email"]?></td>
-                 </tr>
-                <tr>
-                <td>Phone</td>
-                 <td><?=$row["Phone"]?></td>
-                 </tr>
-                <tr>
-                <td>birth</td>
-                 <td><?=$row["date_of_birth"]?></td>
-                 </tr>
-                 <tr>
-                <td>Create time</td>
-                 <td><?=$row["Create_date"]?></td>
-                 </tr>
-            </table>
-            <div class="d-flex justify-content-between">
-
-            <!-- 修改鍵 -->
-                <a
-                    name=""
-                    id=""
-                    class="btn btn-secondary"
-                    href="user-edit.php?id=<?=$row["id"]?>"
-                    role="button"
-                    ><i class="fa-solid fa-user-pen"></i></a>
-
-                    <!-- 刪除 -->
-                    <button
-                    data-bs-toggle="modal"
-                    data-bs-target="#confirmModal"
-                    class="btn btn-danger"
-                    href="userDelete.php?id=<?=$row["id"]?>"
-                    role="button"
-                    ><i class="fa-solid fa-trash-can"></i></button>
-            </div>
-            <?php endif;?>
-        </div>
 
     <!-- jQuery -->
     <script src="../vendors/jquery/dist/jquery.min.js"></script>
@@ -461,8 +442,5 @@ if ($rowCount != 0) {
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
 
-      <?php
-include "./js.php";
-?>
   </body>
 </html>

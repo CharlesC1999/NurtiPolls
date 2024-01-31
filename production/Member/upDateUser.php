@@ -1,6 +1,6 @@
 <!-- wu儲存資料 後台 ui -->
 <?php
-require_once "./connect.php";
+require_once "../../db_connect.php";
 
 if (!isset($_POST["name"])) {
     echo "請循正常管道";
