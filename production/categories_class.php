@@ -122,6 +122,14 @@ $product_type_count = $result_all_class->num_rows;
                   </li>
                   <li><a href="coupons.php"><i class="fa fa-table"></i>優惠卷管理<span class="fa fa-chevron-down"></span></a>
                   </li>
+                  <hr style="border-top: 2px solid aliceblue;">
+                  <li>
+                    <a href="#"
+                      ><i class="fa fa-table"></i>訂單管理<span
+                        class="fa fa-chevron-down"
+                      ></span
+                    ></a>
+                  </li>
                   <!-- <li><a><i class="fa fa-bar-chart-o"></i> Data Presentation <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="chartjs.html">Chart JS</a></li>
