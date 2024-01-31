@@ -1,5 +1,5 @@
 <!-- WU 會員軟刪除 後台 -->
-<?php require_once "./connect.php";
+<?php require_once "../../db_connect.php";
 if (!isset($_GET["id"])) {
     echo "請循正常管道";
     exit;

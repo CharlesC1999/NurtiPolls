@@ -1,6 +1,6 @@
 <!-- wu 會員資料列表主頁面 ui -->
 <?php
-require_once "./connect.php";
+require_once "../../db_connect.php";
 
 $perPage = 10;
 // 下面是搜尋的if
@@ -248,11 +248,15 @@ if (isset($_GET["search"])) {
                 <div class="nav toggle">
                   <a id="menu_toggle"><i class="fa fa-bars"></i></a>
                 </div>
-                <nav class="nav navbar-nav">
-                <ul class=" navbar-right">
+                <nav class="nav navbar-nav d-flex justify-content-end ">
+
+                <ul class=" navbar-right ">
+                <li>
+                    <a href="./login-sess.php"><i class="fa-solid fa-right-from-bracket py-2 px-5 lg"></i></a>
+                  </li>
                   <li class="nav-item dropdown open" style="padding-left: 15px;">
                     <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                      <img src="../images/img.jpg" alt="">John Doe
+                      <img src="../images/img.jpg" alt="">John Doe6
                     </a>
                     <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
                       <a class="dropdown-item"  href="javascript:;"> Profile</a>

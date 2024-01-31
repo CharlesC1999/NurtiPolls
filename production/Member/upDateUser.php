@@ -1,6 +1,6 @@
 <!-- wu儲存資料 後台 ui -->
 <?php
-require_once "./connect.php";
+require_once "../../db_connect.php";
 
 if (!isset($_POST["name"])) {
     echo "請循正常管道";
@@ -14,6 +14,7 @@ $phone = $_POST["phone"];
 $birth = $_POST["birth"];
 $id = $_POST["id"];
 $img = $_FILES["img"];
+$img2 = $_POST["img2"];
 $filename = "";
 
 if ($_FILES['img']['error'] == 0) {
@@ -26,9 +27,11 @@ if ($_FILES['img']['error'] == 0) {
         echo "fail";
         // } else {
         //     echo $_FILES['img']['error'];
-
         // }
     }
+} else {
+    echo $_FILES['img']['error'];
+    $filename = $img2;
 }
 
 $sql = "UPDATE member SET User_name='$name',Gender='$gender',Email='$email',Phone='$phone',date_of_birth='$birth',User_image='$filename' WHERE id=$id";

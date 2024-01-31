@@ -1,6 +1,6 @@
 <!-- wu 會員資料列表 ui原版  -->
 <?php
-require_once "./connect.php";
+require_once "../../db_connect.php";
 
 $perPage = 10;
 // 下面是搜尋的if
