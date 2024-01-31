@@ -13,7 +13,7 @@ $email = $_POST["email"];
 $phone = $_POST["phone"];
 $birth = $_POST["birth"];
 $id = $_POST["id"];
-$img = $_POST["img"];
+$img = $_FILES["img"];
 $filename = "";
 
 if ($_FILES['img']['error'] == 0) {
@@ -40,4 +40,4 @@ if ($conn->query($sql) === true) {
 }
 
 $conn->close();
-// header("location: user.php?id=$id");
+header("location: user.php?id=$id");

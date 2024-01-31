@@ -28,3 +28,7 @@ if (empty($repassword)) {
 }
 
 $password = md5($password);
+$sql="SELECT * FROM member account='$acccount' AND password='$password' AND valid=1";
+
+$result=$conn->query($sql);
+$
