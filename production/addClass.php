@@ -198,100 +198,103 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
 
       <!-- page content -->
       <div class="right_col fullPage" role="main">
-        <div class="row">
-          <div class="col-md-12 col-sm-12 ">
-            <div class="x_panel">
-              <div class="x_title">
-                <h1>新增課程 <!-- <small>Users</small> --> </h1>
-                <div class="clearfix"></div>
-              </div>
-
-              <!-- 表單內容 -->
-              <div class="form-content row g-2 ">
-                <div class="col-12 mb-3">
-                  <label for="className" class="form-label">課程名稱</label>
-                  <input type="text" class="form-control" id="className" name="className">
+        <form action="doAddClass.php" method="POST" enctype="multipart/form-data">
+          <div class="row">
+            <div class="col-md-12 col-sm-12 ">
+              <div class="x_panel">
+                <div class="x_title">
+                  <h1>新增課程 <!-- <small>Users</small> --> </h1>
+                  <div class="clearfix"></div>
                 </div>
 
+                <!-- 表單內容 -->
+                <div class="form-content row g-2 ">
+                  <div class="col-12 mb-3">
+                    <label for="className" class="form-label">課程名稱</label>
+                    <input type="text" class="form-control" id="className" name="className">
+                  </div>
 
-                <div class="col-6 mb-3">
-                  <!-- <label for="classCategory" class="form-label">課程類別</label>
+
+                  <div class="col-6 mb-3">
+                    <!-- <label for="classCategory" class="form-label">課程類別</label>
                     <input type="text" class="form-control" id="classCategory" name="classCategory" required> -->
-                  <label for="classCategory" class="form-label">課程類別</label>
-                  <select name="classCategory" id="classCategory" class="form-select" required>
-                    <option value="">請選擇類別</option>
-                    <option value="1">台式料理</option>
-                    <option value="2">中式料理</option>
-                    <option value="3">西式料理</option>
-                    <option value="4">異國料理</option>
-                    <option value="5">健康養生/素食</option>
-                    <option value="6">烘焙/點心</option>
-                  </select>
+                    <label for="classCategory" class="form-label">課程類別</label>
+                    <select name="classCategory" id="classCategory" class="form-select" required>
+                      <option value="">請選擇類別</option>
+                      <option value="1">台式料理</option>
+                      <option value="2">中式料理</option>
+                      <option value="3">西式料理</option>
+                      <option value="4">異國料理</option>
+                      <option value="5">健康養生/素食</option>
+                      <option value="6">烘焙/點心</option>
+                    </select>
 
-                </div>
+                  </div>
 
-                <div class="col-6 mb-3">
-                  <label for="speaker" class="form-label">講師名稱</label>
-                  <!-- <input type="text" class="form-control" id="speaker" name="speaker" required> -->
-                  <select name="speaker" id="speaker" class="form-select" required>
-                    <option value="">請選擇講師</option>
-                    <?php foreach ($rows as $row) : ?>
-                      <option value="<?= $row["Speaker_ID"] ?>"><?= $row["Speaker_name"] ?></option>
-                    <?php endforeach; ?>
-                  </select>
-                </div>
+                  <div class="col-6 mb-3">
+                    <label for="speaker" class="form-label">講師名稱</label>
+                    <!-- <input type="text" class="form-control" id="speaker" name="speaker" required> -->
+                    <select name="speaker" id="speaker" class="form-select" required>
+                      <option value="">請選擇講師</option>
+                      <?php foreach ($rows as $row) : ?>
+                        <option value="<?= $row["Speaker_ID"] ?>"><?= $row["Speaker_name"] ?></option>
+                      <?php endforeach; ?>
+                    </select>
+                  </div>
 
-                <div class="col-6 mb-3">
-                  <label for="classPrice" class="form-label">課程價格</label>
-                  <input type="number" class="form-control" id="classPrice" name="classPrice" required>
-                </div>
-                <div class="col-6 mb-3">
-                  <label for="personLimit" class="form-label">名額限制</label>
-                  <input type="number" class="form-control" id="personLimit" name="personLimit" required>
-                </div>
+                  <div class="col-6 mb-3">
+                    <label for="classPrice" class="form-label">課程價格</label>
+                    <input type="number" class="form-control" id="classPrice" name="classPrice">
+                  </div>
+                  <div class="col-6 mb-3">
+                    <label for="personLimit" class="form-label">名額限制</label>
+                    <input type="number" class="form-control" id="personLimit" name="personLimit">
+                  </div>
 
-                <div class="col-4 mb-3">
-                  <label for="startDate" class="form-label">報名起始</label>
-                  <input type="date" class="form-control" id="startDate" name="startDate" required>
-                </div>
+                  <div class="col-4 mb-3">
+                    <label for="startDate" class="form-label">報名起始</label>
+                    <input type="date" class="form-control" id="startDate" name="startDate">
+                  </div>
 
-                <div class="col-4 mb-3">
-                  <label for="endDate" class="form-label">報名截止</label>
-                  <input type="date" class="form-control" id="endDate" name="endDate" required>
-                </div>
+                  <div class="col-4 mb-3">
+                    <label for="endDate" class="form-label">報名截止</label>
+                    <input type="date" class="form-control" id="endDate" name="endDate">
+                  </div>
 
-                <div class="col-4 mb-3">
-                  <label for="classDate" class="form-label">開課日期</label>
-                  <input type="date" class="form-control" id="classDate" name="classDate" required>
-                </div>
+                  <div class="col-4 mb-3">
+                    <label for="classDate" class="form-label">開課日期</label>
+                    <input type="datetime-local" class="form-control" id="classDate" name="classDate">
+                  </div>
 
-                <div class="col-12 mb-3">
-                  <label for="classDescription" class="form-label">課程敘述</label>
-                  <textarea class="classDescription" name="classDescription" id="classDescription" required></textarea>
-                </div>
+                  <div class="col-12 mb-3">
+                    <label for="classDescription" class="form-label">課程敘述</label>
+                    <textarea class="classDescription" name="classDescription" id="classDescription"></textarea>
+                  </div>
 
-                <div class="col-6 mb-3">
-                  <label for="fileUpload" class="form-label">課程圖片</label>
-                  <div></div>
-                  <input type="file" id="fileUpload" name="fileUpload" required>
-                </div>
+                  <div class="col-6 mb-3">
+                    <label for="fileUpload" class="form-label">課程圖片</label>
+                    <div></div>
+                    <input type="file" id="fileUpload" name="fileUpload">
+                  </div>
 
-                <div class="col-12"></div>
+                  <div class="col-12"></div>
 
-                <div class="col-3 m-auto">
-                  <button type="submit" class="btn btn-info text-light" id="submit">
-                    送出
-                  </button>
-                  <a href="class_new.php?Class_cate_ID=&status=1&min=0&max=99999" class="btn btn-danger text-white">
-                    取消
-                  </a>
+                  <div class="col-3 m-auto">
+                    <button type="submit" class="btn btn-info text-light" id="submit">
+                      送出
+                    </button>
+                    <a href="class_new.php?Class_cate_ID=&status=1&min=0&max=99999" class="btn btn-danger text-white">
+                      取消
+                    </a>
+                  </div>
+
                 </div>
 
               </div>
-
             </div>
           </div>
-        </div>
+        </form>
+
 
 
       </div>
@@ -347,7 +350,7 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
   <!-- Custom Theme Scripts -->
   <script src="../build/js/custom.min.js"></script>
 
-  <script>
+  <!-- <script>
     const submit = document.querySelector("#submit");
     const className = document.querySelector("#className");
     const classCategory = document.querySelector("#classCategory");
@@ -378,7 +381,7 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
 
       $.ajax({
           method: "POST", //or GET
-          url: "doAddClass.php", //url放要串的api的檔案位置
+          url: "doAddClassAPI.php", //url放要串的api的檔案位置
           dataType: "json",
           data: {
             className: classNameVal,
@@ -412,7 +415,7 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
         });
 
     });
-  </script>
+  </script> -->
 
   <!-- jquery -->
   <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
