@@ -1,6 +1,6 @@
 <?php
 
-require_once "../db_connect.php";
+require_once("../db_connect.php");
 
 if (!isset($_POST["Title_R_name"])) {
     echo "請循正常管道進入";
@@ -16,7 +16,9 @@ $Recipe_category_ID = $_POST["Recipe_categoey_ID"];
 // var_dump($file);
 
 if ($_FILES["pic"]["error"] == 0) {
-    if (move_uploaded_file($_FILES["pic"]["tmp_name"], "rimages/" . $_FILES["pic"]["name"]
+    if (move_uploaded_file(
+        $_FILES["pic"]["tmp_name"],
+        "rimages/" . $_FILES["pic"]["name"]
     )) {
         $filename = $_FILES["pic"]["name"];
         $now = date("Y-m-d H:i:s");
@@ -25,12 +27,10 @@ if ($_FILES["pic"]["error"] == 0) {
         VALUES ('$Title_R_name','$filename','$Content','$now','$Recipe_category_ID', 1)";
         if ($conn->query($sql)) {
             echo "新增完成";
-
         } else {
             echo "新增錯誤:" . $conn->error;
         }
         echo "upload success";
-
     } else {
         echo "upload failed";
     }
