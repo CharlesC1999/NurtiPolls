@@ -7,11 +7,24 @@ if (!isset($_GET["Coupon_ID"])) {
 
 
 require_once("../db_connect.php");
-$sql = "SELECT * from coupons WHERE valid=1";
+$sql = "SELECT * from coupons WHERE Coupon_ID = $Coupon_ID";
 $result = $conn->query($sql);
 
 $row = $result->fetch_assoc();
 $discount_type = $row["Discount_type"];
+
+// GROUP_CONCAT 函數用來將多個分類名稱合併為一個字串，並以逗號分隔
+// c,cc,pc為自定義的資料表別名
+$sqlcc = "SELECT c.coupon_id, GROUP_CONCAT(pc.Product_cate_name SEPARATOR ', ') as categories
+FROM coupons c
+JOIN coupon_categories cc ON c.Coupon_ID = cc.coupon_id
+JOIN product_categories pc ON cc.category_id = pc.Product_cate_ID
+WHERE c.Coupon_ID = $Coupon_ID
+GROUP BY c.Coupon_ID;";
+
+$resultcc = $conn->query($sqlcc);
+$rowcc = $resultcc->fetch_assoc();
+
 $conn->close();
 ?>
 <!DOCTYPE html>
@@ -204,12 +217,18 @@ $conn->close();
             <div class="right_col" role="main">
                 <div class="container">
                     <div class="py-3">
-                        <a type="submit" class="btn btn-info" href="coupons.php" role="button">返回列表</a>
+                        <a type="submit" class="btn btn-secondary" href="coupons.php" role="button"><i class="fa-solid fa-chevron-left"></i>返回列表</a>
                     </div>
-                    <h2 class="my-3">優惠券詳情</h2>
+                    <h1 class="my-3 h3">優惠券詳情</h1>
                     <input type="hidden" name="id" value="<?= $row["Coupon_ID"] ?>">
                     <form action="updateCoupon.php" method="post">
                         <table>
+                            <tr>
+                                <th>優惠券編號</th>
+                                <td class="p-3">
+                                    <?= $row["Coupon_ID"] ?>
+                                </td>
+                            </tr>
                             <tr>
                                 <th>優惠券名稱</th>
                                 <td class="p-3">
@@ -248,6 +267,21 @@ $conn->close();
                                     <?= $row["Discount_amount"] ?>
                                 </td>
                             </tr>
+                            <!-- 若未填寫商品分類，則優惠券預設為適用全站商品 -->
+                            <tr>
+                                <th>優惠券適用範圍</th>
+                                <td class="p-3">
+                                    <?php
+                                    // 檢查 categories 是否有值
+                                    if (!empty($rowcc["categories"])) {
+                                        echo $rowcc["categories"];
+                                    } else {
+                                        // 如果 categories 為空或不存在，則顯示 "適用於全站商品"
+                                        echo "適用於全站商品";
+                                    }
+                                    ?>
+                                </td>
+                            </tr>
                             <tr>
                                 <th>最低消費金額</th>
                                 <td class="p-3">
@@ -260,8 +294,8 @@ $conn->close();
                                     <?= $row["Coupon_description"] ?>
                                 </td>
                             </tr>
-                            
-                           
+
+
 
                         </table>
 
