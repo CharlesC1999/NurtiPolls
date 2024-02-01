@@ -252,7 +252,7 @@ $rowCount = $result->num_rows; //result裡面有幾筆(num_rows)
                 <!-- 把原本的圖片資訊存在 hidden 裡，post 之後用來判斷是否要替換圖片 -->
                 <input type="hidden" name="old_img" value="<?= $row["Image"] ?>">
                 <!-- 建立一個img(output)作為縮圖的容器，設定好id並以display:none隱藏起來 並做js事件onchange當檔案值做變化時 -->
-                <img id="output" style="display:none" class="rounded mx-auto d-block object-fit-cover" src="Speaker_pic/<?= $row["Image"] ?>" alt="Speaker_pic/<?= $row["Image"] ?>">
+                <img id="output" style="display:none" class="rounded mx-auto d-block object-fit-cover" src="Speaker_pic/<?= $row["Image"]?>" alt="Speaker_pic/<?= $row["Image"] ?>">
               </div>
               <div class="card">
                 <div class="card-body">

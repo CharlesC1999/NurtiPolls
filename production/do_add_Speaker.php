@@ -13,7 +13,7 @@
 4.搬移上傳檔方法：move_uploaded_file(暫存檔 , 新路徑檔名) -->
 <?php
 require_once("../db-connect.php");
-session_start();
+// session_start();
 
 if(!isset($_POST["name"])){
     echo "請循正常管道進入此頁面";
@@ -23,18 +23,18 @@ if(!isset($_POST["name"])){
 $name=$_POST["name"];
 $description=$_POST["description"];
 
-if(empty($name)){
-    //$_SESSION 存錯誤訊息回到speaker_add.php頁面
-    $_SESSION["error"]["message"]="請輸入姓名";
-    header("location: speaker_add.php");
-    exit;
-}
+// if(empty($name)){
+//     //$_SESSION 存錯誤訊息回到speaker_add.php頁面
+//     $_SESSION["error"]["message"]="請輸入姓名";
+//     header("location: speaker_add.php");
+//     exit;
+// }
 
-if(empty($description)){
-    $_SESSION["error"]["message"]="請輸入簡介";
-    header("location: speaker_add.php");
-    exit;
-}
+// if(empty($description)){
+//     $_SESSION["error"]["message"]="請輸入簡介";
+//     header("location: speaker_add.php");
+//     exit;
+// }
 
 
 //ppt.481 接收圖片是用$_FILES接住

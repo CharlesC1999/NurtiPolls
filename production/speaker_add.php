@@ -1,6 +1,6 @@
 <?php
 require_once "../db_connect.php";
-session_start();
+// session_start();
 
 $sql = "SELECT * FROM speaker ORDER BY Speaker_ID DESC"; //->DESC降冪(最新在前面)
 $result = $conn->query($sql); //吐出資料
@@ -236,23 +236,13 @@ $rows = $result->fetch_all(MYSQLI_ASSOC); //轉換關聯式陣列
               <form action="do_add_Speaker.php" method="post" enctype="multipart/form-data">
                 <div class="mb-2">
                   <label for="" class="form-label">姓名 :</label>
-                  <input type="text" class="form-control" name="name" id="name">
+                  <input type="text" class="form-control" name="name" id="name" required="required" oninput="setCustomValidity('');" oninvalid="setCustomValidity('請輸入姓名');">
                 </div>
                 <div class="mb-2">
                   <label for="" class="form-label">個人簡介 :</label>
-                  <textarea class="form-control" id="exampleFormControlTextarea1" rows="6" name="description"></textarea>
+                  <textarea class="form-control" id="exampleFormControlTextarea1" rows="6" name="description" required="required"oninput="setCustomValidity('');" oninvalid="setCustomValidity('請輸入簡介');"></textarea>
                 </div>
                 
-                <!-- 放錯誤訊息 (先判斷存不存在) 存在->顯示完->清除-->
-                <?php if(isset($_SESSION["error"]["message"])): ?>
-                <div class="py-2">
-                    <div>
-                        <div class="text-danger"><?=$_SESSION["error"]["message"]?></div>
-                    </div>
-                </div>
-                <?php endif; 
-                unset ($_SESSION["error"]["message"]); //做清除
-                ?>
                 <!-- 記得type="file" (選擇檔案) -->
                 <div class="mb-2 py-2">
                   <label for="" class="form-label">預覽圖片 :</label>
@@ -285,33 +275,19 @@ $rows = $result->fetch_all(MYSQLI_ASSOC); //轉換關聯式陣列
               $('#output').attr('src', dataURL).show(); //將img的src設定為dataURL並顯示
             };
           }
-          // //抓值
-          // const send=document.querySelector("#send")
-          // const name=document.querySelector("#name")
-          // const error=document.querySelector("#error")
-          // const Textarea1=document.querySelector("#exampleFormControlTextarea1")
-          
-          // //觸發事件 -> event.preventDefault() 表單還未完成,無法送出
-          // send.addEventListener("click",function(){
-          //       event.preventDefault();
-          //       //做表單驗證
-          //       let nameValue=name.value;
-          //       let Textarea1Value=Textarea1.value;
-
-          //       if(nameValue===""){ //判斷是否為空
-          //           //alert("請輸入姓名") //alert(對話框)
-          //           error.textContent="請輸入姓名"
-          //           return;
-          //       }
-          //       if(Textarea1Value===""){ 
-          //           error.textContent="請輸入簡介"
-          //           return;
-          //       }
-
-          //       form.submit();
-          //   })
 
         </script>
+
+                <!-- 放錯誤訊息 (先判斷存不存在) 存在->顯示完->清除
+                <?php if(isset($_SESSION["error"]["message"])): ?>
+                <div class="py-2">
+                    <div>
+                        <div class="text-danger"><?=$_SESSION["error"]["message"]?></div>
+                    </div>
+                </div>
+                <?php endif; 
+                unset ($_SESSION["error"]["message"]); //做清除
+                ?> -->
 
 
 

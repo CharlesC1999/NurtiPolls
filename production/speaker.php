@@ -282,9 +282,8 @@ $result = $conn->query($sql); //if判斷完 -> 吐資料 -> 升冪降冪
                     <input type="search" class="form-control" placeholder="Search for name..." name="search" 
                     <?php
                       if (isset($_GET["search"])) :
-                          $searchValue = $_GET["search"];
-                          ?> value="<?= $searchValue ?>" 
-                    <?php endif; ?>>
+                          $searchValue = $_GET["search"];?> value="<?= $searchValue ?>" >
+                    <?php endif; ?>
                     <span class="input-group-btn">
                       <button class="btn btn-secondary" type="submit">Go!</button>
                     </span>
@@ -331,7 +330,7 @@ $result = $conn->query($sql); //if判斷完 -> 吐資料 -> 升冪降冪
                             //判斷 在搜尋裡總共有幾筆 or 預設值全部筆數
                                 if (isset($_GET["search"])) {
                                   $searchCount = $result->num_rows;
-                                  echo "搜尋<spen style=color:red;> $search </spen>的結果，共有 $searchCount 筆符合資料";
+                                  echo "搜尋<spen style=color:red;> $search </spen>的結果，共有 $searchCount 筆符合資料";  
                                 } else {
                                   $speakerCount = $speakerToCount;
                                   echo "教師共 $speakerCount 位，第 $p 頁，共 $pageCount 頁。";
