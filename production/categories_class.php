@@ -17,12 +17,13 @@ $product_type_count = $result_all_class->num_rows;
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>DataTables | Gentelella</title>
+    <title>營養大選 Nutripoll</title>
 
     <!-- Bootstrap -->
     <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <!-- NProgress -->
     <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
@@ -100,8 +101,9 @@ $product_type_count = $result_all_class->num_rows;
                       <li><a href="calendar.html">Calendar</a></li>
                     </ul>
                   </li> -->
-                  <li><a href="tables_dynamic.html"><i class="fa fa-table"></i> 會員管理 <span class="fa fa-chevron-down"></span></a>
-                  </li><li><a href="product.php"><i class="fa fa-table"></i>商品管理 <span class="fa fa-chevron-down"></span></a>
+                  <li><a href="member.php"><i class="fa fa-table"></i> 會員管理 <span class="fa fa-chevron-down"></span></a>
+                  </li>
+                  <li><a href="product.php"><i class="fa fa-table"></i>商品管理 <span class="fa fa-chevron-down"></span></a>
                   </li>
                   <li><a><i class="fa fa-table"></i>分類管理<span class="fa fa-chevron-down"></span>
                   <ul class="nav child_menu">
@@ -110,15 +112,15 @@ $product_type_count = $result_all_class->num_rows;
                       <li><a href="categories_recipe.php" style="font-size: 16px;">食譜</a></li>
 
                     </ul>
-                  </a>
+
                   </li>
-                  <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>食譜管理<span class="fa fa-chevron-down"></span></a>
+                  <li><a href="recipe-list.php"><i class="fa fa-table"></i>食譜管理<span class="fa fa-chevron-down"></span></a>
                   </li>
                   <li><a href="speaker.php"><i class="fa fa-table"></i>講師管理<span class="fa fa-chevron-down"></span></a>
                   </li>
-                  <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>課程管理<span class="fa fa-chevron-down"></span></a>
+                  <li><a href="redirectClass.php"><i class="fa fa-table"></i>課程管理<span class="fa fa-chevron-down"></span></a>
                   </li>
-                  <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>優惠卷管理<span class="fa fa-chevron-down"></span></a>
+                  <li><a href="coupons.php"><i class="fa fa-table"></i>優惠卷管理<span class="fa fa-chevron-down"></span></a>
                   </li>
                   <!-- <li><a><i class="fa fa-bar-chart-o"></i> Data Presentation <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
@@ -305,12 +307,12 @@ $product_type_count = $result_all_class->num_rows;
 
               <div class="title_right">
                 <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                  <div class="input-group">
+                  <!-- <div class="input-group">
                     <input type="text" class="form-control" placeholder="Search for...">
                     <span class="input-group-btn">
                       <button class="btn btn-secondary" type="button">Go!</button>
                     </span>
-                  </div>
+                  </div> -->
                 </div>
               </div>
             </div>
@@ -379,7 +381,7 @@ foreach ($rows as $cate):
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title text-success" id="exampleModalLabel">新增分類</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close bg-white border-0" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-chevron-up fa-fw"></i></button>
                     </div>
                     <div class="modal-body">
                         <form id="editCategoryForm" method="POST" action="do_add_Ccate.php">
