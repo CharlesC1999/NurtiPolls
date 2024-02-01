@@ -7,11 +7,24 @@ if (!isset($_GET["Coupon_ID"])) {
 
 
 require_once("../db_connect.php");
-$sql = "SELECT * from coupons WHERE valid=1";
+$sql = "SELECT * from coupons WHERE Coupon_ID=$Coupon_ID";
 $result = $conn->query($sql);
 
 $row = $result->fetch_assoc();
-$discount_type=$row["Discount_type"];
+$discount_type = $row["Discount_type"];
+
+// GROUP_CONCAT 函數用來將多個分類名稱合併為一個字串，並以逗號分隔
+// c,cc,pc為自定義的資料表別名
+$sqlcc = "SELECT c.coupon_id, GROUP_CONCAT(pc.Product_cate_name SEPARATOR ', ') as categories
+FROM coupons c
+JOIN coupon_categories cc ON c.Coupon_ID = cc.coupon_id
+JOIN product_categories pc ON cc.category_id = pc.Product_cate_ID
+WHERE c.Coupon_ID = $Coupon_ID
+GROUP BY c.Coupon_ID;";
+
+$resultcc = $conn->query($sqlcc);
+$rowcc = $resultcc->fetch_assoc();
+
 $conn->close();
 ?>
 <!DOCTYPE html>
@@ -25,6 +38,10 @@ $conn->close();
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>coupon-edit</title>
+    <!-- 引入 Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <!-- 引入 Select2 CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
     <!-- fontawesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Bootstrap -->
@@ -219,83 +236,168 @@ $conn->close();
             <!-- page content -->
             <div class="right_col" role="main">
                 <div class="container">
-                    <h2 class="my-3">修改優惠券</h2>
-                    <input type="hidden" name="id" value="<?= $row["Coupon_ID"] ?>">
-                    <form action="updateCoupon.php" method="post">
-                        <table>
-                            <tr>
-                                <th>優惠券名稱</th>
-                                <td class="p-3">
-                                    <input type="text" class="form-control" name="name" value="<?= $row["C_name"] ?>">
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>優惠券代碼</th>
-                                <td class="p-3">
-                                    <input type="text" class="form-control" id="couponCode" placeholder="" name="code" value="<?= $row["C_code"] ?>">
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>優惠券使用時間</th>
-                                <td class="p-3">
-                                    <div class="row">
-                                        <div class="form-group col-auto">
-                                            <input type="date" class="form-control" id="datePicker" name="validStartDate" value="<?= $row["Valid_start_date"] ?>">
-                                        </div>
-                                        <span class="col-auto">~</span>
-                                        <div class="form-group col-auto">
-                                            <input type="date" class="form-control" id="datePicker" name="validEndDate" value="<?= $row["Valid_end_date"] ?>">
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>折扣方式</th>
-                                <td class="p-3">
-                                    <div class="row">
-                                        <div class="form-check col-auto">
-                                            <input class="form-check-input" type="radio" name="discount_type" id="radio" value="百分比" <?php if ($discount_type == "百分比") echo "checked"; ?>>
-                                            <label class="form-check-label" for="flexRadioDefault1">
-                                                百分比
-                                            </label>
-                                        </div>
-
-                                        <div class="form-check col-auto">
-                                            <input class="form-check-input" type="radio" name="discount_type" id="" value="金額"  <?php if ($discount_type == "金額") echo "checked"; ?> >
-                                            <label class="form-check-label" for="flexRadioDefault2">
-                                                金額
-                                            </label>
-                                        </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>優惠券面額</th>
-                                <td class="p-3">
-                                    <input type="text" class="form-control" id="couponCode" placeholder="" name="code" value="<?= $row["Discount_amount"] ?>">
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>最低消費金額</th>
-                                <td class="p-3">
-                                    <input type="number" class="form-control" name="min_amount" value="<?= $row["minimum_spend"] ?>">
-                                </td>
-                            </tr>
-                        </table>
-                        <div class="py-3">
-                            <button type="submit" class="btn btn-info" role="button">儲存</button>
-                        </div>
-                    </form>
+                    <a type="submit" class="btn btn-secondary" href="coupons.php" role="button"><i class="fa-solid fa-chevron-left"></i>返回列表</a>
                 </div>
+                <h1 class="my-3 h3">修改優惠券</h1>
+
+                <form action="updateCoupon.php" method="post">
+                    <input type="hidden" name="id" value="<?= $row["Coupon_ID"] ?>">
+                    <table>
+                        <tr>
+                            <th>優惠券編號</th>
+                            <td class="p-2">
+                                <?= $row["Coupon_ID"] ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>優惠券名稱</th>
+                            <td class="p-3">
+                                <input type="text" class="form-control" name="name" value="<?= $row["C_name"] ?>">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>優惠券代碼</th>
+                            <td class="p-3">
+                                <input type="text" class="form-control" id="couponCode" placeholder="" name="code" value="<?= $row["C_code"] ?>">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>優惠券使用時間</th>
+                            <td class="p-3">
+                                <div class="row">
+                                    <div class="form-group col-auto">
+                                        <input type="date" class="form-control" id="datePicker" name="validStartDate" min="2021-02-01" max="2025-02-01" required="required" value="<?= $row["Valid_start_date"] ?>">
+                                    </div>
+                                    <span class="col-auto">~</span>
+                                    <div class="form-group col-auto">
+                                        <input type="date" class="form-control" id="datePicker" name="validEndDate" min="2021-02-01" max="2025-02-01" required="required" value="<?= $row["Valid_end_date"] ?>">
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>折扣方式</th>
+                            <td class="p-3">
+                                <div class="row">
+                                    <div class="form-check col-auto">
+                                        <input class="form-check-input" type="radio" name="discount_type" id="radio" value="百分比" <?php if ($discount_type == "百分比") echo "checked"; ?>>
+                                        <label class="form-check-label" for="flexRadioDefault1">
+                                            百分比
+                                        </label>
+                                    </div>
+
+                                    <div class="form-check col-auto">
+                                        <input class="form-check-input" type="radio" name="discount_type" id="" value="金額" <?php if ($discount_type == "金額") echo "checked"; ?>>
+                                        <label class="form-check-label" for="flexRadioDefault2">
+                                            金額
+                                        </label>
+                                    </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>優惠券面額</th>
+                            <td class="p-3">
+                                <input type="text" class="form-control" id="couponCode" placeholder="" name="couponAmount" value="<?= $row["Discount_amount"] ?>">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>優惠券適用範圍</th>
+                            <td class="p-3">
+                                <select class="form-control select2-multi" name="categories[]" value="<?= $rowcc["categories"] ?>" multiple="multiple">
+                                    <?php
+                                    // 將字符串轉換為陣列
+                                    $selectedCategories = explode(", ", $rowcc["categories"]); ?>
+                                    <!-- 手動檢查每個選項 -->
+                                    <option value="1" <?php if (in_array("蔬菜", $selectedCategories)) echo "selected"; ?>>蔬菜</option>
+                                    <option value="2" <?php if (in_array("米麵五穀", $selectedCategories)) echo "selected"; ?>>米麵五穀</option>
+                                    <option value="3" <?php if (in_array("植物油", $selectedCategories)) echo "selected"; ?>>植物油</option>
+                                    <option value="4" <?php if (in_array("魚類", $selectedCategories)) echo "selected"; ?>>魚類</option>
+                                    <option value="5" <?php if (in_array("雞類", $selectedCategories)) echo "selected"; ?>>雞類</option>
+                                    <option value="6" <?php if (in_array("豬類", $selectedCategories)) echo "selected"; ?>>豬類</option>
+                                    <option value="7" <?php if (in_array("牛類", $selectedCategories)) echo "selected"; ?>>牛類</option>
+                                    <option value="8" <?php if (in_array("季節水產", $selectedCategories)) echo "selected"; ?>>季節水產</option>
+                                    <option value="9" <?php if (in_array("即食粥麵/湯品/甜品", $selectedCategories)) echo "selected"; ?>>即食粥麵/湯品/甜品</option>
+                                    <option value="10" <?php if (in_array("乾貨/醃漬/素料", $selectedCategories)) echo "selected"; ?>>乾貨/醃漬/素料</option>
+                                    <option value="11" <?php if (in_array("調味/醬料", $selectedCategories)) echo "selected"; ?>>調味/醬料</option>
+                                    <option value="12" <?php if (in_array("抹醬/果醬", $selectedCategories)) echo "selected"; ?>>抹醬/果醬</option>
+                                    <option value="13" <?php if (in_array("堅果/果乾", $selectedCategories)) echo "selected"; ?>>堅果/果乾</option>
+                                    <option value="14" <?php if (in_array("飲品/茶咖啡", $selectedCategories)) echo "selected"; ?>>飲品/茶咖啡</option>
+                                    <option value="15" <?php if (in_array("水果", $selectedCategories)) echo "selected"; ?>>水果</option>
+                                    <option value="16" <?php if (in_array("素料", $selectedCategories)) echo "selected"; ?>>素料</option>
+                                    <option value="17" <?php if (in_array("蛋類", $selectedCategories)) echo "selected"; ?>>蛋類</option>
+                                    <option value="18" <?php if (in_array("豆製品", $selectedCategories)) echo "selected"; ?>>豆製品</option>
+                                    <option value="19" <?php if (in_array("乳製品", $selectedCategories)) echo "selected"; ?>>乳製品</option>
+                                    <option value="20" <?php if (in_array("其他精選肉", $selectedCategories)) echo "selected"; ?>>其他精選肉</option>
+                                </select>
+                            </td>
+                            <!-- <td class="p-3">
+                                <select class="form-control select2-multi" name="categories[]" multiple="multiple">
+                                    <?php
+                                    // 假設 $allCategories 包含所有分類，每個分類有 id 和 name
+                                    foreach ($allCategories as $category) {
+                                        // 檢查該分類是否在已選分類中
+                                        $selected = in_array($category['id'], $rowcc["categories"]) ? 'selected' : '';
+                                        echo "<option value='" . $category['id'] . "' $selected>" . $category['name'] . "</option>";
+                                    }
+                                    ?>
+                                </select>
+                            </td> -->
+                        </tr>
+                        <tr>
+                            <th>最低消費金額</th>
+                            <td class="p-3">
+                                <input type="number" class="form-control" name="min_amount" value="<?= $row["minimum_spend"] ?>">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>優惠券說明</th>
+                            <td class="p-3">
+                                <input type="text" class="form-control" name="coupon_description" value="<?= $row["Coupon_description"] ?>">
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="py-3">
+                        <button type="submit" class="btn btn-info" role="button">儲存</button>
+                        <button type="button" class="btn btn-danger" role="button" data-toggle="modal" data-target="#confirmModal">刪除</button>
+                    </div>
+                    <div class="modal fade" id="confirmModal" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h2 class="modal-title fs-5" id="exampleModalLabel">刪除優惠券</h2>
+                                    
+                                </div>
+                                <div class="modal-body">
+                                    確認刪除?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                                    <a role="button" class="btn btn-danger" href="doDeleteCoupon.php?Coupon_ID=<?= $row["Coupon_ID"] ?>">確認</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
-            <!-- /page content -->
-
-
-            <!-- /footer content -->
         </div>
-    </div>
+        <!-- /page content -->
 
+
+        <!-- /footer content -->
+    </div>
+    </div>
+    <!-- 引入 jQuery (必須先於 Select2) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <!-- 引入 Select2 JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('.select2-multi').select2();
+        });
+    </script>
     <!-- jQuery -->
-    <script src="../vendors/jquery/dist/jquery.min.js"></script>
+    <!-- <script src="../vendors/jquery/dist/jquery.min.js"></script> -->
     <!-- Bootstrap -->
     <script src="../vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <!-- FastClick -->

@@ -135,22 +135,7 @@ $conn->close();
                 </li>
                 <li><a href="coupons.php"><i class="fa fa-table"></i>優惠卷管理<span class="fa fa-chevron-down"></span></a>
                 </li>
-                <!-- <li><a><i class="fa fa-bar-chart-o"></i> Data Presentation <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="chartjs.html">Chart JS</a></li>
-                      <li><a href="chartjs2.html">Chart JS2</a></li>
-                      <li><a href="morisjs.html">Moris JS</a></li>
-                      <li><a href="echarts.html">ECharts</a></li>
-                      <li><a href="other_charts.html">Other Charts</a></li>
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-clone"></i>Layouts <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="fixed_sidebar.html">Fixed Sidebar</a></li>
-                      <li><a href="fixed_footer.html">Fixed Footer</a></li>
-                    </ul>
-                  </li>
-                </ul> -->
+              
             </div>
             
 
@@ -266,19 +251,9 @@ $conn->close();
         <div class="">
           <div class="page-title">
             <div class="title_left">
+              
               <h3>我的優惠券</h3>
-              <a href="add-coupon.php" class="btn my-3 btn-info">建立優惠券</a>
-            </div>
-
-            <div class="title_right">
-              <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                <div class="input-group">
-                  <input type="text" class="form-control" placeholder="Search for...">
-                  <span class="input-group-btn">
-                    <button class="btn btn-secondary" type="button">Go!</button>
-                  </span>
-                </div>
-              </div>
+              <a href="add-coupon.php" class="btn btn-info my-3">新增優惠券</a>
             </div>
           </div>
 
@@ -340,38 +315,19 @@ $conn->close();
                                 <td><?= $coupon["C_name"] ?></td>
                                 <td><?= $coupon["C_code"] ?></td>
                                 <td><?= $coupon["Discount_type"] ?></td>
-                                <td><?= $coupon["Discount_amount"] ?></td>
+                                <td>
+                                  <?= $coupon["Discount_amount"] ?></td>
                                 <td><?= $coupon["Valid_start_date"] ?></td>
                                 <td><?= $coupon["Valid_end_date"] ?></td>
                                 <td>
-                                  <a name="" id=""  href="coupon-edit.php?Coupon_ID=<?= $coupon["Coupon_ID"] ?>" role="button">編輯</a>
-                                  <a name="" id="" href="coupon.php?Coupon_ID=<?= $coupon["Coupon_ID"] ?>" role="button">顯示詳情</a>
-                                  <a href="#" data-toggle="modal" data-target="#confirmModal">刪除</ㄇ>
-
+                                  <a name="" id=""  href="coupon-edit.php?Coupon_ID=<?= $coupon["Coupon_ID"] ?>" role="button" class="btn btn-outline-dark mr-2"><i class="fa-solid fa-pen-to-square"></i></a>
+                                  <a name="" id="" href="coupon.php?Coupon_ID=<?= $coupon["Coupon_ID"] ?>" role="button" class="btn btn-outline-info"><i class="fa-solid fa-eye"></i></a>
                                 </td>
 
                               </tr>
-                            
-
-                            <div class="modal fade" id="confirmModal" tabindex="-1" aria-hidden="true">
-                              <div class="modal-dialog">
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                    <h2 class="modal-title fs-5" id="exampleModalLabel">刪除優惠券</h2>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                  </div>
-                                  <div class="modal-body">
-                                    確認刪除?
-                                  </div>
-                                  <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                                    <a role="button" class="btn btn-danger" href="doDeleteCoupon.php?Coupon_ID=<?= $coupon["Coupon_ID"] ?>">確認</a>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
+                          
                             <?php endforeach; ?>
-
+                            
 
                           </tbody>
                         </table>

@@ -33,13 +33,15 @@ $conn->close();
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>coupons</title>
+  <!-- 引入 Select2 CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
   <!-- fontawesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <!-- Bootstrap -->
   <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
   <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-   <!-- Bootstrap 5.3.2-->
-   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <!-- Bootstrap 5.3.2-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   <!-- Font Awesome -->
   <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
   <!-- NProgress -->
@@ -88,7 +90,7 @@ $conn->close();
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-          <a role="button" class="btn btn-danger" href="doDeleteCoupon.php?id=<?=$row["Coupon_ID"]?>">確認</a>
+          <a role="button" class="btn btn-danger" href="doDeleteCoupon.php?id=<?= $row["Coupon_ID"] ?>">確認</a>
         </div>
       </div>
     </div>
@@ -122,36 +124,7 @@ $conn->close();
             <div class="menu_section">
               <h3>General</h3>
               <ul class="nav side-menu">
-                <!-- <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="index.html">Dashboard</a></li>
-                      <li><a href="index2.html">Dashboard2</a></li>
-                      <li><a href="index3.html">Dashboard3</a></li>
-                    </ul>
-                  </li> -->
-                <!-- <li><a><i class="fa fa-edit"></i> Forms <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="form.html">General Form</a></li>
-                      <li><a href="form_advanced.html">Advanced Components</a></li>
-                      <li><a href="form_validation.html">Form Validation</a></li>
-                      <li><a href="form_wizards.html">Form Wizard</a></li>
-                      <li><a href="form_upload.html">Form Upload</a></li>
-                      <li><a href="form_buttons.html">Form Buttons</a></li>
-                    </ul>
-                  </li> -->
-                <!-- <li><a><i class="fa fa-desktop"></i> UI Elements <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="general_elements.html">General Elements</a></li>
-                      <li><a href="media_gallery.html">Media Gallery</a></li>
-                      <li><a href="typography.html">Typography</a></li>
-                      <li><a href="icons.html">Icons</a></li>
-                      <li><a href="glyphicons.html">Glyphicons</a></li>
-                      <li><a href="widgets.html">Widgets</a></li>
-                      <li><a href="invoice.html">Invoice</a></li>
-                      <li><a href="inbox.html">Inbox</a></li>
-                      <li><a href="calendar.html">Calendar</a></li>
-                    </ul>
-                  </li> -->
+
                 <li><a href="tables_dynamic.html"><i class="fa fa-table"></i> 會員管理 <span class="fa fa-chevron-down"></span></a>
                 </li>
                 <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>商品管理 <span class="fa fa-chevron-down"></span></a>
@@ -166,80 +139,14 @@ $conn->close();
                 </li>
                 <li><a href="coupons.php"><i class="fa fa-table"></i>優惠卷管理<span class="fa fa-chevron-down"></span></a>
                 </li>
-                <!-- <li><a><i class="fa fa-bar-chart-o"></i> Data Presentation <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="chartjs.html">Chart JS</a></li>
-                      <li><a href="chartjs2.html">Chart JS2</a></li>
-                      <li><a href="morisjs.html">Moris JS</a></li>
-                      <li><a href="echarts.html">ECharts</a></li>
-                      <li><a href="other_charts.html">Other Charts</a></li>
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-clone"></i>Layouts <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="fixed_sidebar.html">Fixed Sidebar</a></li>
-                      <li><a href="fixed_footer.html">Fixed Footer</a></li>
-                    </ul>
-                  </li>
-                </ul> -->
+
             </div>
-            <!-- <div class="menu_section">
-                <h3>Live On</h3>
-                <ul class="nav side-menu">
-                  <li><a><i class="fa fa-bug"></i> Additional Pages <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="e_commerce.html">E-commerce</a></li>
-                      <li><a href="projects.html">Projects</a></li>
-                      <li><a href="project_detail.html">Project Detail</a></li>
-                      <li><a href="contacts.html">Contacts</a></li>
-                      <li><a href="profile.html">Profile</a></li>
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-windows"></i> Extras <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="page_403.html">403 Error</a></li>
-                      <li><a href="page_404.html">404 Error</a></li>
-                      <li><a href="page_500.html">500 Error</a></li>
-                      <li><a href="plain_page.html">Plain Page</a></li>
-                      <li><a href="login.html">Login Page</a></li>
-                      <li><a href="pricing_tables.html">Pricing Tables</a></li>
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-sitemap"></i> Multilevel Menu <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                        <li><a href="#level1_1">Level One</a>
-                        <li><a>Level One<span class="fa fa-chevron-down"></span></a>
-                          <ul class="nav child_menu">
-                            <li class="sub_menu"><a href="level2.html">Level Two</a>
-                            </li>
-                            <li><a href="#level2_1">Level Two</a>
-                            </li>
-                            <li><a href="#level2_2">Level Two</a>
-                            </li>
-                          </ul>
-                        </li>
-                        <li><a href="#level1_2">Level One</a>
-                        </li>
-                    </ul>
-                  </li>                  
-                  <li><a href="javascript:void(0)"><i class="fa fa-laptop"></i> Landing Page <span class="label label-success pull-right">Coming Soon</span></a></li>
-                </ul>
-              </div> -->
 
           </div>
           <!-- /sidebar menu -->
 
           <!-- /menu footer buttons -->
           <div class="sidebar-footer hidden-small">
-            <!-- <a data-toggle="tooltip" data-placement="top" title="Settings">
-                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-              </a> -->
-            <!-- <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Lock">
-                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-              </a> -->
             <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
               <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
             </a>
@@ -344,70 +251,98 @@ $conn->close();
       <!-- page content -->
       <div class="right_col" role="main">
         <div class="">
-          
+
 
           <div class="clearfix"></div>
           <div class="container">
-        <h2 class="my-3">建立優惠券</h2>
-        <form action="doAddCoupon.php" method="post">
-            <div class="mb-3">
+            <h1 class="my-3 h3">建立優惠券</h1>
+            <form action="doAddCoupon.php" method="post" onsubmit="return validateDates()">
+              <div class="mb-3">
                 <label class="form-label" for="">優惠券名稱</label>
                 <input type="text" class="form-control" name="name">
-            </div>
-            <div class="mb-3">
+              </div>
+              <div class="mb-3">
                 <label class="form-label" for="couponCode">優惠券代碼</label>
-                    <input type="text" class="form-control" id="couponCode" placeholder="請填入八位英數混合數字" name="code">
-            </div>
+                <input type="text" class="form-control mb-2" id="couponCode" placeholder="請填入八位英數混合數字，英文需為大寫字母" name="code" required="required" maxlength="8" pattern="[0-9A-Z]+">
+                <button style="background-color: #17a2b8
+                ;color:#fff" class="btn" onclick="generateCouponCode()"type="button">隨機生成代碼</button>
+              </div>
 
 
 
-            <div class="row mb-3">
+              <div class="row mb-3">
                 <label class="form-label" for="">優惠券使用時間</label>
                 <div class="form-group col-auto">
-                    <input type="date" class="form-control" id="datePicker" name="validStartDate">
+                  <input type="date" class="form-control" id="datePicker1" name="validStartDate" min="<?= $todayDate ?>" max="2025-02-01" required="required">
                 </div>
                 <div class="col-auto">~</div>
                 <div class="form-group col-auto">
-                    <input type="date" class="form-control" id="datePicker" name="validEndDate">
+                  <input type="date" class="form-control" id="datePicker2" name="validEndDate" min="<?= $todayDate ?>" max="2025-02-01" required="required">
                 </div>
-            </div>
+                <div id="dateAlert" style="color: #c80b2b; display: none;">起始日期不可晚於結束日期</div>
+              </div>
 
-            <div class="mb-3 row">
+              <div class="mb-3 row">
                 <label for="" class="form-label">折扣方式</label>
                 <div class="form-check col-auto">
-                    <input class="form-check-input" type="radio" name="discount_type" id="" value="百分比">
-                    <label class="form-check-label" for="flexRadioDefault1">
-                        百分比
-                    </label>
+                  <input class="form-check-input" type="radio" name="discount_type" id="" value="百分比">
+                  <label class="form-check-label" for="flexRadioDefault1">
+                    百分比
+                  </label>
                 </div>
                 <div class="form-check col-auto">
-                    <input class="form-check-input" type="radio" name="discount_type" id="" value="金額" checked>
-                    <label class="form-check-label" for="flexRadioDefault2">
-                        金額
-                    </label>
+                  <input class="form-check-input" type="radio" name="discount_type" id="" value="金額" checked>
+                  <label class="form-check-label" for="flexRadioDefault2">
+                    金額
+                  </label>
                 </div>
-            </div>
-            <div class="mb-3">
-                    <label for="" class="form-label">優惠券面額</label>
-                    <input type="text" class="form-control" id="couponCode" placeholder="請填入數字 / 折數，例如300或0.9" name="couponAmount">
-                </div>
-
-            <div class="mb-3">
+              </div>
+              <div class="mb-3">
+                <label for="" class="form-label">優惠券面額</label>
+                <input type="text" class="form-control" id="couponAmount" placeholder="請填入數字 / 折數，例如300或0.9" name="couponAmount">
+              </div>
+              <div class="form-group">
+                <label for="" class="form-label">優惠券適用範圍</label>
+                <select class="form-control select2-multi" name="categories[]" multiple="multiple">
+                  <option value="1">蔬菜</option>
+                  <option value="2">米麵五穀</option>
+                  <option value="3">植物油</option>
+                  <option value="4">魚類</option>
+                  <option value="5">雞類</option>
+                  <option value="6">豬類</option>
+                  <option value="7">牛類</option>
+                  <option value="8">季節水產</option>
+                  <option value="9">即食粥麵/湯品/甜品</option>
+                  <option value="10">乾貨/醃漬/素料</option>
+                  <option value="11">調味/醬料</option>
+                  <option value="12">抹醬/果醬</option>
+                  <option value="13">堅果/果乾</option>
+                  <option value="14">飲品/茶咖啡</option>
+                  <option value="15">水果</option>
+                  <option value="16">素料</option>
+                  <option value="17">蛋類</option>
+                  <option value="18">豆製品</option>
+                  <option value="19">乳製品</option>
+                  <option value="20">其他精選肉</option>
+                </select>
+              </div>
+              <div class="mb-3">
                 <label for="" class="form-label">最低消費金額</label>
                 <input type="number" class="form-control" name="min_amount">
-            </div>
-            <div class="mb-3">
-                <label for="" class="form-label">使用說明（選填）</label>
+              </div>
+              <div class="mb-3">
+                <label for="" class="form-label">優惠說明（選填）</label>
                 <input type="text" class="form-control" name="coupon_description">
-            </div>
-            <div class="py-2">
+
+              </div>
+              <div class="py-2">
                 <button type="submit" class="btn btn-info me-3" role="button" style="background-color: #17a2b8;color:#fff">確認</button>
                 <a type="" class="btn btn-secondary" href="coupons.php" role="button">取消</a>
 
-            </div>
-        </form>
-    </div>
-          
+              </div>
+            </form>
+          </div>
+
         </div>
       </div>
       <!-- /page content -->
@@ -417,8 +352,58 @@ $conn->close();
     </div>
   </div>
 
+  <!-- 引入 jQuery (必須先於 Select2) -->
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <!-- 引入 Select2 JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+  <script>
+    $(document).ready(function() {
+      $('.select2-multi').select2();
+    });
+  </script>
+
+  <!-- 隨機生成優惠券代碼 -->
+  <script>
+    function generateCouponCode() {
+      var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+      var codeLength = 8;
+      var couponCode = '';
+// Math.random(): 這是一個JavaScript函數，用於生成一個0到1之間的隨機數（包括0，但不包括1）。每次調用這個函數時，它都會返回一個不同的隨機數。
+
+// characters.length: 這裡的 characters 是一個字符串，包含了所有可能使用的字符（在你的案例中是大寫字母和數字）。characters.length 是這個字符串的長度，即字符的總數。
+
+// Math.random() * characters.length: 將 Math.random() 生成的隨機數乘以字符集的長度。這樣做的目的是將隨機數的範圍從0-1擴展到0到 characters.length。但是，這個乘法的結果可能是一個小數。
+
+// Math.floor(...): Math.floor 函數會將其內部的數字向下取整到最接近的整數。在這個案例中，它被用來將上一步中計算出的可能為小數的數字轉換為一個整數。這樣我們就能得到一個從0到 characters.length - 1 的隨機索引。
+      for (var i = 0; i < codeLength; i++) {
+        var randomIndex = Math.floor(Math.random() * characters.length);
+        couponCode += characters[randomIndex];
+      }
+
+      document.getElementById('couponCode').value = couponCode;
+    }
+  </script>
+
+  <!-- 優惠券使用時間驗證(結束時間不可早於起始時間) -->
+  <script>
+    function validateDates() {
+      var startDate = document.getElementById('datePicker1').value;
+      var endDate = document.getElementById('datePicker2').value;
+      var alertBox = document.getElementById('dateAlert');
+
+      if (startDate > endDate) {
+        alertBox.style.display = 'block'; // 顯示警告訊息
+        return false; // 阻止表單提交
+      } else {
+        alertBox.style.display = 'none'; // 隱藏警告訊息
+        return true; // 允許表單提交
+      }
+    }
+  </script>
+
   <!-- jQuery -->
-  <script src="../vendors/jquery/dist/jquery.min.js"></script>
+  <!-- <script src="../vendors/jquery/dist/jquery.min.js"></script> -->
   <!-- Bootstrap -->
   <script src="../vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   <!-- FastClick -->
@@ -446,18 +431,6 @@ $conn->close();
 
   <!-- Custom Theme Scripts -->
   <script src="../build/js/custom.min.js"></script>
- <!-- Bootstrap JavaScript Libraries -->
- <script
-            src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-            integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-            crossorigin="anonymous"
-        ></script>
-
-        <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
-            integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
-            crossorigin="anonymous"
-        ></script>
 </body>
 
 </html>
