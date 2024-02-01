@@ -44,17 +44,14 @@ if (isset($_GET['sort'])) {
     }
 }
 
-// 订单详情查询
 $sql_order_detail = "SELECT * FROM buy_item
     JOIN buy ON buy_item.Order_ID = buy.Order_ID
     WHERE buy_item.Order_ID = ?";
 
-// 产品详情查询
 $sql_order_product = "SELECT * FROM buy_item
     JOIN product ON buy_item.Product_ID = product.id
     WHERE buy_item.Order_ID = ? $orderString";
 
-// 准备订单详情查询
 $stmt = $conn->prepare($sql_order_detail);
 if ($stmt === false) {
     die("準備 SQL 語句失敗：" . $conn->error);
@@ -67,16 +64,11 @@ if ($stmt->execute()) {
 
     if ($rowCount > 0) {
         $row = $result->fetch_assoc();
-        // 处理订单详情...
-    } else {
-        echo "沒有找到對應的訂單詳情。";
+
     }
-} else {
-    die("執行語句失敗：" . $stmt->error);
 }
 $stmt->close();
 
-// 准备产品详情查询
 $stmt_product = $conn->prepare($sql_order_product);
 if ($stmt_product === false) {
     die("準備 SQL 語句失敗：" . $conn->error);
@@ -89,12 +81,8 @@ if ($stmt_product->execute()) {
 
     if ($order_product_count > 0) {
         $products = $result_product->fetch_all(MYSQLI_ASSOC);
-        // 现在 $products 包含所有产品的详情
-    } else {
-        echo "沒有找到相關的產品信息。";
+
     }
-} else {
-    die("執行語句失敗：" . $stmt_product->error);
 }
 $stmt_product->close();
 
@@ -485,7 +473,7 @@ $stmt_product->close();
                   <div class="x_title">
                     <h2>訂單詳情 <small>Orders detail</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
-                        <li><a class="collapse-link text-info" href="order.php"><i class="fa fa fa-arrow-left"></i> 返回</a></li>
+                        <li><a style="font-size: 16px" class="collapse-link text-secondary" href="order.php"><i class="fa fa fa-arrow-left"></i> 返回</a></li>
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
                     </ul>
@@ -508,12 +496,11 @@ $stmt_product->close();
                             </span>
                           </div>
                           <div class="col">
-                          <a href="order_detail.php?sort=total_price_asc&Order_ID=<?php echo $orderID; ?>">↑</a>
-                          <a href="order_detail.php?sort=total_price_desc&Order_ID=<?php echo $orderID; ?>">↓</a>
-                            <a href="order_detail.php?sort=quantity_asc">购买数量升序</a>
-                            <a href="order_detail.php?sort=quantity_desc">购买数量降序</a>
-                            <a href="order_detail.php?sort=stock_asc">剩余库存升序</a>
-                            <a href="order_detail.php?sort=stock_desc">剩余库存降序</a>
+
+
+
+
+
                           </div>
                           <div class="col">
                             <span class="h6 text-right d-block">訂單建立時間：<?=$row["Order_date"]?></span>
@@ -528,9 +515,18 @@ $stmt_product->close();
                               <th style="width: 6vw;">商品ID</th>
                               <th style="width: 6vw;">商品圖片</th>
                               <th>商品名稱</th>
-                              <th style="width: 4vw;">購買數量</th>
-                              <th style="width: 6vw;">合計金額 </th>
-                              <th style="width: 4vw;">剩餘庫存</th>
+                              <th style="width: 7vw;">購買數量
+                                <a href="order_detail.php?sort=quantity_asc"><i class="fa-solid fa-arrow-down-short-wide fa-fw"></i></a>
+                                <a href="order_detail.php?sort=quantity_desc"><i class="fa-solid fa-arrow-down-wide-short fa-fw"></i></a>
+                              </th>
+                              <th style="width: 7vw;">合計金額
+                                <a class="text-right" href="order_detail.php?sort=total_price_asc"><i class="fa-solid fa-arrow-down-short-wide fa-fw"></i></a>
+                                <a class="text-right" href="order_detail.php?sort=total_price_desc"><i class="fa-solid fa-arrow-down-wide-short fa-fw"></i></a>
+                              </th>
+                              <th style="width: 7vw;">剩餘庫存
+                                <a class="text-right" href="order_detail.php?sort=stock_asc"><i class="fa-solid fa-arrow-down-short-wide fa-fw"></i></a>
+                                <a class="text-right" href="order_detail.php?sort=stock_desc"><i class="fa-solid fa-arrow-down-wide-short fa-fw"></i></a>
+                              </th>
                             </tr>
                           </thead>
                           <tbody class="border border-secondary">
