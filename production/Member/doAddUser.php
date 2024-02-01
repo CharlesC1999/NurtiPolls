@@ -1,6 +1,7 @@
 <!-- WU 增加會員連線中的處理 後台-->
 <?php
-require_once "./connect.php";
+session_start();
+require_once "../../db_connect.php";
 
 if (!isset($_POST["name"])) {
     echo "請循正常管道";
@@ -17,9 +18,22 @@ $img = $_FILES["img"];
 $filename = "";
 $password = md5($password);
 
+// if (empty($account)) {
+//     $_SESSION["error"]["message"] = "請輸入帳號";
+//     header("location:add-user.php");
+//     exit;
+// }
+
+// if (empty($password)) {
+//     $_SESSION["error"]["message"] = "請輸入密碼";
+//     header("location:add-user.php");
+//     exit;
+// }
+
 if (empty($name) || empty($email) || empty($phone) || empty($account) || empty($password)) {
-    echo "請填入必要欄位";
-    header("add-user.php");
+    // echo "請填入必要欄位";
+    $_SESSION["error"]["message"] = "請填入必要欄位";
+    header("location:add-user.php");
     exit();
 }
 // if ($_FILES['img']['error'] == 0) {
