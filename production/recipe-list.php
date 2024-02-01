@@ -262,9 +262,7 @@ $recipeCount = $result->num_rows;
               </li>
 
               <li role="presentation" class="nav-item dropdown open">
-                <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1" data-toggle="dropdown" aria-expanded="false">
-
-                </a>
+                
                 <ul class="dropdown-menu list-unstyled msg_list" role="menu" aria-labelledby="navbarDropdown1">
                   <li class="nav-item">
                     <a class="dropdown-item">
