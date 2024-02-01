@@ -427,7 +427,7 @@ foreach ($rows as $user): ?>
                             <td><?=$user["Account"]?></td>
                             <td><?=$user["Phone"]?></td>
                             <td class=" d-flex justify-content-center">
-                                <a class="btn btn-secondary" href="../server_data/Member/user.php?id=<?=$user["id"]?>" role="button"><i class="fa-solid fa-user"></i></a>
+                                <a class="btn btn-secondary" href="../Member/user.php?id=<?=$user["id"]?>" role="button"><i class="fa-solid fa-user"></i></a>
                             </td>
                         </tr>
                     <?php endforeach;?>

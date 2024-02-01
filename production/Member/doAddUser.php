@@ -8,11 +8,16 @@ if (!isset($_POST["name"])) {
 }
 
 $name = $_POST["name"];
+$account = $_POST["account"];
+$password = $_POST["password"];
 $email = $_POST["email"];
 $phone = $_POST["phone"];
-$img = $_POST["img"];
+$img = $_FILES["img"];
+// $img = $_POST["img"];
+$filename = "";
+$password = md5($password);
 
-if (empty($name) || empty($email) || empty($phone)) {
+if (empty($name) || empty($email) || empty($phone) || empty($account) || empty($password)) {
     echo "請填入必要欄位";
     header("add-user.php");
     exit();
@@ -30,8 +35,25 @@ if (empty($name) || empty($email) || empty($phone)) {
 //     // }
 // }
 
+if ($_FILES['img']['error'] == 0) {
+    $filename = $_FILES['img']['name'];
+    // echo $filename;
+
+    if (move_uploaded_file($_FILES['img']['tmp_name'], './image_members/' . $filename)) {
+        echo "success";
+    } else {
+        echo "fail";
+        // } else {
+        //     echo $_FILES['img']['error'];
+        // }
+    }
+} else {
+    echo $_FILES['img']['error'];
+    // $filename = $img2;
+}
+
 $now = date('Y-m-d H:i:s');
-$sql = "INSERT INTO member (User_name,Email,Phone,Create_date,valid,User_image) VALUES('$name','$email','$phone','$now',1,$img)";
+$sql = "INSERT INTO member (User_name,Account,Password,Email,Phone,User_image,Create_date,valid) VALUES('$name','$account','$password','$email','$phone','$img','$now',1)";
 
 // echo $sql;
 // exit;
@@ -45,4 +67,4 @@ if ($conn->query($sql)) {
 }
 $conn->close();
 
-header("location:member3.php");
+header("location:member.php");

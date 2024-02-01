@@ -1,10 +1,38 @@
 <?php
 require_once("../db_connect.php");
-$sqlCategory = "SELECT * FROM product_categories";
-$resultCategory = $conn->query($sqlCategory);
-$rowsCategory = $resultCategory->fetch_all(MYSQLI_ASSOC);
 
+if (isset($_GET['product_id'])) {
+    $product_id = $_GET['product_id']; // 從表單獲取 product_id
+
+    // 使用預處理語句來避免 SQL 注入
+    $sqlProduct = "SELECT product.*, product_image.image_url, product_categories.Product_cate_name 
+    FROM product 
+    LEFT JOIN product_image ON product.id = product_image.F_product_id 
+    LEFT JOIN product_categories ON product.category_id = product_categories.Product_cate_ID
+    WHERE product.id = ? LIMIT 1"; // 只抓一筆資料，用 LIMIT 1
+    $stmt = $conn->prepare($sqlProduct);
+    $stmt->bind_param("i", $product_id);
+    $stmt->execute();
+    $resultProduct = $stmt->get_result();
+    if ($resultProduct->num_rows > 0) {
+        $product = $resultProduct->fetch_assoc();
+    } else {
+        // 處理未找到產品的情況
+        echo "產品未找到";
+        exit;
+    }
+    $sqlCategory = "SELECT Product_cate_ID, Product_cate_name FROM product_categories";
+    $resultCategory = $conn->query($sqlCategory);
+    $rowsCategory = $resultCategory->fetch_all(MYSQLI_ASSOC);
+
+    // 確保後續代碼中處理 $product 和 $rowsCategory
+} else {
+    // 處理 product_id 未設置的情況
+    echo "產品 ID 未提供";
+    exit;
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,6 +56,10 @@ $rowsCategory = $resultCategory->fetch_all(MYSQLI_ASSOC);
 
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet" />
+
+    <!-- productCss.php -->
+    <link href="../build/css/custom.min.css" rel="stylesheet" />
+    <?php include_once("../productCss.php") ?>
 </head>
 
 <body class="nav-md">
@@ -306,7 +338,7 @@ $rowsCategory = $resultCategory->fetch_all(MYSQLI_ASSOC);
                 <div class="">
                     <div class="page-title">
                         <div class="title_left">
-                            <h3>商品新增</h3>
+                            <h3>商品編輯</h3>
                         </div>
                     </div>
                     <div class="clearfix"></div>
@@ -317,72 +349,89 @@ $rowsCategory = $resultCategory->fetch_all(MYSQLI_ASSOC);
                                 </div>
                                 <div class="x_content justify-content-center">
                                     <!-- Smart Wizard -->
+
                                     <div id="justify-content-center">
-                                        <form action="doAddProduct.php" method="POST" class="form-horizontal form-label-left" enctype="multipart/form-data">
-                                            <div class="form-group row ">
+                                        <form action="doEditProduct.php" method="POST" class="form-horizontal form-label-left" enctype="multipart/form-data">
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-md-3 col-sm-3 label-align">ID</label>
+                                                <input type="hidden" name="product_id" value="<?= htmlspecialchars($product['id']) ?>">
                                                 <div class="col-md-6 col-sm-6">
-                                                    <input type="hidden" value="<?= $row["id"] ?>" name="id" class="form-control" readonly />
+                                                    <input type="number" value="<?= $product_id ?>" name="product_id" class="form-control" readonly />
                                                 </div>
                                             </div>
-                                            <div class="form-group row ">
-                                                <label class="col-form-label col-md-3 col-sm-3 label-align">商品名稱<span class="required">*</span>
-                                                </label>
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-md-3 col-sm-3 label-align">商品名稱<span class="required">*</span></label>
                                                 <div class="col-md-6 col-sm-6">
-                                                    <input type="text" name="product_name" required="required" class="form-control" />
+                                                    <input type="text" value="<?= htmlspecialchars($product["name"]) ?>" name="product_name" required="required" class="form-control" />
                                                 </div>
                                             </div>
-                                            <div class="form-group row ">
-                                                <label class="col-form-label col-md-3 col-sm-3 label-align">商品描述<span class="required">*</span>
-                                                </label>
+                                            <!-- 其他字段相似地修改，確保使用 htmlspecialchars 來防止 XSS 攻擊 -->
+
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-md-3 col-sm-3 label-align">分類<span class="required">*</span></label>
                                                 <div class="col-md-6 col-sm-6">
-                                                    <input type="text" name="product_Description" required="required" class="form-control" />
+                                                    <select name="category" required="required" class="form-control">
+                                                        <?php foreach ($rowsCategory as $category) : ?>
+                                                            <option value="<?= htmlspecialchars($category["Product_cate_ID"]) ?>" <?= $category["Product_cate_ID"] == $product["category_id"] ? 'selected' : '' ?>>
+                                                                <?= htmlspecialchars($category["Product_cate_name"]) ?>
+                                                            </option>
+                                                        <?php endforeach; ?>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-form-label col-md-3 col-sm-3 label-align">價錢<span class="required">*</span>
                                                 </label>
                                                 <div class="col-md-6 col-sm-6">
-                                                    <input type="number" name="product_price" required="required" class="form-control" />
+                                                    <input type="number" value="<?= htmlspecialchars($product["price"]) ?>" name="price" required="required" class="form-control" />
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-form-label col-md-3 col-sm-3 label-align">數量<span class="required">*</span>
                                                 </label>
                                                 <div class="col-md-6 col-sm-6">
-                                                    <input type="number" name="quantity" required="required" class="form-control" />
+                                                    <input type="number" value="<?= htmlspecialchars($product["stock_quantity"]) ?>" name="quantity" required="required" class="form-control" />
                                                 </div>
                                             </div>
-                                            <div class="form-group row">
-                                                <label class="col-form-label col-md-3 col-sm-3 label-align">分類<span class="required">*</span>
-                                                </label>
 
+                                            <div class="row">
+                                                <label class="col-form-label col-md-3 col-sm-3 label-align"></label>
                                                 <div class="col-md-6 col-sm-6">
+                                                    <div class="ratio"></div>
+                                                    <?php if (!empty($product['image_url'])) : ?>
+                                                        <input type="hidden" name="old_image" value="<?= htmlspecialchars($product['image_url']) ?>">
+                                                        <img style=" width: 350px;" class="mb-2" src="./p_image/<?= htmlspecialchars($product['image_url']) ?> " alt="<?= htmlspecialchars($product['name']) ?> " />
 
-                                                    <select name="category" required="required" class="form-control">
-                                                        <?php foreach ($rowsCategory as $cate) : ?>
-                                                            <option value="<?= $cate["Product_cate_ID"] ?>"><?= $cate["Product_cate_name"] ?></option>
-                                                        <?php endforeach; ?>
-                                                    </select>
+                                                    <?php else : ?>
+                                                        <p>沒有可用圖片</p>
+                                                    <?php endif; ?>
                                                 </div>
-
                                             </div>
                                             <div class="row">
-                                                <label class="col-form-label col-md-3 col-sm-3 label-align">圖片上傳</label>
+                                                <label class="col-form-label col-md-3 col-sm-3 label-align">圖片上傳:</label>
                                                 <div class="col-md-6 col-sm-6">
-                                                    <input type="file" class="" name="product_image">
+                                                    <input type="file" name="file">
+                                                </div>
+
+                                            </div>
+                                            <div class="form-group row ">
+                                                <label class="col-form-label col-md-3 col-sm-3 label-align" for="exampleFormControlTextarea1">商品描述<span class="required">*</span></label>
+                                                <div class="col-md-6 col-sm-6">
+                                                    <textarea id="exampleFormControlTextarea1" rows="3" name="description" required="required" class="form-control"><?= htmlspecialchars($product["description"]) ?></textarea>
                                                 </div>
                                             </div>
-
 
                                             <div class=" row">
                                                 <div class="col-md-12 d-flex justify-content-end">
                                                     <!-- 確認按鈕 -->
                                                     <button type="submit" class="btn btn-secondary mr-2">確認</button>
+
                                                     <!-- 取消按鈕 -->
                                                     <a href="product.php" class="btn btn-secondary">取消</a>
                                                 </div>
                                             </div>
                                         </form>
+
                                     </div>
                                     <!-- End SmartWizard Content -->
                                 </div>
