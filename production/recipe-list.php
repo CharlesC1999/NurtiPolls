@@ -372,10 +372,12 @@ $recipeCount = $result->num_rows;
                         <div class="mb-2">
                           <ul class="nav nav-tabs">
                             <li class="nav-item">
-                              <a class="nav-link text-success" aria-current="page" href="recipe-list.php">全部</a>
+                              <a class="nav-link text-success <?php if (!isset($_GET["cate"])) echo "active"; ?>" aria-current="page" href="recipe-list.php">全部</a>
                             </li>
                             <?php foreach ($rowsCategory as $category) : ?>
-                              <a class="nav-link text-secondary" aria-current="page" href="recipe-list.php?cate=<?= $category["Recipe_cate_ID"] ?>">
+                              <a class="nav-link text-secondary <?php
+                                if (isset($_GET["cate"]) && $_GET["cate"] == $category["Recipe_cate_ID"]) echo "active";
+                                ?>" aria-current="page" href="recipe-list.php?cate=<?= $category["Recipe_cate_ID"] ?>">
                                 <?= $category["Recipe_cate_name"] ?>
                               </a>
                             <?php endforeach; ?>
