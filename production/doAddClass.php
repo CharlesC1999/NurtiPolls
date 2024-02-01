@@ -51,7 +51,7 @@ if ($conn->query($sql)) {
 
 
 // 時間戳記取代檔名
-if ($_FILES["fileUpload"]["error"] == 0) {
+/* if ($_FILES["fileUpload"]["error"] == 0) {
     $filename = time();
     $fileExt = pathinfo($_FILES["fileUpload"]["name"], PATHINFO_EXTENSION);
     $filename = $filename . "." . $fileExt;
@@ -71,6 +71,34 @@ if ($_FILES["fileUpload"]["error"] == 0) {
         echo "圖片上傳失敗";
     }
 }
+ */
+
+
+//上傳多張圖片
+$i = count($_FILES["fileUpload"]["name"]);
+for ($j = 0; $j < $i; $j++) {
+    if ($_FILES["fileUpload"]["error"][$j] == 0) {
+        $time = time();
+        $fileExt = pathinfo($_FILES["fileUpload"]["name"][$j], PATHINFO_EXTENSION);
+        // echo $fileExt . "<br>";
+        $fileName = $time . $j . "." . $fileExt;
+        // echo $fileName . "<br>";
+
+        if (move_uploaded_file($_FILES["fileUpload"]["tmp_name"][$j], "../classImg/" . $fileName)) {
+            $now = date("Y-m-d H:i:s");
+            $sqlImage = "INSERT INTO class_image (F_Class_ID, Image_URL, Upload_date) VALUES ('$insert_id','$fileName','$now')";
+
+            if ($conn->query($sqlImage)) {
+                echo "圖片上傳資料庫成功";
+            } else {
+                echo "圖片上傳資料庫失敗";
+            }
+        }
+    } else {
+        echo "圖片上傳失敗";
+    }
+}
+
 
 $conn->close();
 header("location: classDetail.php?Class_ID=$insert_id");

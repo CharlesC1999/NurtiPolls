@@ -274,7 +274,7 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
                   <div class="col-6 mb-3">
                     <label for="fileUpload" class="form-label">課程圖片</label>
                     <div></div>
-                    <input type="file" id="fileUpload" name="fileUpload">
+                    <input type="file" id="fileUpload" name="fileUpload[]" multiple>
                   </div>
 
                   <div class="col-12"></div>
