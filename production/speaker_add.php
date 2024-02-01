@@ -1,5 +1,6 @@
 <?php
 require_once "../db_connect.php";
+session_start();
 
 $sql = "SELECT * FROM speaker ORDER BY Speaker_ID DESC"; //->DESC降冪(最新在前面)
 $result = $conn->query($sql); //吐出資料
@@ -46,23 +47,22 @@ $rows = $result->fetch_all(MYSQLI_ASSOC); //轉換關聯式陣列
   <!-- icon連結 https://cdnjs.com/libraries/font-awesome-->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
+    .box1 {
+      width: 300px;
+      height: 500px;
+    }
 
-        .box1 {
-            width: 300px;
-            height: 500px;
-        }
-        .box2 {
-            width: 275px;
-            height: 250px;
-           
-        }
-        .object-fit-cover {
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-        }
-      
+    .box2 {
+      width: 275px;
+      height: 250px;
 
+    }
+
+    .object-fit-cover {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
   </style>
 
 </head>
@@ -227,61 +227,98 @@ $rows = $result->fetch_all(MYSQLI_ASSOC); //轉換關聯式陣列
 
       <!-- page content -->
       <div class="right_col" role="main">
-      <div class="container">
-        <div class="row justify-content-center ">
+        <div class="container">
+          <div class="row justify-content-center ">
             <h2 class="text-center">新增教師</h2>
             <div class="box1">
-                <!-- 上傳檔案去doAddSpeaker.php做處理 -->
-                <!-- 傳檔案一定要加 enctype="multipart/form-data"以便正確解析和保存上傳的文件 -->
-                <form action="do_add_Speaker.php" method="post" enctype="multipart/form-data">
-                    <div class="mb-2">
-                        <label for="" class="form-label">姓名 :</label>
-                        <input type="text" class="form-control" name="name">
+              <!-- 上傳檔案去doAddSpeaker.php做處理 -->
+              <!-- 傳檔案一定要加 enctype="multipart/form-data"以便正確解析和保存上傳的文件 -->
+              <form action="do_add_Speaker.php" method="post" enctype="multipart/form-data">
+                <div class="mb-2">
+                  <label for="" class="form-label">姓名 :</label>
+                  <input type="text" class="form-control" name="name" id="name">
+                </div>
+                <div class="mb-2">
+                  <label for="" class="form-label">個人簡介 :</label>
+                  <textarea class="form-control" id="exampleFormControlTextarea1" rows="6" name="description"></textarea>
+                </div>
+                
+                <!-- 放錯誤訊息 (先判斷存不存在) 存在->顯示完->清除-->
+                <?php if(isset($_SESSION["error"]["message"])): ?>
+                <div class="py-2">
+                    <div>
+                        <div class="text-danger"><?=$_SESSION["error"]["message"]?></div>
                     </div>
-                    <div class="mb-2">
-                        <label for="" class="form-label">個人簡介 :</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="6" name="description"></textarea>
-                    </div>
-                    <!-- 記得type="file" (選擇檔案) -->
-                    <div class="mb-2 py-2">
-                        <label for="" class="form-label">預覽圖片 :</label>
-                        <!-- 建立一個img(output)作為縮圖的容器，設定好id並以display:none隱藏起來 並做js事件onchange當檔案值做變化時 -->
-                        <div class="box2">
-                            <img id="output" height="200" style="display:none" class="rounded mx-auto d-block object-fit-cover">
-                        </div>
-                        <div class="pt-3">
-                            <input type="file" class="form-control " name="pic" onchange="openFile(event)">
-                        </div>
-                    </div>
-                    <!-- d-grid gap-2 d-md-flex justify-content-md-end py-2 同靠右邊-->
-                    <div class="d-flex justify-content-between align-items-center py-2">
-                        <a name="" id="" class="btn btn-outline-secondary" href="speaker.php" role="button">返回列表</a>
-                        <button class="btn btn-outline-secondary" type="submit">確定新增</button>
-                    </div>
-                </form>
+                </div>
+                <?php endif; 
+                unset ($_SESSION["error"]["message"]); //做清除
+                ?>
+                <!-- 記得type="file" (選擇檔案) -->
+                <div class="mb-2 py-2">
+                  <label for="" class="form-label">預覽圖片 :</label>
+                  <!-- 建立一個img(output)作為縮圖的容器，設定好id並以display:none隱藏起來 並做js事件onchange當檔案值做變化時 -->
+                  <div class="box2">
+                    <img id="output" src="Speaker_pic/speaker.jfif" height="200" style="display:none" class="rounded mx-auto d-block object-fit-cover">
+                  </div>
+                  <div class="pt-3">
+                    <input type="file" class="form-control " name="pic" onchange="openFile(event)">
+                  </div>
+                </div>
+                <!-- d-grid gap-2 d-md-flex justify-content-md-end py-2 同靠右邊-->
+                <div class="d-flex justify-content-between align-items-center py-2">
+                  <a name="" id="" class="btn btn-outline-secondary" href="speaker.php" role="button">返回列表</a>
+                  <button class="btn btn-outline-secondary" type="submit" id="send">確定新增</button>
+                </div>
+              </form>
             </div>
+          </div>
         </div>
-    </div>
-    <script>
-        function openFile(event) {
+        <script>
+          function openFile(event) {
             var input = event.target; //取得上傳檔案
             var reader = new FileReader(); //建立FileReader物件
 
             reader.readAsDataURL(input.files[0]); //以.readAsDataURL將上傳檔案轉換為base64字串
 
             reader.onload = function() { //FileReader取得上傳檔案後執行以下內容
-                var dataURL = reader.result; //設定變數dataURL為上傳圖檔的base64字串
-                $('#output').attr('src', dataURL).show(); //將img的src設定為dataURL並顯示
+              var dataURL = reader.result; //設定變數dataURL為上傳圖檔的base64字串
+              $('#output').attr('src', dataURL).show(); //將img的src設定為dataURL並顯示
             };
-        }
-    </script>
+          }
+          // //抓值
+          // const send=document.querySelector("#send")
+          // const name=document.querySelector("#name")
+          // const error=document.querySelector("#error")
+          // const Textarea1=document.querySelector("#exampleFormControlTextarea1")
+          
+          // //觸發事件 -> event.preventDefault() 表單還未完成,無法送出
+          // send.addEventListener("click",function(){
+          //       event.preventDefault();
+          //       //做表單驗證
+          //       let nameValue=name.value;
+          //       let Textarea1Value=Textarea1.value;
+
+          //       if(nameValue===""){ //判斷是否為空
+          //           //alert("請輸入姓名") //alert(對話框)
+          //           error.textContent="請輸入姓名"
+          //           return;
+          //       }
+          //       if(Textarea1Value===""){ 
+          //           error.textContent="請輸入簡介"
+          //           return;
+          //       }
+
+          //       form.submit();
+          //   })
+
+        </script>
 
 
 
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
-    <!-- 讀取jquery -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+        <!-- 讀取jquery -->
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
 
       </div>
