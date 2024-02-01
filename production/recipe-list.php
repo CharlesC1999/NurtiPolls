@@ -284,7 +284,7 @@ $recipeCount = $result->num_rows;
                         <div class="mb-2">
                           <ul class="nav nav-tabs">
                             <li class="nav-item">
-                              <a class="nav-link text-success <?php if (!isset($_GET["cate"])) echo "active"; ?>" aria-current="page" href="recipe-list.php">全部</a>
+                              <a class="nav-link text-info <?php if (!isset($_GET["cate"])) echo "active"; ?>" aria-current="page" href="recipe-list.php">全部</a>
                             </li>
                             <?php foreach ($rowsCategory as $category) : ?>
                               <a class="nav-link text-secondary <?php
