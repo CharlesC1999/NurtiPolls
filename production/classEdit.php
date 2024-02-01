@@ -234,15 +234,15 @@ $rowsSpeaker = $resultSpeaker->fetch_all(MYSQLI_ASSOC);
               </div>
 
               <!-- class content -->
-              <form action="doClassEdit.php" method="POST">
+              <form action="doClassEdit.php" method="POST" enctype="multipart/form-data">
 
                 <div class="form-content row g-2 ">
                   <div class="col-2 mb-3">
-                    <!-- <label for="classID" class="form-label">課程編號</label> -->
-                    <input type="hidden" class="form-control" id="classID" name="classID" value="<?= $rows[0]["Class_ID"] ?>" required>
+                    <label for="classID" class="form-label">課程編號</label>
+                    <input type="text" class="form-control" id="classID" name="classID" value="<?= $rows[0]["Class_ID"] ?>" readonly>
                   </div>
 
-                  <div class="col-12 mb-3">
+                  <div class="col-10 mb-3">
                     <label for="className" class="form-label">課程名稱</label>
                     <input type="text" class="form-control" id="className" name="className" value="<?= $rows[0]["Class_name"] ?>" required>
                   </div>
@@ -300,7 +300,8 @@ $rowsSpeaker = $resultSpeaker->fetch_all(MYSQLI_ASSOC);
                   </div>
 
                   <div class="col-12 ">
-                    <label for="classPic" class="form-label">課程圖片</label>
+                    <label for="fileUpload" class="form-label">課程圖片</label>
+                    <input type="file" class="form-control" id="fileUpload" name="fileUpload">
                   </div>
 
                   <?php foreach ($rows as $row) : ?>
@@ -308,6 +309,8 @@ $rowsSpeaker = $resultSpeaker->fetch_all(MYSQLI_ASSOC);
                       <img src="../classImg/<?= $row["Image_URL"] ?>" class="classPic" alt="">
                     </div>
                   <?php endforeach; ?>
+
+                  <div class="col-12"></div>
 
                   <div class="col-3 mx-auto">
                     <button class="btn btn-info text-light">
@@ -380,72 +383,6 @@ $rowsSpeaker = $resultSpeaker->fetch_all(MYSQLI_ASSOC);
   <!-- Custom Theme Scripts -->
   <script src="../build/js/custom.min.js"></script>
 
-  <script>
-    const submit = document.querySelector("#submit");
-    const className = document.querySelector("#className");
-    const classCategory = document.querySelector("#classCategory");
-    const speaker = document.querySelector("#speaker");
-    const classPrice = document.querySelector("#classPrice");
-    const personLimit = document.querySelector("#personLimit");
-    const startDate = document.querySelector("#startDate");
-    const endDate = document.querySelector("#endDate");
-    const classDate = document.querySelector("#classDate");
-    const classDescription = document.querySelector("#classDescription");
-    const fileUpload = document.querySelector("#fileUpload");
-
-
-
-    submit.addEventListener("click", function() {
-      // console.log("click");
-      classNameVal = className.value;
-      classCategoryVal = classCategory.value;
-      speakerVal = speaker.value;
-      classPriceVal = classPrice.value;
-      personLimitVal = personLimit.value;
-      startDateVal = startDate.value;
-      endDateVal = endDate.value;
-      classDateVal = classDate.value;
-      classDescriptionVal = classDescription.value;
-      fileUploadVal = fileUpload.value;
-
-
-      $.ajax({
-          method: "POST", //or GET
-          url: "doAddClass.php", //url放要串的api的檔案位置
-          dataType: "json",
-          data: {
-            className: classNameVal,
-            classCategory: classCategoryVal,
-            speaker: speakerVal,
-            classPrice: classPriceVal,
-            personLimit: personLimitVal,
-            startDate: startDateVal,
-            endDate: endDateVal,
-            classDate: classDateVal,
-            classDescription: classDescriptionVal,
-            fileUpload: fileUploadVal
-          }
-        })
-        .done(function(response) {
-          console.log(response);
-          // status = response.status;
-          // message = response.message;
-          if (response.status == 0) {
-            alert(response.message);
-            return;
-          }
-
-          console.log(response);
-          // alert("課程ID: " + response.id + " , 名稱: " + response.className + " 新增成功");
-          // alert("課程ID: " + response.id + " 新增成功");
-
-
-        }).fail(function(jqXHR, textStatus) {
-          console.log("Request failed: " + textStatus);
-        });
-
-    });
-  </script>
 
   <!-- jquery -->
   <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>

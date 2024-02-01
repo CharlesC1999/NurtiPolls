@@ -57,7 +57,7 @@ if ($_FILES["fileUpload"]["error"] == 0) {
     $filename = $filename . "." . $fileExt;
 
 
-    if (move_uploaded_file($_FILES["fileUpload"]["tmp_name"], "../fileUpload/" . $filename)) {
+    if (move_uploaded_file($_FILES["fileUpload"]["tmp_name"], "../classImg/" . $filename)) {
         $now = date("Y-m-d H:i:s");
         $sqlImage = "INSERT INTO class_image (F_Class_ID, Image_URL, Upload_date) VALUES ('$insert_id','$filename','$now')";
 
