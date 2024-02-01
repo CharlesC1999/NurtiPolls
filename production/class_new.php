@@ -91,7 +91,7 @@ $sqlClass = "SELECT class.*, speaker.Speaker_name, class_categories.Class_cate_n
  FROM class
  JOIN speaker ON class.F_Speaker_ID = speaker.Speaker_ID
  JOIN class_categories ON class.Class_category_ID = class_categories.Class_cate_ID
- $whereClause && valid = 1";
+ $whereClause && class.valid = 1";
 $resultClass = $conn->query($sqlClass);
 $rowsClass = $resultClass->fetch_all(MYSQLI_ASSOC);
 
@@ -220,7 +220,7 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
       <div class="col-md-3 left_col">
         <div class="left_col scroll-view">
           <div class="navbar nav_title" style="border: 0;">
-            <a href="index.html" class="site_title"><span>營養大選NutriPolls</span></a>
+            <a href="HomePage.html" class="site_title"><span>營養大選NutriPolls</span></a>
           </div>
 
           <div class="clearfix"></div>
@@ -3731,11 +3731,15 @@ if ($now >= $Start_date && $now <= $End_date) {
     const modalBody = document.querySelector("#modalBody");
     const cfmDelBtn = document.querySelector("#cfmDelBtn");
 
+    // modalBody.addEventListener("click",function(){
+    //   console.log("click");
+    // })
+
     for (let i = 0; i < deleteBtns.length; i++) {
       deleteBtns[i].addEventListener("click", function() {
         // console.log("click");
         let classId = this.dataset.classId;
-        // console.log(id);
+        // console.log(classId);
 
         $.ajax({
             method: "GET", //or GET
