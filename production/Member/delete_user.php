@@ -1,59 +1,19 @@
-<!-- wu 會員資料列表主頁面 ui -->
+<!--wu 會員刪除個人細項 -->
 <?php
+if (!isset($_GET["id"])) {
+    $id = 0;
+} else {
+    $id = $_GET["id"];
+}
 require_once "../../db_connect.php";
-session_start();
-
-$perPage = 10;
-// 下面是搜尋的if
-
-$sqlAll = "SELECT * FROM member WHERE valid=1";
-$resultAll = $conn->query($sqlAll);
-$userTotslCount = $resultAll->num_rows;
-
-$pageCount = ceil($userTotslCount / $perPage);
-// echo $pageCount;
-
-// 排序
-if (isset($_GET["order"])) {
-    $order = $_GET["order"];
-
-    if ($order == 1) {
-        $orderString = "ORDER BY id ASC";
-    } elseif ($order == 2) {
-        $orderString = "ORDER BY id DESC";
-    } elseif ($order == 3) {
-        $orderString = "ORDER BY User_name ASC";
-    } elseif ($order == 4) {
-        $orderString = "ORDER BY User_name DESC";
-    }
-}
-
-if (isset($_GET["search"])) {
-    $search = $_GET["search"];
-    $sql = "SELECT * FROM member WHERE User_name LIKE '%$search%' AND valid=1";
-}
-// 頁數的條件
-elseif (isset($_GET["p"])) {
-    $p = $_GET["p"];
-    $startIndex = ($p - 1) * $perPage;
-
-    $sql = "SELECT * FROM member WHERE valid=1  $orderString LIMIT $startIndex,$perPage";
-} else {
-    // 沒有選擇頁數時p=1 預設值 排序、orderString
-    $p = 1;
-    $order = 1;
-    $orderString = "ORDER BY id ASC";
-    $sql = "SELECT * FROM member WHERE valid=1 LIMIT $perPage";
-}
-
+$sql = "SELECT * FROM member WHERE id=$id AND  valid=0";
+//
 $result = $conn->query($sql);
+$rowCount = $result->num_rows;
 
-if (isset($_GET["search"])) {
-    $userCount = $result->num_rows;
-} else {
-    $userCount = $userTotslCount;
+if ($rowCount != 0) {
+    $row = $result->fetch_assoc();
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -151,7 +111,7 @@ if (isset($_GET["search"])) {
                   <li><a href=><i class="fa fa-table"></i> 會員管理 <span class="fa fa-chevron-down"></span></a>
                   </li><li><a href="tables_dynamic.html"><i class="fa fa-table"></i>商品管理 <span class="fa fa-chevron-down"></span></a>
                   </li>
-                  <li><a href="../product.php"><i class="fa fa-table"></i>分類管理<span class="fa fa-chevron-down"></span></a>
+                  <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>分類管理<span class="fa fa-chevron-down"></span></a>
                   </li>
                   <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>食譜管理<span class="fa fa-chevron-down"></span></a>
                   </li>
@@ -159,7 +119,7 @@ if (isset($_GET["search"])) {
                   </li>
                   <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>課程管理<span class="fa fa-chevron-down"></span></a>
                   </li>
-                  <li><a href="../coupon.php"><i class="fa fa-table"></i>優惠卷管理<span class="fa fa-chevron-down"></span></a>
+                  <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>優惠卷管理<span class="fa fa-chevron-down"></span></a>
                   </li>
                   <!-- <li><a><i class="fa fa-bar-chart-o"></i> Data Presentation <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
@@ -249,15 +209,11 @@ if (isset($_GET["search"])) {
                 <div class="nav toggle">
                   <a id="menu_toggle"><i class="fa fa-bars"></i></a>
                 </div>
-                <nav class="nav navbar-nav d-flex justify-content-end ">
-
-                <ul class=" navbar-right ">
-                <li>
-                    <a href="./login-sess.php"><i class="fa-solid fa-right-from-bracket py-2 px-5 lg"></i></a>
-                  </li>
+                <nav class="nav navbar-nav">
+                <ul class=" navbar-right">
                   <li class="nav-item dropdown open" style="padding-left: 15px;">
                     <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                      <img src="../images/img.jpg" alt="">John Doe6
+                      <img src="../images/img.jpg" alt="">John Doe
                     </a>
                     <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
                       <a class="dropdown-item"  href="javascript:;"> Profile</a>
@@ -266,7 +222,7 @@ if (isset($_GET["search"])) {
                           <span>Settings</span>
                         </a>
                     <a class="dropdown-item"  href="javascript:;">Help</a>
-                      <a class="dropdown-item"  href="login-sess.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+                      <a class="dropdown-item"  href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
                     </div>
                   </li>
 
@@ -345,7 +301,7 @@ if (isset($_GET["search"])) {
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>會員列表</h3>
+                <h3>個人資料</h3>
               </div>
 
               <!-- <div class="title_right">
@@ -364,171 +320,102 @@ if (isset($_GET["search"])) {
             <!-- <div class="clearfix"></div> -->
 
             <!-- 搜尋條 -->
-            <div class="">
-            <div class="row g-3">
-                <!-- 搜尋的返回按鍵 -->
-                <?php if (isset($_GET["search"])): ?>
-                    <div class="col-auto">
-                        <a name="" id="" class="btn btn-secondary" href="member.php" role="button"><i class="fa-solid fa-arrow-left"></i></a>
-                    </div>
-                <?php endif;?>
-                <div class="col">
-                    <!-- 搜尋欄位 -->
-                    <form action="" method="get">
-                        <div class="input-group mb-3">
-                            <input type="search" class="form-control" placeholder="Name" aria-label="Recipient's username" aria-describedby="button-addon2" name="search" <?php if (isset($_GET["search"])): $searchValue = $_GET["search"];?> value="<?=$searchValue?>" <?php endif?>>
-                            <button class="btn btn-outline-secondary" type="submit" id="button-addon2"><i class="fa-solid fa-magnifying-glass"></i></button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            </div>
-
-            <!-- 新增刪除會員管理icon-->
-            <div class="d-flex justify-content-between">
-            <div class="">
-                <a name="" id="" class="btn btn-danger" href="delete_list.php" role="button"><i class="fa-solid fa-user-minus"></i></a>
-            </div>
-
-            <div class="">
-
-                <a name="" id="" class="btn btn-secondary" href="add-user.php" role="button"><i class="fa-solid fa-user-plus"></i></a>
-                <!-- <div class="me-2">排序</div> -->
-
-            </div>
-        </div>
-
-
-        <?php
-if ($userCount > 0):
-?>
-  <!-- 如果有search的變數 就不在顯示排序了 -->
-<div class="py-2 justify-content-between d-flex align-items-end">
-       <!-- 共多少人 -->
-       <div class="">
-            </div>
-                <!-- <div class="me-2">排序</div> -->
-                <div class="btn-group">
-                <a class="btn btn-secondary <?php if ($order == 1) {
-    echo "active";
-}
-?>" href="member.php?order=1&p=<?=$p?>"><i class="fa-solid fa-arrow-down-1-9 fa-fw"></i></a>
-                <a class="btn btn-secondary <?php if ($order == 2) {
-    echo "active";
-}
-?>" href="member.php?order=2&p=<?=$p?>"><i class="fa-solid fa-arrow-up-1-9"></i></a>
-                <a class="btn btn-secondary <?php if ($order == 3) {
-    echo "active";
-}
-?>" href="member.php?order=3&p=<?=$p?>"><i class="fa-solid fa-arrow-down-a-z"></i></a>
-                <a class="btn btn-secondary <?php if ($order == 4) {
-    echo "active";
-}
-?>" href="member.php?order=4&p=<?=$p?>"><i class="fa-solid fa-arrow-up-a-z"></i></a>
-            </div>
-                </div>
-    <!--              -->
-            <div class="row">
-              <div class="col-md-12 col-sm-12 ">
-                <div class="x_panel">
-                  <div class="x_title ">
-
-                    <!-- <h2>Default Example <small>Users</small></h2> -->
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li class="dropdown">
-                        <!-- <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a> -->
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="#">Settings 1</a>
-                            <a class="dropdown-item" href="#">Settings 2</a>
-                          </div>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
-                    <div class="clearfix">
-                    <div class="">
-                共 <?=$userCount?> 人
-            </div>
-
-                    </div>
-                  </div>
-                  <div class="x_content">
-                      <div class="row">
-                          <div class="col-sm-12">
-                            <div class="card-box table-responsive">
-                    <p class="text-muted font-13 m-b-30">
-                      <!-- DataTables has most features enabled by default, so all you need to do to use it with your own tables is to call the construction function: <code>$().DataTable();</code> -->
-                    </p>
-                    <table id="datatable" class="table table-striped table-bordered" style="width:100%">
-                      <thead>
-                        <tr>
-                        <td>id</td>
-                        <td>name</td>
-                        <td>Email</td>
-                        <td>phone</td>
-                        <td></td>
-                        </tr>
-                      </thead>
-                      <tbody>
-                      <?php $rows = $result->fetch_all(MYSQLI_ASSOC);
-foreach ($rows as $user): ?>
-                        <tr>
-                            <td><?=$user["id"]?></td>
-                            <td><?=$user["User_name"]?></td>
-                            <td><?=$user["Email"]?></td>
-                            <td><?=$user["Phone"]?></td>
-                            <td class=" d-flex justify-content-center">
-                                <a class="btn btn-secondary" href="user.php?id=<?=$user["id"]?>" role="button"><i class="fa-solid fa-user"></i></a>
-                            </td>
-                        </tr>
-                    <?php endforeach;?>
-                      </tbody>
-                    </table>
-
-
-                    <?php if (!isset($_GET["search"])): ?>
-                <!-- 判斷在search不顯示分頁 -->
-                <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                    <?php for ($i = 1; $i <= $pageCount; $i++): ?>
-                    <li class="page-item <?php if ($i == $p) {
-    echo "active";
-}
-?>">
-                        <a class="page-link"
-                    href="member.php?order=<?=$order?>&p=<?=$i?>"><?=$i?></a></li>
-
-                    <?php endfor;?>
-                </ul>
-            </nav>
-            <?php endif;?>
-        <?php else: ?>
-            沒有使用者
-        <?php endif;?>
-
-                  </div>
-                </div>
-              </div>
-            </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- /page content -->
-
-        <!-- footer content -->
-        <footer>
-          <div class="pull-right">
-            <!-- Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a> -->
-          </div>
-          <div class="clearfix"></div>
-        </footer>
-        <!-- /footer content -->
+            <div class="modal fade" id="confirmModal" tabindex="-1"  aria-hidden="true">
+                    <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">刪除使用者</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        確認刪除?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+        <a role="button" class="btn btn-danger"
+        href="userDelete.php?id=<?=$row["id"]?>"
+        >確認</a>
+		<!-- 連結到 doDeleteUser並做軟刪除-->
       </div>
     </div>
+  </div>
+</div>
+
+
+
+        <div class="container">
+
+
+            </div>
+        <?php if ($rowCount == 0): ?>
+            使用者不存在
+            <?php else:
+
+?>
+
+
+            <!-- 使用者照片 -->
+            <div class="container d-flex justify-content-start">
+            <div class="py-2 ">
+            <a
+                    name=""
+                    id=""
+                    class="btn btn-secondary "
+                    href="delete_list.php"
+                    role="button"
+                    > <i class="fa-solid fa-arrow-left"></i> 回刪除列表</a
+                >
+            </div>
+            </div>
+            <table class="table table-bordered">
+                 <tr>
+                    <td>使用者照片</td>
+                    <td><img src="./image_members/<?=$row["User_image"]?>" alt=""></td>
+                </tr>
+                <tr>
+                 <td>ID</td>
+                 <td><?=$row["id"]?></td>
+                 </tr>
+                <tr>
+                    <td>Name</td>
+                 <td><?=$row["User_name"]?></td>
+                 </tr>
+                <tr>
+                    <td>gender</td>
+                 <td><?=$row["Gender"]?></td>
+                 </tr>
+                <!-- <tr>
+                <td>Account</td>
+                 <td>?=$row["Account"]?</td>
+                 </tr>
+                <tr>
+                <td>Password</td>
+                 <td>?=$row["Password"]?</td>
+                 </tr> -->
+                <tr>
+                <td>Email</td>
+                 <td><?=$row["Email"]?></td>
+                 </tr>
+                <tr>
+                <td>Phone</td>
+                 <td><?=$row["Phone"]?></td>
+                 </tr>
+                <tr>
+                <td>birth</td>
+                 <td><?=$row["date_of_birth"]?></td>
+                 </tr>
+                 <tr>
+                <td>Create time</td>
+                 <td><?=$row["Create_date"]?></td>
+                 </tr>
+            </table>
+            <div class="d-flex justify-content-between">
+
+            <!-- 修改鍵 -->
+
+            </div>
+            <?php endif;?>
+        </div>
 
     <!-- jQuery -->
     <script src="../vendors/jquery/dist/jquery.min.js"></script>

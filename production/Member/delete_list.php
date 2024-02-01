@@ -6,7 +6,7 @@ session_start();
 $perPage = 10;
 // 下面是搜尋的if
 
-$sqlAll = "SELECT * FROM member WHERE valid=1";
+$sqlAll = "SELECT * FROM member WHERE valid=0";
 $resultAll = $conn->query($sqlAll);
 $userTotslCount = $resultAll->num_rows;
 
@@ -30,20 +30,20 @@ if (isset($_GET["order"])) {
 
 if (isset($_GET["search"])) {
     $search = $_GET["search"];
-    $sql = "SELECT * FROM member WHERE User_name LIKE '%$search%' AND valid=1";
+    $sql = "SELECT * FROM member WHERE User_name LIKE '%$search%' AND valid=0";
 }
 // 頁數的條件
 elseif (isset($_GET["p"])) {
     $p = $_GET["p"];
     $startIndex = ($p - 1) * $perPage;
 
-    $sql = "SELECT * FROM member WHERE valid=1  $orderString LIMIT $startIndex,$perPage";
+    $sql = "SELECT * FROM member WHERE valid=0  $orderString LIMIT $startIndex,$perPage";
 } else {
     // 沒有選擇頁數時p=1 預設值 排序、orderString
     $p = 1;
     $order = 1;
     $orderString = "ORDER BY id ASC";
-    $sql = "SELECT * FROM member WHERE valid=1 LIMIT $perPage";
+    $sql = "SELECT * FROM member WHERE valid=0 LIMIT $perPage";
 }
 
 $result = $conn->query($sql);
@@ -345,7 +345,9 @@ if (isset($_GET["search"])) {
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>會員列表</h3>
+
+            </div>
+                <!-- <h3>會員列表</h3> -->
               </div>
 
               <!-- <div class="title_right">
@@ -360,73 +362,11 @@ if (isset($_GET["search"])) {
               </div> -->
             </div>
 
-
             <!-- <div class="clearfix"></div> -->
 
             <!-- 搜尋條 -->
-            <div class="">
-            <div class="row g-3">
-                <!-- 搜尋的返回按鍵 -->
-                <?php if (isset($_GET["search"])): ?>
-                    <div class="col-auto">
-                        <a name="" id="" class="btn btn-secondary" href="member.php" role="button"><i class="fa-solid fa-arrow-left"></i></a>
-                    </div>
-                <?php endif;?>
-                <div class="col">
-                    <!-- 搜尋欄位 -->
-                    <form action="" method="get">
-                        <div class="input-group mb-3">
-                            <input type="search" class="form-control" placeholder="Name" aria-label="Recipient's username" aria-describedby="button-addon2" name="search" <?php if (isset($_GET["search"])): $searchValue = $_GET["search"];?> value="<?=$searchValue?>" <?php endif?>>
-                            <button class="btn btn-outline-secondary" type="submit" id="button-addon2"><i class="fa-solid fa-magnifying-glass"></i></button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            </div>
-
-            <!-- 新增刪除會員管理icon-->
-            <div class="d-flex justify-content-between">
-            <div class="">
-                <a name="" id="" class="btn btn-danger" href="delete_list.php" role="button"><i class="fa-solid fa-user-minus"></i></a>
-            </div>
-
-            <div class="">
-
-                <a name="" id="" class="btn btn-secondary" href="add-user.php" role="button"><i class="fa-solid fa-user-plus"></i></a>
-                <!-- <div class="me-2">排序</div> -->
-
-            </div>
-        </div>
 
 
-        <?php
-if ($userCount > 0):
-?>
-  <!-- 如果有search的變數 就不在顯示排序了 -->
-<div class="py-2 justify-content-between d-flex align-items-end">
-       <!-- 共多少人 -->
-       <div class="">
-            </div>
-                <!-- <div class="me-2">排序</div> -->
-                <div class="btn-group">
-                <a class="btn btn-secondary <?php if ($order == 1) {
-    echo "active";
-}
-?>" href="member.php?order=1&p=<?=$p?>"><i class="fa-solid fa-arrow-down-1-9 fa-fw"></i></a>
-                <a class="btn btn-secondary <?php if ($order == 2) {
-    echo "active";
-}
-?>" href="member.php?order=2&p=<?=$p?>"><i class="fa-solid fa-arrow-up-1-9"></i></a>
-                <a class="btn btn-secondary <?php if ($order == 3) {
-    echo "active";
-}
-?>" href="member.php?order=3&p=<?=$p?>"><i class="fa-solid fa-arrow-down-a-z"></i></a>
-                <a class="btn btn-secondary <?php if ($order == 4) {
-    echo "active";
-}
-?>" href="member.php?order=4&p=<?=$p?>"><i class="fa-solid fa-arrow-up-a-z"></i></a>
-            </div>
-                </div>
     <!--              -->
             <div class="row">
               <div class="col-md-12 col-sm-12 ">
@@ -448,8 +388,8 @@ if ($userCount > 0):
                       </li>
                     </ul>
                     <div class="clearfix">
-                    <div class="">
-                共 <?=$userCount?> 人
+                    <div class="mb-2">
+                <a name="" id="" class="btn btn-secondary" href="member.php" role="button"><i class="fa-solid fa-left-long"></i></a>
             </div>
 
                     </div>
@@ -480,7 +420,7 @@ foreach ($rows as $user): ?>
                             <td><?=$user["Email"]?></td>
                             <td><?=$user["Phone"]?></td>
                             <td class=" d-flex justify-content-center">
-                                <a class="btn btn-secondary" href="user.php?id=<?=$user["id"]?>" role="button"><i class="fa-solid fa-user"></i></a>
+                                <a class="btn btn-secondary" href="delete_user.php?id=<?=$user["id"]?>" role="button"><i class="fa-solid fa-user"></i></a>
                             </td>
                         </tr>
                     <?php endforeach;?>
@@ -504,9 +444,7 @@ foreach ($rows as $user): ?>
                 </ul>
             </nav>
             <?php endif;?>
-        <?php else: ?>
-            沒有使用者
-        <?php endif;?>
+
 
                   </div>
                 </div>
