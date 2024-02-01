@@ -1,6 +1,7 @@
 <!-- wu 會員資料列表主頁面 ui -->
 <?php
 require_once "../../db_connect.php";
+session_start();
 
 $perPage = 10;
 // 下面是搜尋的if
@@ -265,7 +266,7 @@ if (isset($_GET["search"])) {
                           <span>Settings</span>
                         </a>
                     <a class="dropdown-item"  href="javascript:;">Help</a>
-                      <a class="dropdown-item"  href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+                      <a class="dropdown-item"  href="login-sess.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
                     </div>
                   </li>
 

@@ -53,7 +53,7 @@ if ($_FILES['img']['error'] == 0) {
 }
 
 $now = date('Y-m-d H:i:s');
-$sql = "INSERT INTO member (User_name,Account,Password,Email,Phone,User_image,Create_date,valid) VALUES('$name','$account','$password','$email','$phone','$img','$now',1)";
+$sql = "INSERT INTO member (User_name,Account,Password,Email,Phone,User_image,Create_date,valid) VALUES('$name','$account','$password','$email','$phone','$filename','$now',1)";
 
 // echo $sql;
 // exit;

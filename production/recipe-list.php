@@ -262,9 +262,7 @@ $recipeCount = $result->num_rows;
               </li>
 
               <li role="presentation" class="nav-item dropdown open">
-                <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1" data-toggle="dropdown" aria-expanded="false">
-
-                </a>
+                
                 <ul class="dropdown-menu list-unstyled msg_list" role="menu" aria-labelledby="navbarDropdown1">
                   <li class="nav-item">
                     <a class="dropdown-item">
@@ -356,7 +354,7 @@ $recipeCount = $result->num_rows;
             <div class="col-md-12 col-sm-12 ">
               <div class="x_panel">
                 <div class="x_title">
-                  <h2>食譜管理<small>Users</small></h2>
+                  <h2>食譜管理</h2>
                   <ul class="nav navbar-right panel_toolbox">
                     <!-- <button class="btn btn-primary">新增</button> -->
                     <a href="add-recipe.php" role="button" class="btn btn-secondary"><i class="fa-solid fa-plus"></i>新增</a>
@@ -374,10 +372,12 @@ $recipeCount = $result->num_rows;
                         <div class="mb-2">
                           <ul class="nav nav-tabs">
                             <li class="nav-item">
-                              <a class="nav-link text-success" aria-current="page" href="recipe-list.php">全部</a>
+                              <a class="nav-link text-success <?php if (!isset($_GET["cate"])) echo "active"; ?>" aria-current="page" href="recipe-list.php">全部</a>
                             </li>
                             <?php foreach ($rowsCategory as $category) : ?>
-                              <a class="nav-link text-secondary" aria-current="page" href="recipe-list.php?cate=<?= $category["Recipe_cate_ID"] ?>">
+                              <a class="nav-link text-secondary <?php
+                                if (isset($_GET["cate"]) && $_GET["cate"] == $category["Recipe_cate_ID"]) echo "active";
+                                ?>" aria-current="page" href="recipe-list.php?cate=<?= $category["Recipe_cate_ID"] ?>">
                                 <?= $category["Recipe_cate_name"] ?>
                               </a>
                             <?php endforeach; ?>
