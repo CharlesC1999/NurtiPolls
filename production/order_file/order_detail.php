@@ -496,16 +496,28 @@ $stmt_product->close();
                             </span>
                           </div>
                           <div class="col">
-
-
-
-
-
                           </div>
                           <div class="col">
                             <span class="h6 text-right d-block">訂單建立時間：<?=$row["Order_date"]?></span>
                           </div>
                           <!-- <div class="col"></div> -->
+                      </div>
+                      <div class="py-2">
+                        <div class="d-flex justify-content-end">
+                          <div class="dropdown">
+                            <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              選單
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                              <div class="text-center py-2"><a class="h6 text-info" href="order_detail.php?sort=quantity_asc">購買數量升序 <i class="fa-solid fa-arrow-down-short-wide fa-fw"></i></a></div>
+                              <div class="text-center py-2 border-top"><a class="h6 text-info" href="order_detail.php?sort=quantity_desc">購買數量降序 <i class="fa-solid fa-arrow-down-wide-short fa-fw"></i></a></div>
+                              <div class="text-center py-2 border-top"><a class="h6 text-info" href="order_detail.php?sort=total_price_asc">合計數量升序 <i class="fa-solid fa-arrow-down-short-wide fa-fw"></i></a></div>
+                              <div class="text-center py-2 border-top"><a class="h6 text-info" href="order_detail.php?sort=total_price_desc">合計數量降序 <i class="fa-solid fa-arrow-down-wide-short fa-fw"></i></a></div>
+                              <div class="text-center py-2 border-top"><a class="h6 text-info" href="order_detail.php?sort=stock_asc">剩餘庫存升序 <i class="fa-solid fa-arrow-down-short-wide fa-fw"></i></a></div>
+                              <div class="text-center py-2 border-top"><a class="h6 text-info" href="order_detail.php?sort=stock_desc">剩餘庫存降序 <i class="fa-solid fa-arrow-down-wide-short fa-fw"></i></a></div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                       <div class="py-2">
                         <table id="datatable" class="table table-striped table-bordered" style="width:100%">
@@ -516,16 +528,13 @@ $stmt_product->close();
                               <th style="width: 6vw;">商品圖片</th>
                               <th>商品名稱</th>
                               <th style="width: 7vw;">購買數量
-                                <a href="order_detail.php?sort=quantity_asc"><i class="fa-solid fa-arrow-down-short-wide fa-fw"></i></a>
-                                <a href="order_detail.php?sort=quantity_desc"><i class="fa-solid fa-arrow-down-wide-short fa-fw"></i></a>
+
                               </th>
                               <th style="width: 7vw;">合計金額
-                                <a class="text-right" href="order_detail.php?sort=total_price_asc"><i class="fa-solid fa-arrow-down-short-wide fa-fw"></i></a>
-                                <a class="text-right" href="order_detail.php?sort=total_price_desc"><i class="fa-solid fa-arrow-down-wide-short fa-fw"></i></a>
+
                               </th>
                               <th style="width: 7vw;">剩餘庫存
-                                <a class="text-right" href="order_detail.php?sort=stock_asc"><i class="fa-solid fa-arrow-down-short-wide fa-fw"></i></a>
-                                <a class="text-right" href="order_detail.php?sort=stock_desc"><i class="fa-solid fa-arrow-down-wide-short fa-fw"></i></a>
+
                               </th>
                             </tr>
                           </thead>
