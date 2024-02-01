@@ -356,7 +356,7 @@ $recipeCount = $result->num_rows;
             <div class="col-md-12 col-sm-12 ">
               <div class="x_panel">
                 <div class="x_title">
-                  <h2>食譜管理<small>Users</small></h2>
+                  <h2>食譜管理</h2>
                   <ul class="nav navbar-right panel_toolbox">
                     <!-- <button class="btn btn-primary">新增</button> -->
                     <a href="add-recipe.php" role="button" class="btn btn-secondary"><i class="fa-solid fa-plus"></i>新增</a>
