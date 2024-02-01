@@ -333,8 +333,8 @@ $product_type_count = $result_all_product->num_rows;
                   <div class="x_title">
                     <h2>商品分類 <small>Product categories</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link text-success" href="categories_recipe_re.php"><i class="fa fa-wrench"> 下架分類管理 </i></a></li>
-                      <li><a class="collapse-link text-success" href="categories_recipe.php"><i class="fa fa fa-arrow-left"></i> 返回</a></li>
+                      <li><a style="font-size: 16px;" class="collapse-link text-secondary" href="categories_recipe_re.php"><i class="fa fa-wrench"> 下架分類管理 </i></a></li>
+                      <li><a style="font-size: 16px;" class="collapse-link text-secondary" href="categories_recipe.php"><i class="fa fa fa-arrow-left"></i> 返回</a></li>
                       <!-- <li><a class="close-link"><i class="fa fa-close"></i></a>
                       </li> -->
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -368,8 +368,8 @@ foreach ($rows as $cate):
                             <td><?=$cate["R_Description"]?></td>
                             <td>
                               <div class="d-flex justify-content-between">
-                                <a href="#" data-id="<?=$cate["Recipe_cate_ID"]?>" data-name="<?=$cate["Recipe_cate_name"]?>" data-description="<?=$cate["R_Description"]?>" class="btn btn-success border-0 edit-btn" onclick="fillModal(this)"><i class="fa-solid fa-edit fa-fw"></i></a>
-                                <a href="#" class="btn btn-danger border-0 remove-btn" data-bs-toggle="modal" data-bs-target="#removeModal" data-id="<?=$cate["Recipe_cate_ID"]?>" onclick="setDeleteId(this)"><i class="fa-solid fa-trash fa-fw"></i></a>
+                                <a href="#" data-id="<?=$cate["Recipe_cate_ID"]?>" data-name="<?=$cate["Recipe_cate_name"]?>" data-description="<?=$cate["R_Description"]?>" class="btn btn-outline-info edit-btn" onclick="fillModal(this)"><i class="fa-solid fa-edit fa-fw"></i></a>
+                                <a href="#" class="btn btn-outline-danger remove-btn" data-bs-toggle="modal" data-bs-target="#removeModal" data-id="<?=$cate["Recipe_cate_ID"]?>" onclick="setDeleteId(this)"><i class="fa-solid fa-trash fa-fw"></i></a>
                               </div>
                             </td>
                           </tr>
@@ -413,7 +413,7 @@ foreach ($rows as $cate):
                 </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
-                <button type="button" class="btn btn-success btn-gradient border-0" onclick="confirmSave()">提交修改</button>
+                <button type="button" class="btn btn-info btn-gradient border-0" onclick="confirmSave()">提交修改</button>
               </div>
             </div>
           </div>
@@ -438,7 +438,7 @@ foreach ($rows as $cate):
                         確認刪除嗎?
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
                         <form action="do_Rcate_soft_delete.php" method="post">
                             <input type="hidden" name="Recipe_cate_ID" value="<?php echo $rows[0]["Recipe_cate_ID"]; ?>">
                             <button type="submit" class="btn btn-danger">刪除</button>
