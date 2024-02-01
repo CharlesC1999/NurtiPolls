@@ -36,10 +36,10 @@ include "./css.php";
     <label for="exampleInputPassword1" class="form-label">Password</label>
     <input type="password" class="form-control" id="exampleInputPassword1" name="password" >
   </div>
-  <div class="mb-3">
+  <!-- <div class="mb-3">
     <label for="exampleInputPassword1" class="form-label">Repassword</label>
     <input type="password" class="form-control" id="exampleInputPassword2" name="repassword" >
-  </div>
+  </div> -->
 
   <?php if (isset($_SESSION["error"]["message"])): ?>
       <div class="text-danger"><?=$_SESSION["error"]["message"]?></div>
