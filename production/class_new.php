@@ -91,7 +91,7 @@ $sqlClass = "SELECT class.*, speaker.Speaker_name, class_categories.Class_cate_n
  FROM class
  JOIN speaker ON class.F_Speaker_ID = speaker.Speaker_ID
  JOIN class_categories ON class.Class_category_ID = class_categories.Class_cate_ID
- $whereClause && valid = 1";
+ $whereClause && class.valid = 1";
 $resultClass = $conn->query($sqlClass);
 $rowsClass = $resultClass->fetch_all(MYSQLI_ASSOC);
 

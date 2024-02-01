@@ -50,7 +50,7 @@ if ($conn->query($sql)) {
 }
 
 
-// 時間戳記取代檔名
+// 上傳單張圖片
 /* if ($_FILES["fileUpload"]["error"] == 0) {
     $filename = time();
     $fileExt = pathinfo($_FILES["fileUpload"]["name"], PATHINFO_EXTENSION);
