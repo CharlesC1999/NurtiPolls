@@ -45,7 +45,7 @@ elseif (isset($_GET["p"])) {
   $p = 1; //預設第一頁
 
   $order=1;
-  $orderString="ORDER BY Speaker_ID ASC";  //預設直 (升冪)
+  $orderString="ORDER BY Speaker_ID DESC";  //預設直 (降冪[可以直接看由新到舊 -> ID排序])
 
   //SELECT * FROM 讀取資料
   $sql = "SELECT * FROM speaker WHERE valid=1 $orderString LIMIT $perPage";
@@ -53,12 +53,8 @@ elseif (isset($_GET["p"])) {
 
 $result = $conn->query($sql); //if判斷完 -> 吐資料 -> 升冪降冪
 
-//判斷 在搜尋裡總共有幾筆 or 預設值全部筆數
-if (isset($_GET["search"])) {
-  $speakerCount = $result->num_rows;
-} else {
-  $speakerCount = $speakerToCount;
-}
+
+
 
 
 ?>
@@ -100,6 +96,7 @@ if (isset($_GET["search"])) {
   <link href="../build/css/custom.min.css" rel="stylesheet">
   <!-- icon連結 https://cdnjs.com/libraries/font-awesome-->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 
 </head>
 
@@ -285,9 +282,8 @@ if (isset($_GET["search"])) {
                     <input type="search" class="form-control" placeholder="Search for name..." name="search" 
                     <?php
                       if (isset($_GET["search"])) :
-                          $searchValue = $_GET["search"];
-                          ?> value="<?= $searchValue ?>" 
-                    <?php endif; ?>>
+                          $searchValue = $_GET["search"];?> value="<?= $searchValue ?>" >
+                    <?php endif; ?>
                     <span class="input-group-btn">
                       <button class="btn btn-secondary" type="submit">Go!</button>
                     </span>
@@ -330,7 +326,16 @@ if (isset($_GET["search"])) {
                       <div class="card-box table-responsive">
                         <div class="d-flex justify-content-between align-items-center">
                           <div>
-                            教師共 <?= $speakerCount ?> 位
+                            <?php
+                            //判斷 在搜尋裡總共有幾筆 or 預設值全部筆數
+                                if (isset($_GET["search"])) {
+                                  $searchCount = $result->num_rows;
+                                  echo "搜尋<spen style=color:red;> $search </spen>的結果，共有 $searchCount 筆符合資料";  
+                                } else {
+                                  $speakerCount = $speakerToCount;
+                                  echo "教師共 $speakerCount 位，第 $p 頁，共 $pageCount 頁。";
+                                } 
+                            ?>
                           </div>
                           <a class="h6 text-end link-info" href="speaker_add.php" role="button">新增教師 <i class="fa-solid fa-user-plus"></i></a>
                         </div>
@@ -358,7 +363,7 @@ if (isset($_GET["search"])) {
                                 <td class="align-middle"><?= $speaker["Speaker_name"] ?></td>
                                 <td class="align-middle"><?= $speaker["Speaker_description"] ?></td>
 
-                                <td>
+                                <td class="align-middle">
                                   <div class="d-flex justify-content-between">
                                     <!-- 去到speakeruser.php網頁丟id過去做處理(點擊到哪一位的id) -->
                                     <a role="button" class="btn btn-outline-secondary" href="speaker_user.php?id=<?= $speaker["Speaker_ID"] ?>"><i class="fa-regular fa-eye"></i></a>
