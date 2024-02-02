@@ -34,6 +34,7 @@ if (!isset($_GET["Coupon_ID"])) {
 
 $conn->close();
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -115,7 +116,7 @@ $conn->close();
             <div class="menu_section">
               <h3>General</h3>
               <ul class="nav side-menu">
-               
+
                 <li><a href="member.php"><i class="fa fa-table"></i> 會員管理 <span class="fa fa-chevron-down"></span></a>
                 </li>
                 <li><a href="product.php"><i class="fa fa-table"></i>商品管理 <span class="fa fa-chevron-down"></span></a>
@@ -135,16 +136,16 @@ $conn->close();
                 </li>
                 <li><a href="coupons.php"><i class="fa fa-table"></i>優惠卷管理<span class="fa fa-chevron-down"></span></a>
                 </li>
-              
+
             </div>
-            
+
 
           </div>
           <!-- /sidebar menu -->
 
           <!-- /menu footer buttons -->
           <div class="sidebar-footer hidden-small">
-           
+
             <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
               <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
             </a>
@@ -251,97 +252,99 @@ $conn->close();
         <div class="">
           <div class="page-title">
             <div class="title_left">
-              
+
               <h3>我的優惠券</h3>
               <a href="add-coupon.php" class="btn btn-info my-3">新增優惠券</a>
+
             </div>
+          
           </div>
+        </div>
+        <div class="clearfix"></div>
 
-          <div class="clearfix"></div>
-
-          <div class="row">
-            <div class="col-md-12 col-sm-12 ">
-              <div class="x_panel">
-                <?php
-                // 確定當前篩選狀態
-                $status = isset($_GET['status']) ? $_GET['status'] : 'all';
-                ?>
-                <div class="filter-buttons x_title">
-                  <a href="?status=all" class="btn custom-btn <?php if ($status == 'all') {
-                                                                echo 'active';
-                                                              }
-                                                              ?>">全部</a>
-                  <a href="?status=ongoing" class="btn custom-btn <?php if ($status == 'ongoing') {
+        <div class="row">
+          <div class="col-md-12 col-sm-12 ">
+            <div class="x_panel">
+              <?php
+              // 確定當前篩選狀態
+              $status = isset($_GET['status']) ? $_GET['status'] : 'all';
+              ?>
+              <div class="filter-buttons x_title">
+                <a href="?status=all" class="btn custom-btn <?php if ($status == 'all') {
+                                                              echo 'active';
+                                                            }
+                                                            ?>">全部</a>
+                <a href="?status=ongoing" class="btn custom-btn <?php if ($status == 'ongoing') {
+                                                                  echo 'active';
+                                                                }
+                                                                ?>">進行中的活動</a>
+                <a href="?status=upcoming" class="btn custom-btn <?php if ($status == 'upcoming') {
                                                                     echo 'active';
                                                                   }
-                                                                  ?>">進行中的活動</a>
-                  <a href="?status=upcoming" class="btn custom-btn <?php if ($status == 'upcoming') {
-                                                                      echo 'active';
-                                                                    }
-                                                                    ?>">接下來的活動</a>
-                  <a href="?status=expired" class="btn custom-btn <?php if ($status == 'expired') {
-                                                                    echo 'active';
-                                                                  }
-                                                                  ?>">已結束</a>
-                </div>
+                                                                  ?>">接下來的活動</a>
+                <a href="?status=expired" class="btn custom-btn <?php if ($status == 'expired') {
+                                                                  echo 'active';
+                                                                }
+                                                                ?>">已結束</a>
+              </div>
 
 
 
-                <div class="x_content">
-                  <div class="row">
-                    <div class="col-sm-12">
-                      <div class="card-box table-responsive">
+              <div class="x_content">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="card-box table-responsive">
 
-                        <table id="datatable" class="table table-striped table-bordered" style="width:100%">
-                          <thead>
+                      <table id="datatable" class="table table-striped table-bordered" style="width:100%">
+                        <thead>
+                          <tr>
+                            <th>編號</th>
+                            <th>優惠券名稱</th>
+                            <th>優惠券代碼</th>
+                            <th>優惠券種類</th>
+                            <th>折扣額度</th>
+                            <th>開始日期</th>
+                            <th>結束日期</th>
+                            <th>操作</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <?php
+                          $rows = $resultAll->fetch_all(MYSQLI_ASSOC);
+                          foreach ($rows as $coupon) :
+                          ?>
                             <tr>
-                              <th>編號</th>
-                              <th>優惠券名稱</th>
-                              <th>優惠券代碼</th>
-                              <th>優惠券種類</th>
-                              <th>折扣額度</th>
-                              <th>開始日期</th>
-                              <th>結束日期</th>
-                              <th>操作</th>
+                              <td><?= $coupon["Coupon_ID"] ?></td>
+                              <td><?= $coupon["C_name"] ?></td>
+                              <td><?= $coupon["C_code"] ?></td>
+                              <td><?= $coupon["Discount_type"] ?></td>
+                              <td>
+                                <?= $coupon["Discount_amount"] ?></td>
+                              <td><?= $coupon["Valid_start_date"] ?></td>
+                              <td><?= $coupon["Valid_end_date"] ?></td>
+                              <td>
+                                <a name="" id="" href="coupon-edit.php?Coupon_ID=<?= $coupon["Coupon_ID"] ?>" role="button" class="btn btn-outline-dark mr-2"><i class="fa-solid fa-pen-to-square"></i></a>
+                                <a name="" id="" href="coupon.php?Coupon_ID=<?= $coupon["Coupon_ID"] ?>" role="button" class="btn btn-outline-info"><i class="fa-solid fa-eye"></i></a>
+                              </td>
+
                             </tr>
-                          </thead>
-                          <tbody>
-                            <?php
-                            $rows = $resultAll->fetch_all(MYSQLI_ASSOC);
-                            foreach ($rows as $coupon) :
-                            ?>
-                              <tr>
-                                <td><?= $coupon["Coupon_ID"] ?></td>
-                                <td><?= $coupon["C_name"] ?></td>
-                                <td><?= $coupon["C_code"] ?></td>
-                                <td><?= $coupon["Discount_type"] ?></td>
-                                <td>
-                                  <?= $coupon["Discount_amount"] ?></td>
-                                <td><?= $coupon["Valid_start_date"] ?></td>
-                                <td><?= $coupon["Valid_end_date"] ?></td>
-                                <td>
-                                  <a name="" id=""  href="coupon-edit.php?Coupon_ID=<?= $coupon["Coupon_ID"] ?>" role="button" class="btn btn-outline-dark mr-2"><i class="fa-solid fa-pen-to-square"></i></a>
-                                  <a name="" id="" href="coupon.php?Coupon_ID=<?= $coupon["Coupon_ID"] ?>" role="button" class="btn btn-outline-info"><i class="fa-solid fa-eye"></i></a>
-                                </td>
 
-                              </tr>
-                          
-                            <?php endforeach; ?>
-                            
+                          <?php endforeach; ?>
 
-                          </tbody>
-                        </table>
-                      </div>
+
+                        </tbody>
+                      </table>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-
-
           </div>
+
+
         </div>
       </div>
+
       <!-- /page content -->
 
 
