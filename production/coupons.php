@@ -83,26 +83,29 @@ $conn->close();
       border-bottom: 5px solid #17a2b8;
       /* 活躍狀態的邊框顏色 */
     }
-    <style>
-      .img-circle.profile_img {
-        background: #ddd;
-      }
-      .profile_info span {
-        font-size: 14px;
-        line-height: 30px;
-        font-weight: 500;
-        color: #ecf0f1;
-      }
-      .profile_info h2 {
-        font-size: 14px;
-        color: #ecf0f1;
-        margin: 0;
-        font-weight: 500;
-      }
-      .side-menu{
-font-size: 15px;
-      }
-    </style>
+
+    <style>.img-circle.profile_img {
+      background: #ddd;
+    }
+
+    .profile_info span {
+      font-size: 14px;
+      line-height: 30px;
+      font-weight: 500;
+      color: #ecf0f1;
+    }
+
+    .profile_info h2 {
+      font-size: 14px;
+      color: #ecf0f1;
+      margin: 0;
+      font-weight: 500;
+    }
+
+    .side-menu {
+      font-size: 15px;
+    }
+  </style>
   </style>
 </head>
 
@@ -112,84 +115,66 @@ font-size: 15px;
       <div class="col-md-3 left_col">
         <div class="left_col scroll-view">
           <div class="navbar nav_title" style="border: 0;">
-          <a href="HomePage.html" class="site_title"
-                ><img src="../Logo_sm.png" alt="" style="height: 65px;"></a>
+            <a href="HomePage.html" class="site_title"><img src="../Logo_sm.png" alt="" style="height: 65px;"></a>
           </div>
 
           <div class="clearfix"></div>
 
           <!-- menu profile quick info -->
           <div class="profile clearfix">
-              <div class="profile_pic">
-                <img
-                  src="../logo4.png"
-                  alt="..."
-                  class="img-circle profile_img"
-                />
-              </div>
-              <div class="profile_info">
-                <span>Hi,</span>
-                <h2>第四組</h2>
-              </div>
+            <div class="profile_pic">
+              <img src="../logo4.png" alt="..." class="img-circle profile_img" />
             </div>
+            <div class="profile_info">
+              <span>Hi,</span>
+              <h2>第四組</h2>
+            </div>
+          </div>
           <!-- /menu profile quick info -->
 
           <br />
 
           <!-- sidebar menu -->
-          <div
-              id="sidebar-menu"
-              class="main_menu_side hidden-print main_menu"
-            >
-              <div class="menu_section">
-               
-                <ul class="nav side-menu">
-                  <li class="px-1">
-                    <a href="Member/member.php"
-                      ><i class="fa-solid fa-user"></i> 會員管理
-                     </a>
-                  </li>
-                  <li  class="px-1">
-                    <a href="product.php"
-                      ><i class="fa-solid fa-store"></i> 商品管理
-                     </a>
-                  </li>
-                  <li   class="px-1">
-                    <a
-                      ><i class="fa-solid fa-hashtag"></i> </i>分類管理<span
-                        class="fa fa-chevron-down"
-                      ></span>
-                      <ul class="nav child_menu">
-                        <li><a href="categories_product.php">商品</a></li>
-                        <li><a href="categories_class.php">課程</a></li>
-                        <li><a href="categories_recipe.php">食譜</a></li>
-                      </ul>
-                    </a>
-                  </li>
-                  <li class="px-1">
-                    <a href="recipe-list.php"
-                      ><i class="fa-solid fa-kitchen-set"></i> 食譜管理</a>
-                  </li>
-                  <li  class="px-1">
-                    <a href="speaker.php"
-                      ><i class="fa-solid fa-chalkboard-user"></i> 講師管理</a>
-                  </li>
-                  <li>
-                    <a href="redirectClass.php"
-                      ><i class="fa-solid fa-chalkboard"></i> 課程管理</a>
-                  </li>
-                  <li class="px-1">
-                    <a href="coupons.php"
-                      ><i class="fa-sharp fa-solid fa-tag"></i> 優惠卷管理</a>
-                  </li>
-                  <hr style="border-top: 2px solid aliceblue" />
-                  <li   class="px-1">
-                    <a href="./order_file/order.php"
-                      ><i class="fa-solid fa-note-sticky"></i> 訂單管理</a>
-                  </li>
-                </ul>
-              </div>
+          <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+            <div class="menu_section">
+
+              <ul class="nav side-menu">
+                <li class="px-1">
+                  <a href="Member/member.php"><i class="fa-solid fa-user"></i> 會員管理
+                  </a>
+                </li>
+                <li class="px-1">
+                  <a href="product.php"><i class="fa-solid fa-store"></i> 商品管理
+                  </a>
+                </li>
+                <li class="px-1">
+                  <a><i class="fa-solid fa-hashtag"></i> </i>分類管理<span class="fa fa-chevron-down"></span>
+                    <ul class="nav child_menu">
+                      <li><a href="categories_product.php">商品</a></li>
+                      <li><a href="categories_class.php">課程</a></li>
+                      <li><a href="categories_recipe.php">食譜</a></li>
+                    </ul>
+                  </a>
+                </li>
+                <li class="px-1">
+                  <a href="recipe-list.php"><i class="fa-solid fa-kitchen-set"></i> 食譜管理</a>
+                </li>
+                <li class="px-1">
+                  <a href="speaker.php"><i class="fa-solid fa-chalkboard-user"></i> 講師管理</a>
+                </li>
+                <li>
+                  <a href="redirectClass.php"><i class="fa-solid fa-chalkboard"></i> 課程管理</a>
+                </li>
+                <li class="px-1">
+                  <a href="coupons.php"><i class="fa-sharp fa-solid fa-tag"></i> 優惠卷管理</a>
+                </li>
+                <hr style="border-top: 2px solid aliceblue" />
+                <li class="px-1">
+                  <a href="./order_file/order.php"><i class="fa-solid fa-note-sticky"></i> 訂單管理</a>
+                </li>
+              </ul>
             </div>
+          </div>
           <!-- /sidebar menu -->
 
           <!-- /menu footer buttons -->
@@ -211,32 +196,20 @@ font-size: 15px;
           </div>
           <nav class="nav navbar-nav">
             <ul class=" navbar-right">
-            <li class="nav-item dropdown open" style="padding-left: 15px">
-                  <a
-                    href="javascript:;"
-                    class="user-profile dropdown-toggle"
-                    aria-haspopup="true"
-                    id="navbarDropdown"
-                    data-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    <img src="../logo4.png" alt="" />第四組
+              <li class="nav-item dropdown open" style="padding-left: 15px">
+                <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
+                  <img src="../logo4.png" alt="" />第四組
+                </a>
+                <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="javascript:;"> Profile</a>
+                  <a class="dropdown-item" href="javascript:;">
+                    <!-- <span class="badge bg-red pull-right">50%</span> -->
+                    <span>Settings</span>
                   </a>
-                  <div
-                    class="dropdown-menu dropdown-usermenu pull-right"
-                    aria-labelledby="navbarDropdown"
-                  >
-                    <a class="dropdown-item" href="javascript:;"> Profile</a>
-                    <a class="dropdown-item" href="javascript:;">
-                      <!-- <span class="badge bg-red pull-right">50%</span> -->
-                      <span>Settings</span>
-                    </a>
-                    <a class="dropdown-item" href="javascript:;">Help</a>
-                    <a class="dropdown-item" href="login.html"
-                      ><i class="fa fa-sign-out pull-right"></i> Log Out</a
-                    >
-                  </div>
-                </li>
+                  <a class="dropdown-item" href="javascript:;">Help</a>
+                  <a class="dropdown-item" href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+                </div>
+              </li>
 
               <li role="presentation" class="nav-item dropdown open">
                 <ul class="dropdown-menu list-unstyled msg_list" role="menu" aria-labelledby="navbarDropdown1">
@@ -314,7 +287,7 @@ font-size: 15px;
               <a href="add-coupon.php" class="btn btn-info my-3">新增優惠券</a>
 
             </div>
-          
+
           </div>
         </div>
         <div class="clearfix"></div>
@@ -376,7 +349,12 @@ font-size: 15px;
                               <td><?= $coupon["C_code"] ?></td>
                               <td><?= $coupon["Discount_type"] ?></td>
                               <td>
-                                <?= $coupon["Discount_amount"] ?></td>
+                                <?php
+                                // 如果數值大於或等於1，則四捨五入至整數
+                                echo ($coupon["Discount_amount"] >= 1) ? round($coupon["Discount_amount"]) : $coupon["Discount_amount"];
+                                ?>
+                              </td>
+
                               <td><?= $coupon["Valid_start_date"] ?></td>
                               <td><?= $coupon["Valid_end_date"] ?></td>
                               <td>
