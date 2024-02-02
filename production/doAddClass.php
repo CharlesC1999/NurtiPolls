@@ -1,5 +1,5 @@
 <?php
-require_once("../db_connect_class.php");
+require_once("../db_connect.php");
 
 $className = trim($_POST["className"]);
 $classCategory = $_POST["classCategory"];

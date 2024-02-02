@@ -1,5 +1,5 @@
 <?php
-require_once("../db_connect_class.php");
+require_once("../db_connect.php");
 
 if (!isset($_GET["Class_ID"])) {
   die("請循正常管道進入此頁");

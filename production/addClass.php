@@ -1,5 +1,5 @@
 <?php
-require_once("../db_connect_class.php");
+require_once("../db_connect.php");
 
 //join class and speaker
 $sql = "SELECT * FROM speaker";
