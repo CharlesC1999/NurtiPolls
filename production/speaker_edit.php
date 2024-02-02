@@ -79,6 +79,16 @@ $rowCount = $result->num_rows; //result裡面有幾筆(num_rows)
     .frame {
       padding-top: 100px;
     }
+
+    .btn-info{
+      background-color: #17a2b8;
+      border: 1px solid #17a2b8;
+    }
+
+    .btn-info:hover{
+      background-color: #128395;
+      border: 1px solid #17a2b8;
+    }
   </style>
 
 </head>
@@ -89,7 +99,7 @@ $rowCount = $result->num_rows; //result裡面有幾筆(num_rows)
       <div class="col-md-3 left_col">
         <div class="left_col scroll-view">
           <div class="navbar nav_title" style="border: 0;">
-            <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>營養大選 Nutripoll</span></a>
+            <a href="HomePage.html" class="site_title"><i class="fa fa-paw"></i> <span>營養大選 Nutripoll</span></a>
           </div>
 
           <div class="clearfix"></div>
@@ -113,26 +123,26 @@ $rowCount = $result->num_rows; //result裡面有幾筆(num_rows)
             <div class="menu_section">
               <h3>General</h3>
               <ul class="nav side-menu">
-                <li><a href="tables_dynamic.html"><i class="fa fa-table"></i> 會員管理 <span class="fa fa-chevron-down"></span></a>
-                </li>
-                <li><a href="product.php"><i class="fa fa-table"></i>商品管理 <span class="fa fa-chevron-down"></span></a>
-                </li>
-                <li><a><i class="fa fa-table"></i>分類管理<span class="fa fa-chevron-down"></span>
-                    <ul class="nav child_menu">
-                      <li><a href="categories_product.php">商品</a></li>
-                      <li><a href="categories_product.php">課程</a></li>
-                      <li><a href="categories_product.php">食譜</a></li>
-                    </ul>
-                  </a>
-                </li>
-                <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>食譜管理<span class="fa fa-chevron-down"></span></a>
-                </li>
-                <li><a href="speaker.php"><i class="fa fa-table"></i>講師管理<span class="fa fa-chevron-down"></span></a>
-                </li>
-                <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>課程管理<span class="fa fa-chevron-down"></span></a>
-                </li>
-                <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>優惠卷管理<span class="fa fa-chevron-down"></span></a>
-                </li>
+
+                  <li><a href="member.php"><i class="fa fa-table"></i> 會員管理 <span class="fa fa-chevron-down"></span></a>
+                  </li><li><a href="product.php"><i class="fa fa-table"></i>商品管理 <span class="fa fa-chevron-down"></span></a>
+                  </li>
+                  <li><a><i class="fa fa-table"></i>分類管理<span class="fa fa-chevron-down"></span>
+                  <ul class="nav child_menu">
+                      <li><a href="categories_product.php" style="font-size: 16px;">商品</a></li>
+                      <li><a href="categories_class.php" style="font-size: 16px;">課程</a></li>
+                      <li><a href="categories_recipe.php" style="font-size: 16px;">食譜</a></li>
+                  </ul>
+
+                  </li>
+                  <li><a href="recipe-list.php"><i class="fa fa-table"></i>食譜管理<span class="fa fa-chevron-down"></span></a>
+                  </li>
+                  <li><a href="speaker.php"><i class="fa fa-table"></i>講師管理<span class="fa fa-chevron-down"></span></a>
+                  </li>
+                  <li><a href="redirectClass.php"><i class="fa fa-table"></i>課程管理<span class="fa fa-chevron-down"></span></a>
+                  </li>
+                  <li><a href="coupons.php"><i class="fa fa-table"></i>優惠卷管理<span class="fa fa-chevron-down"></span></a>
+                  </li>
             </div>
           </div>
           <!-- /sidebar menu -->
@@ -268,8 +278,8 @@ $rowCount = $result->num_rows; //result裡面有幾筆(num_rows)
             <!-- d-flex justify-content-between -->
             <div class="container d-flex justify-content-center py-3">
               <div class="px-3"><input type="file" class="form-control " name="file" onchange="openFile(event)"></div>
-              <a name="" id="" class="btn btn-outline-secondary " href="speaker.php" role="button">返回列表</a>
-              <div class="px-3"><button class="btn btn-outline-secondary " type="submit">確定修改</button></div>
+              <a name="" id="" class="btn btn-secondary " href="speaker.php" role="button"><i class="fa-solid fa-chevron-left"></i>返回教師列表</a>
+              <div class="px-3"><button class="btn btn-info text-white" type="submit">確定修改</button></div>
             </div>
           </form>
         </div>

@@ -63,6 +63,16 @@ $rows = $result->fetch_all(MYSQLI_ASSOC); //轉換關聯式陣列
       height: 100%;
       overflow: hidden;
     }
+
+    .btn-info{
+      background-color: #17a2b8;
+      border: 1px solid #17a2b8;
+    }
+
+    .btn-info:hover{
+      background-color: #128395;
+      border: 1px solid #17a2b8;
+    }
   </style>
 
 </head>
@@ -73,7 +83,7 @@ $rows = $result->fetch_all(MYSQLI_ASSOC); //轉換關聯式陣列
       <div class="col-md-3 left_col">
         <div class="left_col scroll-view">
           <div class="navbar nav_title" style="border: 0;">
-            <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>營養大選 Nutripoll</span></a>
+            <a href="HomePage.html" class="site_title"><i class="fa fa-paw"></i> <span>營養大選 Nutripoll</span></a>
           </div>
 
           <div class="clearfix"></div>
@@ -97,26 +107,26 @@ $rows = $result->fetch_all(MYSQLI_ASSOC); //轉換關聯式陣列
             <div class="menu_section">
               <h3>General</h3>
               <ul class="nav side-menu">
-                <li><a href="tables_dynamic.html"><i class="fa fa-table"></i> 會員管理 <span class="fa fa-chevron-down"></span></a>
-                </li>
-                <li><a href="product.php"><i class="fa fa-table"></i>商品管理 <span class="fa fa-chevron-down"></span></a>
-                </li>
-                <li><a><i class="fa fa-table"></i>分類管理<span class="fa fa-chevron-down"></span>
-                    <ul class="nav child_menu">
-                      <li><a href="categories_product.php">商品</a></li>
-                      <li><a href="categories_product.php">課程</a></li>
-                      <li><a href="categories_product.php">食譜</a></li>
-                    </ul>
-                  </a>
-                </li>
-                <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>食譜管理<span class="fa fa-chevron-down"></span></a>
-                </li>
-                <li><a href="speaker.php"><i class="fa fa-table"></i>講師管理<span class="fa fa-chevron-down"></span></a>
-                </li>
-                <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>課程管理<span class="fa fa-chevron-down"></span></a>
-                </li>
-                <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>優惠卷管理<span class="fa fa-chevron-down"></span></a>
-                </li>
+
+                  <li><a href="member.php"><i class="fa fa-table"></i> 會員管理 <span class="fa fa-chevron-down"></span></a>
+                  </li><li><a href="product.php"><i class="fa fa-table"></i>商品管理 <span class="fa fa-chevron-down"></span></a>
+                  </li>
+                  <li><a><i class="fa fa-table"></i>分類管理<span class="fa fa-chevron-down"></span>
+                  <ul class="nav child_menu">
+                      <li><a href="categories_product.php" style="font-size: 16px;">商品</a></li>
+                      <li><a href="categories_class.php" style="font-size: 16px;">課程</a></li>
+                      <li><a href="categories_recipe.php" style="font-size: 16px;">食譜</a></li>
+                  </ul>
+
+                  </li>
+                  <li><a href="recipe-list.php"><i class="fa fa-table"></i>食譜管理<span class="fa fa-chevron-down"></span></a>
+                  </li>
+                  <li><a href="speaker.php"><i class="fa fa-table"></i>講師管理<span class="fa fa-chevron-down"></span></a>
+                  </li>
+                  <li><a href="redirectClass.php"><i class="fa fa-table"></i>課程管理<span class="fa fa-chevron-down"></span></a>
+                  </li>
+                  <li><a href="coupons.php"><i class="fa fa-table"></i>優惠卷管理<span class="fa fa-chevron-down"></span></a>
+                  </li>
             </div>
           </div>
           <!-- /sidebar menu -->
@@ -256,8 +266,8 @@ $rows = $result->fetch_all(MYSQLI_ASSOC); //轉換關聯式陣列
                 </div>
                 <!-- d-grid gap-2 d-md-flex justify-content-md-end py-2 同靠右邊-->
                 <div class="d-flex justify-content-between align-items-center py-2">
-                  <a name="" id="" class="btn btn-outline-secondary" href="speaker.php" role="button">返回列表</a>
-                  <button class="btn btn-outline-secondary" type="submit" id="send">確定新增</button>
+                  <a name="" id="" class="btn btn-secondary" href="speaker.php" role="button"><i class="fa-solid fa-chevron-left"></i>返回教師列表</a>
+                  <button class="btn btn-info text-white" type="submit" id="send">確定新增</button>
                 </div>
               </form>
             </div>
