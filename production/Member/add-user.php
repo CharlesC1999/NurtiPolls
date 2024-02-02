@@ -361,21 +361,21 @@ require_once "../../db_connect.php";
                 <label for="" class="form-label">
                     name
                 </label>
-                <input type="text" class="form-control" name="name">
+                <input type="text" class="form-control" name="name" required="required" maxlength="11" minlength="3">
             </div>
             <div class="mt-2">
                 <!-- 帳號 -->
                 <label for="" class="form-label">
                     account
                 </label>
-                <input type="text" class="form-control" name="account">
+                <input type="text" class="form-control" name="account" required="required" pattern="^(?=.*[a-zA-Z])(?=.*[0-9]).{4,}$">
             </div>
             <div class="mt-2">
                 <!-- 密碼 -->
                 <label for="" class="form-label">
                     password
                 </label>
-                <input type="password" class="form-control" name="password">
+                <input type="password" class="form-control" name="password" required="required" >
             </div>
             <div class="mt-2">
                 <!-- 請填入信箱 -->
@@ -389,7 +389,7 @@ require_once "../../db_connect.php";
                 <label for="" class="form-label">
                     Phone
                 </label>
-                <input type="number" class="form-control" name="phone">
+                <input type="number" class="form-control" name="phone" required="required">
             </div>
             <div class="mt-2">
             <label for="" class="form-label">選擇圖片</label>
@@ -401,7 +401,7 @@ require_once "../../db_connect.php";
 unset($_SESSION["error"]["message"]);
 ?>
             <div class="mt-2">
-            <button type="submit" class="btn btn-primary">送出</button>
+            <button type="submit" class="btn btn-info">送出</button>
             </div>
             </tr>
         </form>

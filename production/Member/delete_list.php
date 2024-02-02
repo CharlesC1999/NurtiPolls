@@ -86,6 +86,24 @@ if (isset($_GET["search"])) {
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+      .pagination .page-item.active .page-link {
+            background-color: gray; /* Active link background color */
+            border-color: #007bff; /* Active link border color */
+            color: black; /* Active link text color */
+        }
+
+        .pagination .page-link {
+            color: gray; /* Inactive link text color */
+        }
+
+        .pagination .page-link:hover {
+            background-color: #0056b3; /* Hovered link background color */
+            border-color: #0056b3; /* Hovered link border color */
+            color: #ffffff; /* Hovered link text color */
+        }
+    </style>
   </head>
 
   <body class="nav-md">
