@@ -1,5 +1,5 @@
 <?php
-require_once("../db_connect_class.php");
+require_once("../db_connect.php");
 
 $className = trim($_POST["className"]);
 $classCategory = $_POST["classCategory"];
@@ -9,11 +9,12 @@ $personLimit = $_POST["personLimit"];
 $startDate = $_POST["startDate"];
 $endDate = $_POST["endDate"];
 $classDate = $_POST["classDate"];
+$classEndDate = $_POST["classEndDate"];
 $classDescription = trim($_POST["classDescription"]);
 $fileUpload = $_FILES["fileUpload"];
 
 // 確認是否填入所有欄位
-if (empty($className) || empty($classCategory) || empty($speaker) || empty($classPrice) || empty($personLimit) || empty($startDate) || empty($endDate) || empty($classDate) || empty($classDescription)) {
+if (empty($className) || empty($classCategory) || empty($speaker) || empty($classPrice) || empty($personLimit) || empty($startDate) || empty($endDate) || empty($classDate) || empty($classEndDate) || empty($classDescription)) {
     echo ("請輸入必填欄位");
     exit;
 }
@@ -34,10 +35,11 @@ if ($classNameExist != 0) {
 $formattedStartDate = date("Y-m-d", strtotime($startDate));
 $formattedEndDate = date("Y-m-d", strtotime($endDate));
 $formattedClassDate = date("Y-m-d H:i:s", strtotime($classDate));
+$formattedClassEndDate = date("Y-m-d H:i:s", strtotime($classEndDate));
 
 
 // 確認資料正確後新增課程
-$sql = "INSERT INTO class (Class_name, Class_description, C_price, F_Speaker_ID, Class_person_limit, Start_date, End_date, Class_date, Class_category_ID, valid) VALUES ('$className', '$classDescription', '$classPrice', '$speaker', '$personLimit', '$formattedStartDate', '$formattedEndDate','$formattedClassDate','$classCategory',1)";
+$sql = "INSERT INTO class (Class_name, Class_description, C_price, F_Speaker_ID, Class_person_limit, Start_date, End_date, Class_date, Class_end_date, Class_category_ID, valid) VALUES ('$className', '$classDescription', '$classPrice', '$speaker', '$personLimit', '$formattedStartDate', '$formattedEndDate','$formattedClassDate', '$formattedClassEndDate','$classCategory',1)";
 
 
 // 執行新增課程並取得新插入資料的id
@@ -99,6 +101,5 @@ for ($j = 0; $j < $i; $j++) {
     }
 }
 
-
-$conn->close();
 header("location: classDetail.php?Class_ID=$insert_id");
+$conn->close();

@@ -1,6 +1,9 @@
 <?php
-require_once("../db_connect_class.php");
+require_once("../db_connect.php");
 $now = date("Y-m-d");
+$nowTime = date("Y-m-d H:i:s");
+// $classEndTimeStamp = time();
+// $classEndTime = date("Y-m-d H:i:s", strtotime("+ 2 hours", $classEndTimeStamp));
 
 //分類
 if (isset($_GET["Class_cate_ID"])) {
@@ -45,16 +48,16 @@ if (isset($_GET["status"])) {
       $whereClauseForCategories = "WHERE Start_date <= '$now' && End_date >= '$now' && ";
       break;
     case "4":
-      $whereClause = "$whereClause  End_date <= '$now'";
-      $whereClauseForCategories = "WHERE End_date <= '$now' && ";
+      $whereClause = "$whereClause  End_date < '$now' && Class_date > '$nowTime'";
+      $whereClauseForCategories = "WHERE End_date < '$now' && Class_date > '$nowTime' && ";
       break;
     case "5":
-      $whereClause = "$whereClause  Class_date = '$now'";
-      $whereClauseForCategories = "WHERE Class_date = '$now' && ";
+      $whereClause = "$whereClause  Class_date <= '$nowTime' && Class_end_date >= '$nowTime'";
+      $whereClauseForCategories = "WHERE Class_date <= '$nowTime' && Class_end_date >= '$nowTime' && ";
       break;
     case "6":
-      $whereClause = "$whereClause  Class_date < '$now'";
-      $whereClauseForCategories = "WHERE Class_date < '$now' && ";
+      $whereClause = "$whereClause  Class_end_date < '$nowTime'";
+      $whereClauseForCategories = "WHERE Class_end_date < '$nowTime' && ";
       break;
   }
 }
@@ -149,18 +152,17 @@ $sqlInProgress = "SELECT * FROM class $whereClauseStatus Start_date <= '$now' &&
 $resultInProgress = $conn->query($sqlInProgress);
 $rowsCountInProgress = $resultInProgress->num_rows;
 //報名截止
-$sqlClosed = "SELECT * FROM class $whereClauseStatus End_date < '$now'";
+$sqlClosed = "SELECT * FROM class $whereClauseStatus End_date < '$now' && Class_date > '$nowTime'";
 $resultClosed = $conn->query($sqlClosed);
 $rowsCountClosed = $resultClosed->num_rows;
 //課程進行中
-$sqlClassInProgress = "SELECT * FROM class $whereClauseStatus Class_date = '$now'";
+$sqlClassInProgress = "SELECT * FROM class $whereClauseStatus Class_date <= '$nowTime' && Class_end_date >= '$nowTime'";
 $resultClassInProgress = $conn->query($sqlClassInProgress);
 $rowsCountClassInProgress = $resultClassInProgress->num_rows;
 //已結束課程
-$sqlClassEnded = "SELECT * FROM class $whereClauseStatus Class_date < '$now'";
+$sqlClassEnded = "SELECT * FROM class $whereClauseStatus Class_end_date < '$nowTime'";
 $resultClassEnded = $conn->query($sqlClassEnded);
 $rowsCountClassEnded = $resultClassEnded->num_rows;
-
 ?>
 
 <!-- <pre>
@@ -233,7 +235,7 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
       <div class="col-md-3 left_col">
         <div class="left_col scroll-view">
           <div class="navbar nav_title" style="border: 0;">
-            <a href="HomePage.html" class="site_title"><span>營養大選NutriPolls</span></a>
+            <a href="HomePage.html" class="site_title"><img src="../Logo_sm.png" alt="" style="height: 65px;"></a>
           </div>
 
           <div class="clearfix"></div>
@@ -241,11 +243,11 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
           <!-- menu profile quick info -->
           <div class="profile clearfix">
             <div class="profile_pic">
-              <img src="images/img.jpg" alt="..." class="img-circle profile_img">
+              <img src="../logo4.png" alt="..." class="img-circle profile_img" />
             </div>
             <div class="profile_info">
-              <span>Welcome,</span>
-              <h2>John Doe</h2>
+              <span>Hi,</span>
+              <h2>第四組</h2>
             </div>
           </div>
           <!-- /menu profile quick info -->
@@ -255,7 +257,7 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
           <!-- sidebar menu -->
           <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
             <div class="menu_section">
-              <h3>General</h3>
+              <!-- <h3>General</h3> -->
               <ul class="nav side-menu">
                 <!-- <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
@@ -287,12 +289,14 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
                       <li><a href="calendar.html">Calendar</a></li>
                     </ul>
                   </li> -->
-                <li><a href="Member/member.php"><i class="fa fa-table"></i> 會員管理 <span class="fa fa-chevron-down"></span></a>
+                <li class="px-1"><a href="Member/member.php"><i class="fa-solid fa-user"></i> 會員管理 </a>
                 </li>
-                <li><a href="product.php"><i class="fa fa-table"></i>商品管理 <span class="fa fa-chevron-down"></span></a>
+
+                <li class="px-1"><a href="product.php"><i class="fa-solid fa-store"></i> 商品管理 </a>
                 </li>
-                <li>
-                  <a><i class="fa fa-table"></i>分類管理<span class="fa fa-chevron-down"></span>
+
+                <li class="px-1">
+                  <a><i class="fa-solid fa-hashtag"></i> 分類管理<span class="fa fa-chevron-down"></span>
                     <ul class="nav child_menu">
                       <li><a href="categories_product.php">商品</a></li>
                       <li><a href="categories_class.php">課程</a></li>
@@ -300,11 +304,14 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
                     </ul>
                   </a>
                 </li>
-                <li><a href="recipe-list.php"><i class="fa fa-table"></i>食譜管理<span class="fa fa-chevron-down"></span></a>
+
+                <li class="px-1"><a href="recipe-list.php"><i class="fa-solid fa-kitchen-set"></i> 食譜管理</a>
                 </li>
-                <li><a href="speaker.php"><i class="fa fa-table"></i>講師管理<span class="fa fa-chevron-down"></span></a>
+
+                <li class="px-1"><a href="speaker.php"><i class="fa-solid fa-chalkboard-user"></i> 講師管理</a>
                 </li>
-                <li class="active"><a href="class_new.php?Class_cate_ID=&status=1&min=0&max=99999"><i class="fa fa-table"></i> 課程管理 </a>
+
+                <li class="active px-1"><a href="class_new.php?Class_cate_ID=&status=1&min=0&max=99999"><i class="fa-solid fa-chalkboard"></i> 課程管理 </a>
                   <!-- <ul class="nav child_menu">
                     <li class="<?php if ($Class_cate_ID == "") {
                                   echo "active";
@@ -318,7 +325,14 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
                     <?php endforeach; ?>
                   </ul> -->
                 </li>
-                <li><a href="coupons.php"><i class="fa fa-table"></i>優惠卷管理<span class="fa fa-chevron-down"></span></a>
+
+                <li class="px-1"><a href="coupons.php"><i class="fa-sharp fa-solid fa-tag"></i> 優惠卷管理</a>
+                </li>
+
+                <hr style="border-top: 2px solid aliceblue" />
+
+                <li class="px-1">
+                  <a href="./order_file/order.php"><i class="fa-solid fa-note-sticky"></i> 訂單管理</a>
                 </li>
                 <!-- <li><a><i class="fa fa-bar-chart-o"></i> Data Presentation <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
@@ -412,12 +426,12 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
             <ul class=" navbar-right">
               <li class="nav-item dropdown open" style="padding-left: 15px;">
                 <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                  <img src="images/img.jpg" alt="">John Doe
+                  <img src="../logo4.png" alt="" />第四組
                 </a>
                 <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
                   <a class="dropdown-item" href="javascript:;"> Profile</a>
                   <a class="dropdown-item" href="javascript:;">
-                    <span class="badge bg-red pull-right">50%</span>
+                    <!-- <span class="badge bg-red pull-right">50%</span> -->
                     <span>Settings</span>
                   </a>
                   <a class="dropdown-item" href="javascript:;">Help</a>
@@ -757,7 +771,7 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
                               <th class="align-middle">講師</th>
                               <!-- <th class="align-middle">學員名額</th> -->
                               <th class="align-middle">報名 <br> 日期</th>
-                              <th class="align-middle">實際<br> 開課日</th>
+                              <th class="align-middle">開課<br> 時間</th>
                               <th class="align-middle">修改</th>
                               <th class="align-middle">下架</th>
                               <!--  <th class="align-middle">上架</th> -->
@@ -772,22 +786,28 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
                                 <td <?php
                                     $Start_date = $rowClass["Start_date"];
                                     $End_date = $rowClass["End_date"];
-                                    $now = date("Y-m-d");
-                                    if ($now >= $Start_date && $now <= $End_date) : $text_color = "text-success ";
+                                    $Class_date = $rowClass["Class_date"];
+                                    $Class_end_date = $rowClass["Class_end_date"];
+                                    // $now = date("Y-m-d");
+                                    if ($now >= $Start_date && $now <= $End_date || $Class_date <= $nowTime &&  $Class_end_date >= $nowTime) : $text_color = "text-success ";
                                     elseif ($now < $Start_date || $now > $End_date) :
                                       $text_color = "text-danger";
                                     endif;
                                     ?> class="<?= $text_color; ?>">
                                   <?php
-                                  $Start_date = $rowClass["Start_date"];
-                                  $End_date = $rowClass["End_date"];
-                                  $now = date("Y-m-d");
+                                  // $Start_date = $rowClass["Start_date"];
+                                  // $End_date = $rowClass["End_date"];
+                                  // $now = date("Y-m-d");
                                   if ($now >= $Start_date && $now <= $End_date) {
                                     echo "開放報名中";
                                   } elseif ($now < $Start_date) {
                                     echo "報名尚未開放";
-                                  } elseif ($now > $End_date) {
+                                  } elseif ($now > $End_date  && $Class_date > $nowTime) {
                                     echo "報名已截止";
+                                  } elseif ($Class_date <= $nowTime &&  $Class_end_date >= $nowTime) {
+                                    echo "課程進行中";
+                                  } elseif ($Class_end_date < $nowTime) {
+                                    echo "課程已結束";
                                   }
                                   ?>
                                 </td>
@@ -800,7 +820,11 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
                                   <div>|</div>
                                   <?= $rowClass["End_date"] ?>
                                 </td>
-                                <td><?= $rowClass["Class_date"] ?></td>
+                                <td>
+                                  <?= $rowClass["Class_date"] ?>
+                                  <div>|</div>
+                                  <?= $rowClass["Class_end_date"] ?>
+                                </td>
                                 <td><a class="btn btn-outline-info py-1 px-2" href="classEdit.php?Class_ID=<?= $rowClass["Class_ID"] ?>"><i class="fa-solid fa-pen-to-square fa-lg"></i></a></td>
                                 <td class="align-top">
                                   <button type="button" class="btn btn-outline-danger py-1 px-2 deleteBtns" data-bs-toggle="modal" data-bs-target="#confirmDelete" data-class-id="<?= $rowClass["Class_ID"] ?>">
