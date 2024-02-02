@@ -496,13 +496,13 @@ $stmt_product->close();
                             </span>
                           </div>
                           <div class="col">
-                          </div>
+                                                    </div>
                           <div class="col">
                             <span class="h6 text-right d-block">訂單建立時間：<?=$row["Order_date"]?></span>
                           </div>
                           <!-- <div class="col"></div> -->
                       </div>
-                      <div class="py-2">
+<div class="py-2">
                         <div class="d-flex justify-content-end">
                           <div class="dropdown">
                             <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
