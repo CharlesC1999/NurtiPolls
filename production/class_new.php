@@ -235,7 +235,7 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
       <div class="col-md-3 left_col">
         <div class="left_col scroll-view">
           <div class="navbar nav_title" style="border: 0;">
-            <a href="HomePage.html" class="site_title"><span>營養大選NutriPolls</span></a>
+            <a href="HomePage.html" class="site_title"><img src="../Logo_sm.png" alt="" style="height: 65px;"></a>
           </div>
 
           <div class="clearfix"></div>
@@ -243,11 +243,11 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
           <!-- menu profile quick info -->
           <div class="profile clearfix">
             <div class="profile_pic">
-              <img src="images/img.jpg" alt="..." class="img-circle profile_img">
+              <img src="../logo4.png" alt="..." class="img-circle profile_img" />
             </div>
             <div class="profile_info">
-              <span>Welcome,</span>
-              <h2>John Doe</h2>
+              <span>Hi,</span>
+              <h2>第四組</h2>
             </div>
           </div>
           <!-- /menu profile quick info -->
@@ -257,7 +257,7 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
           <!-- sidebar menu -->
           <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
             <div class="menu_section">
-              <h3>General</h3>
+              <!-- <h3>General</h3> -->
               <ul class="nav side-menu">
                 <!-- <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
@@ -289,12 +289,14 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
                       <li><a href="calendar.html">Calendar</a></li>
                     </ul>
                   </li> -->
-                <li><a href="Member/member.php"><i class="fa fa-table"></i> 會員管理 <span class="fa fa-chevron-down"></span></a>
+                <li class="px-1"><a href="Member/member.php"><i class="fa-solid fa-user"></i> 會員管理 </a>
                 </li>
-                <li><a href="product.php"><i class="fa fa-table"></i>商品管理 <span class="fa fa-chevron-down"></span></a>
+
+                <li class="px-1"><a href="product.php"><i class="fa-solid fa-store"></i> 商品管理 </a>
                 </li>
-                <li>
-                  <a><i class="fa fa-table"></i>分類管理<span class="fa fa-chevron-down"></span>
+
+                <li class="px-1">
+                  <a><i class="fa-solid fa-hashtag"></i> 分類管理<span class="fa fa-chevron-down"></span>
                     <ul class="nav child_menu">
                       <li><a href="categories_product.php">商品</a></li>
                       <li><a href="categories_class.php">課程</a></li>
@@ -302,11 +304,14 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
                     </ul>
                   </a>
                 </li>
-                <li><a href="recipe-list.php"><i class="fa fa-table"></i>食譜管理<span class="fa fa-chevron-down"></span></a>
+
+                <li class="px-1"><a href="recipe-list.php"><i class="fa-solid fa-kitchen-set"></i> 食譜管理</a>
                 </li>
-                <li><a href="speaker.php"><i class="fa fa-table"></i>講師管理<span class="fa fa-chevron-down"></span></a>
+
+                <li class="px-1"><a href="speaker.php"><i class="fa-solid fa-chalkboard-user"></i> 講師管理</a>
                 </li>
-                <li class="active"><a href="class_new.php?Class_cate_ID=&status=1&min=0&max=99999"><i class="fa-solid fa-book-open"></i> 課程管理 </a>
+
+                <li class="active px-1"><a href="class_new.php?Class_cate_ID=&status=1&min=0&max=99999"><i class="fa-solid fa-chalkboard"></i> 課程管理 </a>
                   <!-- <ul class="nav child_menu">
                     <li class="<?php if ($Class_cate_ID == "") {
                                   echo "active";
@@ -320,7 +325,14 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
                     <?php endforeach; ?>
                   </ul> -->
                 </li>
-                <li><a href="coupons.php"><i class="fa fa-table"></i>優惠卷管理<span class="fa fa-chevron-down"></span></a>
+
+                <li class="px-1"><a href="coupons.php"><i class="fa-sharp fa-solid fa-tag"></i> 優惠卷管理</a>
+                </li>
+
+                <hr style="border-top: 2px solid aliceblue" />
+
+                <li class="px-1">
+                  <a href="./order_file/order.php"><i class="fa-solid fa-note-sticky"></i> 訂單管理</a>
                 </li>
                 <!-- <li><a><i class="fa fa-bar-chart-o"></i> Data Presentation <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
@@ -414,12 +426,12 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
             <ul class=" navbar-right">
               <li class="nav-item dropdown open" style="padding-left: 15px;">
                 <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                  <img src="images/img.jpg" alt="">John Doe
+                  <img src="../logo4.png" alt="" />第四組
                 </a>
                 <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
                   <a class="dropdown-item" href="javascript:;"> Profile</a>
                   <a class="dropdown-item" href="javascript:;">
-                    <span class="badge bg-red pull-right">50%</span>
+                    <!-- <span class="badge bg-red pull-right">50%</span> -->
                     <span>Settings</span>
                   </a>
                   <a class="dropdown-item" href="javascript:;">Help</a>
