@@ -93,6 +93,29 @@ $categories = $resultCategories->fetch_all(MYSQLI_ASSOC);
     <link href="../build/css/custom.min.css" rel="stylesheet">
     <!-- icon連結 https://cdnjs.com/libraries/font-awesome-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        .img-circle.profile_img {
+            background: #ddd;
+        }
+
+        .profile_info span {
+            font-size: 14px;
+            line-height: 30px;
+            font-weight: 500;
+            color: #ecf0f1;
+        }
+
+        .profile_info h2 {
+            font-size: 14px;
+            color: #ecf0f1;
+            margin: 0;
+            font-weight: 500;
+        }
+
+        .side-menu {
+            font-size: 15px;
+        }
+    </style>
 
 </head>
 
@@ -124,40 +147,46 @@ $categories = $resultCategories->fetch_all(MYSQLI_ASSOC);
                     <!-- sidebar menu -->
                     <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
                         <div class="menu_section">
-                            <h3>General</h3>
+
                             <ul class="nav side-menu">
-                                <li>
-                                    <a href="member.php"><i class="fa fa-table"></i> 會員管理
-                                        <span class="fa fa-chevron-down"></span></a>
+                                <li class="px-1">
+                                    <a href="Member/member.php"><i class="fa-solid fa-user"></i> 會員管理
+                                    </a>
                                 </li>
-                                <li>
-                                    <a href="product.php"><i class="fa fa-table"></i>商品管理
-                                        <span class="fa fa-chevron-down"></span></a>
+
+                                <li class="px-1">
+                                    <a href="product.php"><i class="fa-solid fa-store"></i> 商品管理
+                                    </a>
+
                                 </li>
-                                <li>
-                                    <a><i class="fa fa-table"></i>分類管理<span class="fa fa-chevron-down"></span>
+                                <li class="px-1">
+                                    <a><i class="fa-solid fa-hashtag"></i> </i>分類管理<span class="fa fa-chevron-down"></span>
                                         <ul class="nav child_menu">
                                             <li><a href="categories_product.php">商品</a></li>
-                                            <li><a href="categories_product.php">課程</a></li>
-                                            <li><a href="categories_product.php">食譜</a></li>
+                                            <li><a href="categories_class.php">課程</a></li>
+                                            <li><a href="categories_recipe.php">食譜</a></li>
                                         </ul>
                                     </a>
                                 </li>
-                                <li>
-                                    <a href="recipe-list.php"><i class="fa fa-table"></i>食譜管理<span class="fa fa-chevron-down"></span></a>
+                                <li class="px-1">
+                                    <a href="recipe-list.php"><i class="fa-solid fa-kitchen-set"></i> 食譜管理</a>
+                                </li>
+                                <li class="px-1">
+                                    <a href="speaker.php"><i class="fa-solid fa-chalkboard-user"></i> 講師管理</a>
                                 </li>
                                 <li>
-                                    <a href="speaker.php"><i class="fa fa-table"></i>講師管理<span class="fa fa-chevron-down"></span></a>
+                                    <a href="redirectClass.php"><i class="fa-solid fa-chalkboard"></i> 課程管理</a>
                                 </li>
-                                <li>
-                                    <a href="redirectClass.php"><i class="fa fa-table"></i>課程管理<span class="fa fa-chevron-down"></span></a>
+                                <li class="px-1">
+                                    <a href="coupons.php"><i class="fa-sharp fa-solid fa-tag"></i> 優惠卷管理</a>
                                 </li>
-                                <li>
-                                    <a href="coupons.php"><i class="fa fa-table"></i>優惠卷管理<span class="fa fa-chevron-down"></span></a>
+                                <hr style="border-top: 2px solid aliceblue" />
+                                <li class="px-1">
+                                    <a href="./order_file/order.php"><i class="fa-solid fa-note-sticky"></i> 訂單管理</a>
                                 </li>
+                            </ul>
                         </div>
                     </div>
-                    <!-- /sidebar menu -->
                     <!-- /sidebar menu -->
 
                     <!-- /menu footer buttons -->
@@ -285,11 +314,11 @@ $categories = $resultCategories->fetch_all(MYSQLI_ASSOC);
                                                 <select class="form-select form-select-sm form-control" aria-label="Small select example" name="category" onchange="this.form.submit()">
                                                     <option value="">全部</option>
                                                     <option selected>分類</option>
-                                                    <?php foreach ($categories as $category): ?>
-                                                        <option value="<?=htmlspecialchars($category["Product_cate_ID"])?>" <?=(isset($_GET['category']) && $_GET['category'] == $category["Product_cate_ID"]) ? 'selected' : ''?>>
-                                                            <?=htmlspecialchars($category["Product_cate_name"])?>
+                                                    <?php foreach ($categories as $category) : ?>
+                                                        <option value="<?= htmlspecialchars($category["Product_cate_ID"]) ?>" <?= (isset($_GET['category']) && $_GET['category'] == $category["Product_cate_ID"]) ? 'selected' : '' ?>>
+                                                            <?= htmlspecialchars($category["Product_cate_name"]) ?>
                                                         </option>
-                                                    <?php endforeach;?>
+                                                    <?php endforeach; ?>
                                                 </select>
                                             </form>
                                             <!-- <div class="col-2">
@@ -328,7 +357,7 @@ $categories = $resultCategories->fetch_all(MYSQLI_ASSOC);
                                         </div>
                                         </form>
                                         <div class="col-auto">
-                                            <h5>共<?=$rowsCount?> 筆資料</h5>
+                                            <h5>共<?= $rowsCount ?> 筆資料</h5>
                                         </div>
                                     </div>
                                 </div>
@@ -350,28 +379,28 @@ $categories = $resultCategories->fetch_all(MYSQLI_ASSOC);
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <?php foreach ($rows as $product): ?>
-                                                    <?php $imagePath = './p_image/' . $product['single_image_url'];?>
+                                                <?php foreach ($rows as $product) : ?>
+                                                    <?php $imagePath = './p_image/' . $product['single_image_url']; ?>
                                                     <tr>
-                                                        <td class="h6"><?=$product["product_id"]?></td>
-                                                        <td class="h6"><img src="<?=$imagePath?>" style="width: 100px; height: auto;" alt="<?=$product["product_name"]?> " class="object-fit"></td>
-                                                        <td class="h6"><?=$product["product_name"]?></td>
-                                                        <td class="h6"><?=$product["category_name"]?></td>
-                                                        <td class="h6"><?=$product["upload_date"]?></td>
-                                                        <td class="h6">$ <?=$product["price"]?></td>
-                                                        <td class="h6"><?=$product["stock_quantity"]?></td>
+                                                        <td class="h6"><?= $product["product_id"] ?></td>
+                                                        <td class="h6"><img src="<?= $imagePath ?>" style="width: 100px; height: auto;" alt="<?= $product["product_name"] ?> " class="object-fit"></td>
+                                                        <td class="h6"><?= $product["product_name"] ?></td>
+                                                        <td class="h6"><?= $product["category_name"] ?></td>
+                                                        <td class="h6"><?= $product["upload_date"] ?></td>
+                                                        <td class="h6">$ <?= $product["price"] ?></td>
+                                                        <td class="h6"><?= $product["stock_quantity"] ?></td>
                                                         <td class="h6">
                                                             <form action="editProduct.php" method="post">
-                                                                <input type="hidden" name="product_id" value="<?=$product["product_id"]?>">
-                                                                <a href="./productArchiveEdit.php?product_id=<?=$product["product_id"]?>" type=" submit" class="btn btn-secondary"><i class="fa fa-pencil fa-fw"></i></a>
+                                                                <input type="hidden" name="product_id" value="<?= $product["product_id"] ?>">
+                                                                <a href="./productArchiveEdit.php?product_id=<?= $product["product_id"] ?>" type=" submit" class="btn btn-secondary"><i class="fa fa-pencil fa-fw"></i></a>
                                                             </form>
 
-                                                            <input type="hidden" name="product_id" value="<?=$product["product_id"]?>">
+                                                            <input type="hidden" name="product_id" value="<?= $product["product_id"] ?>">
                                                             <!-- 删除按钮，触发模态框 -->
 
                                                         </td>
                                                     </tr>
-                                                <?php endforeach;?>
+                                                <?php endforeach; ?>
                                             </tbody>
                                         </table>
                                     </div>
