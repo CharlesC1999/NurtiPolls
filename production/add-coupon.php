@@ -74,6 +74,28 @@ $conn->close();
       border-bottom: 5px solid #17a2b8;
       /* 活躍狀態的邊框顏色 */
     }
+
+    .img-circle.profile_img {
+      background: #ddd;
+    }
+
+    .profile_info span {
+      font-size: 14px;
+      line-height: 30px;
+      font-weight: 500;
+      color: #ecf0f1;
+    }
+
+    .profile_info h2 {
+      font-size: 14px;
+      color: #ecf0f1;
+      margin: 0;
+      font-weight: 500;
+    }
+
+    .side-menu {
+      font-size: 15px;
+    }
   </style>
 </head>
 
@@ -99,8 +121,8 @@ $conn->close();
     <div class="main_container">
       <div class="col-md-3 left_col">
         <div class="left_col scroll-view">
-          <div class="navbar nav_title" style="border: 0;">
-            <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentelella Alela!</span></a>
+          <div class="navbar nav_title" style="border: 0">
+            <a href="HomePage.html" class="site_title"><img src="../Logo_sm.png" alt="" style="height: 65px;"></a>
           </div>
 
           <div class="clearfix"></div>
@@ -108,11 +130,11 @@ $conn->close();
           <!-- menu profile quick info -->
           <div class="profile clearfix">
             <div class="profile_pic">
-              <img src="images/img.jpg" alt="..." class="img-circle profile_img">
+              <img src="../logo4.png" alt="..." class="img-circle profile_img" />
             </div>
             <div class="profile_info">
-              <span>Welcome,</span>
-              <h2>John Doe</h2>
+              <span>Hi,</span>
+              <h2>第四組</h2>
             </div>
           </div>
           <!-- /menu profile quick info -->
@@ -122,26 +144,43 @@ $conn->close();
           <!-- sidebar menu -->
           <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
             <div class="menu_section">
-              <h3>General</h3>
+
               <ul class="nav side-menu">
-
-                <li><a href="tables_dynamic.html"><i class="fa fa-table"></i> 會員管理 <span class="fa fa-chevron-down"></span></a>
+                <li class="px-1">
+                  <a href="Member/member.php"><i class="fa-solid fa-user"></i> 會員管理
+                  </a>
                 </li>
-                <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>商品管理 <span class="fa fa-chevron-down"></span></a>
+                <li class="px-1">
+                  <a href="product.php"><i class="fa-solid fa-store"></i> 商品管理
+                  </a>
                 </li>
-                <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>分類管理<span class="fa fa-chevron-down"></span></a>
+                <li class="px-1">
+                  <a><i class="fa-solid fa-hashtag"></i> </i>分類管理<span class="fa fa-chevron-down"></span>
+                    <ul class="nav child_menu">
+                      <li><a href="categories_product.php">商品</a></li>
+                      <li><a href="categories_class.php">課程</a></li>
+                      <li><a href="categories_recipe.php">食譜</a></li>
+                    </ul>
+                  </a>
                 </li>
-                <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>食譜管理<span class="fa fa-chevron-down"></span></a>
+                <li class="px-1">
+                  <a href="recipe-list.php"><i class="fa-solid fa-kitchen-set"></i> 食譜管理</a>
                 </li>
-                <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>講師管理<span class="fa fa-chevron-down"></span></a>
+                <li class="px-1">
+                  <a href="speaker.php"><i class="fa-solid fa-chalkboard-user"></i> 講師管理</a>
                 </li>
-                <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>課程管理<span class="fa fa-chevron-down"></span></a>
+                <li>
+                  <a href="redirectClass.php"><i class="fa-solid fa-chalkboard"></i> 課程管理</a>
                 </li>
-                <li><a href="coupons.php"><i class="fa fa-table"></i>優惠卷管理<span class="fa fa-chevron-down"></span></a>
+                <li class="px-1">
+                  <a href="coupons.php"><i class="fa-sharp fa-solid fa-tag"></i> 優惠卷管理</a>
                 </li>
-
+                <hr style="border-top: 2px solid aliceblue" />
+                <li class="px-1">
+                  <a href="./order_file/order.php"><i class="fa-solid fa-note-sticky"></i> 訂單管理</a>
+                </li>
+              </ul>
             </div>
-
           </div>
           <!-- /sidebar menu -->
 
@@ -163,26 +202,35 @@ $conn->close();
           </div>
           <nav class="nav navbar-nav">
             <ul class=" navbar-right">
-              <li class="nav-item dropdown open" style="padding-left: 15px;">
-                <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                  <img src="images/img.jpg" alt="">John Doe
-                </a>
-                <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="javascript:;"> Profile</a>
-                  <a class="dropdown-item" href="javascript:;">
-                    <span class="badge bg-red pull-right">50%</span>
-                    <span>Settings</span>
+            <li class="nav-item dropdown open" style="padding-left: 15px">
+                  <a
+                    href="javascript:;"
+                    class="user-profile dropdown-toggle"
+                    aria-haspopup="true"
+                    id="navbarDropdown"
+                    data-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    <img src="../logo4.png" alt="" />第四組
                   </a>
-                  <a class="dropdown-item" href="javascript:;">Help</a>
-                  <a class="dropdown-item" href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
-                </div>
-              </li>
+                  <div
+                    class="dropdown-menu dropdown-usermenu pull-right"
+                    aria-labelledby="navbarDropdown"
+                  >
+                    <a class="dropdown-item" href="javascript:;"> Profile</a>
+                    <a class="dropdown-item" href="javascript:;">
+                      <!-- <span class="badge bg-red pull-right">50%</span> -->
+                      <span>Settings</span>
+                    </a>
+                    <a class="dropdown-item" href="javascript:;">Help</a>
+                    <a class="dropdown-item" href="login.html"
+                      ><i class="fa fa-sign-out pull-right"></i> Log Out</a
+                    >
+                  </div>
+                </li>
 
               <li role="presentation" class="nav-item dropdown open">
-                <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1" data-toggle="dropdown" aria-expanded="false">
-                  <i class="fa fa-envelope-o"></i>
-                  <span class="badge bg-green">6</span>
-                </a>
+               
                 <ul class="dropdown-menu list-unstyled msg_list" role="menu" aria-labelledby="navbarDropdown1">
                   <li class="nav-item">
                     <a class="dropdown-item">
@@ -265,7 +313,7 @@ $conn->close();
                 <label class="form-label" for="couponCode">優惠券代碼</label>
                 <input type="text" class="form-control mb-2" id="couponCode" placeholder="請填入八位英數混合數字，英文需為大寫字母" name="code" required="required" maxlength="8" pattern="[0-9A-Z]+">
                 <button style="background-color: #17a2b8
-                ;color:#fff" class="btn" onclick="generateCouponCode()"type="button">隨機生成代碼</button>
+                ;color:#fff" class="btn" onclick="generateCouponCode()" type="button">隨機生成代碼</button>
               </div>
 
 
@@ -369,13 +417,13 @@ $conn->close();
       var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
       var codeLength = 8;
       var couponCode = '';
-// Math.random(): 這是一個JavaScript函數，用於生成一個0到1之間的隨機數（包括0，但不包括1）。每次調用這個函數時，它都會返回一個不同的隨機數。
+      // Math.random(): 這是一個JavaScript函數，用於生成一個0到1之間的隨機數（包括0，但不包括1）。每次調用這個函數時，它都會返回一個不同的隨機數。
 
-// characters.length: 這裡的 characters 是一個字符串，包含了所有可能使用的字符（在你的案例中是大寫字母和數字）。characters.length 是這個字符串的長度，即字符的總數。
+      // characters.length: 這裡的 characters 是一個字符串，包含了所有可能使用的字符（在你的案例中是大寫字母和數字）。characters.length 是這個字符串的長度，即字符的總數。
 
-// Math.random() * characters.length: 將 Math.random() 生成的隨機數乘以字符集的長度。這樣做的目的是將隨機數的範圍從0-1擴展到0到 characters.length。但是，這個乘法的結果可能是一個小數。
+      // Math.random() * characters.length: 將 Math.random() 生成的隨機數乘以字符集的長度。這樣做的目的是將隨機數的範圍從0-1擴展到0到 characters.length。但是，這個乘法的結果可能是一個小數。
 
-// Math.floor(...): Math.floor 函數會將其內部的數字向下取整到最接近的整數。在這個案例中，它被用來將上一步中計算出的可能為小數的數字轉換為一個整數。這樣我們就能得到一個從0到 characters.length - 1 的隨機索引。
+      // Math.floor(...): Math.floor 函數會將其內部的數字向下取整到最接近的整數。在這個案例中，它被用來將上一步中計算出的可能為小數的數字轉換為一個整數。這樣我們就能得到一個從0到 characters.length - 1 的隨機索引。
       for (var i = 0; i < codeLength; i++) {
         var randomIndex = Math.floor(Math.random() * characters.length);
         couponCode += characters[randomIndex];
