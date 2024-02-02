@@ -1,6 +1,9 @@
 <?php
 require_once("../db_connect_class.php");
 $now = date("Y-m-d");
+$nowTime = date("Y-m-d H:i:s");
+// $classEndTimeStamp = time();
+// $classEndTime = date("Y-m-d H:i:s", strtotime("+ 2 hours", $classEndTimeStamp));
 
 //分類
 if (isset($_GET["Class_cate_ID"])) {
@@ -45,16 +48,16 @@ if (isset($_GET["status"])) {
       $whereClauseForCategories = "WHERE Start_date <= '$now' && End_date >= '$now' && ";
       break;
     case "4":
-      $whereClause = "$whereClause  End_date <= '$now'";
-      $whereClauseForCategories = "WHERE End_date <= '$now' && ";
+      $whereClause = "$whereClause  End_date < '$now' && Class_date > '$nowTime'";
+      $whereClauseForCategories = "WHERE End_date < '$now' && Class_date > '$nowTime' && ";
       break;
     case "5":
-      $whereClause = "$whereClause  Class_date = '$now'";
-      $whereClauseForCategories = "WHERE Class_date = '$now' && ";
+      $whereClause = "$whereClause  Class_date <= '$nowTime' && Class_end_date >= '$nowTime'";
+      $whereClauseForCategories = "WHERE Class_date <= '$nowTime' && Class_end_date >= '$nowTime' && ";
       break;
     case "6":
-      $whereClause = "$whereClause  Class_date < '$now'";
-      $whereClauseForCategories = "WHERE Class_date < '$now' && ";
+      $whereClause = "$whereClause  Class_end_date < '$nowTime'";
+      $whereClauseForCategories = "WHERE Class_end_date < '$nowTime' && ";
       break;
   }
 }
@@ -149,18 +152,17 @@ $sqlInProgress = "SELECT * FROM class $whereClauseStatus Start_date <= '$now' &&
 $resultInProgress = $conn->query($sqlInProgress);
 $rowsCountInProgress = $resultInProgress->num_rows;
 //報名截止
-$sqlClosed = "SELECT * FROM class $whereClauseStatus End_date < '$now'";
+$sqlClosed = "SELECT * FROM class $whereClauseStatus End_date < '$now' && Class_date > '$nowTime'";
 $resultClosed = $conn->query($sqlClosed);
 $rowsCountClosed = $resultClosed->num_rows;
 //課程進行中
-$sqlClassInProgress = "SELECT * FROM class $whereClauseStatus Class_date = '$now'";
+$sqlClassInProgress = "SELECT * FROM class $whereClauseStatus Class_date <= '$nowTime' && Class_end_date >= '$nowTime'";
 $resultClassInProgress = $conn->query($sqlClassInProgress);
 $rowsCountClassInProgress = $resultClassInProgress->num_rows;
 //已結束課程
-$sqlClassEnded = "SELECT * FROM class $whereClauseStatus Class_date < '$now'";
+$sqlClassEnded = "SELECT * FROM class $whereClauseStatus Class_end_date < '$nowTime'";
 $resultClassEnded = $conn->query($sqlClassEnded);
 $rowsCountClassEnded = $resultClassEnded->num_rows;
-
 ?>
 
 <!-- <pre>
@@ -772,22 +774,28 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
                                 <td <?php
                                     $Start_date = $rowClass["Start_date"];
                                     $End_date = $rowClass["End_date"];
-                                    $now = date("Y-m-d");
-                                    if ($now >= $Start_date && $now <= $End_date) : $text_color = "text-success ";
+                                    $Class_date = $rowClass["Class_date"];
+                                    $Class_end_date = $rowClass["Class_end_date"];
+                                    // $now = date("Y-m-d");
+                                    if ($now >= $Start_date && $now <= $End_date || $Class_date <= $nowTime &&  $Class_end_date >= $nowTime) : $text_color = "text-success ";
                                     elseif ($now < $Start_date || $now > $End_date) :
                                       $text_color = "text-danger";
                                     endif;
                                     ?> class="<?= $text_color; ?>">
                                   <?php
-                                  $Start_date = $rowClass["Start_date"];
-                                  $End_date = $rowClass["End_date"];
-                                  $now = date("Y-m-d");
+                                  // $Start_date = $rowClass["Start_date"];
+                                  // $End_date = $rowClass["End_date"];
+                                  // $now = date("Y-m-d");
                                   if ($now >= $Start_date && $now <= $End_date) {
                                     echo "開放報名中";
                                   } elseif ($now < $Start_date) {
                                     echo "報名尚未開放";
-                                  } elseif ($now > $End_date) {
+                                  } elseif ($now > $End_date  && $Class_date > $nowTime) {
                                     echo "報名已截止";
+                                  } elseif ($Class_date <= $nowTime &&  $Class_end_date >= $nowTime) {
+                                    echo "課程進行中";
+                                  } elseif ($Class_end_date < $nowTime) {
+                                    echo "課程已結束";
                                   }
                                   ?>
                                 </td>
@@ -800,7 +808,11 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
                                   <div>|</div>
                                   <?= $rowClass["End_date"] ?>
                                 </td>
-                                <td><?= $rowClass["Class_date"] ?></td>
+                                <td>
+                                  <?= $rowClass["Class_date"] ?>
+                                  <div>|</div>
+                                  <?= $rowClass["Class_end_date"] ?>
+                                </td>
                                 <td><a class="btn btn-outline-info py-1 px-2" href="classEdit.php?Class_ID=<?= $rowClass["Class_ID"] ?>"><i class="fa-solid fa-pen-to-square fa-lg"></i></a></td>
                                 <td class="align-top">
                                   <button type="button" class="btn btn-outline-danger py-1 px-2 deleteBtns" data-bs-toggle="modal" data-bs-target="#confirmDelete" data-class-id="<?= $rowClass["Class_ID"] ?>">

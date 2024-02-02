@@ -271,19 +271,24 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
                   <input type="number" class="form-control" id="personLimit" name="personLimit" value="<?= $rows[0]["Class_person_limit"] ?>" readonly>
                 </div>
 
-                <div class="col-4 mb-3">
+                <div class="col-6 mb-3">
                   <label for="startDate" class="form-label">報名起始</label>
                   <input type="text" class="form-control" id="startDate" name="startDate" value="<?= $rows[0]["Start_date"] ?>" readonly>
                 </div>
 
-                <div class="col-4 mb-3">
+                <div class="col-6 mb-3">
                   <label for="endDate" class="form-label">報名截止</label>
                   <input type="text" class="form-control" id="endDate" name="endDate" value="<?= $rows[0]["End_date"] ?>" readonly>
                 </div>
 
-                <div class="col-4 mb-3">
-                  <label for="classDate" class="form-label">開課日期</label>
+                <div class="col-6 mb-3">
+                  <label for="classDate" class="form-label">課程開始時間</label>
                   <input type="text" class="form-control" id="classDate" name="classDate" value="<?= $rows[0]["Class_date"] ?>" readonly>
+                </div>
+
+                <div class="col-6 mb-3">
+                  <label for="classEndDate" class="form-label">課程結束時間</label>
+                  <input type="text" class="form-control" id="classEndDate" name="classEndDate" value="<?= $rows[0]["Class_end_date"] ?>" readonly>
                 </div>
 
                 <div class="col-12 mb-3">
