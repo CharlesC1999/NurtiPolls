@@ -237,6 +237,7 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
                   <div class="col-auto">
 
                     <a name="" id="" style="background-color: #17a2b8;" class="btn text-light" href="classEdit.php?Class_ID=<?=$Class_ID?>" role="button"><i class="fa-solid fa-pen-to-square"></i> 修改</a>
+                    <a name="" id="" class="btn btn-secondary text-light" href="redirectClass.php" role="button"><i class="fa-solid fa-mail-reply"></i> 返回</a>
                   </div>
                 </div>
 

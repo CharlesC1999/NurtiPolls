@@ -234,10 +234,13 @@ $rowsSpeaker = $resultSpeaker->fetch_all(MYSQLI_ASSOC);
         <div class="row">
           <div class="col-md-12 col-sm-12 ">
             <div class="x_panel">
-              <div class="x_title">
+              <div class="x_title d-flex justify-content-between align-items-end">
                 <h1>編輯課程 <!-- <small>Users</small> --> </h1>
-
-                <div class="clearfix"></div>
+                <div class="">
+                    <a name="" id="" class="btn btn-secondary me-3" href="classDetail.php?Class_ID=<?=$Class_ID?>" role="button"><i class="fa-solid fa-mail-reply"></i> 返回詳細頁</a>
+                    <a name="" id="" class="btn btn-secondary" href="redirectClass.php" role="button"><i class="fa-solid fa-mail-reply"></i> 返回課程管理頁</a>
+                </div>
+                <div class="clearfix d-none"></div>
               </div>
 
               <!-- class content -->
