@@ -298,6 +298,9 @@ $conn->close();
 
       <!-- page content -->
       <div class="right_col" role="main">
+      <div class="container">
+                    <a type="submit" class="btn btn-secondary" href="coupons.php" role="button"><i class="fa-solid fa-chevron-left"></i>返回列表</a>
+                </div>
         <div class="">
 
 
