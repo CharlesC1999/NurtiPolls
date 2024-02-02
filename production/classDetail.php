@@ -29,7 +29,7 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>營養大選NutriPolls | 新增課程</title>
+  <title>營養大選 NutriPolls</title>
 
   <!-- Bootstrap -->
   <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
@@ -70,6 +70,12 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
 
     .classPic {
       width: 100%;
+    }
+    .profile_info span {
+      font-size: 14px;
+      line-height: 30px;
+      font-weight: 500;
+      color: #ecf0f1;
     }
 
     /* .fullPage {

@@ -181,7 +181,7 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>營養大選NutriPolls</title>
+  <title>營養大選 NutriPolls</title>
 
   <!-- Bootstrap -->
   <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
@@ -225,6 +225,12 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
       --bs-btn-disabled-border-color: var(--bs-btn-color);
       --bs-btn-hover-color: #fff;
 
+    }
+    .profile_info span {
+      font-size: 14px;
+      line-height: 30px;
+      font-weight: 500;
+      color: #ecf0f1;
     }
   </style>
 </head>

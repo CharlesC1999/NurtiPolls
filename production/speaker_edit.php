@@ -29,7 +29,7 @@ $rowCount = $result->num_rows; //result裡面有幾筆(num_rows)
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>營養大選 Nutripoll</title>
+  <title>營養大選 Nutripolls</title>
   <!-- Bootstrap -->
   <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
   <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">

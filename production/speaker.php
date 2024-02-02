@@ -64,7 +64,7 @@ $result = $conn->query($sql); //if判斷完 -> 吐資料 -> 升冪降冪
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>營養大選 Nutripoll</title>
+  <title>營養大選 Nutripolls</title>
   <!-- Bootstrap -->
   <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
   <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -334,7 +334,7 @@ $result = $conn->query($sql); //if判斷完 -> 吐資料 -> 升冪降冪
         <div class="">
           <div class="page-title">
             <div class="title_left">
-              <h3>Gentelella <small>Alela!</small></h3>
+              <h3></h3>
             </div>
 
 
@@ -353,7 +353,7 @@ $result = $conn->query($sql); //if判斷完 -> 吐資料 -> 升冪降冪
                     <input type="search" class="form-control" placeholder="Search for name..." name="search" <?php
 if (isset($_GET["search"])):
     $searchValue = $_GET["search"];?> value="<?=$searchValue?>">
-																                  <?php endif;?>
+																			                  <?php endif;?>
                   <span class="input-group-btn">
                     <button class="btn btn-secondary" type="submit">Go!</button>
                   </span>
@@ -370,7 +370,7 @@ if (isset($_GET["search"])):
             <div class="col-md-12 col-sm-12 ">
               <div class="x_panel">
                 <div class="x_title">
-                  <h2>教師管理</h2>
+                  <h2>教師管理<span>Speaker</span></h2>
                   <ul class="nav navbar-right panel_toolbox">
                     <!-- <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a> -->
                     </li>
