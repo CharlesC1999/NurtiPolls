@@ -5,8 +5,7 @@ if (!isset($_GET["Coupon_ID"])) {
     $Coupon_ID = $_GET["Coupon_ID"];
 }
 
-
-require_once("../db_connect.php");
+require_once "../db_connect.php";
 $sql = "SELECT * from coupons WHERE Coupon_ID = $Coupon_ID";
 $result = $conn->query($sql);
 
@@ -37,7 +36,7 @@ $conn->close();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>coupon-edit</title>
+    <title>營養大選 Nutripoll</title>
     <!-- fontawesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Bootstrap -->
@@ -91,7 +90,7 @@ $conn->close();
             <div class="col-md-3 left_col">
                 <div class="left_col scroll-view">
                     <div class="navbar nav_title" style="border: 0;">
-                        <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentelella Alela!</span></a>
+                    <a href="HomePage.html" class="site_title"><img src="../Logo_sm.png" alt="" style="height: 65px;"></a>
                     </div>
 
                     <div class="clearfix"></div>
@@ -115,39 +114,31 @@ $conn->close();
                         <div class="menu_section">
 
                             <ul class="nav side-menu">
-                                <li class="px-1">
-                                    <a href="Member/member.php"><i class="fa-solid fa-user"></i> 會員管理
-                                    </a>
-                                </li>
-                                <li class="px-1">
-                                    <a href="product.php"><i class="fa-solid fa-store"></i> 商品管理
-                                    </a>
-                                </li>
-                                <li class="px-1">
-                                    <a><i class="fa-solid fa-hashtag"></i> </i>分類管理<span class="fa fa-chevron-down"></span>
-                                        <ul class="nav child_menu">
-                                            <li><a href="categories_product.php">商品</a></li>
-                                            <li><a href="categories_class.php">課程</a></li>
-                                            <li><a href="categories_recipe.php">食譜</a></li>
-                                        </ul>
-                                    </a>
-                                </li>
-                                <li class="px-1">
-                                    <a href="recipe-list.php"><i class="fa-solid fa-kitchen-set"></i> 食譜管理</a>
-                                </li>
-                                <li class="px-1">
-                                    <a href="speaker.php"><i class="fa-solid fa-chalkboard-user"></i> 講師管理</a>
-                                </li>
-                                <li>
-                                    <a href="redirectClass.php"><i class="fa-solid fa-chalkboard"></i> 課程管理</a>
-                                </li>
-                                <li class="px-1">
-                                    <a href="coupons.php"><i class="fa-sharp fa-solid fa-tag"></i> 優惠卷管理</a>
-                                </li>
-                                <hr style="border-top: 2px solid aliceblue" />
-                                <li class="px-1">
-                                    <a href="./order_file/order.php"><i class="fa-solid fa-note-sticky"></i> 訂單管理</a>
-                                </li>
+                            <li class="h6"><a href="member.php"><i class="fa-solid fa-user fa-fw"></i> 會員管理</a>
+                  </li><li class="h6"><a href="product.php"><i class="fa-solid fa-store fa-fw"></i> 商品管理</a>
+                  </li>
+                  <li class="h6"><a><i class="fa-solid fa-hashtag fa-fw"></i> 分類管理<span class="fa fa-chevron-down"></span>
+                  <ul class="nav child_menu">
+                      <li><a href="categories_product.php" style="font-size: 16px;"> 商品</a></li>
+                      <li><a href="categories_class.php" style="font-size: 16px;"> 課程</a></li>
+                      <li><a href="categories_recipe.php" style="font-size: 16px;"> 食譜</a></li>
+
+                    </ul>
+
+                  </li>
+                  <li class="h6"><a href="recipe-list.php"><i class="fa-solid fa-kitchen-set fa-fw"></i> 食譜管理</a>
+                  </li>
+                  <li class="h6"><a href="speaker.php"><i class="fa-solid fa-chalkboard-user fa-fw"></i> 講師管理</a>
+                  </li>
+                  <li class="h6"><a href="redirectClass.php"><i class="fa-solid fa-chalkboard fa-fw"></i> 課程管理</a>
+                  </li>
+                  <li class="h6"><a href="coupons.php"><i class="fa-sharp fa-solid fa-tag fa-fw"></i> 優惠卷管理</a>
+                  </li>
+                  <hr style="border-top: 2px solid aliceblue;">
+                  <li class="h6">
+                    <a href="order_file/order.php"
+                      ><i class="fa-solid fa-note-sticky fa-fw"></i> 訂單管理</a>
+                  </li>
                             </ul>
                         </div>
                     </div>
@@ -198,7 +189,7 @@ $conn->close();
                   </div>
                 </li>
                             <li role="presentation" class="nav-item dropdown open">
-                               
+
                                 <ul class="dropdown-menu list-unstyled msg_list" role="menu" aria-labelledby="navbarDropdown1">
                                     <li class="nav-item">
                                         <a class="dropdown-item">
@@ -271,25 +262,25 @@ $conn->close();
                         <a type="submit" class="btn btn-secondary" href="coupons.php" role="button"><i class="fa-solid fa-chevron-left"></i>返回列表</a>
                     </div>
                     <h1 class="my-3 h3">優惠券詳情</h1>
-                    <input type="hidden" name="id" value="<?= $row["Coupon_ID"] ?>">
+                    <input type="hidden" name="id" value="<?=$row["Coupon_ID"]?>">
                     <form action="updateCoupon.php" method="post">
                         <table>
                             <tr>
                                 <th>優惠券編號</th>
                                 <td class="p-3">
-                                    <?= $row["Coupon_ID"] ?>
+                                    <?=$row["Coupon_ID"]?>
                                 </td>
                             </tr>
                             <tr>
                                 <th>優惠券名稱</th>
                                 <td class="p-3">
-                                    <?= $row["C_name"] ?>
+                                    <?=$row["C_name"]?>
                                 </td>
                             </tr>
                             <tr>
                                 <th>優惠券代碼</th>
                                 <td class="p-3">
-                                    <?= $row["C_code"] ?>
+                                    <?=$row["C_code"]?>
                                 </td>
                             </tr>
                             <tr>
@@ -297,11 +288,11 @@ $conn->close();
                                 <td class="p-3">
                                     <div class="row">
                                         <div class="col-auto">
-                                            <?= $row["Valid_start_date"] ?>
+                                            <?=$row["Valid_start_date"]?>
                                         </div>
                                         <div class="col-auto">~</div>
                                         <div class="col-auto">
-                                            <?= $row["Valid_end_date"] ?>
+                                            <?=$row["Valid_end_date"]?>
                                         </div>
                                     </div>
                                 </td>
@@ -309,13 +300,13 @@ $conn->close();
                             <tr>
                                 <th>折扣方式</th>
                                 <td class="p-3">
-                                    <?= $row["Discount_type"] ?>
+                                    <?=$row["Discount_type"]?>
                                 </td>
                             </tr>
                             <tr>
                                 <th>優惠券面額</th>
                                 <td class="p-3">
-                                    <?= $row["Discount_amount"] ?>
+                                    <?=$row["Discount_amount"]?>
                                 </td>
                             </tr>
                             <!-- 若未填寫商品分類，則優惠券預設為適用全站商品 -->
@@ -323,26 +314,26 @@ $conn->close();
                                 <th>優惠券適用範圍</th>
                                 <td class="p-3">
                                     <?php
-                                    // 檢查 categories 是否有值
-                                    if (!empty($rowcc["categories"])) {
-                                        echo $rowcc["categories"];
-                                    } else {
-                                        // 如果 categories 為空或不存在，則顯示 "適用於全站商品"
-                                        echo "適用於全站商品";
-                                    }
-                                    ?>
+// 檢查 categories 是否有值
+if (!empty($rowcc["categories"])) {
+    echo $rowcc["categories"];
+} else {
+    // 如果 categories 為空或不存在，則顯示 "適用於全站商品"
+    echo "適用於全站商品";
+}
+?>
                                 </td>
                             </tr>
                             <tr>
                                 <th>最低消費金額</th>
                                 <td class="p-3">
-                                    <?= $row["minimum_spend"] ?>
+                                    <?=$row["minimum_spend"]?>
                                 </td>
                             </tr>
                             <tr>
                                 <th>優惠說明</th>
                                 <td class="p-3">
-                                    <?= $row["Coupon_description"] ?>
+                                    <?=$row["Coupon_description"]?>
                                 </td>
                             </tr>
 
