@@ -248,7 +248,8 @@ if (isset($_GET['product_id'])) {
                 <div class="">
                     <div class="page-title">
                         <div class="title_left">
-                            <h3>商品編輯</h3>
+
+
                         </div>
                     </div>
                     <div class="clearfix"></div>
@@ -256,12 +257,14 @@ if (isset($_GET['product_id'])) {
                         <div class="col-md-12 col-sm-12">
                             <div class="x_panel">
                                 <div class="x_title">
+                                    <h3>管理下架商品</h3>
                                 </div>
                                 <div class="x_content justify-content-center">
+
                                     <!-- Smart Wizard -->
 
                                     <div id="justify-content-center">
-                                        <form action="doEditProduct.php" method="POST" class="form-horizontal form-label-left" enctype="multipart/form-data" id="currentImage">
+                                        <form action="doProductArchive.php" method="POST" class="form-horizontal form-label-left" enctype="multipart/form-data" id="currentImage">
                                             <div class="form-group row">
                                                 <label class="col-form-label col-md-3 col-sm-3 label-align">ID</label>
                                                 <input type="hidden" name="product_id" value="<?=htmlspecialchars($product['id'])?>">
@@ -306,12 +309,13 @@ if (isset($_GET['product_id'])) {
 
                                             <div class="form-group row">
                                                 <label class="col-form-label col-md-3 col-sm-3 label-align"></label>
+
                                                 <div class="col-md-6 col-sm-6">
-                                                    <input type="hidden" name="old_image" value="<?=htmlspecialchars($product['image_url'])?>">
+                                                    <input type="hidden" name="old_img" value="<?=htmlspecialchars($product['image_url'])?>">
                                                     <img id="output" src="./p_image/<?=htmlspecialchars($product['image_url'])?>" alt="<?=htmlspecialchars($product['name'])?>" style="width: 200px; height: auto;">
                                                 </div>
-                                            </div>
 
+                                            </div>
                                             <div class="form-group row">
                                                 <label class="col-form-label col-md-3 col-sm-3 label-align">圖片上傳:</label>
                                                 <div class="col-md-6 col-sm-6">
@@ -326,32 +330,32 @@ if (isset($_GET['product_id'])) {
                                                     <textarea id="exampleFormControlTextarea1" rows="3" name="description" required="required" class="form-control"><?=htmlspecialchars($product["description"])?></textarea>
                                                 </div>
                                             </div>
-
-                                            <script>
-                                                function openFile(event) {
-                                                    var input = event.target; // 获取上传文件
-                                                    var reader = new FileReader(); // 创建 FileReader 对象
-
-                                                    // 当文件读取操作完成时触发的事件处理器
-                                                    reader.onload = function() {
-                                                        var dataURL = reader.result; // 将上传文件转换为 base64 字符串
-                                                        var output = document.getElementById('currentImage'); // 获取 img 元素
-                                                        output.src = dataURL; // 设置 img 元素的 src 属性为文件的 base64 字符串
-                                                    };
-
-                                                    // 读取选中的文件，并将其转换为 Data URL
-                                                    reader.readAsDataURL(input.files[0]);
-                                                }
-                                            </script>
                                             <div class="d-flex justify-content-between">
                                                 <!-- 刪除按鈕在左邊 -->
                                                 <div>
                                                     <button type="button" class="btn btn-danger" role="button" data-toggle="modal" data-target="#confirmModal">刪除</button>
                                                 </div>
+                                                <div class="row">
+                                                    <input type="hidden" name="product_id" value="<?=htmlspecialchars($product['id'])?>">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="valid" id="radioUp" value="1" <?=$product['valid'] == 1 ? 'checked' : ''?>>
+                                                        <label class="form-check-label" for="radioUp">
+                                                            上架
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="valid" id="radioDown" value="0" <?=$product['valid'] == 0 ? 'checked' : ''?>>
+                                                        <label class="form-check-label" for="radioDown">
+                                                            下架
+                                                        </label>
+                                                    </div>
+                                                </div>
+
+
 
                                                 <!-- 確認和取消按鈕在右邊 -->
-                                                <div class="d-flex justify-content-end">
-                                                    <button type="submit" class="btn btn-info mr-2">確認</button>
+                                                <div class="d-flex justify-content-end ">
+                                                    <button type="submit" class="btn btn-secondary mr-2">確認</button>
                                                     <a href="product.php" class="btn btn-secondary">取消</a>
                                                 </div>
                                             </div>
@@ -371,18 +375,15 @@ if (isset($_GET['product_id'])) {
             <!-- /page content -->
             <script>
                 function openFile(event) {
-                    var input = event.target; // 获取上传文件
-                    var reader = new FileReader(); // 创建 FileReader 对象
+                    var input = event.target;
+                    var reader = new FileReader();
 
-                    // 当文件读取操作完成时触发的事件处理器
                     reader.onload = function() {
-                        var dataURL = reader.result; // 将上传文件转换为 base64 字符串
-                        var output = document.getElementById('output'); // 获取 img 元素
-                        output.src = dataURL; // 设置 img 元素的 src 属性为文件的 base64 字符串
-                        output.style.display = 'block'; // 确保图片可见
+                        var dataURL = reader.result;
+                        var output = document.getElementById('currentImage'); // 确保这里的 ID 与您的 img 元素的 ID 一致
+                        output.src = dataURL; // 这将实现图片的即时预览
                     };
 
-                    // 读取选中的文件，并将其转换为 Data URL
                     reader.readAsDataURL(input.files[0]);
                 }
             </script>
