@@ -1,32 +1,26 @@
 <?php
 if (!isset($_GET["Recipe_ID"])) {
-  $Recipe_ID = 0;
+    $Recipe_ID = 0;
 } else {
-  $Recipe_ID = $_GET["Recipe_ID"];
+    $Recipe_ID = $_GET["Recipe_ID"];
 }
-require_once("../db_connect.php");
+require_once "../db_connect.php";
 // $id=$_GET["id"];
 
-$sql = "SELECT recipe.*,recipe_categories.Recipe_cate_name AS category_name FROM recipe
+$sql = "SELECT recipe.*, recipe_categories.Recipe_cate_name AS category_name FROM recipe
 JOIN recipe_categories ON recipe.Recipe_Category_ID = recipe_categories.Recipe_cate_ID
- WHERE Recipe_ID=$Recipe_ID AND valid = 1";
-$result = $conn->query($sql);
+WHERE recipe.Recipe_ID = ? AND recipe_valid = 1";
+
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $Recipe_ID);
+$stmt->execute();
+$result = $stmt->get_result();
 
 $rowCount = $result->num_rows;
 if ($rowCount != 0) {
-  $row = $result->fetch_assoc();
+    $row = $result->fetch_assoc();
 }
 ?>
-
-
-
-
-
-
-
-
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -39,7 +33,7 @@ if ($rowCount != 0) {
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>DataTables | Gentelella</title>
-  <?php require_once("../css.php"); ?>
+  <?php require_once "../css.php";?>
   <!-- Bootstrap -->
   <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
   <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -78,7 +72,7 @@ if ($rowCount != 0) {
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-          <a class="btn btn-danger" role="btn" href="doDeleteRecipe.php?Recipe_ID=<?= $row["Recipe_ID"] ?>">確定</a></button>
+          <a class="btn btn-danger" role="btn" href="doDeleteRecipe.php?Recipe_ID=<?=$row["Recipe_ID"]?>">確定</a></button>
         </div>
       </div>
     </div>
@@ -182,7 +176,7 @@ if ($rowCount != 0) {
               </li>
 
               <li role="presentation" class="nav-item dropdown open">
-                
+
                 <ul class="dropdown-menu list-unstyled msg_list" role="menu" aria-labelledby="navbarDropdown1">
                   <li class="nav-item">
                     <a class="dropdown-item">
@@ -267,56 +261,56 @@ if ($rowCount != 0) {
                   <div class="py-2">
                     <a href="recipe-list.php" class="btn btn-secondary" role="button">回食譜列表</a>
                   </div>
-                  <?php if ($rowCount == 0) : ?>
+                  <?php if ($rowCount == 0): ?>
                     沒有食譜
 
-                  <?php else :
+                  <?php else:
 
-                  ?>
-                    <input type="hidden" name="Recipe_ID" value="<?= $row["Recipe_ID"] ?>">
+?>
+                    <input type="hidden" name="Recipe_ID" value="<?=$row["Recipe_ID"]?>">
                     <table class="table table-bordered ">
 
                       <tr>
                         <th class="col-2">食譜名稱</th>
                         <td>
-                          <?= $row["Title_R_name"] ?>
+                          <?=$row["Title_R_name"]?>
                         </td>
                       </tr>
                       <tr>
                         <th class="col-2">展示圖片</th>
                         <td>
                           <div class="col-lg-6 col-md-10 col-sm-12 ratio ratio-1x1">
-                            <img class="object-fit-cover" src="rimages/<?= $row["Image_URL"] ?>" alt="">
+                            <img class="object-fit-cover" src="rimages/<?=$row["Image_URL"]?>" alt="">
                           </div>
                         </td>
                       </tr>
                       <tr>
                         <th class="col-2">簡介</th>
                         <td>
-                          <?= $row["Content"] ?>
+                          <?=$row["Content"]?>
                         </td>
                       </tr>
                       <tr>
                         <th class="col-2">建立日期</th>
                         <td>
-                          <?= $row["Publish_date"] ?>
+                          <?=$row["Publish_date"]?>
                         </td>
                       </tr>
                       <tr>
                         <th class="col-2">分類</th>
                         <td>
-                          <?= $row["category_name"] ?>
+                          <?=$row["category_name"]?>
                         </td>
                       </tr>
                     </table>
                     <div class="d-flex justify-content-between">
-                      <a href="recipe-edit.php?Recipe_ID=<?= $row["Recipe_ID"] ?>" role="button" class="btn btn-secondary"><i class="fa-solid fa-wand-magic-sparkles"></i>修改</a>
+                      <a href="recipe-edit.php?Recipe_ID=<?=$row["Recipe_ID"]?>" role="button" class="btn btn-secondary"><i class="fa-solid fa-wand-magic-sparkles"></i>修改</a>
                       <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmModal">
                         <i class="fa-solid fa-trash"></i>
                       </button>
                     </div>
 
-                  <?php endif; ?>
+                  <?php endif;?>
 
                 </div>
               </div>
@@ -378,7 +372,7 @@ if ($rowCount != 0) {
 
   <!-- Custom Theme Scripts -->
   <script src="../build/js/custom.min.js"></script>
-  <?php require_once("../js.php"); ?>
+  <?php require_once "../js.php";?>
 </body>
 
 </html>
