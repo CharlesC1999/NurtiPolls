@@ -50,6 +50,7 @@ $sql_order_detail = "SELECT * FROM buy_item
 
 $sql_order_product = "SELECT * FROM buy_item
     JOIN product ON buy_item.Product_ID = product.id
+    JOIN product_image ON buy_item.Product_ID = product_image.F_product_id AND product_image.sort_order = 0
     WHERE buy_item.Order_ID = ? $orderString";
 
 $stmt = $conn->prepare($sql_order_detail);
