@@ -81,6 +81,12 @@ $rowsSpeaker = $resultSpeaker->fetch_all(MYSQLI_ASSOC);
     .classPic {
       width: 100%;
     }
+    ._btn{
+      background-color: #17a2b8;
+    }
+    ._btn:hover{
+      background-color: #148ea1;
+    }
 
     /* .fullPage {
       height: calc(100vh - 50px);
@@ -336,7 +342,7 @@ $rowsSpeaker = $resultSpeaker->fetch_all(MYSQLI_ASSOC);
                   <div class="col-12"></div>
 
                   <div class="col-3 mx-auto">
-                    <button class="btn btn-info text-light">
+                    <button class="btn text-light _btn">
                       儲存
                     </button>
                     <a class="btn btn-secondary" href="classDetail.php?Class_ID=<?=$Class_ID?>" role="button">取消</a>

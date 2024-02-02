@@ -56,7 +56,12 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
       width: 100%;
       height: 80px;
     }
-
+    ._btn{
+      background-color: #17a2b8;
+    }
+    ._btn:hover{
+      background-color: #148ea1;
+    }
     /* .fullPage {
       height: calc(100vh - 50px);
     } */
@@ -291,7 +296,7 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
                   <div class="col-12"></div>
 
                   <div class="col-3 m-auto">
-                    <button type="submit" class="btn btn-info text-light" id="submit">
+                    <button type="submit" class="btn text-light _btn" id="submit">
                       送出
                     </button>
                     <a href="class_new.php?Class_cate_ID=&status=1&min=0&max=99999" class="btn btn-danger text-white">
