@@ -48,6 +48,9 @@ session_start();
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+
+    </style>
   </head>
 
   <body class="nav-md">
@@ -111,13 +114,13 @@ session_start();
                     </ul>
                   </li> -->
                   <li>
-                    <a href="Member/member.php"
+                    <a href="../Member/member.php"
                       ><i class="fa fa-table"></i> 會員管理
                       <span class="fa fa-chevron-down"></span
                     ></a>
                   </li>
                   <li>
-                    <a href="product.php"
+                    <a href="../product.php"
                       ><i class="fa fa-table"></i>商品管理
                       <span class="fa fa-chevron-down"></span
                     ></a>
@@ -128,35 +131,35 @@ session_start();
                         class="fa fa-chevron-down"
                       ></span>
                       <ul class="nav child_menu">
-                        <li><a href="categories_product.php">商品</a></li>
-                        <li><a href="categories_class.php">課程</a></li>
-                        <li><a href="categories_recipe.php">食譜</a></li>
+                        <li><a href="../categories_product.php">商品</a></li>
+                        <li><a href="../categories_class.php">課程</a></li>
+                        <li><a href="../categories_recipe.php">食譜</a></li>
                       </ul>
                     </a>
                   </li>
                   <li>
-                    <a href="recipe-list.php"
+                    <a href="../recipe-list.php"
                       ><i class="fa fa-table"></i>食譜管理<span
                         class="fa fa-chevron-down"
                       ></span
                     ></a>
                   </li>
                   <li>
-                    <a href="speaker.php"
+                    <a href="../speaker.php"
                       ><i class="fa fa-table"></i>講師管理<span
                         class="fa fa-chevron-down"
                       ></span
                     ></a>
                   </li>
                   <li>
-                    <a href="redirectClass.php"
+                    <a href="../redirectClass.php"
                       ><i class="fa fa-table"></i>課程管理<span
                         class="fa fa-chevron-down"
                       ></span
                     ></a>
                   </li>
                   <li>
-                    <a href="coupons.php"
+                    <a href="../coupons.php"
                       ><i class="fa fa-table"></i>優惠卷管理<span
                         class="fa fa-chevron-down"
                       ></span
@@ -410,7 +413,7 @@ foreach ($rows as $cate): ?>
                             <td style="width: 8vw;">
                                 <form action="order_detail.php" method="post">
                                     <input type="hidden" name="Order_ID" value="<?=$cate['Order_ID']?>">
-                                    <button type="submit" class="btn btn-info text-white">
+                                    <button type="submit" class="btn btn-outline-info">
                                         <i class="fa-solid fa-eye fa-fw"></i> 檢視訂單
                                     </button>
                                 </form>
@@ -418,23 +421,27 @@ foreach ($rows as $cate): ?>
                         </tr>
 <?php endforeach;?>
                       </tbody>
+
                     </table>
+
                   </div>
                   </div>
               </div>
             </div>
-                </div>
-              </div>
+                <!-- </div> -->
+              <!-- </div> -->
 
 
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+                <!-- </div> -->
+              <!-- </div> -->
+            <!-- </div> -->
+          <!-- </div> -->
+        <!-- </div> -->
         <!-- /page content -->
 
         <!-- footer content -->
+<div>
+  <div>
         <footer>
           <div class="pull-right">
             Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>

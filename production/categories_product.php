@@ -332,8 +332,8 @@ $product_type_count = $result_all_product->num_rows;
                   <div class="x_title">
                     <h2>商品分類 <small>Product categories</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="text-success" data-id="<?=$cate["Product_cate_ID"]?>" data-bs-toggle="modal" data-bs-target="#addModal"><i class="fa fa-plus-circle"> 新增分類</i></a></li>
-                      <li><a class="collapse-link text-success" href="categories_product_edit.php"><i class="fa fa-wrench"> 修改</i></a></li>
+                      <li><a style="font-size: 16px;" class="text-secondary" data-id="<?=$cate["Product_cate_ID"]?>" data-bs-toggle="modal" data-bs-target="#addModal"><i class="fa fa-plus-circle"> 新增分類</i></a></li>
+                      <li><a style="font-size: 16px;" class="collapse-link text-secondary" href="categories_product_edit.php"><i class="fa fa-wrench"> 修改</i></a></li>
                       <!-- <li><a class="close-link"><i class="fa fa-close"></i></a>
                       </li> -->
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -387,7 +387,7 @@ foreach ($rows as $cate):
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title text-success" id="exampleModalLabel">新增分類</h5>
+                        <h5 class="modal-title text-info" id="exampleModalLabel">新增分類</h5>
                         <button type="button" class="btn-close bg-white border-0" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-chevron-up fa-fw"></i></button>
                     </div>
                     <div class="modal-body">
@@ -402,7 +402,7 @@ foreach ($rows as $cate):
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
-                                <button type="submit" class="btn btn-success">新增</button>
+                                <button type="submit" class="btn btn-info">新增</button>
                             </div>
                         </form>
                     </div>
