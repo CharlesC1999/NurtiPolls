@@ -375,7 +375,7 @@ if (isset($_GET["search"])) {
                 共 <?=$userCount?> 人
             </div>
             <div class="mb-2">
-                <a name="" id="" class="btn btn-secondary" href="add-user.php" role="button"><i class="fa-solid fa-user-plus"></i></a>
+                <a name="" id="" class="btn btn-secondary" href="../server_data/Member/add-user.php" role="button"><i class="fa-solid fa-user-plus"></i></a>
             </div>
         </div>
         <?php
@@ -427,7 +427,7 @@ foreach ($rows as $user): ?>
                             <td><?=$user["Account"]?></td>
                             <td><?=$user["Phone"]?></td>
                             <td class=" d-flex justify-content-center">
-                                <a class="btn btn-secondary" href="user.php?id=<?=$user["id"]?>" role="button"><i class="fa-solid fa-user"></i></a>
+                                <a class="btn btn-secondary" href="../Member/user.php?id=<?=$user["id"]?>" role="button"><i class="fa-solid fa-user"></i></a>
                             </td>
                         </tr>
                     <?php endforeach;?>

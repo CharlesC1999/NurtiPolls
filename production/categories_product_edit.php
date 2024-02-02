@@ -122,6 +122,14 @@ $product_type_count = $result_all_product->num_rows;
                   </li>
                   <li><a href="coupons.php"><i class="fa fa-table"></i>優惠卷管理<span class="fa fa-chevron-down"></span></a>
                   </li>
+                  <hr style="border-top: 2px solid aliceblue;">
+                  <li>
+                    <a href="#"
+                      ><i class="fa fa-table"></i>訂單管理<span
+                        class="fa fa-chevron-down"
+                      ></span
+                    ></a>
+                  </li>
                   <!-- <li><a><i class="fa fa-bar-chart-o"></i> Data Presentation <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="chartjs.html">Chart JS</a></li>
@@ -325,8 +333,8 @@ $product_type_count = $result_all_product->num_rows;
                   <div class="x_title">
                     <h2>商品分類 <small>Product categories</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link text-success" href="categories_product_re.php"><i class="fa fa-wrench"> 下架分類管理 </i></a></li>
-                      <li><a class="collapse-link text-success" href="categories_product.php"><i class="fa fa fa-arrow-left"></i> 返回</a></li>
+                      <li><a style="font-size: 16px;" class="collapse-link text-secondary" href="categories_product_re.php"><i class="fa fa-wrench"> 下架分類管理 </i></a></li>
+                      <li><a style="font-size: 16px;" class="collapse-link text-secondary" href="categories_product.php"><i class="fa fa fa-arrow-left"></i> 返回</a></li>
                       <!-- <li><a class="close-link"><i class="fa fa-close"></i></a>
                       </li> -->
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -360,8 +368,8 @@ foreach ($rows as $cate):
                             <td><?=$cate["P_Description"]?></td>
                             <td>
                               <div class="d-flex justify-content-between">
-                                <a href="#" data-id="<?=$cate["Product_cate_ID"]?>" data-name="<?=$cate["Product_cate_name"]?>" data-description="<?=$cate["P_Description"]?>" class="btn btn-success border-0 edit-btn" onclick="fillModal(this)"><i class="fa-solid fa-edit fa-fw"></i></a>
-                                <a href="#" data-id="<?=$cate["Product_cate_ID"]?>" class="btn btn-danger border-0 remove-btn" data-bs-toggle="modal" data-bs-target="#removeModal" ><i class="fa-solid fa-trash fa-fw"></i></a>
+                                <a href="#" data-id="<?=$cate["Product_cate_ID"]?>" data-name="<?=$cate["Product_cate_name"]?>" data-description="<?=$cate["P_Description"]?>" class="btn btn-outline-info edit-btn" onclick="fillModal(this)"><i class="fa-solid fa-edit fa-fw"></i></a>
+                                <a href="#" class="btn btn-outline-danger remove-btn" data-bs-toggle="modal" data-bs-target="#removeModal" data-id="<?=$cate["Product_cate_ID"]?>" onclick="setDeleteId(this)"><i class="fa-solid fa-trash fa-fw"></i></a>
                               </div>
                             </td>
                           </tr>
@@ -405,13 +413,20 @@ foreach ($rows as $cate):
                 </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
-                <button type="button" class="btn btn-success btn-gradient border-0" onclick="confirmSave()">提交修改</button>
+                <button type="button" class="btn btn-info btn-gradient border-0" onclick="confirmSave()">提交修改</button>
               </div>
             </div>
           </div>
         </div>
         <!-- Modal -->
         <!-- Modal -->
+        <script>
+        function setDeleteId(element) {
+            var productCateId = element.getAttribute('data-id');
+            var modal = document.getElementById('removeModal');
+            modal.querySelector('input[name="Product_cate_ID"]').value = productCateId;
+        }
+        </script>
         <div class="modal fade" id="removeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -423,7 +438,7 @@ foreach ($rows as $cate):
                         確認刪除嗎?
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
                         <form action="do_Pcate_soft_delete.php" method="post">
                             <input type="hidden" name="Product_cate_ID" value="<?php echo $rows[0]["Product_cate_ID"]; ?>">
                             <button type="submit" class="btn btn-danger">刪除</button>

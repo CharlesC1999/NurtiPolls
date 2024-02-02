@@ -1,5 +1,4 @@
-<!-- 測試用 -->
-<!-- 會員資料列表 ui-->
+<!-- wu 會員資料列表 ui -->
 <?php
 require_once "./connect.php";
 
@@ -13,6 +12,21 @@ $userTotslCount = $resultAll->num_rows;
 $pageCount = ceil($userTotslCount / $perPage);
 // echo $pageCount;
 
+// 排序
+if (isset($_GET["order"])) {
+    $order = $_GET["order"];
+
+    if ($order == 1) {
+        $orderString = "ORDER BY id ASC";
+    } elseif ($order == 2) {
+        $orderString = "ORDER BY id DESC";
+    } elseif ($order == 3) {
+        $orderString = "ORDER BY User_name ASC";
+    } elseif ($order == 4) {
+        $orderString = "ORDER BY User_name DESC";
+    }
+}
+
 if (isset($_GET["search"])) {
     $search = $_GET["search"];
     $sql = "SELECT * FROM member WHERE User_name LIKE '%$search%' AND valid=1";
@@ -22,10 +36,12 @@ elseif (isset($_GET["p"])) {
     $p = $_GET["p"];
     $startIndex = ($p - 1) * $perPage;
 
-    $sql = "SELECT * FROM member WHERE valid=1 LIMIT $startIndex,$perPage";
+    $sql = "SELECT * FROM member WHERE valid=1  $orderString LIMIT $startIndex,$perPage";
 } else {
-    // 沒有選擇頁數時p=1
+    // 沒有選擇頁數時p=1 預設值 排序、orderString
     $p = 1;
+    $order = 1;
+    $orderString = "ORDER BY id ASC";
     $sql = "SELECT * FROM member WHERE valid=1 LIMIT $perPage";
 }
 
@@ -77,7 +93,7 @@ if (isset($_GET["search"])) {
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentelella Alela!</span></a>
+              <a href="" class="site_title"><span>營養大選 Nutripoll</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -362,22 +378,50 @@ if (isset($_GET["search"])) {
                 </div>
             </div>
             </div>
-            <!-- 共多少人 -->
-            <div class="mb--5">
-                共 <?=$userCount?> 人
-            </div>
+
             <!-- 新增刪除會員管理icon-->
             <div class="d-flex justify-content-between">
             <div class="mb-2">
-                <a name="" id="" class="btn btn-danger" href="add-user.php" role="button"><i class="fa-solid fa-user-minus"></i></a>
+                <a name="" id="" class="btn btn-danger" href="delete_member.php" role="button"><i class="fa-solid fa-user-minus"></i></a>
             </div>
+
             <div class="mb-2">
                 <a name="" id="" class="btn btn-secondary" href="add-user.php" role="button"><i class="fa-solid fa-user-plus"></i></a>
             </div>
         </div>
+
+
         <?php
 if ($userCount > 0):
 ?>
+  <!-- 如果有search的變數 就不在顯示排序了 -->
+<div class="py-2 justify-content-between d-flex align-items-center">
+       <!-- 共多少人 -->
+       <div class="">
+                共 <?=$userCount?> 人
+            </div>
+
+                <!-- <div class="me-2">排序</div> -->
+                <div class="btn-group">
+                <a class="btn btn-secondary <?php if ($order == 1) {
+    echo "active";
+}
+?>" href="member.php?order=1&p=<?=$p?>"><i class="fa-solid fa-arrow-down-1-9 fa-fw"></i></a>
+                <a class="btn btn-secondary <?php if ($order == 2) {
+    echo "active";
+}
+?>" href="member.php?order=2&p=<?=$p?>"><i class="fa-solid fa-arrow-up-1-9"></i></a>
+                <a class="btn btn-secondary <?php if ($order == 3) {
+    echo "active";
+}
+?>" href="member.php?order=3&p=<?=$p?>"><i class="fa-solid fa-arrow-down-a-z"></i></a>
+                <a class="btn btn-secondary <?php if ($order == 4) {
+    echo "active";
+}
+?>" href="member.php?order=4&p=<?=$p?>"><i class="fa-solid fa-arrow-up-a-z"></i></a>
+            </div>
+                </div>
+<!--  -->
             <div class="row">
               <div class="col-md-12 col-sm-12 ">
                 <div class="x_panel">
@@ -421,7 +465,7 @@ foreach ($rows as $user): ?>
                         <tr>
                             <td><?=$user["id"]?></td>
                             <td><?=$user["User_name"]?></td>
-                            <td><?=$user["Account"]?></td>
+                            <td><?=$user["Email"]?></td>
                             <td><?=$user["Phone"]?></td>
                             <td class=" d-flex justify-content-center">
                                 <a class="btn btn-secondary" href="user.php?id=<?=$user["id"]?>" role="button"><i class="fa-solid fa-user"></i></a>
@@ -442,7 +486,7 @@ foreach ($rows as $user): ?>
 }
 ?>">
                         <a class="page-link"
-                    href="member.php?p=<?=$i?>"><?=$i?></a></li>
+                    href="member.php?order=<?=$order?>&p=<?=$i?>"><?=$i?></a></li>
 
                     <?php endfor;?>
                 </ul>

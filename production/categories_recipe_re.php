@@ -122,6 +122,14 @@ $product_type_count = $result_all_product->num_rows;
                   </li>
                   <li><a href="coupons.php"><i class="fa fa-table"></i>優惠卷管理<span class="fa fa-chevron-down"></span></a>
                   </li>
+                  <hr style="border-top: 2px solid aliceblue;">
+                  <li>
+                    <a href="#"
+                      ><i class="fa fa-table"></i>訂單管理<span
+                        class="fa fa-chevron-down"
+                      ></span
+                    ></a>
+                  </li>
                   <!-- <li><a><i class="fa fa-bar-chart-o"></i> Data Presentation <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="chartjs.html">Chart JS</a></li>
@@ -325,7 +333,7 @@ $product_type_count = $result_all_product->num_rows;
                   <div class="x_title">
                     <h2>商品分類 <small>Product categories</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link text-success" href="categories_recipe_edit.php"><i class="fa fa fa-arrow-left"></i> 返回修改頁面</a></li>
+                      <li><a style="font-size: 16px;" class="collapse-link text-secondary" href="categories_recipe_edit.php"><i class="fa fa fa-arrow-left"></i> 返回修改頁面</a></li>
                       <!-- <li><a class="close-link"><i class="fa fa-close"></i></a>
                       </li> -->
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -359,7 +367,7 @@ foreach ($rows as $cate):
                             <td><?=$cate["R_Description"]?></td>
                             <td>
                               <div class="d-flex justify-content-between">
-                                <a href="#" data-id="<?=$cate["Recipe_cate_ID"]?>" class="btn btn-success border-0 remove-btn"><i class="fa-solid fa-mail-reply fa-fw"></i></a>
+                                <a href="#" data-id="<?=$cate["Recipe_cate_ID"]?>" class="btn btn-outline-info remove-btn"><i class="fa-solid fa-mail-reply fa-fw"></i></a>
                               </div>
                             </td>
                           </tr>
