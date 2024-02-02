@@ -1,4 +1,4 @@
-<!--wu 會員個人修改 ui 頁面-->
+<!--wu 會員刪除個人細項 -->
 <?php
 if (!isset($_GET["id"])) {
     $id = 0;
@@ -6,10 +6,14 @@ if (!isset($_GET["id"])) {
     $id = $_GET["id"];
 }
 require_once "../../db_connect.php";
-$sql = "SELECT * FROM member WHERE id=$id AND valid=1";
+$sql = "SELECT * FROM member WHERE id=$id AND  valid=0";
+//
 $result = $conn->query($sql);
 $rowCount = $result->num_rows;
 
+if ($rowCount != 0) {
+    $row = $result->fetch_assoc();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -230,7 +234,7 @@ $rowCount = $result->num_rows;
                     <ul class="dropdown-menu list-unstyled msg_list" role="menu" aria-labelledby="navbarDropdown1">
                       <li class="nav-item">
                         <a class="dropdown-item">
-                          <span class="image"><img src="../images/img.jpg" alt="Profile Image" /></span>
+                          <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
                           <span>
                             <span>John Smith</span>
                             <span class="time">3 mins ago</span>
@@ -316,94 +320,101 @@ $rowCount = $result->num_rows;
             <!-- <div class="clearfix"></div> -->
 
             <!-- 搜尋條 -->
-            <div class="container">
+            <div class="modal fade" id="confirmModal" tabindex="-1"  aria-hidden="true">
+                    <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">刪除使用者</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        確認刪除?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+        <a role="button" class="btn btn-danger"
+        href="userDelete.php?id=<?=$row["id"]?>"
+        >確認</a>
+		<!-- 連結到 doDeleteUser並做軟刪除-->
+      </div>
+    </div>
+  </div>
+</div>
 
+
+
+        <div class="container">
+
+
+            </div>
         <?php if ($rowCount == 0): ?>
             使用者不存在
-        <?php else:
-    $row = $result->fetch_assoc();
-    ?>
-																		<div class="container d-flex justify-content-start">
-																		    <div class="py-2 d-flex justify-content-start">
-																		        <a name="" id="" class="btn btn-secondary" href="user.php?id=<?=$row["id"]?>" role="button">
-																		            <i class="fa-solid fa-arrow-left"></i> 返回
-																		        </a>
-																		    </div>
-																		</div>
+            <?php else:
 
-																		<!-- 圖片上傳 -->
-																		<!-- <form action="upPicture.php" method="post" enctype="multipart/form-data"></form> -->
-																		<!-- <label for="" class="form-label">選擇圖片</label>
-																		<input type="file" class="form-control" name="pic"> -->
-
-																		<!--  -->
-																		<form action="upDateUser.php" method="post" enctype="multipart/form-data">
-																		    <input type="hidden" name="id" value="<?=$row["id"]?>">
-																		    <input type="hidden" name="Create_date" value="<?=$row["Create_date"]?>">
-																		    <table class="table table-bordered">
-																		        <div class="form-group">
-																		            <tr>
-
-																		                <td> <label for="" class="form-label">選擇圖片</label></td>
-																		                <td>
-
-																		                    <input type="hidden" class="form-control" name="img2" value="<?=$row["User_image"]?>">
-												                            <img src="./image_members/<?=$row["User_image"]?>" alt="">
-																		                    <input type="file" class="form-control" name="img" >
-
-																		                </td>
-																		            </tr>
-																		        </div>
-																		        <!-- <tr>
-																		            <td>ID</td>
-																		        </tr> -->
-																		        <tr>
-																		            <th>name</th>
-																		            <td><input type="text" class="form-control" name="name" value="<?=$row["User_name"]?>" required="required" maxlength="11" minlength="3"></td>
-																		        </tr>
-																		        <tr>
-																		            <td>Account</td>
-																		            <td><input type="text" class="form-control" name="account" value="<?=$row["Account"]?>" required="required" pattern="^(?=.*[a-zA-Z])(?=.*[0-9]).{4,}$"></td>
-																		        </tr>
-																		        <tr>
-																		            <td>Password</td>
-																		            <td><input type="password" class="form-control" name="password" value="<?=$row["Password"]?>" required="required"></td>
-																		        </tr>
-																		        <tr>
-																		            <th>gender</th>
-																		            <td>
-																		                <select id="gender" name="gender">
-																		                    <option value="M" name="M">Male</option>
-																		                    <option value="F" name="F">Female</option>
-																		                    <option value="Other" name="Other">Other</option>
-																		                </select>
-																		            </td>
-																		        </tr>
-																		        <tr>
-																		            <th>email</th>
-																		            <td><input type="email" class="form-control" name="email" value="<?=$row["Email"]?>"></td>
-																		        </tr>
-																		        <tr>
-																		            <th>phone</th>
-																		            <td><input type="number" class="form-control" name="phone" value="<?=$row["Phone"]?>" required="required"></td>
-																		        </tr>
-																		        <tr>
-																		            <th>birth</th>
-																		            <td><input type="date" class="form-control" name="birth" value="<?=$row["date_of_birth"]?>"></td>
-																		        </tr>
-																		    </table>
-																		    <div class="py-2">
-																		        <button type="submit" class="btn btn-info">
-																		            儲存
-																		        </button>
-																		    </div>
-																		</form>
-
-																		<?php endif;?>
-</div>
-    <?php
-include "./js.php";
 ?>
+
+
+            <!-- 使用者照片 -->
+            <div class="container d-flex justify-content-start">
+            <div class="py-2 ">
+            <a
+                    name=""
+                    id=""
+                    class="btn btn-secondary "
+                    href="delete_list.php"
+                    role="button"
+                    > <i class="fa-solid fa-arrow-left"></i> 回刪除列表</a
+                >
+            </div>
+            </div>
+            <table class="table table-bordered">
+                 <tr>
+                    <td>使用者照片</td>
+                    <td><img src="./image_members/<?=$row["User_image"]?>" alt=""></td>
+                </tr>
+                <tr>
+                 <td>ID</td>
+                 <td><?=$row["id"]?></td>
+                 </tr>
+                <tr>
+                    <td>Name</td>
+                 <td><?=$row["User_name"]?></td>
+                 </tr>
+                <tr>
+                    <td>gender</td>
+                 <td><?=$row["Gender"]?></td>
+                 </tr>
+                <!-- <tr>
+                <td>Account</td>
+                 <td>?=$row["Account"]?</td>
+                 </tr>
+                <tr>
+                <td>Password</td>
+                 <td>?=$row["Password"]?</td>
+                 </tr> -->
+                <tr>
+                <td>Email</td>
+                 <td><?=$row["Email"]?></td>
+                 </tr>
+                <tr>
+                <td>Phone</td>
+                 <td><?=$row["Phone"]?></td>
+                 </tr>
+                <tr>
+                <td>birth</td>
+                 <td><?=$row["date_of_birth"]?></td>
+                 </tr>
+                 <tr>
+                <td>Create time</td>
+                 <td><?=$row["Create_date"]?></td>
+                 </tr>
+            </table>
+            <div class="d-flex justify-content-between">
+
+            <!-- 修改鍵 -->
+
+            </div>
+            <?php endif;?>
         </div>
 
     <!-- jQuery -->

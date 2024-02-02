@@ -1,5 +1,3 @@
-
-
 <!-- wu 會員個人 ui頁面 -->
 <?php
 if (!isset($_GET["id"])) {
@@ -8,7 +6,8 @@ if (!isset($_GET["id"])) {
     $id = $_GET["id"];
 }
 require_once "../../db_connect.php";
-$sql = "SELECT * FROM member WHERE id=$id AND valid=1";
+$sql = "SELECT * FROM member WHERE id=$id AND  valid=1";
+//
 $result = $conn->query($sql);
 $rowCount = $result->num_rows;
 
@@ -25,7 +24,7 @@ if ($rowCount != 0) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>營養大選 Nutripoll</title>
+    <title>DataTables | Gentelella</title>
 
     <!-- Bootstrap -->
     <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
@@ -55,7 +54,7 @@ if ($rowCount != 0) {
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="../HomePage.html" class="site_title"><span>營養大選 Nutripoll</span></a>
+              <a href="" class="site_title"><span>營養大選 Nutripoll</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -381,6 +380,14 @@ if ($rowCount != 0) {
                     <td>Name</td>
                  <td><?=$row["User_name"]?></td>
                  </tr>
+                 <tr>
+                    <td>Account</td>
+                 <td><?=$row["Account"]?></td>
+                 </tr>
+                 <tr>
+                    <td>Password</td>
+                 <td><?=$row["Password"]?></td>
+                 </tr>
                 <tr>
                     <td>gender</td>
                  <td><?=$row["Gender"]?></td>
@@ -416,7 +423,7 @@ if ($rowCount != 0) {
                 <a
                     name=""
                     id=""
-                    class="btn btn-secondary"
+                    class="btn btn-outline-secondary"
                     href="user-edit.php?id=<?=$row["id"]?>"
                     role="button"
                     ><i class="fa-solid fa-user-pen"></i></a>

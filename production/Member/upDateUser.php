@@ -8,6 +8,8 @@ if (!isset($_POST["name"])) {
 }
 
 $name = $_POST["name"];
+$account = $_POST["account"];
+$password = $_POST["password"];
 $gender = $_POST["gender"];
 $email = $_POST["email"];
 $phone = $_POST["phone"];
@@ -17,6 +19,7 @@ $img = $_FILES["img"];
 $img2 = $_POST["img2"];
 $filename = "";
 
+// $password = md5($password);
 if ($_FILES['img']['error'] == 0) {
     $filename = $_FILES['img']['name'];
     // echo $filename;
@@ -34,7 +37,7 @@ if ($_FILES['img']['error'] == 0) {
     $filename = $img2;
 }
 
-$sql = "UPDATE member SET User_name='$name',Gender='$gender',Email='$email',Phone='$phone',date_of_birth='$birth',User_image='$filename' WHERE id=$id";
+$sql = "UPDATE member SET User_name='$name',Account='$account',Password='$password', Gender='$gender',Email='$email',Phone='$phone',date_of_birth='$birth',User_image='$filename' WHERE id=$id";
 
 if ($conn->query($sql) === true) {
     echo "更新成功";
