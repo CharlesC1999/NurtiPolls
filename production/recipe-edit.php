@@ -249,25 +249,27 @@ $rowCount = $result->num_rows;
                       <input type="hidden" name="Recipe_ID" value="<?= $row["Recipe_ID"] ?>">
                       <table class="table table-bordered">
                         <tr>
-                          <th>食譜名稱</th>
+                          <th class="col-2">食譜名稱</th>
                           <td><input type="text" class="form-control" value="<?= $row["Title_R_name"] ?>" name="Title_R_name"></td>
                         </tr>
                         <tr>
-                          <th>展示圖片</th>
+                          <th class="col-2">展示圖片</th>
                           <td>
                             <input type="hidden" name="old_img" value="<?= $row["Image_URL"] ?>">
+                            <div class="col-lg-6 col-md-10 col-sm-12 ratio ratio-1x1">
                             <img class="object-fit-cover" src="rimages/<?= $row["Image_URL"] ?>" alt="">
+                            </div>
                             <input type="file" name="file">
                           </td>
                         </tr>
                         <tr>
-                          <th>簡介</th>
+                          <th class="col-2">簡介</th>
                           <td>
                             <textarea class="form-control" name="Content" cols="30" rows="10"><?= $row["Content"] ?></textarea>
                           </td>
                         </tr>
                         <tr>
-                          <th>分類</th>
+                          <th class="col-2">分類</th>
                           <td>
                             <select name="Recipe_category_ID" id="" class="form-select">
 
