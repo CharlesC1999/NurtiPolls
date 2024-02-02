@@ -274,36 +274,36 @@ if ($rowCount != 0) {
 
                   ?>
                     <input type="hidden" name="Recipe_ID" value="<?= $row["Recipe_ID"] ?>">
-                    <table class="table table-bordered">
+                    <table class="table table-bordered ">
 
                       <tr>
-                        <th>食譜名稱</th>
+                        <th class="col-2">食譜名稱</th>
                         <td>
                           <?= $row["Title_R_name"] ?>
                         </td>
                       </tr>
                       <tr>
-                        <th>展示圖片</th>
+                        <th class="col-2">展示圖片</th>
                         <td>
-                          <div class="ratio ratio-1x1">
+                          <div class="col-lg-6 col-md-10 col-sm-12 ratio ratio-1x1">
                             <img class="object-fit-cover" src="rimages/<?= $row["Image_URL"] ?>" alt="">
                           </div>
                         </td>
                       </tr>
                       <tr>
-                        <th>簡介</th>
+                        <th class="col-2">簡介</th>
                         <td>
                           <?= $row["Content"] ?>
                         </td>
                       </tr>
                       <tr>
-                        <th>建立日期</th>
+                        <th class="col-2">建立日期</th>
                         <td>
                           <?= $row["Publish_date"] ?>
                         </td>
                       </tr>
                       <tr>
-                        <th>分類</th>
+                        <th class="col-2">分類</th>
                         <td>
                           <?= $row["category_name"] ?>
                         </td>
