@@ -1,6 +1,7 @@
 <!-- wu 會員資料列表主頁面 ui -->
 <?php
-require_once "./connect.php";
+require_once "../../db_connect.php";
+session_start();
 
 $perPage = 10;
 // 下面是搜尋的if
@@ -30,6 +31,9 @@ if (isset($_GET["order"])) {
 if (isset($_GET["search"])) {
     $search = $_GET["search"];
     $sql = "SELECT * FROM member WHERE User_name LIKE '%$search%' AND valid=1";
+    $order = 1;
+    $p = 1;
+
 }
 // 頁數的條件
 elseif (isset($_GET["p"])) {
@@ -85,6 +89,32 @@ if (isset($_GET["search"])) {
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+
+.pagination .page-item.active .page-link {
+            background-color: gray;
+            /* Active link background color */
+            border-color: #007bff;
+            /* Active link border color */
+            color: black;
+            /* Active link text color */
+        }
+
+        .pagination .page-link {
+            color: gray;
+            /* Inactive link text color */
+        }
+
+        .pagination .page-link:hover {
+            background-color: #0056b3;
+            /* Hovered link background color */
+            border-color: #0056b3;
+            /* Hovered link border color */
+            color: #ffffff;
+            /* Hovered link text color */
+        }
+  </style>
+
   </head>
 
   <body class="nav-md">
@@ -93,7 +123,8 @@ if (isset($_GET["search"])) {
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="" class="site_title"><span>營養大選 Nutripoll</span></a>
+            <a href="HomePage.php" class="site_title"
+                ><img src="../../Logo_sm.png" alt="" style="height: 65px;"></a>
             </div>
 
             <div class="clearfix"></div>
@@ -101,11 +132,14 @@ if (isset($_GET["search"])) {
             <!-- menu profile quick info -->
             <div class="profile clearfix">
               <div class="profile_pic">
-                <img src="../images/img.jpg" alt="..." class="img-circle profile_img">
-              </div>
+              <img
+                  src="../../logo4.png"
+                  alt="..."
+                  class="img-circle profile_img"
+                />              </div>
               <div class="profile_info">
-                <span>Welcome,</span>
-                <h2>John Doe</h2>
+                <span>Hi,</span>
+                <h2>第四組</h2>
               </div>
             </div>
             <!-- /menu profile quick info -->
@@ -113,114 +147,61 @@ if (isset($_GET["search"])) {
             <br />
 
             <!-- sidebar menu -->
-            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+            <div
+              id="sidebar-menu"
+              class="main_menu_side hidden-print main_menu"
+            >
               <div class="menu_section">
-                <h3>General</h3>
-                <ul class="nav side-menu">
-                  <!-- <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="index.html">Dashboard</a></li>
-                      <li><a href="index2.html">Dashboard2</a></li>
-                      <li><a href="index3.html">Dashboard3</a></li>
-                    </ul>
-                  </li> -->
-                  <!-- <li><a><i class="fa fa-edit"></i> Forms <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="form.html">General Form</a></li>
-                      <li><a href="form_advanced.html">Advanced Components</a></li>
-                      <li><a href="form_validation.html">Form Validation</a></li>
-                      <li><a href="form_wizards.html">Form Wizard</a></li>
-                      <li><a href="form_upload.html">Form Upload</a></li>
-                      <li><a href="form_buttons.html">Form Buttons</a></li>
-                    </ul>
-                  </li> -->
-                  <!-- <li><a><i class="fa fa-desktop"></i> UI Elements <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="general_elements.html">General Elements</a></li>
-                      <li><a href="media_gallery.html">Media Gallery</a></li>
-                      <li><a href="typography.html">Typography</a></li>
-                      <li><a href="icons.html">Icons</a></li>
-                      <li><a href="glyphicons.html">Glyphicons</a></li>
-                      <li><a href="widgets.html">Widgets</a></li>
-                      <li><a href="invoice.html">Invoice</a></li>
-                      <li><a href="inbox.html">Inbox</a></li>
-                      <li><a href="calendar.html">Calendar</a></li>
-                    </ul>
-                  </li> -->
-                  <li><a href=><i class="fa fa-table"></i> 會員管理 <span class="fa fa-chevron-down"></span></a>
-                  </li><li><a href="tables_dynamic.html"><i class="fa fa-table"></i>商品管理 <span class="fa fa-chevron-down"></span></a>
-                  </li>
-                  <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>分類管理<span class="fa fa-chevron-down"></span></a>
-                  </li>
-                  <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>食譜管理<span class="fa fa-chevron-down"></span></a>
-                  </li>
-                  <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>講師管理<span class="fa fa-chevron-down"></span></a>
-                  </li>
-                  <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>課程管理<span class="fa fa-chevron-down"></span></a>
-                  </li>
-                  <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>優惠卷管理<span class="fa fa-chevron-down"></span></a>
-                  </li>
-                  <!-- <li><a><i class="fa fa-bar-chart-o"></i> Data Presentation <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="chartjs.html">Chart JS</a></li>
-                      <li><a href="chartjs2.html">Chart JS2</a></li>
-                      <li><a href="morisjs.html">Moris JS</a></li>
-                      <li><a href="echarts.html">ECharts</a></li>
-                      <li><a href="other_charts.html">Other Charts</a></li>
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-clone"></i>Layouts <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="fixed_sidebar.html">Fixed Sidebar</a></li>
-                      <li><a href="fixed_footer.html">Fixed Footer</a></li>
-                    </ul>
-                  </li>
-                </ul> -->
-              </div>
-              <!-- <div class="menu_section">
-                <h3>Live On</h3>
-                <ul class="nav side-menu">
-                  <li><a><i class="fa fa-bug"></i> Additional Pages <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="e_commerce.html">E-commerce</a></li>
-                      <li><a href="projects.html">Projects</a></li>
-                      <li><a href="project_detail.html">Project Detail</a></li>
-                      <li><a href="contacts.html">Contacts</a></li>
-                      <li><a href="profile.html">Profile</a></li>
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-windows"></i> Extras <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="page_403.html">403 Error</a></li>
-                      <li><a href="page_404.html">404 Error</a></li>
-                      <li><a href="page_500.html">500 Error</a></li>
-                      <li><a href="plain_page.html">Plain Page</a></li>
-                      <li><a href="login.html">Login Page</a></li>
-                      <li><a href="pricing_tables.html">Pricing Tables</a></li>
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-sitemap"></i> Multilevel Menu <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                        <li><a href="#level1_1">Level One</a>
-                        <li><a>Level One<span class="fa fa-chevron-down"></span></a>
-                          <ul class="nav child_menu">
-                            <li class="sub_menu"><a href="level2.html">Level Two</a>
-                            </li>
-                            <li><a href="#level2_1">Level Two</a>
-                            </li>
-                            <li><a href="#level2_2">Level Two</a>
-                            </li>
-                          </ul>
-                        </li>
-                        <li><a href="#level1_2">Level One</a>
-                        </li>
-                    </ul>
-                  </li>
-                  <li><a href="javascript:void(0)"><i class="fa fa-laptop"></i> Landing Page <span class="label label-success pull-right">Coming Soon</span></a></li>
-                </ul>
-              </div> -->
 
-       </div>
+                <ul class="nav side-menu">
+                  <li class="px-1">
+                    <a href="Member/member.php"
+                      ><i class="fa-solid fa-user"></i> 會員管理
+                     </a>
+                  </li>
+
+                  <li  class="px-1">
+                    <a href="product.php"
+                      ><i class="fa-solid fa-store"></i> 商品管理
+                     </a>
+
+                  </li>
+                  <li   class="px-1">
+                    <a
+                      ><i class="fa-solid fa-hashtag"></i> </i>分類管理<span
+                        class="fa fa-chevron-down"
+                      ></span>
+                      <ul class="nav child_menu">
+                        <li><a href="categories_product.php">商品</a></li>
+                        <li><a href="categories_class.php">課程</a></li>
+                        <li><a href="categories_recipe.php">食譜</a></li>
+                      </ul>
+                    </a>
+                  </li>
+                  <li class="px-1">
+                    <a href="recipe-list.php"
+                      ><i class="fa-solid fa-kitchen-set"></i> 食譜管理</a>
+                  </li>
+                  <li  class="px-1">
+                    <a href="speaker.php"
+                      ><i class="fa-solid fa-chalkboard-user"></i> 講師管理</a>
+                  </li>
+                  <li>
+                    <a href="redirectClass.php"
+                      ><i class="fa-solid fa-chalkboard"></i> 課程管理</a>
+                  </li>
+                  <li class="px-1">
+                    <a href="coupons.php"
+                      ><i class="fa-sharp fa-solid fa-tag"></i> 優惠卷管理</a>
+                  </li>
+                  <hr style="border-top: 2px solid aliceblue" />
+                  <li   class="px-1">
+                    <a href="./order_file/order.php"
+                      ><i class="fa-solid fa-note-sticky"></i> 訂單管理</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
             <!-- /sidebar menu -->
 
             <!-- /menu footer buttons -->
@@ -245,15 +226,30 @@ if (isset($_GET["search"])) {
         <!-- top navigation -->
         <div class="top_nav">
             <div class="nav_menu">
+
+
                 <div class="nav toggle">
-                  <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                <nav class="nav navbar-nav d-flex justify-content-end ">
                 </div>
-                <nav class="nav navbar-nav">
-                <ul class=" navbar-right">
-                  <li class="nav-item dropdown open" style="padding-left: 15px;">
+                <ul class=" navbar-right ">
+
+                <li class="nav-item dropdown open" style="padding-left: 15px">
+                  <a
+                    href="javascript:;"
+                    class="user-profile dropdown-toggle"
+                    aria-haspopup="true"
+                    id="navbarDropdown"
+                    data-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    <img src="../../logo4.png" alt="" />第四組
+                  </a>
+                  <a href="./login-sess.php"><i class="fa-solid fa-right-from-bracket py-2 px-1"></i></a>
+                  <!-- <li class="nav-item dropdown open" style="padding-left: 15px;">
                     <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                      <img src="../images/img.jpg" alt="">John Doe
-                    </a>
+                      <img src="../images/img.jpg" alt="">John Doe6
+                    </a> -->
                     <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
                       <a class="dropdown-item"  href="javascript:;"> Profile</a>
                         <a class="dropdown-item"  href="javascript:;">
@@ -261,15 +257,19 @@ if (isset($_GET["search"])) {
                           <span>Settings</span>
                         </a>
                     <a class="dropdown-item"  href="javascript:;">Help</a>
-                      <a class="dropdown-item"  href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+                    <a class="dropdown-item"  href="login-sess.php"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
                     </div>
+                  </li>
+                  <li>
+
+                    <!-- <a href="./login-sess.php"><i class="fa-solid fa-right-from-bracket py-2 px-5 lg"></i></a> -->
                   </li>
 
                   <li role="presentation" class="nav-item dropdown open">
-                    <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1" data-toggle="dropdown" aria-expanded="false">
+                    <!-- <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1" data-toggle="dropdown" aria-expanded="false">
                       <i class="fa fa-envelope-o"></i>
                       <span class="badge bg-green">6</span>
-                    </a>
+                    </a> -->
                     <ul class="dropdown-menu list-unstyled msg_list" role="menu" aria-labelledby="navbarDropdown1">
                       <li class="nav-item">
                         <a class="dropdown-item">
@@ -359,7 +359,7 @@ if (isset($_GET["search"])) {
             <!-- <div class="clearfix"></div> -->
 
             <!-- 搜尋條 -->
-            <div class="py-2">
+            <div class="">
             <div class="row g-3">
                 <!-- 搜尋的返回按鍵 -->
                 <?php if (isset($_GET["search"])): ?>
@@ -381,12 +381,15 @@ if (isset($_GET["search"])) {
 
             <!-- 新增刪除會員管理icon-->
             <div class="d-flex justify-content-between">
-            <div class="mb-2">
-                <a name="" id="" class="btn btn-danger" href="delete_member.php" role="button"><i class="fa-solid fa-user-minus"></i></a>
+            <div class="">
+                <a name="" id="" class="btn btn-outline-secondary" href="delete_list.php" role="button"><i class="fa-solid fa-user-minus"></i></a>
             </div>
 
-            <div class="mb-2">
-                <a name="" id="" class="btn btn-secondary" href="add-user.php" role="button"><i class="fa-solid fa-user-plus"></i></a>
+            <div class="">
+
+                <a name="" id="" class="btn btn-outline-info" href="add-user.php" role="button"><i class="fa-solid fa-user-plus"></i></a>
+                <!-- <div class="me-2">排序</div> -->
+
             </div>
         </div>
 
@@ -395,37 +398,39 @@ if (isset($_GET["search"])) {
 if ($userCount > 0):
 ?>
   <!-- 如果有search的變數 就不在顯示排序了 -->
-<div class="py-2 justify-content-between d-flex align-items-center">
+<div class="py-2 justify-content-between d-flex align-items-end">
        <!-- 共多少人 -->
        <div class="">
-                共 <?=$userCount?> 人
             </div>
-
                 <!-- <div class="me-2">排序</div> -->
                 <div class="btn-group">
-                <a class="btn btn-secondary <?php if ($order == 1) {
+                <a class="btn btn-outline-info <?php if ($order == 1) {
     echo "active";
 }
-?>" href="member.php?order=1&p=<?=$p?>"><i class="fa-solid fa-arrow-down-1-9 fa-fw"></i></a>
-                <a class="btn btn-secondary <?php if ($order == 2) {
+?>" href="member.php?order=1&p=<?=$p?>">
+<i class="fa-solid fa-arrow-down-1-9 fa-fw"></i></a>
+                <a class="btn btn-outline-info <?php if ($order == 2) {
     echo "active";
 }
 ?>" href="member.php?order=2&p=<?=$p?>"><i class="fa-solid fa-arrow-up-1-9"></i></a>
-                <a class="btn btn-secondary <?php if ($order == 3) {
+                <a class="btn btn-outline-info <?php if ($order == 3) {
     echo "active";
 }
 ?>" href="member.php?order=3&p=<?=$p?>"><i class="fa-solid fa-arrow-down-a-z"></i></a>
-                <a class="btn btn-secondary <?php if ($order == 4) {
-    echo "active";
+                <a class="btn btn-outline-info<?php if ($order == 4) {
+    echo "";
+    // active
 }
 ?>" href="member.php?order=4&p=<?=$p?>"><i class="fa-solid fa-arrow-up-a-z"></i></a>
+
             </div>
                 </div>
-<!--  -->
+    <!--              -->
             <div class="row">
               <div class="col-md-12 col-sm-12 ">
                 <div class="x_panel">
-                  <div class="x_title">
+                  <div class="x_title ">
+
                     <!-- <h2>Default Example <small>Users</small></h2> -->
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -440,15 +445,20 @@ if ($userCount > 0):
                       <li><a class="close-link"><i class="fa fa-close"></i></a>
                       </li>
                     </ul>
-                    <div class="clearfix"></div>
+                    <div class="clearfix">
+                    <div class="">
+                共 <?=$userCount?> 人
+            </div>
+
+                    </div>
                   </div>
                   <div class="x_content">
                       <div class="row">
                           <div class="col-sm-12">
                             <div class="card-box table-responsive">
-                    <p class="text-muted font-13 m-b-30">
+                    <!-- <p class="text-muted font-13 m-b-30"> -->
                       <!-- DataTables has most features enabled by default, so all you need to do to use it with your own tables is to call the construction function: <code>$().DataTable();</code> -->
-                    </p>
+                    <!-- </p> -->
                     <table id="datatable" class="table table-striped table-bordered" style="width:100%">
                       <thead>
                         <tr>
@@ -468,7 +478,7 @@ foreach ($rows as $user): ?>
                             <td><?=$user["Email"]?></td>
                             <td><?=$user["Phone"]?></td>
                             <td class=" d-flex justify-content-center">
-                                <a class="btn btn-secondary" href="user.php?id=<?=$user["id"]?>" role="button"><i class="fa-solid fa-user"></i></a>
+                                <a class="btn btn-outline-secondary" href="user.php?id=<?=$user["id"]?>" role="button"><i class="fa-solid fa-user"></i></a>
                             </td>
                         </tr>
                     <?php endforeach;?>
