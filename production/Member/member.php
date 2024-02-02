@@ -64,7 +64,7 @@ if (isset($_GET["search"])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>營養大選 Nutripoll</title>
+    <title>DataTables | Gentelella</title>
 
     <!-- Bootstrap -->
     <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
@@ -86,6 +86,25 @@ if (isset($_GET["search"])) {
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+
+.pagination .page-item.active .page-link {
+            background-color: gray; /* Active link background color */
+            border-color: #007bff; /* Active link border color */
+            color: black; /* Active link text color */
+        }
+
+        .pagination .page-link {
+            color: gray; /* Inactive link text color */
+        }
+
+        .pagination .page-link:hover {
+            background-color: #0056b3; /* Hovered link background color */
+            border-color: #0056b3; /* Hovered link border color */
+            color: #ffffff; /* Hovered link text color */
+        }
+  </style>
+
   </head>
 
   <body class="nav-md">
@@ -94,7 +113,7 @@ if (isset($_GET["search"])) {
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="../HomePage.html" class="site_title"><span>營養大選 Nutripoll</span></a>
+              <a href="" class="site_title"><span>營養大選 Nutripoll</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -148,18 +167,18 @@ if (isset($_GET["search"])) {
                       <li><a href="calendar.html">Calendar</a></li>
                     </ul>
                   </li> -->
-                  <li><a href=><i class="fa fa-table"></i> 會員管理 <span class="fa fa-chevron-down"></span></a>
-                  </li><li><a href="tables_dynamic.html"><i class="fa fa-table"></i>商品管理 <span class="fa fa-chevron-down"></span></a>
+                  <li><a href="./member.php"><i class="fa fa-table"></i> 會員管理 <span class="fa fa-chevron-down"></span></a>
+                  </li><li><a href="../product.php"><i class="fa fa-table"></i>商品管理 <span class="fa fa-chevron-down"></span></a>
                   </li>
-                  <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>分類管理<span class="fa fa-chevron-down"></span></a>
+                  <li><a href=".."><i class="fa fa-table"></i>分類管理<span class="fa fa-chevron-down"></span></a>
                   </li>
-                  <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>食譜管理<span class="fa fa-chevron-down"></span></a>
+                  <li><a href="../recipe.php"><i class="fa fa-table"></i>食譜管理<span class="fa fa-chevron-down"></span></a>
                   </li>
-                  <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>講師管理<span class="fa fa-chevron-down"></span></a>
+                  <li><a href="../speaker.php"><i class="fa fa-table"></i>講師管理<span class="fa fa-chevron-down"></span></a>
                   </li>
-                  <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>課程管理<span class="fa fa-chevron-down"></span></a>
+                  <li><a href="../class_new.php"><i class="fa fa-table"></i>課程管理<span class="fa fa-chevron-down"></span></a>
                   </li>
-                  <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>優惠卷管理<span class="fa fa-chevron-down"></span></a>
+                  <li><a href="../coupon.php"><i class="fa fa-table"></i>優惠卷管理<span class="fa fa-chevron-down"></span></a>
                   </li>
                   <!-- <li><a><i class="fa fa-bar-chart-o"></i> Data Presentation <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
@@ -364,7 +383,7 @@ if (isset($_GET["search"])) {
             <!-- <div class="clearfix"></div> -->
 
             <!-- 搜尋條 -->
-            <div class="py-2">
+            <div class="">
             <div class="row g-3">
                 <!-- 搜尋的返回按鍵 -->
                 <?php if (isset($_GET["search"])): ?>
@@ -386,12 +405,15 @@ if (isset($_GET["search"])) {
 
             <!-- 新增刪除會員管理icon-->
             <div class="d-flex justify-content-between">
-            <div class="mb-2">
-                <a name="" id="" class="btn btn-danger" href="delete_member.php" role="button"><i class="fa-solid fa-user-minus"></i></a>
+            <div class="">
+                <a name="" id="" class="btn btn-outline-secondary" href="delete_list.php" role="button"><i class="fa-solid fa-user-minus"></i></a>
             </div>
 
-            <div class="mb-2">
-                <a name="" id="" class="btn btn-secondary" href="add-user.php" role="button"><i class="fa-solid fa-user-plus"></i></a>
+            <div class="">
+
+                <a name="" id="" class="btn btn-outline-info" href="add-user.php" role="button"><i class="fa-solid fa-user-plus"></i></a>
+                <!-- <div class="me-2">排序</div> -->
+
             </div>
         </div>
 
@@ -400,37 +422,36 @@ if (isset($_GET["search"])) {
 if ($userCount > 0):
 ?>
   <!-- 如果有search的變數 就不在顯示排序了 -->
-<div class="py-2 justify-content-between d-flex align-items-center">
+<div class="py-2 justify-content-between d-flex align-items-end">
        <!-- 共多少人 -->
        <div class="">
-                共 <?=$userCount?> 人
             </div>
-
                 <!-- <div class="me-2">排序</div> -->
                 <div class="btn-group">
-                <a class="btn btn-secondary <?php if ($order == 1) {
+                <a class="btn btn-outline-info <?php if ($order == 1) {
     echo "active";
 }
 ?>" href="member.php?order=1&p=<?=$p?>"><i class="fa-solid fa-arrow-down-1-9 fa-fw"></i></a>
-                <a class="btn btn-secondary <?php if ($order == 2) {
+                <a class="btn btn-outline-info <?php if ($order == 2) {
     echo "active";
 }
 ?>" href="member.php?order=2&p=<?=$p?>"><i class="fa-solid fa-arrow-up-1-9"></i></a>
-                <a class="btn btn-secondary <?php if ($order == 3) {
+                <a class="btn btn-outline-info <?php if ($order == 3) {
     echo "active";
 }
 ?>" href="member.php?order=3&p=<?=$p?>"><i class="fa-solid fa-arrow-down-a-z"></i></a>
-                <a class="btn btn-secondary <?php if ($order == 4) {
+                <a class="btn btn-outline-info<?php if ($order == 4) {
     echo "active";
 }
 ?>" href="member.php?order=4&p=<?=$p?>"><i class="fa-solid fa-arrow-up-a-z"></i></a>
             </div>
                 </div>
-<!--  -->
+    <!--              -->
             <div class="row">
               <div class="col-md-12 col-sm-12 ">
                 <div class="x_panel">
-                  <div class="x_title">
+                  <div class="x_title ">
+
                     <!-- <h2>Default Example <small>Users</small></h2> -->
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -445,7 +466,12 @@ if ($userCount > 0):
                       <li><a class="close-link"><i class="fa fa-close"></i></a>
                       </li>
                     </ul>
-                    <div class="clearfix"></div>
+                    <div class="clearfix">
+                    <div class="">
+                共 <?=$userCount?> 人
+            </div>
+
+                    </div>
                   </div>
                   <div class="x_content">
                       <div class="row">
@@ -473,7 +499,7 @@ foreach ($rows as $user): ?>
                             <td><?=$user["Email"]?></td>
                             <td><?=$user["Phone"]?></td>
                             <td class=" d-flex justify-content-center">
-                                <a class="btn btn-secondary" href="user.php?id=<?=$user["id"]?>" role="button"><i class="fa-solid fa-user"></i></a>
+                                <a class="btn btn-outline-secondary" href="user.php?id=<?=$user["id"]?>" role="button"><i class="fa-solid fa-user"></i></a>
                             </td>
                         </tr>
                     <?php endforeach;?>

@@ -2,7 +2,7 @@
 require_once "../db_connect.php";
 
 // 初始化 WHERE 子句和 ORDER BY 子句
-$whereClause = "WHERE product_image.sort_order = 0 AND product.valid=1";
+$whereClause = "WHERE product_image.sort_order = 0 AND product.valid=0";
 $orderBY = "ORDER BY product.id ASC"; // 預設排序方式
 
 // 檢查是否有分類過濾參數
@@ -11,7 +11,7 @@ if (isset($_GET['category']) && $_GET['category'] != '') {
     $whereClause .= " AND product.category_id = '$category_id'";
 }
 
-//檢查是否有排序參數
+// 檢查是否有排序參數
 // if (isset($_GET["sort_by"])) {
 //   $sortBy = $_GET["sort_by"];
 
@@ -93,29 +93,6 @@ $categories = $resultCategories->fetch_all(MYSQLI_ASSOC);
     <link href="../build/css/custom.min.css" rel="stylesheet">
     <!-- icon連結 https://cdnjs.com/libraries/font-awesome-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <style>
-        .img-circle.profile_img {
-            background: #ddd;
-        }
-
-        .profile_info span {
-            font-size: 14px;
-            line-height: 30px;
-            font-weight: 500;
-            color: #ecf0f1;
-        }
-
-        .profile_info h2 {
-            font-size: 14px;
-            color: #ecf0f1;
-            margin: 0;
-            font-weight: 500;
-        }
-
-        .side-menu {
-            font-size: 15px;
-        }
-    </style>
 
 </head>
 
@@ -147,46 +124,40 @@ $categories = $resultCategories->fetch_all(MYSQLI_ASSOC);
                     <!-- sidebar menu -->
                     <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
                         <div class="menu_section">
-
+                            <h3>General</h3>
                             <ul class="nav side-menu">
-                                <li class="px-1">
-                                    <a href="Member/member.php"><i class="fa-solid fa-user"></i> 會員管理
-                                    </a>
+                                <li>
+                                    <a href="member.php"><i class="fa fa-table"></i> 會員管理
+                                        <span class="fa fa-chevron-down"></span></a>
                                 </li>
-
-                                <li class="px-1">
-                                    <a href="product.php"><i class="fa-solid fa-store"></i> 商品管理
-                                    </a>
-
+                                <li>
+                                    <a href="product.php"><i class="fa fa-table"></i>商品管理
+                                        <span class="fa fa-chevron-down"></span></a>
                                 </li>
-                                <li class="px-1">
-                                    <a><i class="fa-solid fa-hashtag"></i> </i>分類管理<span class="fa fa-chevron-down"></span>
+                                <li>
+                                    <a><i class="fa fa-table"></i>分類管理<span class="fa fa-chevron-down"></span>
                                         <ul class="nav child_menu">
                                             <li><a href="categories_product.php">商品</a></li>
-                                            <li><a href="categories_class.php">課程</a></li>
-                                            <li><a href="categories_recipe.php">食譜</a></li>
+                                            <li><a href="categories_product.php">課程</a></li>
+                                            <li><a href="categories_product.php">食譜</a></li>
                                         </ul>
                                     </a>
                                 </li>
-                                <li class="px-1">
-                                    <a href="recipe-list.php"><i class="fa-solid fa-kitchen-set"></i> 食譜管理</a>
-                                </li>
-                                <li class="px-1">
-                                    <a href="speaker.php"><i class="fa-solid fa-chalkboard-user"></i> 講師管理</a>
+                                <li>
+                                    <a href="recipe-list.php"><i class="fa fa-table"></i>食譜管理<span class="fa fa-chevron-down"></span></a>
                                 </li>
                                 <li>
-                                    <a href="redirectClass.php"><i class="fa-solid fa-chalkboard"></i> 課程管理</a>
+                                    <a href="speaker.php"><i class="fa fa-table"></i>講師管理<span class="fa fa-chevron-down"></span></a>
                                 </li>
-                                <li class="px-1">
-                                    <a href="coupons.php"><i class="fa-sharp fa-solid fa-tag"></i> 優惠卷管理</a>
+                                <li>
+                                    <a href="redirectClass.php"><i class="fa fa-table"></i>課程管理<span class="fa fa-chevron-down"></span></a>
                                 </li>
-                                <hr style="border-top: 2px solid aliceblue" />
-                                <li class="px-1">
-                                    <a href="./order_file/order.php"><i class="fa-solid fa-note-sticky"></i> 訂單管理</a>
+                                <li>
+                                    <a href="coupons.php"><i class="fa fa-table"></i>優惠卷管理<span class="fa fa-chevron-down"></span></a>
                                 </li>
-                            </ul>
                         </div>
                     </div>
+                    <!-- /sidebar menu -->
                     <!-- /sidebar menu -->
 
                     <!-- /menu footer buttons -->
@@ -298,132 +269,111 @@ $categories = $resultCategories->fetch_all(MYSQLI_ASSOC);
                 <div class="">
                     <div class="page-title">
                         <div class="title_left">
-                            <h1 class="col-auto justify-content-start">商品管理<small></small></h1>
                         </div>
-
-
                         <div class="clearfix"></div>
-
-
-
                         <div class="col-md-12 col-sm-12 ">
                             <div class="x_panel">
-                                <div class="x_title row d-flex align-items-center">
-
-                                    <!-- <div class="col-auto">
-                    <div class="input-group ">
-                      <input type="text" class="form-control" placeholder="請輸入關鍵字">
-                      <span class="input-group-btn">
-                        <button class="btn btn-secondary" type="button">Go</button>
-                      </span>
-                    </div>
-                  </div> -->
+                                <div class="x_title row justify-content-start align-items-center">
+                                    <span><a href="product.php" class="btn btn-secondary mt-1 ml-3"><i class="fa-solid fa-house fa-fw"></i></a></span>
+                                    <h1 class="col-auto">管理下架商品<small></small></h1>
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="x_content">
                                     <div class="row  justify-content-between align-items-center">
                                         <div class="d-flex align-items-center m-3">
                                             <form action="" method="get">
-                                                <!-- <select class="fform-select form-select-sm form-control mr-4" aria-label="Small select example" name="sort_by" onchange="this.form.submit()">
-                          <option selected>排序方式</option>
-                          <option value="id_asc" name="id_asc">ID &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 小->大</option>
-                          <option value="id_desc" name="id_desc">ID &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 大->小</option>
-                          <option value="price_asc" name="price_asc">價格 &nbsp;&nbsp;低->高</option>
-                          <option value="price_desc" name="price_desc">價格&nbsp;&nbsp; 高->低</option>
-                          <option value="date_desc" name="date_desc">更新時間 近->遠</option>
-                          <option value="date_asc" name="date_asc">更新時間 遠->近</option>
-
-                        </select> -->
-                                            </form>
-                                            <form action="" method="get">
-                                                <select class=" form-select form-select-sm form-control" aria-label="Small select example" name="category" onchange="this.form.submit()">
+                                                <select class="form-select form-select-sm form-control" aria-label="Small select example" name="category" onchange="this.form.submit()">
                                                     <option value="">全部</option>
                                                     <option selected>分類</option>
-                                                    <?php foreach ($categories as $category) : ?>
-                                                        <option value="<?= htmlspecialchars($category["Product_cate_ID"]) ?>" <?= (isset($_GET['category']) && $_GET['category'] == $category["Product_cate_ID"]) ? 'selected' : '' ?>>
-                                                            <?= htmlspecialchars($category["Product_cate_name"]) ?>
+                                                    <?php foreach ($categories as $category): ?>
+                                                        <option value="<?=htmlspecialchars($category["Product_cate_ID"])?>" <?=(isset($_GET['category']) && $_GET['category'] == $category["Product_cate_ID"]) ? 'selected' : ''?>>
+                                                            <?=htmlspecialchars($category["Product_cate_name"])?>
                                                         </option>
-                                                    <?php endforeach; ?>
+                                                    <?php endforeach;?>
                                                 </select>
                                             </form>
-                                            <a href="addProduct.php" class=" mx-2 btn btn-sm btn-secondary" style="background-color: #17a2b8; border: none; padding:6px 14px;">
-                                                新增商品
-                                            </a>
-                                            <a href="productArchive.php" class="mx-2 btn btn-sm btn-secondary" name="addProduct">
-                                                管理下架商品
-                                            </a>
-                                        </div>
-                                        <!-- <div class="col-2">
-                      <div class="input input-group-sm mb-3 ">
-                        <input type="number" name="price_min" class="form-control" placeholder="最低價格">
-                      </div>
-                    </div>
-                    <div class="col-auto">
-                      <div>~</div>
-                    </div>
-                    <div class="col-2">
-                      <div class="input input-group-sm mb-3 ">
-                        <input type="number" class="form-control" name="price_max" placeholder="最高價格">
-                      </div>
-                    </div>
-                    <div class="col-auto">
-                      <button type="submit" class="btn-sm btn-secondary" name="price">
-                        價格篩選
-                      </button>
-
-                    </div> -->
-                                        <div class="col-auto justify-content-end">
-                                            <h5>共<?= $rowsCount ?> 筆資料</h5>
-                                        </div>
-                                        </form>
-
-
-
-                                        <div class="col-sm-12">
-                                            <div class="card-box table-responsive">
-                                                <!-- <p class="text-muted font-13 m-b-30"></p> -->
-                                                <table id="datatable" class="mt-2 table table-striped table-bordered" style="width:100%">
-                                                    <thead>
-                                                        <tr>
-                                                            <th class="h6">編號</th>
-                                                            <th class="h6">圖片</th>
-                                                            <th class="h6">商品名稱</th>
-                                                            <th class="h6">描述</th>
-                                                            <th class="h6">種類</th>
-                                                            <th class="h6">更新時間</th>
-                                                            <th class="h6">價格</th>
-                                                            <th class="h6">庫存</th>
-                                                            <th class="h6"></th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <?php foreach ($rows as $product) : ?>
-                                                            <?php $imagePath = './p_image/' . $product['single_image_url']; ?>
-                                                            <tr>
-                                                                <td style="font-size: 16px;"><?= $product["product_id"] ?></td>
-                                                                <td class="h6"><img src="<?= $imagePath ?>" style="width: 100px; height: auto; border-radius: 5px;" alt="<?= $product["product_name"] ?> " class="object-fit"></td>
-                                                                <td style="font-size: 17px; width:10%"><?= $product["product_name"] ?></td>
-                                                                <td style="font-size: 15px; width:35%"><?= $product["description"] ?></td>
-                                                                <td style="font-size: 15px;"><?= $product["category_name"] ?></td>
-                                                                <td style="font-size: 15px;"><?= $product["upload_date"] ?></td>
-                                                                <td style="font-size: 16px;">$ <?= $product["price"] ?></td>
-                                                                <td style="font-size: 16px;"><?= $product["stock_quantity"] ?></td>
-                                                                <td style="font-size: 17px; width:5%">
-                                                                    <form action="editProduct.php" method="post">
-                                                                        <input type="hidden" name="product_id" value="<?= $product["product_id"] ?>">
-                                                                        <a href="./editProduct.php?product_id=<?= $product["product_id"] ?>" type=" submit" class="btn btn-outline-secondary"><i class="fa-solid fa-pen-to-square fa-fw"></i></a>
-                                                                    </form>
-
-                                                                    <input type="hidden" name="product_id" value="<?= $product["product_id"] ?>">
-                                                                    <!-- 删除按钮，触发模态框 -->
-
-                                                                </td>
-                                                            </tr>
-                                                        <?php endforeach; ?>
-                                                    </tbody>
-                                                </table>
+                                            <!-- <div class="col-2">
+                                            <div class="input input-group-sm mb-3 ">
+                                                <input type="number" name="price_min" class="form-control" placeholder="最低價格">
                                             </div>
                                         </div>
+                                        <div class="col-auto">
+                                            <div>~</div>
+                                        </div>
+                                        <div class="col-2">
+                                            <div class="input input-group-sm mb-3 ">
+                                                <input type="number" class="form-control" name="price_max" placeholder="最高價格">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-auto">
+                                            <button type="submit" class="btn-sm btn-secondary" name="price">
+                                                價格篩選
+                                            </button>
+
+                                        </div>
+                                        <div class="col-auto">
+
+                                            <li class="list-unstyled"><a href="addProduct.php" class="btn btn-sm btn-secondary">
+                                                    新增商品
+                                                </a></li>
+
+                                        </div>
+                                        <div class="col-auto">
+                                            <li class="list-unstyled"><a href="addProduct.php" class="btn btn-sm btn-secondary" name="addProduct">
+                                                    管理下架商品
+                                                </a></li>
+
+                                        </div> -->
+                                        </div>
+                                        </form>
+                                        <div class="col-auto">
+                                            <h5>共<?=$rowsCount?> 筆資料</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="card-box table-responsive">
+                                        <!-- <p class="text-muted font-13 m-b-30"></p> -->
+
+                                        <table id="datatable" class="table table-striped table-bordered" style="width:100%">
+                                            <thead>
+                                                <tr>
+                                                    <th class="h6">編號</th>
+                                                    <th class="h6">圖片</th>
+                                                    <th class="h6">商品名稱</th>
+                                                    <th class="h6">種類</th>
+                                                    <th class="h6">最後更新時間</th>
+                                                    <th class="h6">價格</th>
+                                                    <th class="h6">庫存</th>
+                                                    <th class="h6"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php foreach ($rows as $product): ?>
+                                                    <?php $imagePath = './p_image/' . $product['single_image_url'];?>
+                                                    <tr>
+                                                        <td class="h6"><?=$product["product_id"]?></td>
+                                                        <td class="h6"><img src="<?=$imagePath?>" style="width: 100px; height: auto;" alt="<?=$product["product_name"]?> " class="object-fit"></td>
+                                                        <td class="h6"><?=$product["product_name"]?></td>
+                                                        <td class="h6"><?=$product["category_name"]?></td>
+                                                        <td class="h6"><?=$product["upload_date"]?></td>
+                                                        <td class="h6">$ <?=$product["price"]?></td>
+                                                        <td class="h6"><?=$product["stock_quantity"]?></td>
+                                                        <td class="h6">
+                                                            <form action="editProduct.php" method="post">
+                                                                <input type="hidden" name="product_id" value="<?=$product["product_id"]?>">
+                                                                <a href="./productArchiveEdit.php?product_id=<?=$product["product_id"]?>" type=" submit" class="btn btn-secondary"><i class="fa fa-pencil fa-fw"></i></a>
+                                                            </form>
+
+                                                            <input type="hidden" name="product_id" value="<?=$product["product_id"]?>">
+                                                            <!-- 删除按钮，触发模态框 -->
+
+                                                        </td>
+                                                    </tr>
+                                                <?php endforeach;?>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
@@ -432,6 +382,8 @@ $categories = $resultCategories->fetch_all(MYSQLI_ASSOC);
                 </div>
             </div>
         </div>
+    </div>
+    </div>
     </div>
     </div>
     </div>

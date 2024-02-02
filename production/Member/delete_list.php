@@ -1,14 +1,58 @@
-<!--wu 會員個人修改 ui 頁面-->
+<!-- wu 會員資料列表主頁面 ui -->
 <?php
-if (!isset($_GET["id"])) {
-    $id = 0;
-} else {
-    $id = $_GET["id"];
-}
 require_once "../../db_connect.php";
-$sql = "SELECT * FROM member WHERE id=$id AND valid=1";
+session_start();
+
+$perPage = 10;
+// 下面是搜尋的if
+
+$sqlAll = "SELECT * FROM member WHERE valid=0";
+$resultAll = $conn->query($sqlAll);
+$userTotslCount = $resultAll->num_rows;
+
+$pageCount = ceil($userTotslCount / $perPage);
+// echo $pageCount;
+
+// 排序
+if (isset($_GET["order"])) {
+    $order = $_GET["order"];
+
+    if ($order == 1) {
+        $orderString = "ORDER BY id ASC";
+    } elseif ($order == 2) {
+        $orderString = "ORDER BY id DESC";
+    } elseif ($order == 3) {
+        $orderString = "ORDER BY User_name ASC";
+    } elseif ($order == 4) {
+        $orderString = "ORDER BY User_name DESC";
+    }
+}
+
+if (isset($_GET["search"])) {
+    $search = $_GET["search"];
+    $sql = "SELECT * FROM member WHERE User_name LIKE '%$search%' AND valid=0";
+}
+// 頁數的條件
+elseif (isset($_GET["p"])) {
+    $p = $_GET["p"];
+    $startIndex = ($p - 1) * $perPage;
+
+    $sql = "SELECT * FROM member WHERE valid=0  $orderString LIMIT $startIndex,$perPage";
+} else {
+    // 沒有選擇頁數時p=1 預設值 排序、orderString
+    $p = 1;
+    $order = 1;
+    $orderString = "ORDER BY id ASC";
+    $sql = "SELECT * FROM member WHERE valid=0 LIMIT $perPage";
+}
+
 $result = $conn->query($sql);
-$rowCount = $result->num_rows;
+
+if (isset($_GET["search"])) {
+    $userCount = $result->num_rows;
+} else {
+    $userCount = $userTotslCount;
+}
 
 ?>
 <!DOCTYPE html>
@@ -42,6 +86,24 @@ $rowCount = $result->num_rows;
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+      .pagination .page-item.active .page-link {
+            background-color: gray; /* Active link background color */
+            border-color: #007bff; /* Active link border color */
+            color: black; /* Active link text color */
+        }
+
+        .pagination .page-link {
+            color: gray; /* Inactive link text color */
+        }
+
+        .pagination .page-link:hover {
+            background-color: #0056b3; /* Hovered link background color */
+            border-color: #0056b3; /* Hovered link border color */
+            color: #ffffff; /* Hovered link text color */
+        }
+    </style>
   </head>
 
   <body class="nav-md">
@@ -107,7 +169,7 @@ $rowCount = $result->num_rows;
                   <li><a href=><i class="fa fa-table"></i> 會員管理 <span class="fa fa-chevron-down"></span></a>
                   </li><li><a href="tables_dynamic.html"><i class="fa fa-table"></i>商品管理 <span class="fa fa-chevron-down"></span></a>
                   </li>
-                  <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>分類管理<span class="fa fa-chevron-down"></span></a>
+                  <li><a href="../product.php"><i class="fa fa-table"></i>分類管理<span class="fa fa-chevron-down"></span></a>
                   </li>
                   <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>食譜管理<span class="fa fa-chevron-down"></span></a>
                   </li>
@@ -115,7 +177,7 @@ $rowCount = $result->num_rows;
                   </li>
                   <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>課程管理<span class="fa fa-chevron-down"></span></a>
                   </li>
-                  <li><a href="tables_dynamic.html"><i class="fa fa-table"></i>優惠卷管理<span class="fa fa-chevron-down"></span></a>
+                  <li><a href="../coupon.php"><i class="fa fa-table"></i>優惠卷管理<span class="fa fa-chevron-down"></span></a>
                   </li>
                   <!-- <li><a><i class="fa fa-bar-chart-o"></i> Data Presentation <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
@@ -205,11 +267,15 @@ $rowCount = $result->num_rows;
                 <div class="nav toggle">
                   <a id="menu_toggle"><i class="fa fa-bars"></i></a>
                 </div>
-                <nav class="nav navbar-nav">
-                <ul class=" navbar-right">
+                <nav class="nav navbar-nav d-flex justify-content-end ">
+
+                <ul class=" navbar-right ">
+                <li>
+                    <a href="./login-sess.php"><i class="fa-solid fa-right-from-bracket py-2 px-5 lg"></i></a>
+                  </li>
                   <li class="nav-item dropdown open" style="padding-left: 15px;">
                     <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                      <img src="../images/img.jpg" alt="">John Doe
+                      <img src="../images/img.jpg" alt="">John Doe6
                     </a>
                     <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
                       <a class="dropdown-item"  href="javascript:;"> Profile</a>
@@ -218,7 +284,7 @@ $rowCount = $result->num_rows;
                           <span>Settings</span>
                         </a>
                     <a class="dropdown-item"  href="javascript:;">Help</a>
-                      <a class="dropdown-item"  href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+                      <a class="dropdown-item"  href="login-sess.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
                     </div>
                   </li>
 
@@ -230,7 +296,7 @@ $rowCount = $result->num_rows;
                     <ul class="dropdown-menu list-unstyled msg_list" role="menu" aria-labelledby="navbarDropdown1">
                       <li class="nav-item">
                         <a class="dropdown-item">
-                          <span class="image"><img src="../images/img.jpg" alt="Profile Image" /></span>
+                          <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
                           <span>
                             <span>John Smith</span>
                             <span class="time">3 mins ago</span>
@@ -297,7 +363,9 @@ $rowCount = $result->num_rows;
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>個人資料</h3>
+
+            </div>
+                <!-- <h3>會員列表</h3> -->
               </div>
 
               <!-- <div class="title_right">
@@ -312,99 +380,111 @@ $rowCount = $result->num_rows;
               </div> -->
             </div>
 
-
             <!-- <div class="clearfix"></div> -->
 
             <!-- 搜尋條 -->
-            <div class="container">
 
-        <?php if ($rowCount == 0): ?>
-            使用者不存在
-        <?php else:
-    $row = $result->fetch_assoc();
-    ?>
-																		<div class="container d-flex justify-content-start">
-																		    <div class="py-2 d-flex justify-content-start">
-																		        <a name="" id="" class="btn btn-secondary" href="user.php?id=<?=$row["id"]?>" role="button">
-																		            <i class="fa-solid fa-arrow-left"></i> 返回
-																		        </a>
-																		    </div>
-																		</div>
 
-																		<!-- 圖片上傳 -->
-																		<!-- <form action="upPicture.php" method="post" enctype="multipart/form-data"></form> -->
-																		<!-- <label for="" class="form-label">選擇圖片</label>
-																		<input type="file" class="form-control" name="pic"> -->
+    <!--              -->
+            <div class="row">
+              <div class="col-md-12 col-sm-12 ">
+                <div class="x_panel">
+                  <div class="x_title ">
 
-																		<!--  -->
-																		<form action="upDateUser.php" method="post" enctype="multipart/form-data">
-																		    <input type="hidden" name="id" value="<?=$row["id"]?>">
-																		    <input type="hidden" name="Create_date" value="<?=$row["Create_date"]?>">
-																		    <table class="table table-bordered">
-																		        <div class="form-group">
-																		            <tr>
+                    <!-- <h2>Default Example <small>Users</small></h2> -->
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li class="dropdown">
+                        <!-- <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a> -->
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#">Settings 1</a>
+                            <a class="dropdown-item" href="#">Settings 2</a>
+                          </div>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix">
+                    <div class="mb-2">
+                <a name="" id="" class="btn btn-secondary" href="member.php" role="button"><i class="fa-solid fa-left-long"></i></a>
+            </div>
 
-																		                <td> <label for="" class="form-label">選擇圖片</label></td>
-																		                <td>
+                    </div>
+                  </div>
+                  <div class="x_content">
+                      <div class="row">
+                          <div class="col-sm-12">
+                            <div class="card-box table-responsive">
+                    <p class="text-muted font-13 m-b-30">
+                      <!-- DataTables has most features enabled by default, so all you need to do to use it with your own tables is to call the construction function: <code>$().DataTable();</code> -->
+                    </p>
+                    <table id="datatable" class="table table-striped table-bordered" style="width:100%">
+                      <thead>
+                        <tr>
+                        <td>id</td>
+                        <td>name</td>
+                        <td>Email</td>
+                        <td>phone</td>
+                        <td></td>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      <?php $rows = $result->fetch_all(MYSQLI_ASSOC);
+foreach ($rows as $user): ?>
+                        <tr>
+                            <td><?=$user["id"]?></td>
+                            <td><?=$user["User_name"]?></td>
+                            <td><?=$user["Email"]?></td>
+                            <td><?=$user["Phone"]?></td>
+                            <td class=" d-flex justify-content-center">
+                                <a class="btn btn-secondary" href="delete_user.php?id=<?=$user["id"]?>" role="button"><i class="fa-solid fa-user"></i></a>
+                            </td>
+                        </tr>
+                    <?php endforeach;?>
+                      </tbody>
+                    </table>
 
-																		                    <input type="hidden" class="form-control" name="img2" value="<?=$row["User_image"]?>">
-												                            <img src="./image_members/<?=$row["User_image"]?>" alt="">
-																		                    <input type="file" class="form-control" name="img" >
 
-																		                </td>
-																		            </tr>
-																		        </div>
-																		        <!-- <tr>
-																		            <td>ID</td>
-																		        </tr> -->
-																		        <tr>
-																		            <th>name</th>
-																		            <td><input type="text" class="form-control" name="name" value="<?=$row["User_name"]?>" required="required" maxlength="11" minlength="3"></td>
-																		        </tr>
-																		        <tr>
-																		            <td>Account</td>
-																		            <td><input type="text" class="form-control" name="account" value="<?=$row["Account"]?>" required="required" pattern="^(?=.*[a-zA-Z])(?=.*[0-9]).{4,}$"></td>
-																		        </tr>
-																		        <tr>
-																		            <td>Password</td>
-																		            <td><input type="password" class="form-control" name="password" value="<?=$row["Password"]?>" required="required"></td>
-																		        </tr>
-																		        <tr>
-																		            <th>gender</th>
-																		            <td>
-																		                <select id="gender" name="gender">
-																		                    <option value="M" name="M">Male</option>
-																		                    <option value="F" name="F">Female</option>
-																		                    <option value="Other" name="Other">Other</option>
-																		                </select>
-																		            </td>
-																		        </tr>
-																		        <tr>
-																		            <th>email</th>
-																		            <td><input type="email" class="form-control" name="email" value="<?=$row["Email"]?>"></td>
-																		        </tr>
-																		        <tr>
-																		            <th>phone</th>
-																		            <td><input type="number" class="form-control" name="phone" value="<?=$row["Phone"]?>" required="required"></td>
-																		        </tr>
-																		        <tr>
-																		            <th>birth</th>
-																		            <td><input type="date" class="form-control" name="birth" value="<?=$row["date_of_birth"]?>"></td>
-																		        </tr>
-																		    </table>
-																		    <div class="py-2">
-																		        <button type="submit" class="btn btn-info">
-																		            儲存
-																		        </button>
-																		    </div>
-																		</form>
+                    <?php if (!isset($_GET["search"])): ?>
+                <!-- 判斷在search不顯示分頁 -->
+                <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <?php for ($i = 1; $i <= $pageCount; $i++): ?>
+                    <li class="page-item <?php if ($i == $p) {
+    echo "active";
+}
+?>">
+                        <a class="page-link"
+                    href="member.php?order=<?=$order?>&p=<?=$i?>"><?=$i?></a></li>
 
-																		<?php endif;?>
-</div>
-    <?php
-include "./js.php";
-?>
+                    <?php endfor;?>
+                </ul>
+            </nav>
+            <?php endif;?>
+
+
+                  </div>
+                </div>
+              </div>
+            </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+        <!-- /page content -->
+
+        <!-- footer content -->
+        <footer>
+          <div class="pull-right">
+            <!-- Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a> -->
+          </div>
+          <div class="clearfix"></div>
+        </footer>
+        <!-- /footer content -->
+      </div>
+    </div>
 
     <!-- jQuery -->
     <script src="../vendors/jquery/dist/jquery.min.js"></script>
