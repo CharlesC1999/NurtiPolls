@@ -1,5 +1,5 @@
 <?php
-require_once "../db_connect.php";
+require_once "../db_connect_class.php";
 
 if (!isset($_GET["classId"])) {
     $data = [

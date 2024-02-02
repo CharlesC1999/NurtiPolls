@@ -306,7 +306,7 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
                 </li>
                 <li><a href="speaker.php"><i class="fa fa-table"></i>講師管理<span class="fa fa-chevron-down"></span></a>
                 </li>
-                <li class="active"><a href="class_new.php?Class_cate_ID=&status=1&min=0&max=99999"><i class="fa fa-table"></i> 課程管理 </a>
+                <li class="active"><a href="class_new.php?Class_cate_ID=&status=1&min=0&max=99999"><i class="fa-solid fa-book-open"></i> 課程管理 </a>
                   <!-- <ul class="nav child_menu">
                     <li class="<?php if ($Class_cate_ID == "") {
                                   echo "active";
@@ -759,7 +759,7 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
                               <th class="align-middle">講師</th>
                               <!-- <th class="align-middle">學員名額</th> -->
                               <th class="align-middle">報名 <br> 日期</th>
-                              <th class="align-middle">實際<br> 開課日</th>
+                              <th class="align-middle">開課<br> 時間</th>
                               <th class="align-middle">修改</th>
                               <th class="align-middle">下架</th>
                               <!--  <th class="align-middle">上架</th> -->

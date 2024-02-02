@@ -150,7 +150,7 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
                 </li>
                 <li><a href="tables_dynamic.php"><i class="fa fa-table"></i>講師管理<span class="fa fa-chevron-down"></span></a>
                 </li>
-                <li class="active"><a href=" class_new.php?Class_cate_ID=&status=1&min=0&max=99999"><i class="fa fa-table"></i> 課程管理 </a>
+                <li class="active"><a href=" class_new.php?Class_cate_ID=&status=1&min=0&max=99999"><i class="fa-solid fa-book-open"></i> 課程管理 </a>
                   <!-- <ul class="nav child_menu">
                     <li class="<?php if ($Class_cate_ID == "") echo "active" ?>"><a href="class_new.php?Class_cate_ID=">所有類別</a></li>
                     <?php foreach ($rowsClassCategories as $rowClassCategories) : ?>
