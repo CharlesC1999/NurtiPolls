@@ -179,7 +179,7 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>營養大選NutriPolls | 課程管理</title>
+  <title>營養大選NutriPolls</title>
 
   <!-- Bootstrap -->
   <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
@@ -210,6 +210,19 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
     .add-class {
       font-size: 16px;
       padding: 6px 10px;
+    }
+
+    .btn-outline-info {
+      --bs-btn-color: #17a2b8;
+      --bs-btn-border-color: var(--bs-btn-color);
+      --bs-btn-hover-bg: var(--bs-btn-color);
+      --bs-btn-hover-border-color: var(--bs-btn-color);
+      --bs-btn-active-bg: var(--bs-btn-color);
+      --bs-btn-active-border-color: var(--bs-btn-color);
+      --bs-btn-disabled-color: var(--bs-btn-color);
+      --bs-btn-disabled-border-color: var(--bs-btn-color);
+      --bs-btn-hover-color: #fff;
+
     }
   </style>
 </head>
@@ -274,17 +287,24 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
                       <li><a href="calendar.html">Calendar</a></li>
                     </ul>
                   </li> -->
-                <li><a href="tables_dynamic.php"><i class="fa fa-table"></i> 會員管理 <span class="fa fa-chevron-down"></span></a>
+                <li><a href="Member/member.php"><i class="fa fa-table"></i> 會員管理 <span class="fa fa-chevron-down"></span></a>
                 </li>
-                <li><a href="tables_dynamic.php"><i class="fa fa-table"></i>商品管理 <span class="fa fa-chevron-down"></span></a>
+                <li><a href="product.php"><i class="fa fa-table"></i>商品管理 <span class="fa fa-chevron-down"></span></a>
                 </li>
-                <li><a href="tables_dynamic.php"><i class="fa fa-table"></i>分類管理<span class="fa fa-chevron-down"></span></a>
+                <li>
+                  <a><i class="fa fa-table"></i>分類管理<span class="fa fa-chevron-down"></span>
+                    <ul class="nav child_menu">
+                      <li><a href="categories_product.php">商品</a></li>
+                      <li><a href="categories_class.php">課程</a></li>
+                      <li><a href="categories_recipe.php">食譜</a></li>
+                    </ul>
+                  </a>
                 </li>
-                <li><a href="tables_dynamic.php"><i class="fa fa-table"></i>食譜管理<span class="fa fa-chevron-down"></span></a>
+                <li><a href="recipe-list.php"><i class="fa fa-table"></i>食譜管理<span class="fa fa-chevron-down"></span></a>
                 </li>
-                <li><a href="tables_dynamic.php"><i class="fa fa-table"></i>講師管理<span class="fa fa-chevron-down"></span></a>
+                <li><a href="speaker.php"><i class="fa fa-table"></i>講師管理<span class="fa fa-chevron-down"></span></a>
                 </li>
-                <li class="active"><a href=" class_new.php?Class_cate_ID=&status=1&min=0&max=99999"><i class="fa fa-table"></i> 課程管理 </a>
+                <li class="active"><a href="class_new.php?Class_cate_ID=&status=1&min=0&max=99999"><i class="fa fa-table"></i> 課程管理 </a>
                   <!-- <ul class="nav child_menu">
                     <li class="<?php if ($Class_cate_ID == "") {
                                   echo "active";
@@ -298,7 +318,7 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
                     <?php endforeach; ?>
                   </ul> -->
                 </li>
-                <li><a href="tables_dynamic.php"><i class="fa fa-table"></i>優惠卷管理<span class="fa fa-chevron-down"></span></a>
+                <li><a href="coupons.php"><i class="fa fa-table"></i>優惠卷管理<span class="fa fa-chevron-down"></span></a>
                 </li>
                 <!-- <li><a><i class="fa fa-bar-chart-o"></i> Data Presentation <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
@@ -675,7 +695,7 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
 
                           </div>
                           <div class="col-sm-4 d-flex justify-content-end  ">
-                            <a href="addClass.php" class="bg-warning rounded text-decoration-none text-dark add-class">
+                            <a href="addClass.php" class="btn btn-outline-info rounded text-decoration-none add-class">
                               <i class="fa-regular fa-square-plus"></i> 新增課程
                             </a>
                           </div>
@@ -692,12 +712,12 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
                                                                   } ?> value="<?= $statusVal ?>">
                               <div>價格</div>
                               <div class="input-group mb-3 d-flex ">
-                                <a name="" id="" class="btn btn-danger" href="class_new.php?Class_cate_ID=<?= $Class_cate_ID ?>&status=<?= $status ?>&min=0&max=99999" role="button"><i class="fa-solid fa-xmark mt-1"></i></a>
+                                <a name="" id="" class="btn btn-outline-danger" href="class_new.php?Class_cate_ID=<?= $Class_cate_ID ?>&status=<?= $status ?>&min=0&max=99999" role="button"><i class="fa-solid fa-xmark mt-1"></i></a>
                                 <input type="number" class="form-control" aria-label="Username" name="min" min="0" value="<?= $minVal ?>">
                                 <span class="mx-1 align-self-center "> ~ </span>
 
                                 <input type="number" class="form-control" aria-label="Server" name="max" min="0" value="<?= $maxVal ?>">
-                                <button class="btn btn-secondary">
+                                <button class="btn btn-outline-secondary ms-1">
                                   送出
                                 </button>
                               </div>
@@ -781,10 +801,10 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
                                   <?= $rowClass["End_date"] ?>
                                 </td>
                                 <td><?= $rowClass["Class_date"] ?></td>
-                                <td><a href="classEdit.php?Class_ID=<?= $rowClass["Class_ID"] ?>"><i class="fa-solid fa-pen-to-square fa-lg"></i></a></td>
+                                <td><a class="btn btn-outline-info py-1 px-2" href="classEdit.php?Class_ID=<?= $rowClass["Class_ID"] ?>"><i class="fa-solid fa-pen-to-square fa-lg"></i></a></td>
                                 <td class="align-top">
-                                  <button type="button" class="btn p-0 deleteBtns" data-bs-toggle="modal" data-bs-target="#confirmDelete" data-class-id="<?= $rowClass["Class_ID"] ?>">
-                                    <i class="fa-solid fa-trash-can" style="color: #c82828;"></i>
+                                  <button type="button" class="btn btn-outline-danger py-1 px-2 deleteBtns" data-bs-toggle="modal" data-bs-target="#confirmDelete" data-class-id="<?= $rowClass["Class_ID"] ?>">
+                                    <i class="fa-solid fa-trash-can"></i>
                                   </button>
                                   <!-- <a href="" class="link-danger"><i class="fa-solid fa-trash-can" style="color: #c82828;"></i></a> -->
                                 </td>

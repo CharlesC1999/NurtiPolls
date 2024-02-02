@@ -221,12 +221,16 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
               <div class="x_title">
 
                 <div class="row align-items-center">
+                  <!-- <div class="col-auto">
+                    <a name="" id="" class="btn btn-secondary" href="class_new.php?Class_cate_ID=&status=1&min=0&max=99999" role="button"><i class="fa-solid fa-chevron-left"></i> 所有課程</a>
+                  </div>
+                  <div class="col-12"></div> -->
                   <div class="col-auto">
                     <h1>課程詳情 <!-- <small>Users</small> --> </h1>
                   </div>
                   <div class="col-auto">
-                    <a name="" id="" class="btn btn-secondary" href="class_new.php?Class_cate_ID=&status=1&min=0&max=99999" role="button">所有課程</a>
-                    <a name="" id="" class="btn btn-info text-light" href="classEdit.php?Class_ID=<?= $Class_ID ?>" role="button">編輯</a>
+
+                    <a name="" id="" class="btn btn-info text-light" href="classEdit.php?Class_ID=<?= $Class_ID ?>" role="button"><i class="fa-solid fa-pen-to-square"></i> 修改</a>
                   </div>
                 </div>
 

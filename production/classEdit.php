@@ -301,12 +301,14 @@ $rowsSpeaker = $resultSpeaker->fetch_all(MYSQLI_ASSOC);
 
                   <div class="col-12 ">
                     <label for="fileUpload" class="form-label">課程圖片</label>
-                    <input type="file" class="form-control" id="fileUpload" name="fileUpload">
+                    <!-- <input type="file" class="form-control" id="fileUpload" name="fileUpload"> -->
                   </div>
 
                   <?php foreach ($rows as $row) : ?>
                     <div class="col-6">
-                      <img src="../classImg/<?= $row["Image_URL"] ?>" class="classPic" alt="">
+                      <img src="../classImg/<?= $row["Image_URL"] ?>" class="classPic mb-1" alt="">
+                      <input type="hidden" name="oriFile[]" value="<?= $row["Image_URL"] ?>">
+                      <input type="file" class="" id="fileUpload" name="fileUpload[]">
                     </div>
                   <?php endforeach; ?>
 
@@ -314,9 +316,9 @@ $rowsSpeaker = $resultSpeaker->fetch_all(MYSQLI_ASSOC);
 
                   <div class="col-3 mx-auto">
                     <button class="btn btn-info text-light">
-                      送出
+                      儲存
                     </button>
-                    <a class="btn btn-danger" href="classDetail.php?Class_ID=<?= $Class_ID ?>" role="button">取消</a>
+                    <a class="btn btn-secondary" href="classDetail.php?Class_ID=<?= $Class_ID ?>" role="button">取消</a>
 
                   </div>
 
