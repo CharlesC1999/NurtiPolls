@@ -335,8 +335,9 @@ if (isset($_GET["search"])) {
         <div class="right_col" role="main">
           <div class="">
             <div class="page-title">
+            <!-- <h3>會員刪除列表</h3> -->
               <div class="title_left">
-
+              <!-- <h3>會員列表</h3> -->
             </div>
                 <!-- <h3>會員列表</h3> -->
               </div>
@@ -379,6 +380,7 @@ if (isset($_GET["search"])) {
                       </li>
                     </ul>
                     <div class="clearfix">
+                    <h3>會員刪除列表</h3>
                     <div class="mb-2">
                 <a name="" id="" class="btn btn-secondary" href="member.php" role="button"><i class="fa-solid fa-left-long"></i></a>
             </div>
