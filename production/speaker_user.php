@@ -1,10 +1,10 @@
 <?php
 require_once "../db_connect.php";
 if (!isset($_GET["id"])) {
-  $id = 0;
-  echo "請由正常管道進入";
+    $id = 0;
+    echo "請由正常管道進入";
 } else {
-  $id = $_GET["id"];
+    $id = $_GET["id"];
 }
 
 // http://localhost/小專/production/speaker.php?id=5 (id=後面可以帶參數)
@@ -29,7 +29,7 @@ $rowCount = $result->num_rows; //result裡面有幾筆(num_rows)
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>DataTables | Gentelella</title>
+  <title>營養大選 Nutripoll</title>
   <!-- Bootstrap -->
   <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
   <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -132,41 +132,31 @@ $rowCount = $result->num_rows; //result裡面有幾筆(num_rows)
             <div class="menu_section">
 
               <ul class="nav side-menu">
-                <li class="px-1">
-                  <a href="Member/member.php"><i class="fa-solid fa-user"></i> 會員管理
-                  </a>
-                </li>
+                  <li class="h6"><a href="member.php"><i class="fa-solid fa-user fa-fw"></i> 會員管理</a>
+                  </li><li class="h6"><a href="product.php"><i class="fa-solid fa-store fa-fw"></i> 商品管理</a>
+                  </li>
+                  <li class="h6"><a><i class="fa-solid fa-hashtag fa-fw"></i> 分類管理<span class="fa fa-chevron-down"></span>
+                  <ul class="nav child_menu">
+                      <li><a href="categories_product.php" style="font-size: 16px;"> 商品</a></li>
+                      <li><a href="categories_class.php" style="font-size: 16px;"> 課程</a></li>
+                      <li><a href="categories_recipe.php" style="font-size: 16px;"> 食譜</a></li>
 
-                <li class="px-1">
-                  <a href="product.php"><i class="fa-solid fa-store"></i> 商品管理
-                  </a>
-
-                </li>
-                <li class="px-1">
-                  <a><i class="fa-solid fa-hashtag"></i> </i>分類管理<span class="fa fa-chevron-down"></span>
-                    <ul class="nav child_menu">
-                      <li><a href="categories_product.php">商品</a></li>
-                      <li><a href="categories_class.php">課程</a></li>
-                      <li><a href="categories_recipe.php">食譜</a></li>
                     </ul>
-                  </a>
-                </li>
-                <li class="px-1">
-                  <a href="recipe-list.php"><i class="fa-solid fa-kitchen-set"></i> 食譜管理</a>
-                </li>
-                <li class="px-1">
-                  <a href="speaker.php"><i class="fa-solid fa-chalkboard-user"></i> 講師管理</a>
-                </li>
-                <li>
-                  <a href="redirectClass.php"><i class="fa-solid fa-chalkboard"></i> 課程管理</a>
-                </li>
-                <li class="px-1">
-                  <a href="coupons.php"><i class="fa-sharp fa-solid fa-tag"></i> 優惠卷管理</a>
-                </li>
-                <hr style="border-top: 2px solid aliceblue" />
-                <li class="px-1">
-                  <a href="./order_file/order.php"><i class="fa-solid fa-note-sticky"></i> 訂單管理</a>
-                </li>
+
+                  </li>
+                  <li class="h6"><a href="recipe-list.php"><i class="fa-solid fa-kitchen-set fa-fw"></i> 食譜管理</a>
+                  </li>
+                  <li class="h6"><a href="speaker.php"><i class="fa-solid fa-chalkboard-user fa-fw"></i> 講師管理</a>
+                  </li>
+                  <li class="h6"><a href="redirectClass.php"><i class="fa-solid fa-chalkboard fa-fw"></i> 課程管理</a>
+                  </li>
+                  <li class="h6"><a href="coupons.php"><i class="fa-sharp fa-solid fa-tag fa-fw"></i> 優惠卷管理</a>
+                  </li>
+                  <hr style="border-top: 2px solid aliceblue;">
+                  <li class="h6">
+                    <a href="order_file/order.php"
+                      ><i class="fa-solid fa-note-sticky fa-fw"></i> 訂單管理</a>
+                  </li>
               </ul>
             </div>
           </div>
@@ -316,7 +306,7 @@ $rowCount = $result->num_rows; //result裡面有幾筆(num_rows)
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-                <a role="button" class="btn btn-danger" href="do_delete_Speaker.php?id=<?= $row["Speaker_ID"] ?>">確認</a>
+                <a role="button" class="btn btn-danger" href="do_delete_Speaker.php?id=<?=$row["Speaker_ID"]?>">確認</a>
                 <!-- 確認刪除連到 href="doDeleteSpeaker.php 做刪除動作 -->
               </div>
             </div>
@@ -324,15 +314,15 @@ $rowCount = $result->num_rows; //result裡面有幾筆(num_rows)
         </div>
         <div class="container">
           <div class="row justify-content-center frame">
-            <div class="h2 text-center">教師 <?= $row["Speaker_name"] ?> 個人資訊</div>
+            <div class="h2 text-center">教師 <?=$row["Speaker_name"]?> 個人資訊</div>
             <div class="box1">
-              <img src="Speaker_pic/<?= $row["Image"] ?>" class="object-fit-cover" alt="...">
+              <img src="Speaker_pic/<?=$row["Image"]?>" class="object-fit-cover" alt="...">
             </div>
             <div class="card">
               <div class="card-body">
-                <h5 class="card-title">姓名: <?= $row["Speaker_name"] ?></h5>
+                <h5 class="card-title">姓名: <?=$row["Speaker_name"]?></h5>
                 <p class="">
-                <h5>簡介: </h5><?= $row["Speaker_description"] ?></p>
+                <h5>簡介: </h5><?=$row["Speaker_description"]?></p>
               </div>
             </div>
             <div class="d-grid gap-2 d-md-flex justify-content-center py-3">

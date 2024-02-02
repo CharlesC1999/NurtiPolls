@@ -1,10 +1,10 @@
 <?php
-require_once("../db-connect.php");
+require_once "../db_connect.php";
 if (!isset($_GET["id"])) {
-  $id = 0;
-  echo "請由正常管道進入";
+    $id = 0;
+    echo "請由正常管道進入";
 } else {
-  $id = $_GET["id"];
+    $id = $_GET["id"];
 }
 
 // http://localhost/小專/production/speaker.php?id=5 (id=後面可以帶參數)
@@ -15,7 +15,6 @@ $result = $conn->query($sql);
 $row = $result->fetch_assoc();
 
 $rowCount = $result->num_rows; //result裡面有幾筆(num_rows)
-
 
 ?>
 <!DOCTYPE html>
@@ -30,7 +29,7 @@ $rowCount = $result->num_rows; //result裡面有幾筆(num_rows)
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>DataTables | Gentelella</title>
+  <title>營養大選 Nutripoll</title>
   <!-- Bootstrap -->
   <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
   <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -144,41 +143,31 @@ $rowCount = $result->num_rows; //result裡面有幾筆(num_rows)
             <div class="menu_section">
 
               <ul class="nav side-menu">
-                <li class="px-1">
-                  <a href="Member/member.php"><i class="fa-solid fa-user"></i> 會員管理
-                  </a>
-                </li>
+                  <li class="h6"><a href="member.php"><i class="fa-solid fa-user fa-fw"></i> 會員管理</a>
+                  </li><li class="h6"><a href="product.php"><i class="fa-solid fa-store fa-fw"></i> 商品管理</a>
+                  </li>
+                  <li class="h6"><a><i class="fa-solid fa-hashtag fa-fw"></i> 分類管理<span class="fa fa-chevron-down"></span>
+                  <ul class="nav child_menu">
+                      <li><a href="categories_product.php" style="font-size: 16px;"> 商品</a></li>
+                      <li><a href="categories_class.php" style="font-size: 16px;"> 課程</a></li>
+                      <li><a href="categories_recipe.php" style="font-size: 16px;"> 食譜</a></li>
 
-                <li class="px-1">
-                  <a href="product.php"><i class="fa-solid fa-store"></i> 商品管理
-                  </a>
-
-                </li>
-                <li class="px-1">
-                  <a><i class="fa-solid fa-hashtag"></i> </i>分類管理<span class="fa fa-chevron-down"></span>
-                    <ul class="nav child_menu">
-                      <li><a href="categories_product.php">商品</a></li>
-                      <li><a href="categories_class.php">課程</a></li>
-                      <li><a href="categories_recipe.php">食譜</a></li>
                     </ul>
-                  </a>
-                </li>
-                <li class="px-1">
-                  <a href="recipe-list.php"><i class="fa-solid fa-kitchen-set"></i> 食譜管理</a>
-                </li>
-                <li class="px-1">
-                  <a href="speaker.php"><i class="fa-solid fa-chalkboard-user"></i> 講師管理</a>
-                </li>
-                <li>
-                  <a href="redirectClass.php"><i class="fa-solid fa-chalkboard"></i> 課程管理</a>
-                </li>
-                <li class="px-1">
-                  <a href="coupons.php"><i class="fa-sharp fa-solid fa-tag"></i> 優惠卷管理</a>
-                </li>
-                <hr style="border-top: 2px solid aliceblue" />
-                <li class="px-1">
-                  <a href="./order_file/order.php"><i class="fa-solid fa-note-sticky"></i> 訂單管理</a>
-                </li>
+
+                  </li>
+                  <li class="h6"><a href="recipe-list.php"><i class="fa-solid fa-kitchen-set fa-fw"></i> 食譜管理</a>
+                  </li>
+                  <li class="h6"><a href="speaker.php"><i class="fa-solid fa-chalkboard-user fa-fw"></i> 講師管理</a>
+                  </li>
+                  <li class="h6"><a href="redirectClass.php"><i class="fa-solid fa-chalkboard fa-fw"></i> 課程管理</a>
+                  </li>
+                  <li class="h6"><a href="coupons.php"><i class="fa-sharp fa-solid fa-tag fa-fw"></i> 優惠卷管理</a>
+                  </li>
+                  <hr style="border-top: 2px solid aliceblue;">
+                  <li class="h6">
+                    <a href="order_file/order.php"
+                      ><i class="fa-solid fa-note-sticky fa-fw"></i> 訂單管理</a>
+                  </li>
               </ul>
             </div>
           </div>
@@ -316,22 +305,22 @@ $rowCount = $result->num_rows; //result裡面有幾筆(num_rows)
       <div class="right_col" role="main">
         <div class="container">
           <form action="do_update_Speaker.php" method="post" enctype="multipart/form-data">
-            <input type="hidden" name="id" value="<?= $row["Speaker_ID"] ?>">
+            <input type="hidden" name="id" value="<?=$row["Speaker_ID"]?>">
             <div class="row justify-content-center frame">
-              <div class="h2 text-center">修改教師 <?= $row["Speaker_name"] ?> 個人資訊</div>
+              <div class="h2 text-center">修改教師 <?=$row["Speaker_name"]?> 個人資訊</div>
               <div class="box1">
                 <!-- 把原本的圖片資訊存在 hidden 裡，post 之後用來判斷是否要替換圖片 -->
-                <input type="hidden" name="old_img" value="<?= $row["Image"] ?>">
+                <input type="hidden" name="old_img" value="<?=$row["Image"]?>">
                 <!-- 建立一個img(output)作為縮圖的容器，設定好id並以display:none隱藏起來 並做js事件onchange當檔案值做變化時 -->
-                <img id="output" style="display:none" class="rounded mx-auto d-block object-fit-cover" src="Speaker_pic/<?= $row["Image"] ?>" alt="Speaker_pic/<?= $row["Image"] ?>">
+                <img id="output" style="display:none" class="rounded mx-auto d-block object-fit-cover" src="Speaker_pic/<?=$row["Image"]?>" alt="Speaker_pic/<?=$row["Image"]?>">
               </div>
               <div class="card">
                 <div class="card-body">
                   <label for="" class="form-label">姓名 :</label>
-                  <input type="text" class="form-control" value="<?= $row["Speaker_name"] ?>" name="name">
+                  <input type="text" class="form-control" value="<?=$row["Speaker_name"]?>" name="name">
                   <p class="">
                     <label for="" class="form-label">個人簡介 :</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="7" name="description"><?= $row["Speaker_description"] ?></textarea>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="7" name="description"><?=$row["Speaker_description"]?></textarea>
                   </p>
                 </div>
               </div>
