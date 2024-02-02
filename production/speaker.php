@@ -88,14 +88,17 @@ $result = $conn->query($sql); //if判斷完 -> 吐資料 -> 升冪降冪
   <link href="../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
   <link href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
 
-  <!-- Bootstrap CSS v5.2.1 -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+  <!-- Bootstrap CSS v5.2.1
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" /> -->
 
 
   <!-- Custom Theme Style -->
   <link href="../build/css/custom.min.css" rel="stylesheet">
   <!-- icon連結 https://cdnjs.com/libraries/font-awesome-->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+  </style>
 
 
 </head>
@@ -337,7 +340,7 @@ $result = $conn->query($sql); //if判斷完 -> 吐資料 -> 升冪降冪
                                 } 
                             ?>
                           </div>
-                          <a class="h6 text-end link-info" href="speaker_add.php" role="button">新增教師 <i class="fa-solid fa-user-plus"></i></a>
+                          <a class="h6 btn btn-info text-white" href="speaker_add.php" role="button">新增教師 <i class="fa-solid fa-user-plus"></i></a>
                         </div>
                         <p class="text-muted font-13 m-b-30">
                           <!--datatable DataTables has most features enabled by default, so all you need to do to use it with your own tables is to call the construction function: <code>$().DataTable();</code> -->
@@ -366,10 +369,10 @@ $result = $conn->query($sql); //if判斷完 -> 吐資料 -> 升冪降冪
                                 <td class="align-middle">
                                   <div class="d-flex justify-content-between">
                                     <!-- 去到speakeruser.php網頁丟id過去做處理(點擊到哪一位的id) -->
-                                    <a role="button" class="btn btn-outline-secondary" href="speaker_user.php?id=<?= $speaker["Speaker_ID"] ?>"><i class="fa-regular fa-eye"></i></a>
+                                    <a role="button" class="btn btn-outline-info" href="speaker_user.php?id=<?= $speaker["Speaker_ID"] ?>"><i class="fa-regular fa-eye"></i></a>
 
                                     <!--button 做更改-->
-                                    <a name="" id="" class="btn btn-outline-info" href="speaker_edit.php?id=<?= $speaker["Speaker_ID"] ?>" role="button"><i class="fa-regular fa-pen-to-square"></i></a>
+                                    <a name="" id="" class="btn btn-outline-secondary" href="speaker_edit.php?id=<?= $speaker["Speaker_ID"] ?>" role="button"><i class="fa-regular fa-pen-to-square"></i></a>
 
                                   </div>
                                 </td>

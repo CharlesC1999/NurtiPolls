@@ -12,6 +12,7 @@ $result = $conn->query($sql);
 
 $row = $result->fetch_assoc();
 $discount_type = $row["Discount_type"];
+$todayDate = date('Y-m-d');
 
 // GROUP_CONCAT 函數用來將多個分類名稱合併為一個字串，並以逗號分隔
 // c,cc,pc為自定義的資料表別名
@@ -258,7 +259,7 @@ $conn->close();
                         <tr>
                             <th>優惠券代碼</th>
                             <td class="p-3">
-                                <input type="text" class="form-control" id="couponCode" placeholder="" name="code" value="<?= $row["C_code"] ?>">
+                                <input type="text" class="form-control" id="couponCode" placeholder="" name="code" value="<?= $row["C_code"] ?>" maxlength="8">
                             </td>
                         </tr>
                         <tr>
@@ -266,11 +267,11 @@ $conn->close();
                             <td class="p-3">
                                 <div class="row">
                                     <div class="form-group col-auto">
-                                        <input type="date" class="form-control" id="datePicker" name="validStartDate" min="2021-02-01" max="2025-02-01" required="required" value="<?= $row["Valid_start_date"] ?>">
+                                        <input type="date" class="form-control" id="datePicker1" name="validStartDate" min="<?=$todayDate?>" max="2025-02-01" required="required" value="<?= $row["Valid_start_date"] ?>">
                                     </div>
                                     <span class="col-auto">~</span>
                                     <div class="form-group col-auto">
-                                        <input type="date" class="form-control" id="datePicker" name="validEndDate" min="2021-02-01" max="2025-02-01" required="required" value="<?= $row["Valid_end_date"] ?>">
+                                        <input type="date" class="form-control" id="datePicker2" name="validEndDate" min="2021-02-01" max="2025-02-01" required="required" value="<?= $row["Valid_end_date"] ?>">
                                     </div>
                                 </div>
                             </td>
