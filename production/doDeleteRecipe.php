@@ -1,5 +1,5 @@
 <?php
-require_once "../db_connect.php";
+require_once("../db_connect.php");
 $id = $_GET["Recipe_ID"];
 
 $sql = "UPDATE recipe SET valid='0' WHERE Recipe_ID=$id";
