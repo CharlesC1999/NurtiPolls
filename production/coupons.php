@@ -84,7 +84,7 @@ $conn->close();
       /* 活躍狀態的邊框顏色 */
     }
 
-    <style>.img-circle.profile_img {
+    .img-circle.profile_img {
       background: #ddd;
     }
 
