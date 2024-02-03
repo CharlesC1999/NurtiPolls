@@ -43,13 +43,14 @@ if (isset($_GET['product_id'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Gentelella Alela! |</title>
+    <title>營養大選 Nutripolls</title>
 
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
 
 
     <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" >
     <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
     <!-- NProgress -->
     <link href="../vendors/nprogress/nprogress.css" rel="stylesheet" />
@@ -90,8 +91,8 @@ if (isset($_GET['product_id'])) {
         <div class="main_container">
             <div class="col-md-3 left_col">
                 <div class="left_col scroll-view">
-                    <div class="navbar nav_title" style="border: 0">
-                        <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentelella Alela!</span></a>
+                    <div class="navbar nav_title" style="border: 0;">
+                        <a href="HomePage.html" class="site_title"><img src="../Logo_sm.png" alt="" style="height: 65px;"></a>
                     </div>
 
                     <div class="clearfix"></div>
@@ -99,11 +100,11 @@ if (isset($_GET['product_id'])) {
                     <!-- menu profile quick info -->
                     <div class="profile clearfix">
                         <div class="profile_pic">
-                            <img src="images/img.jpg" alt="..." class="img-circle profile_img" />
+                            <img src="../logo4.png" alt="..." class="img-circle profile_img" />
                         </div>
                         <div class="profile_info">
-                            <span>Welcome,</span>
-                            <h2>John Doe</h2>
+                            <span>Hi,</span>
+                            <h2>第四組</h2>
                         </div>
                     </div>
 
@@ -116,40 +117,30 @@ if (isset($_GET['product_id'])) {
                         <div class="menu_section">
 
                             <ul class="nav side-menu">
-                                <li class="px-1">
-                                    <a href="Member/member.php"><i class="fa-solid fa-user"></i> 會員管理
-                                    </a>
+                                <li class="h6"><a href="member.php"><i class="fa-solid fa-user fa-fw"></i> 會員管理</a>
+                                </li><li class="h6"><a href="product.php"><i class="fa-solid fa-store fa-fw"></i> 商品管理</a>
                                 </li>
+                                <li class="h6"><a><i class="fa-solid fa-hashtag fa-fw"></i> 分類管理<span class="fa fa-chevron-down"></span>
+                                <ul class="nav child_menu">
+                                    <li><a href="categories_product.php" style="font-size: 16px;"> 商品</a></li>
+                                    <li><a href="categories_class.php" style="font-size: 16px;"> 課程</a></li>
+                                    <li><a href="categories_recipe.php" style="font-size: 16px;"> 食譜</a></li>
 
-                                <li class="px-1">
-                                    <a href="product.php"><i class="fa-solid fa-store"></i> 商品管理
-                                    </a>
+                                    </ul>
 
                                 </li>
-                                <li class="px-1">
-                                    <a><i class="fa-solid fa-hashtag"></i> </i>分類管理<span class="fa fa-chevron-down"></span>
-                                        <ul class="nav child_menu">
-                                            <li><a href="categories_product.php">商品</a></li>
-                                            <li><a href="categories_class.php">課程</a></li>
-                                            <li><a href="categories_recipe.php">食譜</a></li>
-                                        </ul>
-                                    </a>
+                                <li class="h6"><a href="recipe-list.php"><i class="fa-solid fa-kitchen-set fa-fw"></i> 食譜管理</a>
                                 </li>
-                                <li class="px-1">
-                                    <a href="recipe-list.php"><i class="fa-solid fa-kitchen-set"></i> 食譜管理</a>
+                                <li class="h6"><a href="speaker.php"><i class="fa-solid fa-chalkboard-user fa-fw"></i> 講師管理</a>
                                 </li>
-                                <li class="px-1">
-                                    <a href="speaker.php"><i class="fa-solid fa-chalkboard-user"></i> 講師管理</a>
+                                <li class="h6"><a href="redirectClass.php"><i class="fa-solid fa-chalkboard fa-fw"></i> 課程管理</a>
                                 </li>
-                                <li>
-                                    <a href="redirectClass.php"><i class="fa-solid fa-chalkboard"></i> 課程管理</a>
+                                <li class="h6"><a href="coupons.php"><i class="fa-sharp fa-solid fa-tag fa-fw"></i> 優惠卷管理</a>
                                 </li>
-                                <li class="px-1">
-                                    <a href="coupons.php"><i class="fa-sharp fa-solid fa-tag"></i> 優惠卷管理</a>
-                                </li>
-                                <hr style="border-top: 2px solid aliceblue" />
-                                <li class="px-1">
-                                    <a href="./order_file/order.php"><i class="fa-solid fa-note-sticky"></i> 訂單管理</a>
+                                <hr style="border-top: 2px solid aliceblue;">
+                                <li class="h6">
+                                    <a href="order_file/order.php"
+                                    ><i class="fa-solid fa-note-sticky fa-fw"></i> 訂單管理</a>
                                 </li>
                             </ul>
                         </div>
@@ -179,95 +170,20 @@ if (isset($_GET['product_id'])) {
             <div class="top_nav">
                 <div class="nav_menu">
                     <div class="nav toggle">
-                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                    <a id="menu_toggle"><i class="fa fa-bars"></i></a>
                     </div>
                     <nav class="nav navbar-nav">
-                        <ul class="navbar-right">
-                            <li class="nav-item dropdown open" style="padding-left: 15px">
-                                <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                                    <img src="images/img.jpg" alt="" />John Doe
-                                </a>
-                                <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="javascript:;"> Profile</a>
-                                    <a class="dropdown-item" href="javascript:;">
-                                        <span class="badge bg-red pull-right">50%</span>
-                                        <span>Settings</span>
-                                    </a>
-                                    <a class="dropdown-item" href="javascript:;">Help</a>
-                                    <a class="dropdown-item" href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
-                                </div>
-                            </li>
-
-                            <li role="presentation" class="nav-item dropdown open">
-                                <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1" data-toggle="dropdown" aria-expanded="false">
-                                    <i class="fa fa-envelope-o"></i>
-                                    <span class="badge bg-green">6</span>
-                                </a>
-                                <ul class="dropdown-menu list-unstyled msg_list" role="menu" aria-labelledby="navbarDropdown1">
-                                    <li class="nav-item">
-                                        <a class="dropdown-item">
-                                            <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                                            <span>
-                                                <span>John Smith</span>
-                                                <span class="time">3 mins ago</span>
-                                            </span>
-                                            <span class="message">
-                                                Film festivals used to be do-or-die moments for movie
-                                                makers. They were where...
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="dropdown-item">
-                                            <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                                            <span>
-                                                <span>John Smith</span>
-                                                <span class="time">3 mins ago</span>
-                                            </span>
-                                            <span class="message">
-                                                Film festivals used to be do-or-die moments for movie
-                                                makers. They were where...
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="dropdown-item">
-                                            <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                                            <span>
-                                                <span>John Smith</span>
-                                                <span class="time">3 mins ago</span>
-                                            </span>
-                                            <span class="message">
-                                                Film festivals used to be do-or-die moments for movie
-                                                makers. They were where...
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="dropdown-item">
-                                            <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                                            <span>
-                                                <span>John Smith</span>
-                                                <span class="time">3 mins ago</span>
-                                            </span>
-                                            <span class="message">
-                                                Film festivals used to be do-or-die moments for movie
-                                                makers. They were where...
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <div class="text-center">
-                                            <a class="dropdown-item">
-                                                <strong>See All Alerts</strong>
-                                                <i class="fa fa-angle-right"></i>
-                                            </a>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </nav>
+                    <ul class=" navbar-right">
+                    <li class="nav-item dropdown open" style="padding-left: 15px;">
+                        <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
+                        <img src="../logo4.png" alt="" />第四組
+                        </a>
+                        <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item"  href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+                        </div>
+                    </li>
+                    </ul>
+                </nav>
                 </div>
             </div>
             <!-- /top navigation -->
@@ -293,15 +209,15 @@ if (isset($_GET['product_id'])) {
                                         <form action="doEditProduct.php" method="POST" class="form-horizontal form-label-left" enctype="multipart/form-data" id="currentImage">
                                             <div class="form-group row">
                                                 <label class="col-form-label col-md-3 col-sm-3 label-align">ID</label>
-                                                <input type="hidden" name="product_id" value="<?= htmlspecialchars($product['id']) ?>">
+                                                <input type="hidden" name="product_id" value="<?=htmlspecialchars($product['id'])?>">
                                                 <div class="col-md-6 col-sm-6">
-                                                    <input type="number" value="<?= $product_id ?>" name="product_id" class="form-control" readonly />
+                                                    <input type="number" value="<?=$product_id?>" name="product_id" class="form-control" readonly />
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-form-label col-md-3 col-sm-3 label-align">商品名稱<span class="required">*</span></label>
                                                 <div class="col-md-6 col-sm-6">
-                                                    <input type="text" value="<?= htmlspecialchars($product["name"]) ?>" name="product_name" required="required" class="form-control" />
+                                                    <input type="text" value="<?=htmlspecialchars($product["name"])?>" name="product_name" required="required" class="form-control" />
                                                 </div>
                                             </div>
                                             <!-- 其他字段相似地修改，確保使用 htmlspecialchars 來防止 XSS 攻擊 -->
@@ -310,11 +226,11 @@ if (isset($_GET['product_id'])) {
                                                 <label class="col-form-label col-md-3 col-sm-3 label-align">分類<span class="required">*</span></label>
                                                 <div class="col-md-6 col-sm-6">
                                                     <select name="category" required="required" class="form-control">
-                                                        <?php foreach ($rowsCategory as $category) : ?>
-                                                            <option value="<?= htmlspecialchars($category["Product_cate_ID"]) ?>" <?= $category["Product_cate_ID"] == $product["category_id"] ? 'selected' : '' ?>>
-                                                                <?= htmlspecialchars($category["Product_cate_name"]) ?>
+                                                        <?php foreach ($rowsCategory as $category): ?>
+                                                            <option value="<?=htmlspecialchars($category["Product_cate_ID"])?>" <?=$category["Product_cate_ID"] == $product["category_id"] ? 'selected' : ''?>>
+                                                                <?=htmlspecialchars($category["Product_cate_name"])?>
                                                             </option>
-                                                        <?php endforeach; ?>
+                                                        <?php endforeach;?>
                                                     </select>
                                                 </div>
                                             </div>
@@ -322,22 +238,22 @@ if (isset($_GET['product_id'])) {
                                                 <label class="col-form-label col-md-3 col-sm-3 label-align">價錢<span class="required">*</span>
                                                 </label>
                                                 <div class="col-md-6 col-sm-6">
-                                                    <input type="number" value="<?= htmlspecialchars($product["price"]) ?>" name="price" required="required" class="form-control" />
+                                                    <input type="number" value="<?=htmlspecialchars($product["price"])?>" name="price" required="required" class="form-control" />
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-form-label col-md-3 col-sm-3 label-align">數量<span class="required">*</span>
                                                 </label>
                                                 <div class="col-md-6 col-sm-6">
-                                                    <input type="number" value="<?= htmlspecialchars($product["stock_quantity"]) ?>" name="quantity" required="required" class="form-control" />
+                                                    <input type="number" value="<?=htmlspecialchars($product["stock_quantity"])?>" name="quantity" required="required" class="form-control" />
                                                 </div>
                                             </div>
 
                                             <div class="form-group row">
                                                 <label class="col-form-label col-md-3 col-sm-3 label-align"></label>
                                                 <div class="col-md-6 col-sm-6">
-                                                    <input type="hidden" name="old_image" value="<?= htmlspecialchars($product['image_url']) ?>">
-                                                    <img id="output" src="./p_image/<?= htmlspecialchars($product['image_url']) ?>" alt="<?= htmlspecialchars($product['name']) ?>" style="width: 200px; height: auto;">
+                                                    <input type="hidden" name="old_image" value="<?=htmlspecialchars($product['image_url'])?>">
+                                                    <img id="output" src="./p_image/<?=htmlspecialchars($product['image_url'])?>" alt="<?=htmlspecialchars($product['name'])?>" style="width: 200px; height: auto;">
                                                 </div>
                                             </div>
 
@@ -352,7 +268,7 @@ if (isset($_GET['product_id'])) {
                                             <div class="form-group row ">
                                                 <label class="col-form-label col-md-3 col-sm-3 label-align" for="exampleFormControlTextarea1">商品描述<span class="required">*</span></label>
                                                 <div class="col-md-6 col-sm-6">
-                                                    <textarea id="exampleFormControlTextarea1" rows="3" name="description" required="required" class="form-control"><?= htmlspecialchars($product["description"]) ?></textarea>
+                                                    <textarea id="exampleFormControlTextarea1" rows="3" name="description" required="required" class="form-control"><?=htmlspecialchars($product["description"])?></textarea>
                                                 </div>
                                             </div>
 
@@ -441,7 +357,7 @@ if (isset($_GET['product_id'])) {
                 <div class="modal-footer">
                     <!-- 隐藏的 input，用于存储将要删除的产品的 ID -->
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-                    <a href="doDeleteProduct.php?id=<?= htmlspecialchars($product['id']) ?>" class="btn btn-secondary" data-bs-dismiss="modal">確認</a>
+                    <a href="doDeleteProduct.php?id=<?=htmlspecialchars($product['id'])?>" class="btn btn-secondary" data-bs-dismiss="modal">確認</a>
 
                 </div>
             </div>
