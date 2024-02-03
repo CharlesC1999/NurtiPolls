@@ -71,7 +71,7 @@ session_start();
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="HomePage.html" class="site_title"><img src="../../Logo_sm.png" alt="" style="height: 65px;"></a>
+              <a href="../HomePage.html" class="site_title"><img src="../../Logo_sm.png" alt="" style="height: 65px;"></a>
             </div>
 
             <div class="clearfix"></div>

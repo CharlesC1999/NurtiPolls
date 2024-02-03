@@ -208,24 +208,25 @@ foreach ($rowsCategory as $cate) {
                           <?=$recipeCount?>份
                         </p>
                         <div class="mb-2">
-                          <ul class="nav nav-tabs">
+                        <ul class="nav nav-tabs">
                             <li class="nav-item">
-                              <a class="nav-link text-info <?php if (!isset($_GET["cate"])) {
-    echo "active";
+                              <a class="nav-link text-secondary <?php if (!isset($_GET["cate"])) {
+    echo "active text-info";
 }
 ?>" aria-current="page" href="recipe-list.php">全部</a>
                             </li>
                             <?php foreach ($rowsCategory as $category): ?>
-                              <a class="nav-link text-secondary <?php
+                              <li class="nav-item">
+                                <a class="nav-link text-secondary <?php
 if (isset($_GET["cate"]) && $_GET["cate"] == $category["Recipe_cate_ID"]) {
-    echo "active";
+    echo "active text-info";
 }
 
 ?>" aria-current="page" href="recipe-list.php?cate=<?=$category["Recipe_cate_ID"]?>">
-                                <?=$category["Recipe_cate_name"]?>
-                              </a>
-                            <?php endforeach;?>
-
+                                  <?=$category["Recipe_cate_name"]?>
+                                </a>
+                              <?php endforeach;?>
+                              </li>
                           </ul>
                         </div>
                         <table id="datatable" class="table table-striped table-bordered" style="width:100%">
@@ -293,15 +294,6 @@ foreach ($rows as $recipe):
                 </div>
               </div>
             </div>
-
-
-
-
-
-
-
-
-
           </div>
         </div>
       </div>
