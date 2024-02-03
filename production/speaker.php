@@ -171,7 +171,7 @@ $result = $conn->query($sql); //if判斷完 -> 吐資料 -> 升冪降冪
             <div class="menu_section">
 
               <ul class="nav side-menu">
-                  <li class="h6"><a href="member.php"><i class="fa-solid fa-user fa-fw"></i> 會員管理</a>
+                  <li class="h6"><a href="Member/member.php"><i class="fa-solid fa-user fa-fw"></i> 會員管理</a>
                   </li><li class="h6"><a href="product.php"><i class="fa-solid fa-store fa-fw"></i> 商品管理</a>
                   </li>
                   <li class="h6"><a><i class="fa-solid fa-hashtag fa-fw"></i> 分類管理<span class="fa fa-chevron-down"></span>
@@ -353,7 +353,7 @@ $result = $conn->query($sql); //if判斷完 -> 吐資料 -> 升冪降冪
                     <input type="search" class="form-control" placeholder="Search for name..." name="search" <?php
 if (isset($_GET["search"])):
     $searchValue = $_GET["search"];?> value="<?=$searchValue?>">
-																			                  <?php endif;?>
+																					                  <?php endif;?>
                   <span class="input-group-btn">
                     <button class="btn btn-secondary" type="submit">Go!</button>
                   </span>

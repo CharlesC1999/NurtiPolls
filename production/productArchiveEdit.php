@@ -116,40 +116,29 @@ if (isset($_GET['product_id'])) {
                         <div class="menu_section">
 
                             <ul class="nav side-menu">
-                                <li class="px-1">
-                                    <a href="Member/member.php"><i class="fa-solid fa-user"></i> 會員管理
-                                    </a>
+                                </li><li class="h6"><a href="product.php"><i class="fa-solid fa-store fa-fw"></i> 商品管理</a>
                                 </li>
+                                <li class="h6"><a><i class="fa-solid fa-hashtag fa-fw"></i> 分類管理<span class="fa fa-chevron-down"></span>
+                                <ul class="nav child_menu">
+                                    <li><a href="categories_product.php" style="font-size: 16px;"> 商品</a></li>
+                                    <li><a href="categories_class.php" style="font-size: 16px;"> 課程</a></li>
+                                    <li><a href="categories_recipe.php" style="font-size: 16px;"> 食譜</a></li>
 
-                                <li class="px-1">
-                                    <a href="product.php"><i class="fa-solid fa-store"></i> 商品管理
-                                    </a>
+                                    </ul>
 
                                 </li>
-                                <li class="px-1">
-                                    <a><i class="fa-solid fa-hashtag"></i> </i>分類管理<span class="fa fa-chevron-down"></span>
-                                        <ul class="nav child_menu">
-                                            <li><a href="categories_product.php">商品</a></li>
-                                            <li><a href="categories_class.php">課程</a></li>
-                                            <li><a href="categories_recipe.php">食譜</a></li>
-                                        </ul>
-                                    </a>
+                                <li class="h6"><a href="recipe-list.php"><i class="fa-solid fa-kitchen-set fa-fw"></i> 食譜管理</a>
                                 </li>
-                                <li class="px-1">
-                                    <a href="recipe-list.php"><i class="fa-solid fa-kitchen-set"></i> 食譜管理</a>
+                                <li class="h6"><a href="speaker.php"><i class="fa-solid fa-chalkboard-user fa-fw"></i> 講師管理</a>
                                 </li>
-                                <li class="px-1">
-                                    <a href="speaker.php"><i class="fa-solid fa-chalkboard-user"></i> 講師管理</a>
+                                <li class="h6"><a href="redirectClass.php"><i class="fa-solid fa-chalkboard fa-fw"></i> 課程管理</a>
                                 </li>
-                                <li>
-                                    <a href="redirectClass.php"><i class="fa-solid fa-chalkboard"></i> 課程管理</a>
+                                <li class="h6"><a href="coupons.php"><i class="fa-sharp fa-solid fa-tag fa-fw"></i> 優惠卷管理</a>
                                 </li>
-                                <li class="px-1">
-                                    <a href="coupons.php"><i class="fa-sharp fa-solid fa-tag"></i> 優惠卷管理</a>
-                                </li>
-                                <hr style="border-top: 2px solid aliceblue" />
-                                <li class="px-1">
-                                    <a href="./order_file/order.php"><i class="fa-solid fa-note-sticky"></i> 訂單管理</a>
+                                <hr style="border-top: 2px solid aliceblue;">
+                                <li class="h6">
+                                    <a href="order_file/order.php"
+                                    ><i class="fa-solid fa-note-sticky fa-fw"></i> 訂單管理</a>
                                 </li>
                             </ul>
                         </div>
@@ -296,15 +285,15 @@ if (isset($_GET['product_id'])) {
                                         <form action="doProductArchive.php" method="POST" class="form-horizontal form-label-left" enctype="multipart/form-data" id="currentImage">
                                             <div class="form-group row">
                                                 <label class="col-form-label col-md-3 col-sm-3 label-align">ID</label>
-                                                <input type="hidden" name="product_id" value="<?= htmlspecialchars($product['id']) ?>">
+                                                <input type="hidden" name="product_id" value="<?=htmlspecialchars($product['id'])?>">
                                                 <div class="col-md-6 col-sm-6">
-                                                    <input type="number" value="<?= $product_id ?>" name="product_id" class="form-control" readonly />
+                                                    <input type="number" value="<?=$product_id?>" name="product_id" class="form-control" readonly />
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-form-label col-md-3 col-sm-3 label-align">商品名稱<span class="required">*</span></label>
                                                 <div class="col-md-6 col-sm-6">
-                                                    <input type="text" value="<?= htmlspecialchars($product["name"]) ?>" name="product_name" required="required" class="form-control" />
+                                                    <input type="text" value="<?=htmlspecialchars($product["name"])?>" name="product_name" required="required" class="form-control" />
                                                 </div>
                                             </div>
                                             <!-- 其他字段相似地修改，確保使用 htmlspecialchars 來防止 XSS 攻擊 -->
@@ -313,11 +302,11 @@ if (isset($_GET['product_id'])) {
                                                 <label class="col-form-label col-md-3 col-sm-3 label-align">分類<span class="required">*</span></label>
                                                 <div class="col-md-6 col-sm-6">
                                                     <select name="category" required="required" class="form-control">
-                                                        <?php foreach ($rowsCategory as $category) : ?>
-                                                            <option value="<?= htmlspecialchars($category["Product_cate_ID"]) ?>" <?= $category["Product_cate_ID"] == $product["category_id"] ? 'selected' : '' ?>>
-                                                                <?= htmlspecialchars($category["Product_cate_name"]) ?>
+                                                        <?php foreach ($rowsCategory as $category): ?>
+                                                            <option value="<?=htmlspecialchars($category["Product_cate_ID"])?>" <?=$category["Product_cate_ID"] == $product["category_id"] ? 'selected' : ''?>>
+                                                                <?=htmlspecialchars($category["Product_cate_name"])?>
                                                             </option>
-                                                        <?php endforeach; ?>
+                                                        <?php endforeach;?>
                                                     </select>
                                                 </div>
                                             </div>
@@ -325,14 +314,14 @@ if (isset($_GET['product_id'])) {
                                                 <label class="col-form-label col-md-3 col-sm-3 label-align">價錢<span class="required">*</span>
                                                 </label>
                                                 <div class="col-md-6 col-sm-6">
-                                                    <input type="number" value="<?= htmlspecialchars($product["price"]) ?>" name="price" required="required" class="form-control" />
+                                                    <input type="number" value="<?=htmlspecialchars($product["price"])?>" name="price" required="required" class="form-control" />
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-form-label col-md-3 col-sm-3 label-align">數量<span class="required">*</span>
                                                 </label>
                                                 <div class="col-md-6 col-sm-6">
-                                                    <input type="number" value="<?= htmlspecialchars($product["stock_quantity"]) ?>" name="quantity" required="required" class="form-control" />
+                                                    <input type="number" value="<?=htmlspecialchars($product["stock_quantity"])?>" name="quantity" required="required" class="form-control" />
                                                 </div>
                                             </div>
 
@@ -340,8 +329,8 @@ if (isset($_GET['product_id'])) {
                                                 <label class="col-form-label col-md-3 col-sm-3 label-align"></label>
 
                                                 <div class="col-md-6 col-sm-6">
-                                                    <input type="hidden" name="old_img" value="<?= htmlspecialchars($product['image_url']) ?>">
-                                                    <img id="output" src="./p_image/<?= htmlspecialchars($product['image_url']) ?>" alt="<?= htmlspecialchars($product['name']) ?>" style="width: 200px; height: auto;">
+                                                    <input type="hidden" name="old_img" value="<?=htmlspecialchars($product['image_url'])?>">
+                                                    <img id="output" src="./p_image/<?=htmlspecialchars($product['image_url'])?>" alt="<?=htmlspecialchars($product['name'])?>" style="width: 200px; height: auto;">
                                                 </div>
 
                                             </div>
@@ -356,7 +345,7 @@ if (isset($_GET['product_id'])) {
                                             <div class="form-group row ">
                                                 <label class="col-form-label col-md-3 col-sm-3 label-align" for="exampleFormControlTextarea1">商品描述<span class="required">*</span></label>
                                                 <div class="col-md-6 col-sm-6">
-                                                    <textarea id="exampleFormControlTextarea1" rows="3" name="description" required="required" class="form-control"><?= htmlspecialchars($product["description"]) ?></textarea>
+                                                    <textarea id="exampleFormControlTextarea1" rows="3" name="description" required="required" class="form-control"><?=htmlspecialchars($product["description"])?></textarea>
                                                 </div>
                                             </div>
                                             <div class="d-flex justify-content-between">
@@ -365,15 +354,15 @@ if (isset($_GET['product_id'])) {
                                                     <button type="button" class="btn btn-danger" role="button" data-toggle="modal" data-target="#confirmModal">刪除</button>
                                                 </div>
                                                 <div class="row">
-                                                    <input type="hidden" name="product_id" value="<?= htmlspecialchars($product['id']) ?>">
+                                                    <input type="hidden" name="product_id" value="<?=htmlspecialchars($product['id'])?>">
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="valid" id="radioUp" value="1" <?= $product['valid'] == 1 ? 'checked' : '' ?>>
+                                                        <input class="form-check-input" type="radio" name="valid" id="radioUp" value="1" <?=$product['valid'] == 1 ? 'checked' : ''?>>
                                                         <label class="form-check-label" for="radioUp">
                                                             上架
                                                         </label>
                                                     </div>
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="valid" id="radioDown" value="0" <?= $product['valid'] == 0 ? 'checked' : '' ?>>
+                                                        <input class="form-check-input" type="radio" name="valid" id="radioDown" value="0" <?=$product['valid'] == 0 ? 'checked' : ''?>>
                                                         <label class="form-check-label" for="radioDown">
                                                             下架
                                                         </label>
@@ -442,7 +431,7 @@ if (isset($_GET['product_id'])) {
                 <div class="modal-footer">
                     <!-- 隐藏的 input，用于存储将要删除的产品的 ID -->
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-                    <a href="doDeleteProduct.php?id=<?= htmlspecialchars($product['id']) ?>" class="btn btn-secondary" data-bs-dismiss="modal">確認</a>
+                    <a href="doDeleteProduct.php?id=<?=htmlspecialchars($product['id'])?>" class="btn btn-secondary" data-bs-dismiss="modal">確認</a>
 
                 </div>
             </div>
