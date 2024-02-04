@@ -3,7 +3,7 @@
 $servename = "localhost";
 $username = "admin";
 $password = "12345";
-$dbname = "project";
+$dbname = "nutripolls";
 
 $conn = new mysqli($servename, $username, $password, $dbname);
 $conn->set_charset("utf8mb4");
