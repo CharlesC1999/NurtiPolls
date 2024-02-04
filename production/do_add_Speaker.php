@@ -12,16 +12,16 @@
 3.上傳的步驟：送出上傳→圖會暫時放到tmp中→程式要搬移該檔到指定的位置。
 4.搬移上傳檔方法：move_uploaded_file(暫存檔 , 新路徑檔名) -->
 <?php
-require_once("../db-connect.php");
+require_once "../db_connect.php";
 // session_start();
 
-if(!isset($_POST["name"])){
+if (!isset($_POST["name"])) {
     echo "請循正常管道進入此頁面";
     exit;
 }
 
-$name=$_POST["name"];
-$description=$_POST["description"];
+$name = $_POST["name"];
+$description = $_POST["description"];
 
 // if(empty($name)){
 //     //$_SESSION 存錯誤訊息回到speaker_add.php頁面
@@ -36,47 +36,44 @@ $description=$_POST["description"];
 //     exit;
 // }
 
-
 //ppt.481 接收圖片是用$_FILES接住
 // $file=$_FILES["pic"];
 // var_dump($file);
 
 //判斷檔案上傳的過程中是否有錯誤,==0沒有錯誤,再判斷是否移動成功 move_uploaded_file
-if($_FILES["pic"]["error"]==0){
+if ($_FILES["pic"]["error"] == 0) {
     //$filename=time(); 解決檔名重復
-    $filename=time(); // 取得當前的 Unix 時間戳（秒級別）
-    
+    $filename = time(); // 取得當前的 Unix 時間戳（秒級別）
+
     // pathinfo 取得上傳檔案的擴展名(路徑/PATHINFO_EXTENSION(.jpg))
-    $fileExt=pathinfo($_FILES["pic"]["name"],PATHINFO_EXTENSION);
-    $filename=$filename.".".$fileExt;  
-    
+    $fileExt = pathinfo($_FILES["pic"]["name"], PATHINFO_EXTENSION);
+    $filename = $filename . "." . $fileExt;
+
     // echo $filename;
     // exit;
 
-    if(move_uploaded_file($_FILES["pic"]["tmp_name"], "Speaker_pic/".$filename)){
-        
+    if (move_uploaded_file($_FILES["pic"]["tmp_name"], "Speaker_pic/" . $filename)) {
+
         //上傳到資料庫裡
-        $sql="INSERT INTO speaker (Speaker_name, Speaker_description, Image, valid)
-        VALUES ('$name', '$description', '$filename',1)";   
-        
-        if($conn->query($sql)){
+        $sql = "INSERT INTO speaker (Speaker_name, Speaker_description, Image, valid)
+        VALUES ('$name', '$description', '$filename',1)";
+
+        if ($conn->query($sql)) {
             echo "新增資料完成!!";
-        }else{
-            echo "新增資料錯誤!!" .$conn->error;
+        } else {
+            echo "新增資料錯誤!!" . $conn->error;
         }
 
-
         echo "upload 成功!!";
-    }else{
+    } else {
         echo "upload 失敗!!";
     }
-}else{
+} else {
     //沒新增圖片有設預設值 -> 資料表更改 Image 結構
-    $sql="INSERT INTO speaker (Speaker_name, Speaker_description, valid)
-        VALUES ('$name', '$description',1)"; 
+    $sql = "INSERT INTO speaker (Speaker_name, Speaker_description, valid)
+        VALUES ('$name', '$description',1)";
     $conn->query($sql);
 }
-
 
 $conn->close();
 header("location: speaker.php");

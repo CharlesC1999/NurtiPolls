@@ -249,7 +249,7 @@ $product_type_count = $result_all_class->num_rows;
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Users <small>您好</small></h3>
+
               </div>
 
               <div class="title_right">

@@ -2,7 +2,7 @@
 require_once "../db_connect.php";
 
 //join class and speaker
-$sql = "SELECT * FROM speaker";
+$sql = "SELECT * FROM speaker WHERE valid = 1";
 $result = $conn->query($sql);
 $rows = $result->fetch_all(MYSQLI_ASSOC);
 

@@ -7,7 +7,7 @@ $rowsCategory = $resultCategory->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT recipe.*,recipe_categories.Recipe_cate_name AS category_name FROM recipe
 JOIN recipe_categories ON recipe.Recipe_Category_ID = recipe_categories.Recipe_cate_ID
- WHERE valid=1 ORDER BY Recipe_ID ASC";
+ WHERE recipe_valid=1 ORDER BY Recipe_ID ASC";
 
 if (isset($_GET["cate"])) {
     $cate = $_GET["cate"];
@@ -175,8 +175,7 @@ foreach ($rowsCategory as $cate) {
       <div class="right_col" role="main">
         <div class="">
           <div class="page-title">
-            <div class="title_left">
-              <h3>Users <small>哈囉</small></h3>
+
             </div>
 
             <div class="title_right">

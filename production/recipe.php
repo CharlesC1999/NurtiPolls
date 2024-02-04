@@ -191,7 +191,7 @@ if ($rowCount != 0) {
             <div class="col-md-12 col-sm-12 ">
               <div class="x_panel">
                 <div class="x_title">
-                  <h2>食譜管理<small>Users</small></h2>
+
 
                   <div class="clearfix"></div>
                 </div>
