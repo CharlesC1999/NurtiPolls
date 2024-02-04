@@ -1,15 +1,15 @@
 <?php
-require_once("../db_connect.php");
+require_once "../db_connect.php";
 
 if (!isset($_GET["Class_ID"])) {
-  die("請循正常管道進入此頁");
+    die("請循正常管道進入此頁");
 }
 
 $Class_ID = $_GET["Class_ID"];
 
 //class detail
 $sql = "SELECT class.*, speaker.Speaker_name, class_image.Image_URL, class_categories.Class_cate_name
- FROM class 
+ FROM class
  JOIN speaker ON class.F_Speaker_ID = speaker.Speaker_ID
  JOIN class_image ON class.Class_ID = class_image.F_Class_ID
  JOIN class_categories ON class.Class_category_ID = class_categories.Class_cate_ID
@@ -39,7 +39,7 @@ $rowsSpeaker = $resultSpeaker->fetch_all(MYSQLI_ASSOC);
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>營養大選NutriPolls | 新增課程</title>
+  <title>營養大選 Nutripolls</title>
 
   <!-- Bootstrap -->
   <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
@@ -80,6 +80,18 @@ $rowsSpeaker = $resultSpeaker->fetch_all(MYSQLI_ASSOC);
 
     .classPic {
       width: 100%;
+    }
+    ._btn{
+      background-color: #17a2b8;
+    }
+    ._btn:hover{
+      background-color: #148ea1;
+    }
+    .profile_info span {
+      font-size: 14px;
+      line-height: 30px;
+      font-weight: 500;
+      color: #ecf0f1;
     }
 
     /* .fullPage {
@@ -149,45 +161,32 @@ $rowsSpeaker = $resultSpeaker->fetch_all(MYSQLI_ASSOC);
                       <li><a href="calendar.html">Calendar</a></li>
                     </ul>
                   </li> -->
-                <li class="px-1">
-                  <a href="Member/member.php"><i class="fa-solid fa-user"></i> 會員管理
-                  </a>
-                </li>
+                  <li class="h6"><a href="member.php"><i class="fa-solid fa-user fa-fw"></i> 會員管理</a>
+                  </li><li class="h6"><a href="product.php"><i class="fa-solid fa-store fa-fw"></i> 商品管理</a>
+                  </li>
+                  <li class="h6"><a><i class="fa-solid fa-hashtag fa-fw"></i> 分類管理<span class="fa fa-chevron-down"></span>
+                  <ul class="nav child_menu">
+                      <li><a href="categories_product.php" style="font-size: 16px;"> 商品</a></li>
+                      <li><a href="categories_class.php" style="font-size: 16px;"> 課程</a></li>
+                      <li><a href="categories_recipe.php" style="font-size: 16px;"> 食譜</a></li>
 
-                <li class="px-1">
-                  <a href="product.php"><i class="fa-solid fa-store"></i> 商品管理
-                  </a>
-                </li>
-
-                <li class="px-1">
-                  <a><i class="fa-solid fa-hashtag"></i> </i>分類管理<span class="fa fa-chevron-down"></span>
-                    <ul class="nav child_menu">
-                      <li><a href="categories_product.php">商品</a></li>
-                      <li><a href="categories_class.php">課程</a></li>
-                      <li><a href="categories_recipe.php">食譜</a></li>
                     </ul>
-                  </a>
-                </li>
 
-                <li class="px-1">
-                  <a href="recipe-list.php"><i class="fa-solid fa-kitchen-set"></i> 食譜管理</a>
-                </li>
+                  </li>
+                  <li class="h6"><a href="recipe-list.php"><i class="fa-solid fa-kitchen-set fa-fw"></i> 食譜管理</a>
+                  </li>
+                  <li class="h6"><a href="speaker.php"><i class="fa-solid fa-chalkboard-user fa-fw"></i> 講師管理</a>
+                  </li>
 
-                <li class="px-1">
-                  <a href="speaker.php"><i class="fa-solid fa-chalkboard-user"></i> 講師管理</a>
-                </li>
+                <li class="active h6"><a href="class_new.php?Class_cate_ID=&status=1&min=0&max=99999"><i class="fa-solid fa-chalkboard fa-fw"></i> 課程管理 </a>
 
-                <li class="active px-1"><a href="class_new.php?Class_cate_ID=&status=1&min=0&max=99999"><i class="fa-solid fa-chalkboard"></i> 課程管理 </a>
-
-                <li class="px-1">
-                  <a href="coupons.php"><i class="fa-sharp fa-solid fa-tag"></i> 優惠卷管理</a>
-                </li>
-
-                <hr style="border-top: 2px solid aliceblue" />
-
-                <li class="px-1">
-                  <a href="./order_file/order.php"><i class="fa-solid fa-note-sticky"></i> 訂單管理</a>
-                </li>
+                <li class="h6"><a href="coupons.php"><i class="fa-sharp fa-solid fa-tag fa-fw"></i> 優惠卷管理</a>
+                  </li>
+                  <hr style="border-top: 2px solid aliceblue;">
+                  <li class="h6">
+                    <a href="order_file/order.php"
+                      ><i class="fa-solid fa-note-sticky fa-fw"></i> 訂單管理</a>
+                  </li>
 
             </div>
 
@@ -247,10 +246,13 @@ $rowsSpeaker = $resultSpeaker->fetch_all(MYSQLI_ASSOC);
         <div class="row">
           <div class="col-md-12 col-sm-12 ">
             <div class="x_panel">
-              <div class="x_title">
+              <div class="x_title d-flex justify-content-between align-items-end">
                 <h1>編輯課程 <!-- <small>Users</small> --> </h1>
-
-                <div class="clearfix"></div>
+                <div class="">
+                    <a name="" id="" class="btn btn-secondary me-3" href="classDetail.php?Class_ID=<?=$Class_ID?>" role="button"><i class="fa-solid fa-mail-reply"></i> 返回詳細頁</a>
+                    <a name="" id="" class="btn btn-secondary" href="redirectClass.php" role="button"><i class="fa-solid fa-mail-reply"></i> 返回課程管理頁</a>
+                </div>
+                <div class="clearfix d-none"></div>
               </div>
 
               <!-- class content -->
@@ -259,21 +261,24 @@ $rowsSpeaker = $resultSpeaker->fetch_all(MYSQLI_ASSOC);
                 <div class="form-content row g-2 ">
                   <div class="col-2 mb-3">
                     <label for="classID" class="form-label">課程編號</label>
-                    <input type="text" class="form-control" id="classID" name="classID" value="<?= $rows[0]["Class_ID"] ?>" readonly>
+                    <input type="text" class="form-control" id="classID" name="classID" value="<?=$rows[0]["Class_ID"]?>" readonly>
                   </div>
 
                   <div class="col-10 mb-3">
                     <label for="className" class="form-label">課程名稱</label>
-                    <input type="text" class="form-control" id="className" name="className" value="<?= $rows[0]["Class_name"] ?>" required>
+                    <input type="text" class="form-control" id="className" name="className" value="<?=$rows[0]["Class_name"]?>" required>
                   </div>
 
 
                   <div class="col-6 mb-3">
                     <label for="classCategory" class="form-label">課程類別</label>
                     <select name="classCategory" id="classCategory" class="form-select" required>
-                      <?php foreach ($rowsCategories as $rowCategories) : ?>
-                        <option <?php if ($rows[0]["Class_category_ID"] == $rowCategories["Class_cate_ID"]) echo "selected" ?> value="<?= $rowCategories["Class_cate_ID"] ?>"><?= $rowCategories["Class_cate_name"] ?></option>
-                      <?php endforeach; ?>
+                      <?php foreach ($rowsCategories as $rowCategories): ?>
+                        <option <?php if ($rows[0]["Class_category_ID"] == $rowCategories["Class_cate_ID"]) {
+    echo "selected";
+}
+?> value="<?=$rowCategories["Class_cate_ID"]?>"><?=$rowCategories["Class_cate_name"]?></option>
+                      <?php endforeach;?>
                     </select>
 
 
@@ -281,47 +286,50 @@ $rowsSpeaker = $resultSpeaker->fetch_all(MYSQLI_ASSOC);
 
                   <div class="col-6 mb-3">
                     <label for="speaker" class="form-label">講師名稱</label>
-                    <!-- <input type="text" class="form-control" id="speaker" name="speaker" value="<?= $rows[0]["Speaker_name"] ?>"> -->
+                    <!-- <input type="text" class="form-control" id="speaker" name="speaker" value="<?=$rows[0]["Speaker_name"]?>"> -->
                     <select name="speaker" id="speaker" class="form-select" required>
-                      <?php foreach ($rowsSpeaker as $rowSpeaker) : ?>
-                        <option <?php if ($rowSpeaker["Speaker_ID"] == $rows[0]["F_Speaker_ID"]) echo "selected" ?> value="<?= $rowSpeaker["Speaker_ID"] ?>"><?= $rowSpeaker["Speaker_name"] ?></option>
-                      <?php endforeach; ?>
+                      <?php foreach ($rowsSpeaker as $rowSpeaker): ?>
+                        <option <?php if ($rowSpeaker["Speaker_ID"] == $rows[0]["F_Speaker_ID"]) {
+    echo "selected";
+}
+?> value="<?=$rowSpeaker["Speaker_ID"]?>"><?=$rowSpeaker["Speaker_name"]?></option>
+                      <?php endforeach;?>
                     </select>
 
                   </div>
 
                   <div class="col-6 mb-3">
                     <label for="classPrice" class="form-label">課程價格</label>
-                    <input type="number" class="form-control " id="classPrice" name="classPrice" value="<?= $rows[0]["C_price"] ?>" required>
+                    <input type="number" class="form-control " id="classPrice" name="classPrice" value="<?=$rows[0]["C_price"]?>" required>
                   </div>
                   <div class="col-6 mb-3">
                     <label for="personLimit" class="form-label">名額限制</label>
-                    <input type="number" class="form-control" id="personLimit" name="personLimit" value="<?= $rows[0]["Class_person_limit"] ?>" required>
+                    <input type="number" class="form-control" id="personLimit" name="personLimit" value="<?=$rows[0]["Class_person_limit"]?>" required>
                   </div>
 
                   <div class="col-6 mb-3">
                     <label for="startDate" class="form-label">報名起始</label>
-                    <input type="date" class="form-control" id="startDate" name="startDate" value="<?= $rows[0]["Start_date"] ?>" required>
+                    <input type="date" class="form-control" id="startDate" name="startDate" value="<?=$rows[0]["Start_date"]?>" required>
                   </div>
 
                   <div class="col-6 mb-3">
                     <label for="endDate" class="form-label">報名截止</label>
-                    <input type="date" class="form-control" id="endDate" name="endDate" value="<?= $rows[0]["End_date"] ?>" required>
+                    <input type="date" class="form-control" id="endDate" name="endDate" value="<?=$rows[0]["End_date"]?>" required>
                   </div>
 
                   <div class="col-6 mb-3">
                     <label for="classDate" class="form-label">課程開始時間</label>
-                    <input type="datetime-local" class="form-control" id="classDate" name="classDate" value="<?= $rows[0]["Class_date"] ?>" required>
+                    <input type="datetime-local" class="form-control" id="classDate" name="classDate" value="<?=$rows[0]["Class_date"]?>" required>
                   </div>
 
                   <div class="col-6 mb-3">
                     <label for="classEndDate" class="form-label">課程結束時間</label>
-                    <input type="datetime-local" class="form-control" id="classEndDate" name="classEndDate" value="<?= $rows[0]["Class_end_date"] ?>" required>
+                    <input type="datetime-local" class="form-control" id="classEndDate" name="classEndDate" value="<?=$rows[0]["Class_end_date"]?>" required>
                   </div>
 
                   <div class="col-12 mb-3">
                     <label for="classDescription" class="form-label">課程敘述</label>
-                    <textarea class="classDescription" name="classDescription" id="classDescription" required><?= $rows[0]["Class_description"] ?></textarea>
+                    <textarea class="classDescription" name="classDescription" id="classDescription" required><?=$rows[0]["Class_description"]?></textarea>
                   </div>
 
                   <div class="col-12 ">
@@ -329,21 +337,21 @@ $rowsSpeaker = $resultSpeaker->fetch_all(MYSQLI_ASSOC);
                     <!-- <input type="file" class="form-control" id="fileUpload" name="fileUpload"> -->
                   </div>
 
-                  <?php foreach ($rows as $row) : ?>
+                  <?php foreach ($rows as $row): ?>
                     <div class="col-6">
-                      <img src="../classImg/<?= $row["Image_URL"] ?>" class="classPic mb-1" alt="">
-                      <input type="hidden" name="oriFile[]" value="<?= $row["Image_URL"] ?>">
+                      <img src="../classImg/<?=$row["Image_URL"]?>" class="classPic mb-1" alt="">
+                      <input type="hidden" name="oriFile[]" value="<?=$row["Image_URL"]?>">
                       <input type="file" class="" id="fileUpload" name="fileUpload[]">
                     </div>
-                  <?php endforeach; ?>
+                  <?php endforeach;?>
 
                   <div class="col-12"></div>
 
                   <div class="col-3 mx-auto">
-                    <button class="btn btn-info text-light">
+                    <button class="btn text-light _btn">
                       儲存
                     </button>
-                    <a class="btn btn-secondary" href="classDetail.php?Class_ID=<?= $Class_ID ?>" role="button">取消</a>
+                    <a class="btn btn-secondary" href="classDetail.php?Class_ID=<?=$Class_ID?>" role="button">取消</a>
 
                   </div>
 

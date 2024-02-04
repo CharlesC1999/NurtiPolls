@@ -17,7 +17,7 @@ $product_type_count = $result_all_product->num_rows;
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>營養大選 Nutripoll</title>
+    <title>營養大選 Nutripolls</title>
 
     <!-- Bootstrap -->
     <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
@@ -39,7 +39,22 @@ $product_type_count = $result_all_product->num_rows;
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
       <!-- icon連結 https://cdnjs.com/libraries/font-awesome-->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" >
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" >
+    <style>
+        .profile_info span {
+          font-size: 14px;
+          line-height: 30px;
+          font-weight: 500;
+          color: #ecf0f1;
+        }
+
+        .profile_info h2 {
+          font-size: 14px;
+          color: #ecf0f1;
+          margin: 0;
+          font-weight: 500;
+        }
+    </style>
   </head>
 
   <body class="nav-md">
@@ -48,7 +63,7 @@ $product_type_count = $result_all_product->num_rows;
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="HomePage.html" class="site_title"><i class="fa fa-paw"></i> <span>營養大選 Nutripoll</span></a>
+              <a href="HomePage.html" class="site_title"><img src="../Logo_sm.png" alt="" style="height: 65px;"></a>
             </div>
 
             <div class="clearfix"></div>
@@ -56,11 +71,11 @@ $product_type_count = $result_all_product->num_rows;
             <!-- menu profile quick info -->
             <div class="profile clearfix">
               <div class="profile_pic">
-                <img src="images/img.jpg" alt="..." class="img-circle profile_img">
+                <img src="../logo4.png" alt="..." class="img-circle profile_img" />
               </div>
               <div class="profile_info">
-                <span>Welcome,</span>
-                <h2>John Doe</h2>
+                <span>Hi,</span>
+                <h2>第四組</h2>
               </div>
             </div>
             <!-- /menu profile quick info -->
@@ -70,7 +85,7 @@ $product_type_count = $result_all_product->num_rows;
             <!-- sidebar menu -->
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
-                <h3>General</h3>
+
                 <ul class="nav side-menu">
                   <!-- <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
@@ -102,33 +117,30 @@ $product_type_count = $result_all_product->num_rows;
                       <li><a href="calendar.html">Calendar</a></li>
                     </ul>
                   </li> -->
-                  <li><a href="member.php"><i class="fa fa-table"></i> 會員管理 <span class="fa fa-chevron-down"></span></a>
-                  </li><li><a href="product.php"><i class="fa fa-table"></i>商品管理 <span class="fa fa-chevron-down"></span></a>
+                  <li class="h6"><a href="member.php"><i class="fa-solid fa-user fa-fw"></i> 會員管理</a>
+                  </li><li class="h6"><a href="product.php"><i class="fa-solid fa-store fa-fw"></i> 商品管理</a>
                   </li>
-                  <li><a><i class="fa fa-table"></i>分類管理<span class="fa fa-chevron-down"></span>
+                  <li class="h6"><a><i class="fa-solid fa-hashtag fa-fw"></i> 分類管理<span class="fa fa-chevron-down"></span>
                   <ul class="nav child_menu">
-                      <li><a href="categories_product.php" style="font-size: 16px;">商品</a></li>
-                      <li><a href="categories_class.php" style="font-size: 16px;">課程</a></li>
-                      <li><a href="categories_recipe.php" style="font-size: 16px;">食譜</a></li>
+                      <li><a href="categories_product.php" style="font-size: 16px;"> 商品</a></li>
+                      <li><a href="categories_class.php" style="font-size: 16px;"> 課程</a></li>
+                      <li><a href="categories_recipe.php" style="font-size: 16px;"> 食譜</a></li>
 
                     </ul>
 
                   </li>
-                  <li><a href="recipe-list.php"><i class="fa fa-table"></i>食譜管理<span class="fa fa-chevron-down"></span></a>
+                  <li class="h6"><a href="recipe-list.php"><i class="fa-solid fa-kitchen-set fa-fw"></i> 食譜管理</a>
                   </li>
-                  <li><a href="speaker.php"><i class="fa fa-table"></i>講師管理<span class="fa fa-chevron-down"></span></a>
+                  <li class="h6"><a href="speaker.php"><i class="fa-solid fa-chalkboard-user fa-fw"></i> 講師管理</a>
                   </li>
-                  <li><a href="redirectClass.php"><i class="fa fa-table"></i>課程管理<span class="fa fa-chevron-down"></span></a>
+                  <li class="h6"><a href="redirectClass.php"><i class="fa-solid fa-chalkboard fa-fw"></i> 課程管理</a>
                   </li>
-                  <li><a href="coupons.php"><i class="fa fa-table"></i>優惠卷管理<span class="fa fa-chevron-down"></span></a>
+                  <li class="h6"><a href="coupons.php"><i class="fa-sharp fa-solid fa-tag fa-fw"></i> 優惠卷管理</a>
                   </li>
                   <hr style="border-top: 2px solid aliceblue;">
-                  <li>
-                    <a href="#"
-                      ><i class="fa fa-table"></i>訂單管理<span
-                        class="fa fa-chevron-down"
-                      ></span
-                    ></a>
+                  <li class="h6">
+                    <a href="order_file/order.php"
+                      ><i class="fa-solid fa-note-sticky fa-fw"></i> 訂單管理</a>
                   </li>
                   <!-- <li><a><i class="fa fa-bar-chart-o"></i> Data Presentation <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
@@ -222,82 +234,11 @@ $product_type_count = $result_all_product->num_rows;
                 <ul class=" navbar-right">
                   <li class="nav-item dropdown open" style="padding-left: 15px;">
                     <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                      <img src="images/img.jpg" alt="">John Doe
+                      <img src="../logo4.png" alt="" />第四組
                     </a>
                     <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
-                      <a class="dropdown-item"  href="javascript:;"> Profile</a>
-                        <a class="dropdown-item"  href="javascript:;">
-                          <span class="badge bg-red pull-right">50%</span>
-                          <span>Settings</span>
-                        </a>
-                    <a class="dropdown-item"  href="javascript:;">Help</a>
                       <a class="dropdown-item"  href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
                     </div>
-                  </li>
-
-                  <li role="presentation" class="nav-item dropdown open">
-                    <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1" data-toggle="dropdown" aria-expanded="false">
-                      <i class="fa fa-envelope-o"></i>
-                      <span class="badge bg-green">6</span>
-                    </a>
-                    <ul class="dropdown-menu list-unstyled msg_list" role="menu" aria-labelledby="navbarDropdown1">
-                      <li class="nav-item">
-                        <a class="dropdown-item">
-                          <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                          <span>
-                            <span>John Smith</span>
-                            <span class="time">3 mins ago</span>
-                          </span>
-                          <span class="message">
-                            Film festivals used to be do-or-die moments for movie makers. They were where...
-                          </span>
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="dropdown-item">
-                          <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                          <span>
-                            <span>John Smith</span>
-                            <span class="time">3 mins ago</span>
-                          </span>
-                          <span class="message">
-                            Film festivals used to be do-or-die moments for movie makers. They were where...
-                          </span>
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="dropdown-item">
-                          <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                          <span>
-                            <span>John Smith</span>
-                            <span class="time">3 mins ago</span>
-                          </span>
-                          <span class="message">
-                            Film festivals used to be do-or-die moments for movie makers. They were where...
-                          </span>
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="dropdown-item">
-                          <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                          <span>
-                            <span>John Smith</span>
-                            <span class="time">3 mins ago</span>
-                          </span>
-                          <span class="message">
-                            Film festivals used to be do-or-die moments for movie makers. They were where...
-                          </span>
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <div class="text-center">
-                          <a class="dropdown-item">
-                            <strong>See All Alerts</strong>
-                            <i class="fa fa-angle-right"></i>
-                          </a>
-                        </div>
-                      </li>
-                    </ul>
                   </li>
                 </ul>
               </nav>
@@ -363,9 +304,9 @@ $rows = $result_all_product->fetch_all(MYSQLI_ASSOC);
 foreach ($rows as $cate):
 ?>
                           <tr>
-                            <td><?=$cate["Product_cate_ID"]?></td>
-                            <td><?=$cate["Product_cate_name"]?></td>
-                            <td><?=$cate["P_Description"]?></td>
+                            <td class="h6"><?=$cate["Product_cate_ID"]?></td>
+                            <td class="h6"><?=$cate["Product_cate_name"]?></td>
+                            <td class="h6"><?=$cate["P_Description"]?></td>
                             <td>
                               <div class="d-flex justify-content-between">
                                 <a href="#" data-id="<?=$cate["Product_cate_ID"]?>" data-name="<?=$cate["Product_cate_name"]?>" data-description="<?=$cate["P_Description"]?>" class="btn btn-outline-info edit-btn" onclick="fillModal(this)"><i class="fa-solid fa-edit fa-fw"></i></a>

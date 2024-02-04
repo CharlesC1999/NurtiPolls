@@ -1,5 +1,5 @@
 <?php
-require_once("../db_connect.php");
+require_once "../db_connect.php";
 
 //join class and speaker
 $sql = "SELECT * FROM speaker";
@@ -18,7 +18,7 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>營養大選NutriPolls | 新增課程</title>
+  <title>營養大選 Nutripolls</title>
 
   <!-- Bootstrap -->
   <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
@@ -56,7 +56,18 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
       width: 100%;
       height: 80px;
     }
-
+    ._btn{
+      background-color: #17a2b8;
+    }
+    ._btn:hover{
+      background-color: #148ea1;
+    }
+    .profile_info span {
+      font-size: 14px;
+      line-height: 30px;
+      font-weight: 500;
+      color: #ecf0f1;
+    }
     /* .fullPage {
       height: calc(100vh - 50px);
     } */
@@ -123,37 +134,32 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
                       <li><a href="calendar.html">Calendar</a></li>
                     </ul>
                   </li> -->
-                <li class="px-1"><a href="tables_dynamic.php"><i class="fa-solid fa-user"></i> 會員管理 </a>
-                </li>
-                <li class="px-1"><a href="tables_dynamic.php"><i class="fa-solid fa-store"></i> 商品管理 </a>
-                </li>
-                <li class="px-1">
-                  <a><i class="fa-solid fa-hashtag"></i> </i> 分類管理<span class="fa fa-chevron-down"></span>
-                    <ul class="nav child_menu">
-                      <li><a href="categories_product.php">商品</a></li>
-                      <li><a href="categories_class.php">課程</a></li>
-                      <li><a href="categories_recipe.php">食譜</a></li>
+                  <li class="h6"><a href="member.php"><i class="fa-solid fa-user fa-fw"></i> 會員管理</a>
+                  </li><li class="h6"><a href="product.php"><i class="fa-solid fa-store fa-fw"></i> 商品管理</a>
+                  </li>
+                  <li class="h6"><a><i class="fa-solid fa-hashtag fa-fw"></i> 分類管理<span class="fa fa-chevron-down"></span>
+                  <ul class="nav child_menu">
+                      <li><a href="categories_product.php" style="font-size: 16px;"> 商品</a></li>
+                      <li><a href="categories_class.php" style="font-size: 16px;"> 課程</a></li>
+                      <li><a href="categories_recipe.php" style="font-size: 16px;"> 食譜</a></li>
+
                     </ul>
-                  </a>
-                </li>
-                <li class="px-1">
-                  <a href="recipe-list.php"><i class="fa-solid fa-kitchen-set"></i> 食譜管理</a>
-                </li>
-                <li class="px-1">
-                  <a href="speaker.php"><i class="fa-solid fa-chalkboard-user"></i> 講師管理</a>
-                </li>
-                <li class="active px-1"><a href=" class_new.php?Class_cate_ID=&status=1&min=0&max=99999"><i class="fa-solid fa-chalkboard"></i> 課程管理</a>
+
+                  </li>
+                  <li class="h6"><a href="recipe-list.php"><i class="fa-solid fa-kitchen-set fa-fw"></i> 食譜管理</a>
+                  </li>
+                  <li class="h6"><a href="speaker.php"><i class="fa-solid fa-chalkboard-user fa-fw"></i> 講師管理</a>
+                  </li>
+                <li class="active h6"><a href=" class_new.php?Class_cate_ID=&status=1&min=0&max=99999"><i class="fa-solid fa-chalkboard fa-fw"></i> 課程管理</a>
                 </li>
 
-                <li class="px-1">
-                  <a href="coupons.php"><i class="fa-sharp fa-solid fa-tag"></i> 優惠卷管理</a>
-                </li>
-
-                <hr style="border-top: 2px solid aliceblue" />
-
-                <li class="px-1">
-                  <a href="./order_file/order.php"><i class="fa-solid fa-note-sticky"></i> 訂單管理</a>
-                </li>
+                <li class="h6"><a href="coupons.php"><i class="fa-sharp fa-solid fa-tag fa-fw"></i> 優惠卷管理</a>
+                  </li>
+                  <hr style="border-top: 2px solid aliceblue;">
+                  <li class="h6">
+                    <a href="order_file/order.php"
+                      ><i class="fa-solid fa-note-sticky fa-fw"></i> 訂單管理</a>
+                  </li>
             </div>
 
           </div>
@@ -247,9 +253,9 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
                     <!-- <input type="text" class="form-control" id="speaker" name="speaker" required> -->
                     <select name="speaker" id="speaker" class="form-select" required>
                       <option value="">請選擇講師</option>
-                      <?php foreach ($rows as $row) : ?>
-                        <option value="<?= $row["Speaker_ID"] ?>"><?= $row["Speaker_name"] ?></option>
-                      <?php endforeach; ?>
+                      <?php foreach ($rows as $row): ?>
+                        <option value="<?=$row["Speaker_ID"]?>"><?=$row["Speaker_name"]?></option>
+                      <?php endforeach;?>
                     </select>
                   </div>
 
@@ -296,7 +302,7 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
                   <div class="col-12"></div>
 
                   <div class="col-3 m-auto">
-                    <button type="submit" class="btn btn-info text-light" id="submit">
+                    <button type="submit" class="btn text-light _btn" id="submit">
                       送出
                     </button>
                     <a href="class_new.php?Class_cate_ID=&status=1&min=0&max=99999" class="btn btn-danger text-white">

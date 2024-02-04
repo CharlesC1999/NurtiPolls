@@ -1,5 +1,5 @@
 <?php
-require_once("../db_connect.php");
+require_once "../db_connect.php";
 $now = date("Y-m-d");
 $nowTime = date("Y-m-d H:i:s");
 // $classEndTimeStamp = time();
@@ -98,6 +98,17 @@ $sqlClass = "SELECT class.*, speaker.Speaker_name, class_categories.Class_cate_n
 $resultClass = $conn->query($sqlClass);
 $rowsClass = $resultClass->fetch_all(MYSQLI_ASSOC);
 
+//join deleted class, speaker and category
+$sqlDeletedClass = "SELECT class.*, speaker.Speaker_name, class_categories.Class_cate_name
+ FROM class
+ JOIN speaker ON class.F_Speaker_ID = speaker.Speaker_ID
+ JOIN class_categories ON class.Class_category_ID = class_categories.Class_cate_ID
+ $whereClause && class.valid = 0";
+$resultDeletedClass = $conn->query($sqlDeletedClass);
+$rowsDeletedClass = $resultDeletedClass->fetch_all(MYSQLI_ASSOC);
+
+
+
 //class_categories
 $sqlClassCategories = "SELECT * FROM class_categories";
 $resultClassCategories = $conn->query($sqlClassCategories);
@@ -181,7 +192,7 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>營養大選NutriPolls</title>
+  <title>營養大選 NutriPolls</title>
 
   <!-- Bootstrap -->
   <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
@@ -225,6 +236,13 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
       --bs-btn-disabled-border-color: var(--bs-btn-color);
       --bs-btn-hover-color: #fff;
 
+    }
+
+    .profile_info span {
+      font-size: 14px;
+      line-height: 30px;
+      font-weight: 500;
+      color: #ecf0f1;
     }
   </style>
 </head>
@@ -289,29 +307,25 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
                       <li><a href="calendar.html">Calendar</a></li>
                     </ul>
                   </li> -->
-                <li class="px-1"><a href="Member/member.php"><i class="fa-solid fa-user"></i> 會員管理 </a>
+                <li class="h6"><a href="member.php"><i class="fa-solid fa-user fa-fw"></i> 會員管理</a>
                 </li>
-
-                <li class="px-1"><a href="product.php"><i class="fa-solid fa-store"></i> 商品管理 </a>
+                <li class="h6"><a href="product.php"><i class="fa-solid fa-store fa-fw"></i> 商品管理</a>
                 </li>
-
-                <li class="px-1">
-                  <a><i class="fa-solid fa-hashtag"></i> 分類管理<span class="fa fa-chevron-down"></span>
+                <li class="h6"><a><i class="fa-solid fa-hashtag fa-fw"></i> 分類管理<span class="fa fa-chevron-down"></span>
                     <ul class="nav child_menu">
-                      <li><a href="categories_product.php">商品</a></li>
-                      <li><a href="categories_class.php">課程</a></li>
-                      <li><a href="categories_recipe.php">食譜</a></li>
+                      <li><a href="categories_product.php" style="font-size: 16px;"> 商品</a></li>
+                      <li><a href="categories_class.php" style="font-size: 16px;"> 課程</a></li>
+                      <li><a href="categories_recipe.php" style="font-size: 16px;"> 食譜</a></li>
+
                     </ul>
-                  </a>
+
+                </li>
+                <li class="h6"><a href="recipe-list.php"><i class="fa-solid fa-kitchen-set fa-fw"></i> 食譜管理</a>
+                </li>
+                <li class="h6"><a href="speaker.php"><i class="fa-solid fa-chalkboard-user fa-fw"></i> 講師管理</a>
                 </li>
 
-                <li class="px-1"><a href="recipe-list.php"><i class="fa-solid fa-kitchen-set"></i> 食譜管理</a>
-                </li>
-
-                <li class="px-1"><a href="speaker.php"><i class="fa-solid fa-chalkboard-user"></i> 講師管理</a>
-                </li>
-
-                <li class="active px-1"><a href="class_new.php?Class_cate_ID=&status=1&min=0&max=99999"><i class="fa-solid fa-chalkboard"></i> 課程管理 </a>
+                <li class="active h6"><a href="class_new.php?Class_cate_ID=&status=1&min=0&max=99999"><i class="fa-solid fa-chalkboard fa-fw"></i> 課程管理 </a>
                   <!-- <ul class="nav child_menu">
                     <li class="<?php if ($Class_cate_ID == "") {
                                   echo "active";
@@ -326,13 +340,11 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
                   </ul> -->
                 </li>
 
-                <li class="px-1"><a href="coupons.php"><i class="fa-sharp fa-solid fa-tag"></i> 優惠卷管理</a>
+                <li class="h6"><a href="coupons.php"><i class="fa-sharp fa-solid fa-tag fa-fw"></i> 優惠卷管理</a>
                 </li>
-
-                <hr style="border-top: 2px solid aliceblue" />
-
-                <li class="px-1">
-                  <a href="./order_file/order.php"><i class="fa-solid fa-note-sticky"></i> 訂單管理</a>
+                <hr style="border-top: 2px solid aliceblue;">
+                <li class="h6">
+                  <a href="order_file/order.php"><i class="fa-solid fa-note-sticky fa-fw"></i> 訂單管理</a>
                 </li>
                 <!-- <li><a><i class="fa fa-bar-chart-o"></i> Data Presentation <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
@@ -737,6 +749,60 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
                               </div>
                           </div>
                           </form>
+                          <!-- Button trigger modal -->
+
+
+                          <!-- 已下架課程 Modal -->
+                          <div class="modal fade" id="deletedClass" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h1 class="modal-title fs-5" id="exampleModalLabel">已下架課程</h1>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                  <!-- table content -->
+                                  <table class="table table-bordered text-center">
+                                    <thead>
+                                      <th>編號</th>
+                                      <th>名稱</th>
+                                      <th>費用</th>
+                                      <th>講師</th>
+                                      <th>報名日期</th>
+                                      <th>開課時間</th>
+                                      <th>上架</th>
+                                    </thead>
+                                    <tbody>
+                                      <?php foreach ($rowsDeletedClass as $rowDeletedClass) : ?>
+                                        <tr>
+                                          <td><?= $rowDeletedClass["Class_ID"] ?></td>
+                                          <td><?= $rowDeletedClass["Class_name"] ?></td>
+                                          <td>$<?= number_format($rowDeletedClass["C_price"])  ?></td>
+                                          <td><?= $rowDeletedClass["Speaker_name"] ?></td>
+                                          <td class="text-nowrap">
+                                            <?= $rowDeletedClass["Start_date"] ?>
+                                            <div>|</div>
+                                            <?= $rowDeletedClass["End_date"] ?>
+                                          </td>
+                                          <td class="text-nowrap">
+                                            <?= $rowDeletedClass["Class_date"] ?>
+                                            <div>|</div>
+                                            <?= $rowDeletedClass["Class_end_date"] ?>
+                                          </td>
+                                          <td><a class="btn btn-outline-secondary" href="doClassReopen.php?reopenID=<?= $rowDeletedClass["Class_ID"] ?>"><i class="fa-solid fa-trash-arrow-up"></i></a></td>
+                                        </tr>
+                                      <?php endforeach; ?>
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-8 py-3 text-end">
+                            <button type="button" class="btn btn-outline-danger rounded text-decoration-none add-class" data-bs-toggle="modal" data-bs-target="#deletedClass">
+                              已下架課程
+                            </button>
+                          </div>
                         </div>
 
                         <!-- Button trigger modal -->
@@ -789,7 +855,7 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
                                     $Class_date = $rowClass["Class_date"];
                                     $Class_end_date = $rowClass["Class_end_date"];
                                     // $now = date("Y-m-d");
-                                    if ($now >= $Start_date && $now <= $End_date || $Class_date <= $nowTime &&  $Class_end_date >= $nowTime) : $text_color = "text-success ";
+                                    if ($now >= $Start_date && $now <= $End_date || $Class_date <= $nowTime && $Class_end_date >= $nowTime) : $text_color = "text-success ";
                                     elseif ($now < $Start_date || $now > $End_date) :
                                       $text_color = "text-danger";
                                     endif;
@@ -802,9 +868,9 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
                                     echo "開放報名中";
                                   } elseif ($now < $Start_date) {
                                     echo "報名尚未開放";
-                                  } elseif ($now > $End_date  && $Class_date > $nowTime) {
+                                  } elseif ($now > $End_date && $Class_date > $nowTime) {
                                     echo "報名已截止";
-                                  } elseif ($Class_date <= $nowTime &&  $Class_end_date >= $nowTime) {
+                                  } elseif ($Class_date <= $nowTime && $Class_end_date >= $nowTime) {
                                     echo "課程進行中";
                                   } elseif ($Class_end_date < $nowTime) {
                                     echo "課程已結束";
@@ -830,7 +896,6 @@ $rowsCountClassEnded = $resultClassEnded->num_rows;
                                   <button type="button" class="btn btn-outline-danger py-1 px-2 deleteBtns" data-bs-toggle="modal" data-bs-target="#confirmDelete" data-class-id="<?= $rowClass["Class_ID"] ?>">
                                     <i class="fa-solid fa-trash-can"></i>
                                   </button>
-                                  <!-- <a href="" class="link-danger"><i class="fa-solid fa-trash-can" style="color: #c82828;"></i></a> -->
                                 </td>
                               </tr>
                             <?php endforeach; ?>

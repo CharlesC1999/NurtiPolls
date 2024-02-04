@@ -20,7 +20,7 @@ $rows = $result->fetch_all(MYSQLI_ASSOC); //轉換關聯式陣列
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>DataTables | Gentelella</title>
+  <title>營養大選 Nutripolls</title>
   <!-- Bootstrap -->
   <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
   <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -138,31 +138,31 @@ $rows = $result->fetch_all(MYSQLI_ASSOC); //轉換關聯式陣列
                   </a>
 
                 </li>
-                <li class="px-1">
-                  <a><i class="fa-solid fa-hashtag"></i> </i>分類管理<span class="fa fa-chevron-down"></span>
-                    <ul class="nav child_menu">
-                      <li><a href="categories_product.php">商品</a></li>
-                      <li><a href="categories_class.php">課程</a></li>
-                      <li><a href="categories_recipe.php">食譜</a></li>
+                <li class="h6"><a href="member.php"><i class="fa-solid fa-user fa-fw"></i> 會員管理</a>
+                  </li><li class="h6"><a href="product.php"><i class="fa-solid fa-store fa-fw"></i> 商品管理</a>
+                  </li>
+                  <li class="h6"><a><i class="fa-solid fa-hashtag fa-fw"></i> 分類管理<span class="fa fa-chevron-down"></span>
+                  <ul class="nav child_menu">
+                      <li><a href="categories_product.php" style="font-size: 16px;"> 商品</a></li>
+                      <li><a href="categories_class.php" style="font-size: 16px;"> 課程</a></li>
+                      <li><a href="categories_recipe.php" style="font-size: 16px;"> 食譜</a></li>
+
                     </ul>
-                  </a>
-                </li>
-                <li class="px-1">
-                  <a href="recipe-list.php"><i class="fa-solid fa-kitchen-set"></i> 食譜管理</a>
-                </li>
-                <li class="px-1">
-                  <a href="speaker.php"><i class="fa-solid fa-chalkboard-user"></i> 講師管理</a>
-                </li>
-                <li>
-                  <a href="redirectClass.php"><i class="fa-solid fa-chalkboard"></i> 課程管理</a>
-                </li>
-                <li class="px-1">
-                  <a href="coupons.php"><i class="fa-sharp fa-solid fa-tag"></i> 優惠卷管理</a>
-                </li>
-                <hr style="border-top: 2px solid aliceblue" />
-                <li class="px-1">
-                  <a href="./order_file/order.php"><i class="fa-solid fa-note-sticky"></i> 訂單管理</a>
-                </li>
+
+                  </li>
+                  <li class="h6"><a href="recipe-list.php"><i class="fa-solid fa-kitchen-set fa-fw"></i> 食譜管理</a>
+                  </li>
+                  <li class="h6"><a href="speaker.php"><i class="fa-solid fa-chalkboard-user fa-fw"></i> 講師管理</a>
+                  </li>
+                  <li class="h6"><a href="redirectClass.php"><i class="fa-solid fa-chalkboard fa-fw"></i> 課程管理</a>
+                  </li>
+                  <li class="h6"><a href="coupons.php"><i class="fa-sharp fa-solid fa-tag fa-fw"></i> 優惠卷管理</a>
+                  </li>
+                  <hr style="border-top: 2px solid aliceblue;">
+                  <li class="h6">
+                    <a href="order_file/order.php"
+                      ><i class="fa-solid fa-note-sticky fa-fw"></i> 訂單管理</a>
+                  </li>
               </ul>
             </div>
           </div>
@@ -349,15 +349,15 @@ $rows = $result->fetch_all(MYSQLI_ASSOC); //轉換關聯式陣列
         </script>
 
         <!-- 放錯誤訊息 (先判斷存不存在) 存在->顯示完->清除
-                <?php if (isset($_SESSION["error"]["message"])) : ?>
+                <?php if (isset($_SESSION["error"]["message"])): ?>
                 <div class="py-2">
                     <div>
-                        <div class="text-danger"><?= $_SESSION["error"]["message"] ?></div>
+                        <div class="text-danger"><?=$_SESSION["error"]["message"]?></div>
                     </div>
                 </div>
                 <?php endif;
-                unset($_SESSION["error"]["message"]); //做清除
-                ?> -->
+unset($_SESSION["error"]["message"]); //做清除
+?> -->
 
 
 

@@ -1,19 +1,19 @@
 <?php
-require_once("../db_connect.php");
+require_once "../db_connect.php";
 $todayDate = date('Y-m-d');
 $sqlFilter = "";
 
 if (isset($_GET["status"])) {
-  if ($_GET["status"] == "upcoming") {
-    // 未開始
-    $sqlFilter = " AND Valid_start_date > '$todayDate'";
-  } elseif ($_GET["status"] == "ongoing") {
-    // 進行中
-    $sqlFilter = " AND Valid_start_date <= '$todayDate' AND Valid_end_date >= '$todayDate'";
-  } elseif ($_GET["status"] == "expired") {
-    // 已結束
-    $sqlFilter = " AND Valid_end_date < '$todayDate'";
-  }
+    if ($_GET["status"] == "upcoming") {
+        // 未開始
+        $sqlFilter = " AND Valid_start_date > '$todayDate'";
+    } elseif ($_GET["status"] == "ongoing") {
+        // 進行中
+        $sqlFilter = " AND Valid_start_date <= '$todayDate' AND Valid_end_date >= '$todayDate'";
+    } elseif ($_GET["status"] == "expired") {
+        // 已結束
+        $sqlFilter = " AND Valid_end_date < '$todayDate'";
+    }
 }
 
 $sqlAll = "SELECT * FROM coupons WHERE valid=1 $sqlFilter";
@@ -112,7 +112,7 @@ $conn->close();
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-          <a role="button" class="btn btn-danger" href="doDeleteCoupon.php?id=<?= $row["Coupon_ID"] ?>">確認</a>
+          <a role="button" class="btn btn-danger" href="doDeleteCoupon.php?id=<?=$row["Coupon_ID"]?>">確認</a>
         </div>
       </div>
     </div>
@@ -146,39 +146,31 @@ $conn->close();
             <div class="menu_section">
 
               <ul class="nav side-menu">
-                <li class="px-1">
-                  <a href="Member/member.php"><i class="fa-solid fa-user"></i> 會員管理
-                  </a>
-                </li>
-                <li class="px-1">
-                  <a href="product.php"><i class="fa-solid fa-store"></i> 商品管理
-                  </a>
-                </li>
-                <li class="px-1">
-                  <a><i class="fa-solid fa-hashtag"></i> </i>分類管理<span class="fa fa-chevron-down"></span>
-                    <ul class="nav child_menu">
-                      <li><a href="categories_product.php">商品</a></li>
-                      <li><a href="categories_class.php">課程</a></li>
-                      <li><a href="categories_recipe.php">食譜</a></li>
+              <li class="h6"><a href="member.php"><i class="fa-solid fa-user fa-fw"></i> 會員管理</a>
+                  </li><li class="h6"><a href="product.php"><i class="fa-solid fa-store fa-fw"></i> 商品管理</a>
+                  </li>
+                  <li class="h6"><a><i class="fa-solid fa-hashtag fa-fw"></i> 分類管理<span class="fa fa-chevron-down"></span>
+                  <ul class="nav child_menu">
+                      <li><a href="categories_product.php" style="font-size: 16px;"> 商品</a></li>
+                      <li><a href="categories_class.php" style="font-size: 16px;"> 課程</a></li>
+                      <li><a href="categories_recipe.php" style="font-size: 16px;"> 食譜</a></li>
+
                     </ul>
-                  </a>
-                </li>
-                <li class="px-1">
-                  <a href="recipe-list.php"><i class="fa-solid fa-kitchen-set"></i> 食譜管理</a>
-                </li>
-                <li class="px-1">
-                  <a href="speaker.php"><i class="fa-solid fa-chalkboard-user"></i> 講師管理</a>
-                </li>
-                <li>
-                  <a href="redirectClass.php"><i class="fa-solid fa-chalkboard"></i> 課程管理</a>
-                </li>
-                <li class="px-1">
-                  <a href="coupons.php"><i class="fa-sharp fa-solid fa-tag"></i> 優惠卷管理</a>
-                </li>
-                <hr style="border-top: 2px solid aliceblue" />
-                <li class="px-1">
-                  <a href="./order_file/order.php"><i class="fa-solid fa-note-sticky"></i> 訂單管理</a>
-                </li>
+
+                  </li>
+                  <li class="h6"><a href="recipe-list.php"><i class="fa-solid fa-kitchen-set fa-fw"></i> 食譜管理</a>
+                  </li>
+                  <li class="h6"><a href="speaker.php"><i class="fa-solid fa-chalkboard-user fa-fw"></i> 講師管理</a>
+                  </li>
+                  <li class="h6"><a href="redirectClass.php"><i class="fa-solid fa-chalkboard fa-fw"></i> 課程管理</a>
+                  </li>
+                  <li class="h6"><a href="coupons.php"><i class="fa-sharp fa-solid fa-tag fa-fw"></i> 優惠卷管理</a>
+                  </li>
+                  <hr style="border-top: 2px solid aliceblue;">
+                  <li class="h6">
+                    <a href="order_file/order.php"
+                      ><i class="fa-solid fa-note-sticky fa-fw"></i> 訂單管理</a>
+                  </li>
               </ul>
             </div>
           </div>
@@ -230,7 +222,7 @@ $conn->close();
                 </li>
 
               <li role="presentation" class="nav-item dropdown open">
-               
+
                 <ul class="dropdown-menu list-unstyled msg_list" role="menu" aria-labelledby="navbarDropdown1">
                   <li class="nav-item">
                     <a class="dropdown-item">
@@ -324,11 +316,11 @@ $conn->close();
               <div class="row mb-3">
                 <label class="form-label" for="">優惠券使用時間</label>
                 <div class="form-group col-auto">
-                  <input type="date" class="form-control" id="datePicker1" name="validStartDate" min="<?= $todayDate ?>" max="2025-02-01" required="required">
+                  <input type="date" class="form-control" id="datePicker1" name="validStartDate" min="<?=$todayDate?>" max="2025-02-01" required="required">
                 </div>
                 <div class="col-auto">~</div>
                 <div class="form-group col-auto">
-                  <input type="date" class="form-control" id="datePicker2" name="validEndDate" min="<?= $todayDate ?>" max="2025-02-01" required="required">
+                  <input type="date" class="form-control" id="datePicker2" name="validEndDate" min="<?=$todayDate?>" max="2025-02-01" required="required">
                 </div>
                 <div id="dateAlert" style="color: #c80b2b; display: none;">起始日期不可晚於結束日期</div>
               </div>
