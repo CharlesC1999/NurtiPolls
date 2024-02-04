@@ -124,20 +124,19 @@ $categories = $resultCategories->fetch_all(MYSQLI_ASSOC);
         <div class="main_container">
             <div class="col-md-3 left_col">
                 <div class="left_col scroll-view">
-                    <div class="navbar nav_title" style="border: 0;">
-                        <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentelella Alela!</span></a>
+                    <div class="navbar nav_title" style="border: 0">
+                        <a href="HomePage.html" class="site_title"><img src="../Logo_sm.png" alt="" style="height: 65px;"></a>
                     </div>
-
                     <div class="clearfix"></div>
 
                     <!-- menu profile quick info -->
                     <div class="profile clearfix">
                         <div class="profile_pic">
-                            <img src="images/img.jpg" alt="..." class="img-circle profile_img">
+                            <img src="../logo4.png" alt="..." class="img-circle profile_img" />
                         </div>
                         <div class="profile_info">
-                            <span>Welcome,</span>
-                            <h2>John Doe</h2>
+                            <span>Hi,</span>
+                            <h2>第四組</h2>
                         </div>
                     </div>
                     <!-- /menu profile quick info -->
