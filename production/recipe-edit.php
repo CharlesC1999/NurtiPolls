@@ -6,7 +6,7 @@ if (!isset($_GET["Recipe_ID"])) {
 }
 require_once("../db_connect.php");
 
-$sql = "SELECT * FROM recipe WHERE Recipe_ID=$Recipe_ID AND valid = 1";
+$sql = "SELECT * FROM recipe WHERE Recipe_ID=$Recipe_ID AND recipe_valid = 1";
 $result = $conn->query($sql);
 
 $rowCount = $result->num_rows;

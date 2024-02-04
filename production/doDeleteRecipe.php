@@ -2,7 +2,7 @@
 require_once("../db_connect.php");
 $id = $_GET["Recipe_ID"];
 
-$sql = "UPDATE recipe SET valid='0' WHERE Recipe_ID=$id";
+$sql = "UPDATE recipe SET recipe_valid='0' WHERE Recipe_ID=$id";
 
 if ($conn->query($sql) === true) {
     echo "刪除成功";

@@ -23,7 +23,7 @@ if ($_FILES["pic"]["error"] == 0) {
         $filename = $_FILES["pic"]["name"];
         $now = date("Y-m-d H:i:s");
 
-        $sql = "INSERT INTO recipe (Title_R_name, Image_URL, Content, Publish_date,Recipe_category_ID, valid)
+        $sql = "INSERT INTO recipe (Title_R_name, Image_URL, Content, Publish_date,Recipe_category_ID, recipe_valid)
         VALUES ('$Title_R_name','$filename','$Content','$now','$Recipe_category_ID', 1)";
         if ($conn->query($sql)) {
             echo "新增完成";
