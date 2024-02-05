@@ -86,6 +86,9 @@ $conn->close();
         .side-menu {
             font-size: 15px;
         }
+        body.nav-md{
+            font-size: 15px;
+        }
     </style>
 </head>
 
