@@ -365,6 +365,17 @@ require_once "../../db_connect.php";
                 </label>
                 <input type="number" class="form-control" name="phone" required="required">
             </div>
+            <!-- 生日 -->
+            <div class="mt-2">
+                <!-- 生日 -->
+                <label for="" class="form-label">
+                  生日
+                </label>
+                <input type="date" class="form-control" name="birth" >
+            </div>
+
+
+            <!--  -->
             <div class="mt-2">
             <label for="" class="form-label">選擇圖片</label>
             <input type="file" class="form-control" name="img" >

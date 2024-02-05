@@ -145,8 +145,8 @@ unset($_SESSION["error"]["message"]);
                 <!-- <br /> -->
 
                 <div>
-                  <h1></i> 營養大選 <img src="./Logo.png" alt="" style="width:50px;height:50px;"></h1>
-                  <p>©111 All Rights Reserved. Gentelella Alela! is a Bootstrap 4 template. Privacy and Terms</p>
+                  <h1 class="mt-4"></i> 營養大選 <img src="./Logo.png" alt="" style="width:50px;height:50px;"></h1>
+                  <!-- <p>©111 All Rights Reserved. Gentelella Alela! is a Bootstrap 4 template. Privacy and Terms</p> -->
                 </div>
               </div>
             </form>
@@ -186,7 +186,7 @@ unset($_SESSION["error"]["message"]);
                 <div>
                     <!-- <i class="fa fa-paw"></i> -->
                   <h1> 營養大選</h1>
-                  <p>©111 All Rights Reserved. Gentelella Alela! is a Bootstrap 4 template. Privacy and Terms</p>
+                  <!-- <p>©111 All Rights Reserved. Gentelella Alela! is a Bootstrap 4 template. Privacy and Terms</p> -->
                 </div>
                </div>
               </form>
