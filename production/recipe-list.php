@@ -10,10 +10,10 @@ JOIN recipe_categories ON recipe.Recipe_Category_ID = recipe_categories.Recipe_c
  WHERE recipe_valid=1 ORDER BY Recipe_ID ASC";
 
 if (isset($_GET["cate"])) {
-    $cate = $_GET["cate"];
-    $sql = "SELECT  recipe.*,recipe_categories.Recipe_cate_name AS category_name FROM recipe
+  $cate = $_GET["cate"];
+  $sql = "SELECT  recipe.*,recipe_categories.Recipe_cate_name AS category_name FROM recipe
     JOIN recipe_categories ON recipe.Recipe_Category_ID = recipe_categories.Recipe_cate_ID
-    WHERE recipe.Recipe_Category_ID = $cate AND valid=1
+    WHERE recipe.Recipe_Category_ID = $cate AND recipe_valid=1
     ORDER BY Recipe_ID ASC";
 }
 
@@ -33,7 +33,7 @@ $recipeCount = $result->num_rows;
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>營養大選 Nutripolls</title>
-  <?php require_once "../css.php";?>
+  <?php require_once "../css.php"; ?>
   <!-- Bootstrap -->
   <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
   <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -60,12 +60,12 @@ $recipeCount = $result->num_rows;
 <body class="nav-md">
 
   <?php
-$categories = [];
-foreach ($rowsCategory as $cate) {
+  $categories = [];
+  foreach ($rowsCategory as $cate) {
     $categories[$cate["Recipe_cate_ID"]] = $cate["Recipe_cate_name"];
-}
-//print_r($categories);
-?>
+  }
+  //print_r($categories);
+  ?>
 
 
 
@@ -76,22 +76,22 @@ foreach ($rowsCategory as $cate) {
     <div class="main_container">
       <div class="col-md-3 left_col">
         <div class="left_col scroll-view">
-            <div class="navbar nav_title" style="border: 0;">
-              <a href="HomePage.html" class="site_title"><img src="../Logo_sm.png" alt="" style="height: 65px;"></a>
-            </div>
+          <div class="navbar nav_title" style="border: 0;">
+            <a href="HomePage.html" class="site_title"><img src="../Logo_sm.png" alt="" style="height: 65px;"></a>
+          </div>
 
           <div class="clearfix"></div>
 
           <!-- menu profile quick info -->
           <div class="profile clearfix">
-              <div class="profile_pic">
-                <img src="../logo4.png" alt="..." class="img-circle profile_img" />
-              </div>
-              <div class="profile_info">
-                <span>Hi,</span>
-                <h2>第四組</h2>
-              </div>
+            <div class="profile_pic">
+              <img src="../logo4.png" alt="..." class="img-circle profile_img" />
             </div>
+            <div class="profile_info">
+              <span>Hi,</span>
+              <h2>第四組</h2>
+            </div>
+          </div>
           <!-- /menu profile quick info -->
 
           <br />
@@ -101,31 +101,31 @@ foreach ($rowsCategory as $cate) {
             <div class="menu_section">
               <ul class="nav side-menu">
 
-                  <li class="h6"><a href="Member/member.php"><i class="fa-solid fa-user fa-fw"></i> 會員管理</a>
-                  </li><li class="h6"><a href="product.php"><i class="fa-solid fa-store fa-fw"></i> 商品管理</a>
-                  </li>
-                  <li class="h6"><a><i class="fa-solid fa-hashtag fa-fw"></i> 分類管理<span class="fa fa-chevron-down"></span>
-                  <ul class="nav child_menu">
+                <li class="h6"><a href="Member/member.php"><i class="fa-solid fa-user fa-fw"></i> 會員管理</a>
+                </li>
+                <li class="h6"><a href="product.php"><i class="fa-solid fa-store fa-fw"></i> 商品管理</a>
+                </li>
+                <li class="h6"><a><i class="fa-solid fa-hashtag fa-fw"></i> 分類管理<span class="fa fa-chevron-down"></span>
+                    <ul class="nav child_menu">
                       <li><a href="categories_product.php" style="font-size: 16px;"> 商品</a></li>
                       <li><a href="categories_class.php" style="font-size: 16px;"> 課程</a></li>
                       <li><a href="categories_recipe.php" style="font-size: 16px;"> 食譜</a></li>
 
                     </ul>
 
-                  </li>
-                  <li class="h6"><a href="recipe-list.php"><i class="fa-solid fa-kitchen-set fa-fw"></i> 食譜管理</a>
-                  </li>
-                  <li class="h6"><a href="speaker.php"><i class="fa-solid fa-chalkboard-user fa-fw"></i> 講師管理</a>
-                  </li>
-                  <li class="h6"><a href="redirectClass.php"><i class="fa-solid fa-chalkboard fa-fw"></i> 課程管理</a>
-                  </li>
-                  <li class="h6"><a href="coupons.php"><i class="fa-sharp fa-solid fa-tag fa-fw"></i> 優惠卷管理</a>
-                  </li>
-                  <hr style="border-top: 2px solid aliceblue;">
-                  <li class="h6">
-                    <a href="order_file/order.php"
-                      ><i class="fa-solid fa-note-sticky fa-fw"></i> 訂單管理</a>
-                  </li>
+                </li>
+                <li class="h6"><a href="recipe-list.php"><i class="fa-solid fa-kitchen-set fa-fw"></i> 食譜管理</a>
+                </li>
+                <li class="h6"><a href="speaker.php"><i class="fa-solid fa-chalkboard-user fa-fw"></i> 講師管理</a>
+                </li>
+                <li class="h6"><a href="redirectClass.php"><i class="fa-solid fa-chalkboard fa-fw"></i> 課程管理</a>
+                </li>
+                <li class="h6"><a href="coupons.php"><i class="fa-sharp fa-solid fa-tag fa-fw"></i> 優惠卷管理</a>
+                </li>
+                <hr style="border-top: 2px solid aliceblue;">
+                <li class="h6">
+                  <a href="order_file/order.php"><i class="fa-solid fa-note-sticky fa-fw"></i> 訂單管理</a>
+                </li>
             </div>
           </div>
           <!-- /sidebar menu -->
@@ -150,25 +150,25 @@ foreach ($rowsCategory as $cate) {
       </div>
 
       <!-- top navigation -->
-          <div class="top_nav">
-            <div class="nav_menu">
-                <div class="nav toggle">
-                  <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-                </div>
-                <nav class="nav navbar-nav">
-                <ul class=" navbar-right">
-                  <li class="nav-item dropdown open" style="padding-left: 15px;">
-                    <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                      <img src="../logo4.png" alt="" />第四組
-                    </a>
-                    <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
-                      <a class="dropdown-item"  href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
-                    </div>
-                  </li>
-                </ul>
-              </nav>
-            </div>
+      <div class="top_nav">
+        <div class="nav_menu">
+          <div class="nav toggle">
+            <a id="menu_toggle"><i class="fa fa-bars"></i></a>
           </div>
+          <nav class="nav navbar-nav">
+            <ul class=" navbar-right">
+              <li class="nav-item dropdown open" style="padding-left: 15px;">
+                <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
+                  <img src="../logo4.png" alt="" />第四組
+                </a>
+                <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+                </div>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
       <!-- /top navigation -->
 
       <!-- page content -->
@@ -176,118 +176,117 @@ foreach ($rowsCategory as $cate) {
         <div class="">
           <div class="page-title">
 
-            </div>
-
-            <div class="title_right">
-              <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-
-              </div>
-            </div>
           </div>
 
-          <div class="clearfix"></div>
+          <div class="title_right">
+            <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
 
-          <div class="row">
-            <div class="col-md-12 col-sm-12 ">
-              <div class="x_panel">
-                <div class="x_title">
-                  <h2>食譜管理</h2>
-                  <ul class="nav navbar-right panel_toolbox">
-                    <!-- <button class="btn btn-primary">新增</button> -->
-                    <a href="add-recipe.php" role="button" class="btn btn-info"><i class="fa-solid fa-plus"></i>新增</a>
-                  </ul>
-                  <div class="clearfix"></div>
-                </div>
-                <div class="x_content">
-                  <div class="row">
-                    <div class="col-sm-12">
-                      <div class="card-box table-responsive">
-                        <p class="text-muted font-13 m-b-30">
-                          共
-                          <?=$recipeCount?>份
-                        </p>
-                        <div class="mb-2">
+            </div>
+          </div>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="row">
+          <div class="col-md-12 col-sm-12 ">
+            <div class="x_panel">
+              <div class="x_title">
+                <h2>食譜管理</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                  <!-- <button class="btn btn-primary">新增</button> -->
+                  <a href="add-recipe.php" role="button" class="btn btn-info"><i class="fa-solid fa-plus"></i>新增</a>
+                </ul>
+                <div class="clearfix"></div>
+              </div>
+              <div class="x_content">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="card-box table-responsive">
+                      <p class="text-muted font-13 m-b-30">
+                        共
+                        <?= $recipeCount ?>份
+                      </p>
+                      <div class="mb-2">
                         <ul class="nav nav-tabs">
+                          <li class="nav-item">
+                            <a class="nav-link text-secondary <?php if (!isset($_GET["cate"])) {
+                                                                echo "active text-info";
+                                                              }
+                                                              ?>" aria-current="page" href="recipe-list.php">全部</a>
+                          </li>
+                          <?php foreach ($rowsCategory as $category) : ?>
                             <li class="nav-item">
-                              <a class="nav-link text-secondary <?php if (!isset($_GET["cate"])) {
-    echo "active text-info";
-}
-?>" aria-current="page" href="recipe-list.php">全部</a>
+                              <a class="nav-link text-secondary <?php
+                                                                if (isset($_GET["cate"]) && $_GET["cate"] == $category["Recipe_cate_ID"]) {
+                                                                  echo "active text-info";
+                                                                }
+
+                                                                ?>" aria-current="page" href="recipe-list.php?cate=<?= $category["Recipe_cate_ID"] ?>">
+                                <?= $category["Recipe_cate_name"] ?>
+                              </a>
+                            <?php endforeach; ?>
                             </li>
-                            <?php foreach ($rowsCategory as $category): ?>
-                              <li class="nav-item">
-                                <a class="nav-link text-secondary <?php
-if (isset($_GET["cate"]) && $_GET["cate"] == $category["Recipe_cate_ID"]) {
-    echo "active text-info";
-}
+                        </ul>
+                      </div>
+                      <table id="datatable" class="table table-striped table-bordered" style="width:100%">
+                        <thead>
+                          <tr>
+                            <th>食譜名稱</th>
+                            <th>展示圖片</th>
+                            <th>簡介</th>
+                            <th style="width: 6vw">建立日期</th>
+                            <th>分類</th>
+                            <th></th>
 
-?>" aria-current="page" href="recipe-list.php?cate=<?=$category["Recipe_cate_ID"]?>">
-                                  <?=$category["Recipe_cate_name"]?>
-                                </a>
-                              <?php endforeach;?>
-                              </li>
-                          </ul>
-                        </div>
-                        <table id="datatable" class="table table-striped table-bordered" style="width:100%">
-                          <thead>
+
+
+                          </tr>
+                        </thead>
+
+
+                        <tbody>
+                          <?php
+                          $rows = $result->fetch_all(MYSQLI_ASSOC);
+                          foreach ($rows as $recipe) :
+                          ?>
                             <tr>
-                              <th>食譜名稱</th>
-                              <th>展示圖片</th>
-                              <th>簡介</th>
-                              <th style="width: 6vw">建立日期</th>
-                              <th>分類</th>
-                              <th></th>
-
-
-
-                            </tr>
-                          </thead>
-
-
-                          <tbody>
-                            <?php
-$rows = $result->fetch_all(MYSQLI_ASSOC);
-foreach ($rows as $recipe):
-?>
-                              <tr>
-                                <td class="h6">
-                                  <?=$recipe["Title_R_name"]?>
-                                </td>
-                                <td class="h6">
-                                  <div class="ratio ratio-1x1">
-                                    <img class="object-fit-cover" src="rimages/<?=$recipe["Image_URL"]?>" alt="<?=$recipe["Title_R_name"]?>">
-                                  </div>
-                                </td>
-                                <td class="h6">
-                                  <?=$recipe["Content"]?>
-                                </td>
-                                <td class="h6" style="width: 6vw">
-                                  <?=$recipe["Publish_date"]?>
-                                </td>
-                                <td class="h6">
-                                  <?=$recipe["category_name"]?>
-                                </td>
-                                <td>
-                                  <a role="button" class="btn btn-outline-secondary" href="recipe.php?Recipe_ID=<?=$recipe["Recipe_ID"]?>">
-                                    <i class="fa-solid fa-eye"></i>
-                                  </a>
-                                  <a role="button" class="btn btn-outline-info" href="recipe-edit.php?Recipe_ID=<?=$recipe["Recipe_ID"]?>">
-                                    <i class="fa-solid fa-pencil"></i>
-                                  </a>
-                                  <!-- <a href="doDeleteRecipe.php?Recipe_ID=
+                              <td class="h6">
+                                <?= $recipe["Title_R_name"] ?>
+                              </td>
+                              <td class="h6">
+                                <div class="ratio ratio-1x1">
+                                  <img class="object-fit-cover" src="rimages/<?= $recipe["Image_URL"] ?>" alt="<?= $recipe["Title_R_name"] ?>">
+                                </div>
+                              </td>
+                              <td class="h6">
+                                <?= $recipe["Content"] ?>
+                              </td>
+                              <td class="h6" style="width: 6vw">
+                                <?= $recipe["Publish_date"] ?>
+                              </td>
+                              <td class="h6">
+                                <?= $recipe["category_name"] ?>
+                              </td>
+                              <td>
+                                <a role="button" class="btn btn-outline-secondary" href="recipe.php?Recipe_ID=<?= $recipe["Recipe_ID"] ?>">
+                                  <i class="fa-solid fa-eye"></i>
+                                </a>
+                                <a role="button" class="btn btn-outline-info" href="recipe-edit.php?Recipe_ID=<?= $recipe["Recipe_ID"] ?>">
+                                  <i class="fa-solid fa-pencil"></i>
+                                </a>
+                                <!-- <a href="doDeleteRecipe.php?Recipe_ID=
                                  $recipe["Recipe_ID"]?>
                             ">
                               <i class="fa-solid fa-trash"></i>
                             </a> -->
 
 
-                                </td>
+                              </td>
 
-                              </tr>
-                            <?php endforeach;?>
-                          </tbody>
-                        </table>
-                      </div>
+                            </tr>
+                          <?php endforeach; ?>
+                        </tbody>
+                      </table>
                     </div>
                   </div>
                 </div>
@@ -296,17 +295,18 @@ foreach ($rows as $recipe):
           </div>
         </div>
       </div>
-      <!-- /page content -->
-
-      <!-- footer content -->
-      <footer>
-        <div class="pull-right">
-          Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
-        </div>
-        <div class="clearfix"></div>
-      </footer>
-      <!-- /footer content -->
     </div>
+    <!-- /page content -->
+
+    <!-- footer content -->
+    <footer>
+      <div class="pull-right">
+        Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+      </div>
+      <div class="clearfix"></div>
+    </footer>
+    <!-- /footer content -->
+  </div>
   </div>
 
   <!-- jQuery -->
@@ -338,7 +338,7 @@ foreach ($rows as $recipe):
 
   <!-- Custom Theme Scripts -->
   <script src="../build/js/custom.min.js"></script>
-  <?php require_once "../js.php";?>
+  <?php require_once "../js.php"; ?>
 </body>
 
 </html>
