@@ -1,0 +1,40 @@
+#nubi {
+    position: relative;
+    background: #07f3e700;
+    width: 690px;
+    height: 430px;
+    margin-top: 10vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 5px; /* 可以根據需要設定邊界圓角 */
+}
+
+#nubi::before,
+#nubi::after {
+    content: '';
+    position: absolute;
+    width: 200%;
+    height: 80%;
+    top: 5%; /* 調整以適合您的設計 */
+    left: -50%; /* 調整以適合您的設計 */
+    background-image: conic-gradient(transparent, transparent, transparent, white);
+    animation: rotate_border 6s linear infinite;
+    z-index: -1;
+    border-radius: 50% 50%;
+}
+
+#nubi::after {
+    background-image: conic-gradient(transparent, transparent, transparent, white);
+    animation-delay: -3s; /* 創造出錯開的旋轉效果 */
+}
+
+@keyframes rotate_border {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

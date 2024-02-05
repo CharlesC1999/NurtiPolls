@@ -30,6 +30,7 @@ if (isset($_SESSION["User_name"])) {
 
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./for_nubi.css">
 
 <!-- wu Css連接 -->
         <!-- Bootstrap CSS v5.2.1 -->
@@ -83,125 +84,129 @@ if (isset($_SESSION["User_name"])) {
     </style>
   </head>
 
-  <body class="login">
+  <body class="login d-flex justify-content-center">
   <!-- <div class="vh-100 d-flex justify-content-center align-items-center"> -->
   <?php if (isset($_SESSION["error"]["times"]) && $_SESSION["error"]["times"] > 3): ?>
         <h1 class="d-flex align-items-end justify-content-center times">登入錯誤次數太多，請稍後再嘗試</h1>
         <?php else: ?>
 
-    <div class="d-flex justify-content-center">
-      <a class="hiddenanchor" id="signup"></a>
-      <a class="hiddenanchor" id="signin"></a>
+    <div style="margin-top: 10vw; width: 690px; height : 430px" class="d-flex justify-content-center align-items-center" id="nubi">
+      <div class="d-flex justify-content-center" style="margin-left: 50px; margin-bottom : 14px" >
 
-      <div class="login_wrapper  d-flex justify-content-center">
-      <!-- <table class="table table-bordered "> -->
-        <!-- table-secondary -->
-        <!-- <thead>
-        <tr> -->
-        <!-- <td>
-                asc
-            </td> -->
-        <!-- <td  -->
-            <div class="container ">
-                <div class="row ">
-                <div class="col-3 d-flex align-items-center justify-content-center ">
-                <div class="org">
-                <img src="./nut.png" class="img">
+        <a class="hiddenanchor" id="signup"></a>
+        <a class="hiddenanchor" id="signin"></a>
+
+        <div class="login_wrapper  d-flex justify-content-center">
+        <!-- <table class="table table-bordered "> -->
+          <!-- table-secondary -->
+          <!-- <thead>
+          <tr> -->
+          <!-- <td>
+                  asc
+              </td> -->
+          <!-- <td  -->
+
+              <div class="container ">
+                  <div class="row ">
+                  <div class="col-3 d-flex align-items-center justify-content-center ">
+                  <div class="org">
+                  <img src="./nut.png" class="img">
+                  </div>
+            </div>
+                      <div class="col-9" style="width:500px" style="background-color:white">
+            <div class="animate form login_form" >
+            <!-- style="background-color:white;height: 410px; width:400px" -->
+            <section class="login_content" style="background-color:white;height: 410px; width:400px;margin-left:-15px">
+              <form method="post" action="doLoginSess.php"  >
+                <h1>登入</h1>
+                <div class="d-flex justify-content-center">
+                  <input type="text" class="form-control" placeholder="帳號" name="account" style="width:200px"/>
+                  <!-- required=""  -->
                 </div>
-          </div>
-                    <div class="col-9" style="width:500px" style="background-color:white">
-          <div class="animate form login_form" >
-          <!-- style="background-color:white;height: 410px; width:400px" -->
-          <section class="login_content" style="background-color:white;height: 410px; width:400px;margin-left:-15px">
-            <form method="post" action="doLoginSess.php"  >
-              <h1>登入</h1>
-              <div class="d-flex justify-content-center">
-                <input type="text" class="form-control" placeholder="帳號" name="account" style="width:200px"/>
-                <!-- required=""  -->
-              </div>
-              <div class="d-flex justify-content-center">
-                <input type="password" class="form-control" placeholder="密碼" name="password" style="width:200px"/>
-                <!-- required=""  -->
-              </div>
+                <div class="d-flex justify-content-center">
+                  <input type="password" class="form-control" placeholder="密碼" name="password" style="width:200px"/>
+                  <!-- required=""  -->
+                </div>
 
-              <?php if (isset($_SESSION["error"]["message"])): ?>
-              <div class="text-danger mb-2"><?=$_SESSION["error"]["message"]?></div>
-                <?php endif;
+                <?php if (isset($_SESSION["error"]["message"])): ?>
+                <div class="text-danger mb-2"><?=$_SESSION["error"]["message"]?></div>
+                  <?php endif;
 unset($_SESSION["error"]["message"]);
 ?>
-              <div class="d-flex justify-content-center">
-              <button type="submit" class="btn btn-secondary">log in</button>
-                <!-- <a class="reset_pass" href="#">Lost your password?</a> -->
-              </div>
-
-              <div class="clearfix"></div>
-
-              <div class="separator">
-                <!-- <p class="change_link">New to site?
-                  <a href="#signup" class="to_register"> Create Account </a>
-                </p> -->
+                <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-secondary">log in</button>
+                  <!-- <a class="reset_pass" href="#">Lost your password?</a> -->
+                </div>
 
                 <div class="clearfix"></div>
-                <!-- <br /> -->
 
-                <div>
-                  <h1 class="mt-4"></i> 營養大選 <img src="./Logo.png" alt="" style="width:50px;height:50px;"></h1>
-                  <!-- <p>©111 All Rights Reserved. Gentelella Alela! is a Bootstrap 4 template. Privacy and Terms</p> -->
+                <div class="separator">
+                  <!-- <p class="change_link">New to site?
+                    <a href="#signup" class="to_register"> Create Account </a>
+                  </p> -->
+
+                  <div class="clearfix"></div>
+                  <!-- <br /> -->
+
+                  <div>
+                    <h1 class="mt-4"></i> 營養大選 <img src="./Logo.png" alt="" style="width:50px;height:50px;"></h1>
+                    <!-- <p>©111 All Rights Reserved. Gentelella Alela! is a Bootstrap 4 template. Privacy and Terms</p> -->
+                  </div>
                 </div>
-              </div>
-            </form>
-            <?php endif;?>
-          </section>
-        </div>
-
-        <div id="register" class="animate form registration_form">
-          <section class="login_content">
-            <form>
-              <!-- <h1>Create Account</h1> -->
-              <div>
-                <input type="text" class="form-control" placeholder="Username"/>
-                <!-- required=""  -->
-              </div>
-              <div>
-                <input type="email" class="form-control" placeholder="Email" />
-                <!--required=""  -->
-              </div>
-              <div>
-                <input type="password" class="form-control" placeholder="Password" />
-              </div>
-              <div>
-                <a class="btn btn-default submit" href="index.html">Submit</a>
-              </div>
-
-              <div class="clearfix"></div>
-
-              <div class="separator">
-                <p class="change_link">Already a member ?
-                  <a href="#signin" class="to_register"> Log in </a>
-                </p>
-
-                <div class="clearfix"></div>
-                <br />
-
-                <div>
-                    <!-- <i class="fa fa-paw"></i> -->
-                  <h1> 營養大選</h1>
-                  <!-- <p>©111 All Rights Reserved. Gentelella Alela! is a Bootstrap 4 template. Privacy and Terms</p> -->
-                </div>
-               </div>
               </form>
-             </section>
+              <?php endif;?>
+            </section>
           </div>
 
-              <!-- </td>
-              </tr>
-              </thead>
-              </table> -->
-              </div>
-              </div>
-              </div>
+          <div id="register" class="animate form registration_form">
+            <section class="login_content">
+              <form>
+                <!-- <h1>Create Account</h1> -->
+                <div>
+                  <input type="text" class="form-control" placeholder="Username"/>
+                  <!-- required=""  -->
+                </div>
+                <div>
+                  <input type="email" class="form-control" placeholder="Email" />
+                  <!--required=""  -->
+                </div>
+                <div>
+                  <input type="password" class="form-control" placeholder="Password" />
+                </div>
+                <div>
+                  <a class="btn btn-default submit" href="index.html">Submit</a>
+                </div>
+
+                <div class="clearfix"></div>
+
+                <div class="separator">
+                  <p class="change_link">Already a member ?
+                    <a href="#signin" class="to_register"> Log in </a>
+                  </p>
+
+                  <div class="clearfix"></div>
+                  <br />
+
+                  <div>
+                      <!-- <i class="fa fa-paw"></i> -->
+                    <h1> 營養大選</h1>
+                    <!-- <p>©111 All Rights Reserved. Gentelella Alela! is a Bootstrap 4 template. Privacy and Terms</p> -->
+                  </div>
+                </div>
+                </form>
+              </section>
+            </div>
+
+                <!-- </td>
+                </tr>
+                </thead>
+                </table> -->
+                </div>
+                </div>
+                </div>
+        </div>
+        </div>
       </div>
-    </div>
 
   </body>
 </html>
