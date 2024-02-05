@@ -341,8 +341,8 @@ require_once "../../db_connect.php";
                 <label for="" class="form-label">
                     account
                 </label>
-                <input type="text" class="form-control" name="account" required="required" pattern="^(?=.*[a-zA-Z])(?=.*[0-9]).{4,}$">
-
+                <input type="text" class="form-control" name="account" required="required" >
+                <!-- pattern="^(?=.*[a-zA-Z])(?=.*[0-9]).{4,}$" -->
             </div>
             <div class="mt-2">
                 <!-- 密碼 -->
