@@ -14,6 +14,7 @@ $password = $_POST["password"];
 $email = $_POST["email"];
 $phone = $_POST["phone"];
 $img = $_FILES["img"];
+$birth = $_POST["birth"];
 // $img = $_POST["img"];
 $filename = "";
 $password = md5($password);
@@ -67,7 +68,17 @@ if ($_FILES['img']['error'] == 0) {
 }
 
 $now = date('Y-m-d H:i:s');
-$sql = "INSERT INTO member (User_name,Account,Password,Email,Phone,User_image,Create_date,valid) VALUES('$name','$account','$password','$email','$phone','$filename','$now',1)";
+$sql = "INSERT INTO member (User_name,Account,Password,Email,Phone,User_image,date_of_birth,Create_date,valid) VALUES('$name','$account','$password','$email','$phone','$filename','$birth','$now',1)";
+
+$checkAccount = "SELECT * FROM member WHERE Account = '$account'";
+$result = $conn->query($checkAccount);
+$accountExist = $result->num_rows;
+if ($accountExist != 0) {
+    // die("帳號已存在");
+    // header("location:add-user.php");
+    header("Location: add-user.php?error=account_exists");
+    exit;
+}
 
 // echo $sql;
 // exit;

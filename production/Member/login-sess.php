@@ -116,10 +116,12 @@ if (isset($_SESSION["User_name"])) {
             <form method="post" action="doLoginSess.php"  >
               <h1>登入</h1>
               <div class="d-flex justify-content-center">
-                <input type="text" class="form-control" placeholder="帳號" required=""  name="account" style="width:200px"/>
+                <input type="text" class="form-control" placeholder="帳號" name="account" style="width:200px"/>
+                <!-- required=""  -->
               </div>
               <div class="d-flex justify-content-center">
-                <input type="password" class="form-control" placeholder="密碼" required="" name="password" style="width:200px"/>
+                <input type="password" class="form-control" placeholder="密碼" name="password" style="width:200px"/>
+                <!-- required=""  -->
               </div>
 
               <?php if (isset($_SESSION["error"]["message"])): ?>
@@ -143,8 +145,8 @@ unset($_SESSION["error"]["message"]);
                 <!-- <br /> -->
 
                 <div>
-                  <h1></i> 營養大選 <img src="./Logo.png" alt="" style="width:50px;height:50px;"></h1>
-                  <p>©111 All Rights Reserved. Gentelella Alela! is a Bootstrap 4 template. Privacy and Terms</p>
+                  <h1 class="mt-4"></i> 營養大選 <img src="./Logo.png" alt="" style="width:50px;height:50px;"></h1>
+                  <!-- <p>©111 All Rights Reserved. Gentelella Alela! is a Bootstrap 4 template. Privacy and Terms</p> -->
                 </div>
               </div>
             </form>
@@ -157,13 +159,15 @@ unset($_SESSION["error"]["message"]);
             <form>
               <!-- <h1>Create Account</h1> -->
               <div>
-                <input type="text" class="form-control" placeholder="Username" required="" />
+                <input type="text" class="form-control" placeholder="Username"/>
+                <!-- required=""  -->
               </div>
               <div>
-                <input type="email" class="form-control" placeholder="Email" required="" />
+                <input type="email" class="form-control" placeholder="Email" />
+                <!--required=""  -->
               </div>
               <div>
-                <input type="password" class="form-control" placeholder="Password" required="" />
+                <input type="password" class="form-control" placeholder="Password" />
               </div>
               <div>
                 <a class="btn btn-default submit" href="index.html">Submit</a>
@@ -182,7 +186,7 @@ unset($_SESSION["error"]["message"]);
                 <div>
                     <!-- <i class="fa fa-paw"></i> -->
                   <h1> 營養大選</h1>
-                  <p>©111 All Rights Reserved. Gentelella Alela! is a Bootstrap 4 template. Privacy and Terms</p>
+                  <!-- <p>©111 All Rights Reserved. Gentelella Alela! is a Bootstrap 4 template. Privacy and Terms</p> -->
                 </div>
                </div>
               </form>
