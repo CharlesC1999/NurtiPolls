@@ -7,7 +7,7 @@ $rowsCategory = $resultCategory->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT recipe.*,recipe_categories.Recipe_cate_name AS category_name FROM recipe
 JOIN recipe_categories ON recipe.Recipe_Category_ID = recipe_categories.Recipe_cate_ID
- WHERE valid=1 ORDER BY Recipe_ID ASC";
+ WHERE recipe_valid=1 ORDER BY Recipe_ID ASC";
 
 if (isset($_GET["cate"])) {
     $cate = $_GET["cate"];
@@ -101,7 +101,7 @@ foreach ($rowsCategory as $cate) {
             <div class="menu_section">
               <ul class="nav side-menu">
 
-                  <li class="h6"><a href="member.php"><i class="fa-solid fa-user fa-fw"></i> 會員管理</a>
+                  <li class="h6"><a href="Member/member.php"><i class="fa-solid fa-user fa-fw"></i> 會員管理</a>
                   </li><li class="h6"><a href="product.php"><i class="fa-solid fa-store fa-fw"></i> 商品管理</a>
                   </li>
                   <li class="h6"><a><i class="fa-solid fa-hashtag fa-fw"></i> 分類管理<span class="fa fa-chevron-down"></span>
@@ -175,8 +175,7 @@ foreach ($rowsCategory as $cate) {
       <div class="right_col" role="main">
         <div class="">
           <div class="page-title">
-            <div class="title_left">
-              <h3>Users <small>哈囉</small></h3>
+
             </div>
 
             <div class="title_right">
@@ -208,24 +207,25 @@ foreach ($rowsCategory as $cate) {
                           <?=$recipeCount?>份
                         </p>
                         <div class="mb-2">
-                          <ul class="nav nav-tabs">
+                        <ul class="nav nav-tabs">
                             <li class="nav-item">
-                              <a class="nav-link text-info <?php if (!isset($_GET["cate"])) {
-    echo "active";
+                              <a class="nav-link text-secondary <?php if (!isset($_GET["cate"])) {
+    echo "active text-info";
 }
 ?>" aria-current="page" href="recipe-list.php">全部</a>
                             </li>
                             <?php foreach ($rowsCategory as $category): ?>
-                              <a class="nav-link text-secondary <?php
+                              <li class="nav-item">
+                                <a class="nav-link text-secondary <?php
 if (isset($_GET["cate"]) && $_GET["cate"] == $category["Recipe_cate_ID"]) {
-    echo "active";
+    echo "active text-info";
 }
 
 ?>" aria-current="page" href="recipe-list.php?cate=<?=$category["Recipe_cate_ID"]?>">
-                                <?=$category["Recipe_cate_name"]?>
-                              </a>
-                            <?php endforeach;?>
-
+                                  <?=$category["Recipe_cate_name"]?>
+                                </a>
+                              <?php endforeach;?>
+                              </li>
                           </ul>
                         </div>
                         <table id="datatable" class="table table-striped table-bordered" style="width:100%">
@@ -293,15 +293,6 @@ foreach ($rows as $recipe):
                 </div>
               </div>
             </div>
-
-
-
-
-
-
-
-
-
           </div>
         </div>
       </div>

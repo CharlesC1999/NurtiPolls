@@ -115,7 +115,7 @@ $product_type_count = $result_all_product->num_rows;
                       <li><a href="calendar.html">Calendar</a></li>
                     </ul>
                   </li> -->
-                  <li class="h6"><a href="member.php"><i class="fa-solid fa-user fa-fw"></i> 會員管理</a>
+                  <li class="h6"><a href="Member/member.php"><i class="fa-solid fa-user fa-fw"></i> 會員管理</a>
                   </li><li class="h6"><a href="product.php"><i class="fa-solid fa-store fa-fw"></i> 商品管理</a>
                   </li>
                   <li class="h6"><a><i class="fa-solid fa-hashtag fa-fw"></i> 分類管理<span class="fa fa-chevron-down"></span>
@@ -249,7 +249,7 @@ $product_type_count = $result_all_product->num_rows;
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Users <small>您好</small></h3>
+
               </div>
 
               <div class="title_right">

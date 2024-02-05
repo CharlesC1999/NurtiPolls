@@ -86,6 +86,9 @@ $conn->close();
         .side-menu {
             font-size: 15px;
         }
+        body.nav-md{
+            font-size: 15px;
+        }
     </style>
 </head>
 
@@ -119,7 +122,7 @@ $conn->close();
                         <div class="menu_section">
 
                             <ul class="nav side-menu">
-                            <li class="h6"><a href="member.php"><i class="fa-solid fa-user fa-fw"></i> 會員管理</a>
+                            <li class="h6"><a href="Member/member.php"><i class="fa-solid fa-user fa-fw"></i> 會員管理</a>
                   </li><li class="h6"><a href="product.php"><i class="fa-solid fa-store fa-fw"></i> 商品管理</a>
                   </li>
                   <li class="h6"><a><i class="fa-solid fa-hashtag fa-fw"></i> 分類管理<span class="fa fa-chevron-down"></span>

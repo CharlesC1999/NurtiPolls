@@ -86,10 +86,9 @@ $rowCount = $result->num_rows;
           <!-- sidebar menu -->
           <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
             <div class="menu_section">
-              <h3>General</h3>
               <ul class="nav side-menu">
 
-                  <li class="h6"><a href="member.php"><i class="fa-solid fa-user fa-fw"></i> 會員管理</a>
+                  <li class="h6"><a href="Member/member.php"><i class="fa-solid fa-user fa-fw"></i> 會員管理</a>
                   </li><li class="h6"><a href="product.php"><i class="fa-solid fa-store fa-fw"></i> 商品管理</a>
                   </li>
                   <li class="h6"><a><i class="fa-solid fa-hashtag fa-fw"></i> 分類管理<span class="fa fa-chevron-down"></span>
@@ -170,7 +169,7 @@ $rowCount = $result->num_rows;
             <div class="col-md-12 col-sm-12 ">
               <div class="x_panel">
                 <div class="x_title">
-                  <h2>食譜管理<small>Users</small></h2>
+
 
                   <div class="clearfix"></div>
                 </div>
@@ -183,49 +182,49 @@ $rowCount = $result->num_rows;
                   <?php else:
     $row = $result->fetch_assoc();
     ?>
-												                    <form action="updateRecipe.php" method="post" enctype="multipart/form-data">
-												                      <input type="hidden" name="Recipe_ID" value="<?=$row["Recipe_ID"]?>">
-												                      <table class="table table-bordered">
-												                        <tr>
-												                          <th class="col-2">食譜名稱</th>
-												                          <td><input type="text" class="form-control" value="<?=$row["Title_R_name"]?>" name="Title_R_name"></td>
-												                        </tr>
-												                        <tr>
-												                          <th class="col-2">展示圖片</th>
-												                          <td>
-												                            <input type="hidden" name="old_img" value="<?=$row["Image_URL"]?>">
-												                            <div class="col-lg-6 col-md-10 col-sm-12 ratio ratio-1x1">
-												                            <img class="object-fit-cover" src="rimages/<?=$row["Image_URL"]?>" alt="">
-												                            </div>
-												                            <input type="file" name="file">
-												                          </td>
-												                        </tr>
-												                        <tr>
-												                          <th class="col-2">簡介</th>
-												                          <td>
-												                            <textarea class="form-control" name="Content" cols="30" rows="10"><?=$row["Content"]?></textarea>
-												                          </td>
-												                        </tr>
-												                        <tr>
-												                          <th class="col-2">分類</th>
-												                          <td>
-												                            <select name="Recipe_category_ID" id="" class="form-select">
+																			                    <form action="updateRecipe.php" method="post" enctype="multipart/form-data">
+																			                      <input type="hidden" name="Recipe_ID" value="<?=$row["Recipe_ID"]?>">
+																			                      <table class="table table-bordered">
+																			                        <tr>
+																			                          <th class="col-2">食譜名稱</th>
+																			                          <td><input type="text" class="form-control" value="<?=$row["Title_R_name"]?>" name="Title_R_name"></td>
+																			                        </tr>
+																			                        <tr>
+																			                          <th class="col-2">展示圖片</th>
+																			                          <td>
+																			                            <input type="hidden" name="old_img" value="<?=$row["Image_URL"]?>">
+																			                            <div class="col-lg-6 col-md-10 col-sm-12 ratio ratio-1x1">
+																			                            <img class="object-fit-cover" src="rimages/<?=$row["Image_URL"]?>" alt="">
+																			                            </div>
+																			                            <input type="file" name="file">
+																			                          </td>
+																			                        </tr>
+																			                        <tr>
+																			                          <th class="col-2">簡介</th>
+																			                          <td>
+																			                            <textarea class="form-control" name="Content" cols="30" rows="10"><?=$row["Content"]?></textarea>
+																			                          </td>
+																			                        </tr>
+																			                        <tr>
+																			                          <th class="col-2">分類</th>
+																			                          <td>
+																			                            <select name="Recipe_category_ID" id="" class="form-select">
 
-												                              <option value="1">主食</option>
-												                              <option value="2">醬料</option>
-												                              <option value="3">湯品</option>
-												                              <option value="4">飲品</option>
-												                              <option value="5">點心</option>
-												                              <option value="6">沙拉</option>
-												                            </select>
-												                          </td>
-												                        </tr>
-												                      </table>
-												                      <div>
-												                        <button type="submit" class="btn btn-info">修改</button>
-												                      </div>
-												                    </form>
-												                  <?php endif;?>
+																			                              <option value="1">主食</option>
+																			                              <option value="2">醬料</option>
+																			                              <option value="3">湯品</option>
+																			                              <option value="4">飲品</option>
+																			                              <option value="5">點心</option>
+																			                              <option value="6">沙拉</option>
+																			                            </select>
+																			                          </td>
+																			                        </tr>
+																			                      </table>
+																			                      <div>
+																			                        <button type="submit" class="btn btn-info">修改</button>
+																			                      </div>
+																			                    </form>
+																			                  <?php endif;?>
                 </div>
               </div>
             </div>

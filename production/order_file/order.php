@@ -71,7 +71,7 @@ session_start();
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="HomePage.html" class="site_title"><img src="../../Logo_sm.png" alt="" style="height: 65px;"></a>
+              <a href="../HomePage.html" class="site_title"><img src="../../Logo_sm.png" alt="" style="height: 65px;"></a>
             </div>
 
             <div class="clearfix"></div>
@@ -125,7 +125,7 @@ session_start();
                       <li><a href="calendar.html">Calendar</a></li>
                     </ul>
                   </li> -->
-                  <li class="h6"><a href="../member.php"><i class="fa-solid fa-user fa-fw"></i> 會員管理</a>
+                  <li class="h6"><a href="../Member/member.php"><i class="fa-solid fa-user fa-fw"></i> 會員管理</a>
                   </li><li class="h6"><a href="../product.php"><i class="fa-solid fa-store fa-fw"></i> 商品管理</a>
                   </li>
                   <li class="h6"><a><i class="fa-solid fa-hashtag fa-fw"></i> 分類管理<span class="fa fa-chevron-down"></span>
