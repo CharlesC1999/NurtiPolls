@@ -81,6 +81,9 @@ $conn->close();
         .side-menu {
             font-size: 15px;
         }
+        body.nav-md{
+            font-size: 15px;
+        }
     </style>
 </head>
 
@@ -90,7 +93,7 @@ $conn->close();
             <div class="col-md-3 left_col">
                 <div class="left_col scroll-view">
                     <div class="navbar nav_title" style="border: 0;">
-                    <a href="HomePage.html" class="site_title"><img src="../Logo_sm.png" alt="" style="height: 65px;"></a>
+                        <a href="HomePage.html" class="site_title"><img src="../Logo_sm.png" alt="" style="height: 65px;"></a>
                     </div>
 
                     <div class="clearfix"></div>
@@ -114,31 +117,31 @@ $conn->close();
                         <div class="menu_section">
 
                             <ul class="nav side-menu">
-                            <li class="h6"><a href="Member/member.php"><i class="fa-solid fa-user fa-fw"></i> 會員管理</a>
-                            </li><li class="h6"><a href="product.php"><i class="fa-solid fa-store fa-fw"></i> 商品管理</a>
-                            </li>
-                            <li class="h6"><a><i class="fa-solid fa-hashtag fa-fw"></i> 分類管理<span class="fa fa-chevron-down"></span>
-                            <ul class="nav child_menu">
-                                <li><a href="categories_product.php" style="font-size: 16px;"> 商品</a></li>
-                                <li><a href="categories_class.php" style="font-size: 16px;"> 課程</a></li>
-                                <li><a href="categories_recipe.php" style="font-size: 16px;"> 食譜</a></li>
+                                <li class="h6"><a href="Member/member.php"><i class="fa-solid fa-user fa-fw"></i> 會員管理</a>
+                                </li>
+                                <li class="h6"><a href="product.php"><i class="fa-solid fa-store fa-fw"></i> 商品管理</a>
+                                </li>
+                                <li class="h6"><a><i class="fa-solid fa-hashtag fa-fw"></i> 分類管理<span class="fa fa-chevron-down"></span>
+                                        <ul class="nav child_menu">
+                                            <li><a href="categories_product.php" style="font-size: 16px;"> 商品</a></li>
+                                            <li><a href="categories_class.php" style="font-size: 16px;"> 課程</a></li>
+                                            <li><a href="categories_recipe.php" style="font-size: 16px;"> 食譜</a></li>
 
-                                </ul>
+                                        </ul>
 
-                            </li>
-                            <li class="h6"><a href="recipe-list.php"><i class="fa-solid fa-kitchen-set fa-fw"></i> 食譜管理</a>
-                            </li>
-                            <li class="h6"><a href="speaker.php"><i class="fa-solid fa-chalkboard-user fa-fw"></i> 講師管理</a>
-                            </li>
-                            <li class="h6"><a href="redirectClass.php"><i class="fa-solid fa-chalkboard fa-fw"></i> 課程管理</a>
-                            </li>
-                            <li class="h6"><a href="coupons.php"><i class="fa-sharp fa-solid fa-tag fa-fw"></i> 優惠卷管理</a>
-                            </li>
-                            <hr style="border-top: 2px solid aliceblue;">
-                            <li class="h6">
-                                <a href="order_file/order.php"
-                                ><i class="fa-solid fa-note-sticky fa-fw"></i> 訂單管理</a>
-                            </li>
+                                </li>
+                                <li class="h6"><a href="recipe-list.php"><i class="fa-solid fa-kitchen-set fa-fw"></i> 食譜管理</a>
+                                </li>
+                                <li class="h6"><a href="speaker.php"><i class="fa-solid fa-chalkboard-user fa-fw"></i> 講師管理</a>
+                                </li>
+                                <li class="h6"><a href="redirectClass.php"><i class="fa-solid fa-chalkboard fa-fw"></i> 課程管理</a>
+                                </li>
+                                <li class="h6"><a href="coupons.php"><i class="fa-sharp fa-solid fa-tag fa-fw"></i> 優惠卷管理</a>
+                                </li>
+                                <hr style="border-top: 2px solid aliceblue;">
+                                <li class="h6">
+                                    <a href="order_file/order.php"><i class="fa-solid fa-note-sticky fa-fw"></i> 訂單管理</a>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -156,38 +159,26 @@ $conn->close();
 
             <!-- top navigation -->
             <div class="top_nav">
-                <div class="nav_menu">
+                <div class="nav_menu" style="margin-bottom: 0">
                     <div class="nav toggle">
                         <a id="menu_toggle"><i class="fa fa-bars"></i></a>
                     </div>
                     <nav class="nav navbar-nav">
                         <ul class=" navbar-right">
-                        <li class="nav-item dropdown open" style="padding-left: 15px">
-                  <a
-                    href="javascript:;"
-                    class="user-profile dropdown-toggle"
-                    aria-haspopup="true"
-                    id="navbarDropdown"
-                    data-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    <img src="../logo4.png" alt="" />第四組
-                  </a>
-                  <div
-                    class="dropdown-menu dropdown-usermenu pull-right"
-                    aria-labelledby="navbarDropdown"
-                  >
-                    <a class="dropdown-item" href="javascript:;"> Profile</a>
-                    <a class="dropdown-item" href="javascript:;">
-                      <!-- <span class="badge bg-red pull-right">50%</span> -->
-                      <span>Settings</span>
-                    </a>
-                    <a class="dropdown-item" href="javascript:;">Help</a>
-                    <a class="dropdown-item" href="login.html"
-                      ><i class="fa fa-sign-out pull-right"></i> Log Out</a
-                    >
-                  </div>
-                </li>
+                            <li class="nav-item dropdown open" style="padding-left: 15px">
+                                <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
+                                    <img src="../logo4.png" alt="" />第四組
+                                </a>
+                                <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="javascript:;"> Profile</a>
+                                    <a class="dropdown-item" href="javascript:;">
+                                        <!-- <span class="badge bg-red pull-right">50%</span> -->
+                                        <span>Settings</span>
+                                    </a>
+                                    <a class="dropdown-item" href="javascript:;">Help</a>
+                                    <a class="dropdown-item" href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+                                </div>
+                            </li>
                             <li role="presentation" class="nav-item dropdown open">
 
                                 <ul class="dropdown-menu list-unstyled msg_list" role="menu" aria-labelledby="navbarDropdown1">
@@ -256,99 +247,98 @@ $conn->close();
             <!-- /top navigation -->
 
             <!-- page content -->
-            <div class="right_col" role="main">
+            <div class="right_col d-flex flex-column align-items-center" role="main">
                 <div class="container">
-                    <div class="py-3">
-                        <a type="submit" class="btn btn-secondary" href="coupons.php" role="button"><i class="fa-solid fa-chevron-left"></i>返回列表</a>
-                    </div>
-                    <h1 class="my-3 h3">優惠券詳情</h1>
-                    <input type="hidden" name="id" value="<?=$row["Coupon_ID"]?>">
-                    <form action="updateCoupon.php" method="post">
-                        <table>
-                            <tr>
-                                <th>優惠券編號</th>
-                                <td class="p-3">
-                                    <?=$row["Coupon_ID"]?>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>優惠券名稱</th>
-                                <td class="p-3">
-                                    <?=$row["C_name"]?>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>優惠券代碼</th>
-                                <td class="p-3">
-                                    <?=$row["C_code"]?>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>優惠券使用時間</th>
-                                <td class="p-3">
-                                    <div class="row">
-                                        <div class="col-auto">
-                                            <?=$row["Valid_start_date"]?>
-                                        </div>
-                                        <div class="col-auto">~</div>
-                                        <div class="col-auto">
-                                            <?=$row["Valid_end_date"]?>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>折扣方式</th>
-                                <td class="p-3">
-                                    <?=$row["Discount_type"]?>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>優惠券面額</th>
-                                <td class="p-3">
-                                    <?=$row["Discount_amount"]?>
-                                </td>
-                            </tr>
-                            <!-- 若未填寫商品分類，則優惠券預設為適用全站商品 -->
-                            <tr>
-                                <th>優惠券適用範圍</th>
-                                <td class="p-3">
-                                    <?php
-// 檢查 categories 是否有值
-if (!empty($rowcc["categories"])) {
-    echo $rowcc["categories"];
-} else {
-    // 如果 categories 為空或不存在，則顯示 "適用於全站商品"
-    echo "適用於全站商品";
-}
-?>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>最低消費金額</th>
-                                <td class="p-3">
-                                    <?=$row["minimum_spend"]?>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>優惠說明</th>
-                                <td class="p-3">
-                                    <?=$row["Coupon_description"]?>
-                                </td>
-                            </tr>
-
-
-
-                        </table>
-
-                    </form>
+                    <a type="submit" class="btn btn-secondary" href="coupons.php" role="button"><i class="fa-solid fa-chevron-left"></i>返回列表</a>
                 </div>
+                <h1 class="my-3 h3">優惠券詳情</h1>
+                <form action="updateCoupon.php" method="post">
+                    <input type="hidden" name="id" value="<?= $row["Coupon_ID"] ?>">
+                    <table>
+                        <tr>
+                            <th>優惠券編號</th>
+                            <td class="py-3 px-5">
+                                <?= $row["Coupon_ID"] ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>優惠券名稱</th>
+                            <td class="p-3  px-5">
+                                <?= $row["C_name"] ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>優惠券代碼</th>
+                            <td class="p-3  px-5">
+                                <?= $row["C_code"] ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>優惠券使用時間</th>
+                            <td class="p-3  px-5">
+                                <div class="row">
+                                    <div class="col-auto">
+                                        <?= $row["Valid_start_date"] ?>
+                                    </div>
+                                    <div class="col-auto">~</div>
+                                    <div class="col-auto">
+                                        <?= $row["Valid_end_date"] ?>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>折扣方式</th>
+                            <td class="p-3  px-5">
+                                <?= $row["Discount_type"] ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>優惠券面額</th>
+                            <td class="p-3  px-5">
+                                <?= $row["Discount_amount"] ?>
+                            </td>
+                        </tr>
+                        <!-- 若未填寫商品分類，則優惠券預設為適用全站商品 -->
+                        <tr>
+                            <th>優惠券適用範圍</th>
+                            <td class="p-3  px-5">
+                                <?php
+                                // 檢查 categories 是否有值
+                                if (!empty($rowcc["categories"])) {
+                                    echo $rowcc["categories"];
+                                } else {
+                                    // 如果 categories 為空或不存在，則顯示 "適用於全站商品"
+                                    echo "適用於全站商品";
+                                }
+                                ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>最低消費金額</th>
+                            <td class="p-3  px-5">
+                                <?= $row["minimum_spend"] ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>優惠說明</th>
+                            <td class="p-3  px-5">
+                                <?= $row["Coupon_description"] ?>
+                            </td>
+                        </tr>
+
+
+
+                    </table>
+
+                </form>
             </div>
-            <!-- /page content -->
-
-
-            <!-- /footer content -->
         </div>
+        <!-- /page content -->
+
+
+        <!-- /footer content -->
+    </div>
     </div>
 
     <!-- jQuery -->
