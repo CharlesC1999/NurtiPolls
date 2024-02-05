@@ -7,13 +7,13 @@ $rowsCategory = $resultCategory->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT recipe.*,recipe_categories.Recipe_cate_name AS category_name FROM recipe
 JOIN recipe_categories ON recipe.Recipe_Category_ID = recipe_categories.Recipe_cate_ID
- WHERE recipe_valid=1 ORDER BY Recipe_ID ASC";
+ WHERE recipe_valid = 1 ORDER BY Recipe_ID ASC";
 
 if (isset($_GET["cate"])) {
   $cate = $_GET["cate"];
   $sql = "SELECT  recipe.*,recipe_categories.Recipe_cate_name AS category_name FROM recipe
     JOIN recipe_categories ON recipe.Recipe_Category_ID = recipe_categories.Recipe_cate_ID
-    WHERE recipe.Recipe_Category_ID = $cate AND recipe_valid=1
+    WHERE recipe.Recipe_Category_ID = $cate AND recipe_valid = 1
     ORDER BY Recipe_ID ASC";
 }
 
