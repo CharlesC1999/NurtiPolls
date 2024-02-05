@@ -4,19 +4,19 @@ $todayDate = date('Y-m-d');
 $sqlFilter = "";
 
 if (isset($_GET["status"])) {
-  if ($_GET["status"] == "all") {
-    // 顯示所有資料
-    $sqlFilter = "";
-  } elseif ($_GET["status"] == "upcoming") {
-    // 未開始
-    $sqlFilter = " AND Valid_start_date > '$todayDate'";
-  } elseif ($_GET["status"] == "ongoing") {
-    // 進行中
-    $sqlFilter = " AND Valid_start_date <= '$todayDate' AND Valid_end_date >= '$todayDate'";
-  } elseif ($_GET["status"] == "expired") {
-    // 已結束
-    $sqlFilter = " AND Valid_end_date < '$todayDate'";
-  }
+    if ($_GET["status"] == "all") {
+        // 顯示所有資料
+        $sqlFilter = "";
+    } elseif ($_GET["status"] == "upcoming") {
+        // 未開始
+        $sqlFilter = " AND Valid_start_date > '$todayDate'";
+    } elseif ($_GET["status"] == "ongoing") {
+        // 進行中
+        $sqlFilter = " AND Valid_start_date <= '$todayDate' AND Valid_end_date >= '$todayDate'";
+    } elseif ($_GET["status"] == "expired") {
+        // 已結束
+        $sqlFilter = " AND Valid_end_date < '$todayDate'";
+    }
 }
 
 $sqlAll = "SELECT * FROM coupons WHERE valid=1 $sqlFilter";
@@ -27,9 +27,9 @@ $result = $conn->query($sql);
 $row = $result->fetch_assoc();
 
 if (!isset($_GET["Coupon_ID"])) {
-  $Coupon_ID = 0;
+    $Coupon_ID = 0;
 } else {
-  $Coupon_ID = $_GET["Coupon_ID"];
+    $Coupon_ID = $_GET["Coupon_ID"];
 }
 
 $conn->close();
@@ -45,7 +45,7 @@ $conn->close();
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>營養大選 Nutripoll</title>
+  <title>營養大選 Nutripolls</title>
   <!-- fontawesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <!-- Bootstrap -->
@@ -83,26 +83,29 @@ $conn->close();
       border-bottom: 5px solid #17a2b8;
       /* 活躍狀態的邊框顏色 */
     }
-    <style>
-      .img-circle.profile_img {
-        background: #ddd;
-      }
-      .profile_info span {
-        font-size: 14px;
-        line-height: 30px;
-        font-weight: 500;
-        color: #ecf0f1;
-      }
-      .profile_info h2 {
-        font-size: 14px;
-        color: #ecf0f1;
-        margin: 0;
-        font-weight: 500;
-      }
-      .side-menu{
-font-size: 15px;
-      }
-    </style>
+
+    .img-circle.profile_img {
+      background: #ddd;
+    }
+
+    .profile_info span {
+      font-size: 14px;
+      line-height: 30px;
+      font-weight: 500;
+      color: #ecf0f1;
+    }
+
+    .profile_info h2 {
+      font-size: 14px;
+      color: #ecf0f1;
+      margin: 0;
+      font-weight: 500;
+    }
+
+    .side-menu {
+      font-size: 15px;
+    }
+  </style>
   </style>
 </head>
 
@@ -112,84 +115,58 @@ font-size: 15px;
       <div class="col-md-3 left_col">
         <div class="left_col scroll-view">
           <div class="navbar nav_title" style="border: 0;">
-          <a href="HomePage.html" class="site_title"
-                ><img src="../Logo_sm.png" alt="" style="height: 65px;"></a>
+            <a href="HomePage.html" class="site_title"><img src="../Logo_sm.png" alt="" style="height: 65px;"></a>
           </div>
 
           <div class="clearfix"></div>
 
           <!-- menu profile quick info -->
           <div class="profile clearfix">
-              <div class="profile_pic">
-                <img
-                  src="../logo4.png"
-                  alt="..."
-                  class="img-circle profile_img"
-                />
-              </div>
-              <div class="profile_info">
-                <span>Hi,</span>
-                <h2>第四組</h2>
-              </div>
+            <div class="profile_pic">
+              <img src="../logo4.png" alt="..." class="img-circle profile_img" />
             </div>
+            <div class="profile_info">
+              <span>Hi,</span>
+              <h2>第四組</h2>
+            </div>
+          </div>
           <!-- /menu profile quick info -->
 
           <br />
 
           <!-- sidebar menu -->
-          <div
-              id="sidebar-menu"
-              class="main_menu_side hidden-print main_menu"
-            >
-              <div class="menu_section">
-               
-                <ul class="nav side-menu">
-                  <li class="px-1">
-                    <a href="Member/member.php"
-                      ><i class="fa-solid fa-user"></i> 會員管理
-                     </a>
+          <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+            <div class="menu_section">
+
+              <ul class="nav side-menu">
+                  <li class="h6"><a href="Member/member.php"><i class="fa-solid fa-user fa-fw"></i> 會員管理</a>
+                  </li><li class="h6"><a href="product.php"><i class="fa-solid fa-store fa-fw"></i> 商品管理</a>
                   </li>
-                  <li  class="px-1">
-                    <a href="product.php"
-                      ><i class="fa-solid fa-store"></i> 商品管理
-                     </a>
+                  <li class="h6"><a><i class="fa-solid fa-hashtag fa-fw"></i> 分類管理<span class="fa fa-chevron-down"></span>
+                  <ul class="nav child_menu">
+                      <li><a href="categories_product.php" style="font-size: 16px;"> 商品</a></li>
+                      <li><a href="categories_class.php" style="font-size: 16px;"> 課程</a></li>
+                      <li><a href="categories_recipe.php" style="font-size: 16px;"> 食譜</a></li>
+
+                    </ul>
+
                   </li>
-                  <li   class="px-1">
-                    <a
-                      ><i class="fa-solid fa-hashtag"></i> </i>分類管理<span
-                        class="fa fa-chevron-down"
-                      ></span>
-                      <ul class="nav child_menu">
-                        <li><a href="categories_product.php">商品</a></li>
-                        <li><a href="categories_class.php">課程</a></li>
-                        <li><a href="categories_recipe.php">食譜</a></li>
-                      </ul>
-                    </a>
+                  <li class="h6"><a href="recipe-list.php"><i class="fa-solid fa-kitchen-set fa-fw"></i> 食譜管理</a>
                   </li>
-                  <li class="px-1">
-                    <a href="recipe-list.php"
-                      ><i class="fa-solid fa-kitchen-set"></i> 食譜管理</a>
+                  <li class="h6"><a href="speaker.php"><i class="fa-solid fa-chalkboard-user fa-fw"></i> 講師管理</a>
                   </li>
-                  <li  class="px-1">
-                    <a href="speaker.php"
-                      ><i class="fa-solid fa-chalkboard-user"></i> 講師管理</a>
+                  <li class="h6"><a href="redirectClass.php"><i class="fa-solid fa-chalkboard fa-fw"></i> 課程管理</a>
                   </li>
-                  <li>
-                    <a href="redirectClass.php"
-                      ><i class="fa-solid fa-chalkboard"></i> 課程管理</a>
+                  <li class="h6"><a href="coupons.php"><i class="fa-sharp fa-solid fa-tag fa-fw"></i> 優惠卷管理</a>
                   </li>
-                  <li class="px-1">
-                    <a href="coupons.php"
-                      ><i class="fa-sharp fa-solid fa-tag"></i> 優惠卷管理</a>
+                  <hr style="border-top: 2px solid aliceblue;">
+                  <li class="h6">
+                    <a href="order_file/order.php"
+                      ><i class="fa-solid fa-note-sticky fa-fw"></i> 訂單管理</a>
                   </li>
-                  <hr style="border-top: 2px solid aliceblue" />
-                  <li   class="px-1">
-                    <a href="./order_file/order.php"
-                      ><i class="fa-solid fa-note-sticky"></i> 訂單管理</a>
-                  </li>
-                </ul>
-              </div>
+              </ul>
             </div>
+          </div>
           <!-- /sidebar menu -->
 
           <!-- /menu footer buttons -->
@@ -211,32 +188,20 @@ font-size: 15px;
           </div>
           <nav class="nav navbar-nav">
             <ul class=" navbar-right">
-            <li class="nav-item dropdown open" style="padding-left: 15px">
-                  <a
-                    href="javascript:;"
-                    class="user-profile dropdown-toggle"
-                    aria-haspopup="true"
-                    id="navbarDropdown"
-                    data-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    <img src="../logo4.png" alt="" />第四組
+              <li class="nav-item dropdown open" style="padding-left: 15px">
+                <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
+                  <img src="../logo4.png" alt="" />第四組
+                </a>
+                <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="javascript:;"> Profile</a>
+                  <a class="dropdown-item" href="javascript:;">
+                    <!-- <span class="badge bg-red pull-right">50%</span> -->
+                    <span>Settings</span>
                   </a>
-                  <div
-                    class="dropdown-menu dropdown-usermenu pull-right"
-                    aria-labelledby="navbarDropdown"
-                  >
-                    <a class="dropdown-item" href="javascript:;"> Profile</a>
-                    <a class="dropdown-item" href="javascript:;">
-                      <!-- <span class="badge bg-red pull-right">50%</span> -->
-                      <span>Settings</span>
-                    </a>
-                    <a class="dropdown-item" href="javascript:;">Help</a>
-                    <a class="dropdown-item" href="login.html"
-                      ><i class="fa fa-sign-out pull-right"></i> Log Out</a
-                    >
-                  </div>
-                </li>
+                  <a class="dropdown-item" href="javascript:;">Help</a>
+                  <a class="dropdown-item" href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+                </div>
+              </li>
 
               <li role="presentation" class="nav-item dropdown open">
                 <ul class="dropdown-menu list-unstyled msg_list" role="menu" aria-labelledby="navbarDropdown1">
@@ -314,7 +279,7 @@ font-size: 15px;
               <a href="add-coupon.php" class="btn btn-info my-3">新增優惠券</a>
 
             </div>
-          
+
           </div>
         </div>
         <div class="clearfix"></div>
@@ -323,26 +288,26 @@ font-size: 15px;
           <div class="col-md-12 col-sm-12 ">
             <div class="x_panel">
               <?php
-              // 確定當前篩選狀態
-              $status = isset($_GET['status']) ? $_GET['status'] : 'all';
-              ?>
+// 確定當前篩選狀態
+$status = isset($_GET['status']) ? $_GET['status'] : 'all';
+?>
               <div class="filter-buttons x_title">
                 <a href="?status=all" class="btn custom-btn <?php if ($status == 'all') {
-                                                              echo 'active';
-                                                            }
-                                                            ?>">全部</a>
+    echo 'active';
+}
+?>">全部</a>
                 <a href="?status=ongoing" class="btn custom-btn <?php if ($status == 'ongoing') {
-                                                                  echo 'active';
-                                                                }
-                                                                ?>">進行中的活動</a>
+    echo 'active';
+}
+?>">進行中的活動</a>
                 <a href="?status=upcoming" class="btn custom-btn <?php if ($status == 'upcoming') {
-                                                                    echo 'active';
-                                                                  }
-                                                                  ?>">接下來的活動</a>
+    echo 'active';
+}
+?>">接下來的活動</a>
                 <a href="?status=expired" class="btn custom-btn <?php if ($status == 'expired') {
-                                                                  echo 'active';
-                                                                }
-                                                                ?>">已結束</a>
+    echo 'active';
+}
+?>">已結束</a>
               </div>
 
 
@@ -367,26 +332,31 @@ font-size: 15px;
                         </thead>
                         <tbody>
                           <?php
-                          $rows = $resultAll->fetch_all(MYSQLI_ASSOC);
-                          foreach ($rows as $coupon) :
-                          ?>
+$rows = $resultAll->fetch_all(MYSQLI_ASSOC);
+foreach ($rows as $coupon):
+?>
                             <tr>
-                              <td><?= $coupon["Coupon_ID"] ?></td>
-                              <td><?= $coupon["C_name"] ?></td>
-                              <td><?= $coupon["C_code"] ?></td>
-                              <td><?= $coupon["Discount_type"] ?></td>
+                              <td><?=$coupon["Coupon_ID"]?></td>
+                              <td><?=$coupon["C_name"]?></td>
+                              <td><?=$coupon["C_code"]?></td>
+                              <td><?=$coupon["Discount_type"]?></td>
                               <td>
-                                <?= $coupon["Discount_amount"] ?></td>
-                              <td><?= $coupon["Valid_start_date"] ?></td>
-                              <td><?= $coupon["Valid_end_date"] ?></td>
+                                <?php
+// 如果數值大於或等於1，則四捨五入至整數
+echo ($coupon["Discount_amount"] >= 1) ? round($coupon["Discount_amount"]) : $coupon["Discount_amount"];
+?>
+                              </td>
+
+                              <td><?=$coupon["Valid_start_date"]?></td>
+                              <td><?=$coupon["Valid_end_date"]?></td>
                               <td>
-                                <a name="" id="" href="coupon-edit.php?Coupon_ID=<?= $coupon["Coupon_ID"] ?>" role="button" class="btn btn-outline-dark mr-2"><i class="fa-solid fa-pen-to-square"></i></a>
-                                <a name="" id="" href="coupon.php?Coupon_ID=<?= $coupon["Coupon_ID"] ?>" role="button" class="btn btn-outline-info"><i class="fa-solid fa-eye"></i></a>
+                                <a name="" id="" href="coupon-edit.php?Coupon_ID=<?=$coupon["Coupon_ID"]?>" role="button" class="btn btn-outline-dark mr-2"><i class="fa-solid fa-pen-to-square"></i></a>
+                                <a name="" id="" href="coupon.php?Coupon_ID=<?=$coupon["Coupon_ID"]?>" role="button" class="btn btn-outline-info"><i class="fa-solid fa-eye"></i></a>
                               </td>
 
                             </tr>
 
-                          <?php endforeach; ?>
+                          <?php endforeach;?>
 
 
                         </tbody>

@@ -71,7 +71,7 @@ $categories = $resultCategories->fetch_all(MYSQLI_ASSOC);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>營養大選 Nutripoll</title>
+    <title>營養大選 Nutripolls</title>
     <!-- Bootstrap -->
     <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -125,7 +125,7 @@ $categories = $resultCategories->fetch_all(MYSQLI_ASSOC);
             <div class="col-md-3 left_col">
                 <div class="left_col scroll-view">
                     <div class="navbar nav_title" style="border: 0;">
-                        <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentelella Alela!</span></a>
+                        <a href="HomePage.html" class="site_title"><img src="../Logo_sm.png" alt="" style="height: 65px;"></a>
                     </div>
 
                     <div class="clearfix"></div>
@@ -133,11 +133,11 @@ $categories = $resultCategories->fetch_all(MYSQLI_ASSOC);
                     <!-- menu profile quick info -->
                     <div class="profile clearfix">
                         <div class="profile_pic">
-                            <img src="images/img.jpg" alt="..." class="img-circle profile_img">
+                            <img src="../logo4.png" alt="..." class="img-circle profile_img" />
                         </div>
                         <div class="profile_info">
-                            <span>Welcome,</span>
-                            <h2>John Doe</h2>
+                            <span>Hi,</span>
+                            <h2>第四組</h2>
                         </div>
                     </div>
                     <!-- /menu profile quick info -->
@@ -149,40 +149,30 @@ $categories = $resultCategories->fetch_all(MYSQLI_ASSOC);
                         <div class="menu_section">
 
                             <ul class="nav side-menu">
-                                <li class="px-1">
-                                    <a href="Member/member.php"><i class="fa-solid fa-user"></i> 會員管理
-                                    </a>
+                                <li class="h6"><a href="Member/member.php"><i class="fa-solid fa-user fa-fw"></i> 會員管理</a>
+                                </li><li class="h6"><a href="product.php"><i class="fa-solid fa-store fa-fw"></i> 商品管理</a>
                                 </li>
+                                <li class="h6"><a><i class="fa-solid fa-hashtag fa-fw"></i> 分類管理<span class="fa fa-chevron-down"></span>
+                                <ul class="nav child_menu">
+                                    <li><a href="categories_product.php" style="font-size: 16px;"> 商品</a></li>
+                                    <li><a href="categories_class.php" style="font-size: 16px;"> 課程</a></li>
+                                    <li><a href="categories_recipe.php" style="font-size: 16px;"> 食譜</a></li>
 
-                                <li class="px-1">
-                                    <a href="product.php"><i class="fa-solid fa-store"></i> 商品管理
-                                    </a>
+                                    </ul>
 
                                 </li>
-                                <li class="px-1">
-                                    <a><i class="fa-solid fa-hashtag"></i> </i>分類管理<span class="fa fa-chevron-down"></span>
-                                        <ul class="nav child_menu">
-                                            <li><a href="categories_product.php">商品</a></li>
-                                            <li><a href="categories_class.php">課程</a></li>
-                                            <li><a href="categories_recipe.php">食譜</a></li>
-                                        </ul>
-                                    </a>
+                                <li class="h6"><a href="recipe-list.php"><i class="fa-solid fa-kitchen-set fa-fw"></i> 食譜管理</a>
                                 </li>
-                                <li class="px-1">
-                                    <a href="recipe-list.php"><i class="fa-solid fa-kitchen-set"></i> 食譜管理</a>
+                                <li class="h6"><a href="speaker.php"><i class="fa-solid fa-chalkboard-user fa-fw"></i> 講師管理</a>
                                 </li>
-                                <li class="px-1">
-                                    <a href="speaker.php"><i class="fa-solid fa-chalkboard-user"></i> 講師管理</a>
+                                <li class="h6"><a href="redirectClass.php"><i class="fa-solid fa-chalkboard fa-fw"></i> 課程管理</a>
                                 </li>
-                                <li>
-                                    <a href="redirectClass.php"><i class="fa-solid fa-chalkboard"></i> 課程管理</a>
+                                <li class="h6"><a href="coupons.php"><i class="fa-sharp fa-solid fa-tag fa-fw"></i> 優惠卷管理</a>
                                 </li>
-                                <li class="px-1">
-                                    <a href="coupons.php"><i class="fa-sharp fa-solid fa-tag"></i> 優惠卷管理</a>
-                                </li>
-                                <hr style="border-top: 2px solid aliceblue" />
-                                <li class="px-1">
-                                    <a href="./order_file/order.php"><i class="fa-solid fa-note-sticky"></i> 訂單管理</a>
+                                <hr style="border-top: 2px solid aliceblue;">
+                                <li class="h6">
+                                    <a href="order_file/order.php"
+                                    ><i class="fa-solid fa-note-sticky fa-fw"></i> 訂單管理</a>
                                 </li>
                             </ul>
                         </div>
@@ -204,91 +194,20 @@ $categories = $resultCategories->fetch_all(MYSQLI_ASSOC);
             <div class="top_nav">
                 <div class="nav_menu">
                     <div class="nav toggle">
-                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                    <a id="menu_toggle"><i class="fa fa-bars"></i></a>
                     </div>
                     <nav class="nav navbar-nav">
-                        <ul class=" navbar-right">
-                            <li class="nav-item dropdown open" style="padding-left: 15px;">
-                                <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                                    <img src="images/img.jpg" alt="">John Doe
-                                </a>
-                                <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="javascript:;"> Profile</a>
-                                    <a class="dropdown-item" href="javascript:;">
-                                        <span class="badge bg-red pull-right">50%</span>
-                                        <span>Settings</span>
-                                    </a>
-                                    <a class="dropdown-item" href="javascript:;">Help</a>
-                                    <a class="dropdown-item" href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
-                                </div>
-                            </li>
-
-                            <li role="presentation" class="nav-item dropdown open">
-                                <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1" data-toggle="dropdown" aria-expanded="false">
-                                    <i class="fa fa-envelope-o"></i>
-                                    <span class="badge bg-green">6</span>
-                                </a>
-                                <ul class="dropdown-menu list-unstyled msg_list" role="menu" aria-labelledby="navbarDropdown1">
-                                    <li class="nav-item">
-                                        <a class="dropdown-item">
-                                            <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                                            <span>
-                                                <span>John Smith</span>
-                                                <span class="time">3 mins ago</span>
-                                            </span>
-                                            <span class="message">
-                                                Film festivals used to be do-or-die moments for movie makers. They were where...
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="dropdown-item">
-                                            <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                                            <span>
-                                                <span>John Smith</span>
-                                                <span class="time">3 mins ago</span>
-                                            </span>
-                                            <span class="message">
-                                                Film festivals used to be do-or-die moments for movie makers. They were where...
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="dropdown-item">
-                                            <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                                            <span>
-                                                <span>John Smith</span>
-                                                <span class="time">3 mins ago</span>
-                                            </span>
-                                            <span class="message">
-                                                Film festivals used to be do-or-die moments for movie makers. They were where...
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="dropdown-item">
-                                            <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                                            <span>
-                                                <span>John Smith</span>
-                                                <span class="time">3 mins ago</span>
-                                            </span>
-                                            <span class="message">
-                                                Film festivals used to be do-or-die moments for movie makers. They were where...
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <div class="text-center">
-                                            <a class="dropdown-item">
-                                                <strong>See All Alerts</strong>
-                                                <i class="fa fa-angle-right"></i>
-                                            </a>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </nav>
+                    <ul class=" navbar-right">
+                    <li class="nav-item dropdown open" style="padding-left: 15px;">
+                        <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
+                        <img src="../logo4.png" alt="" />第四組
+                        </a>
+                        <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item"  href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+                        </div>
+                    </li>
+                    </ul>
+                </nav>
                 </div>
             </div>
             <!-- /top navigation -->
@@ -324,33 +243,21 @@ $categories = $resultCategories->fetch_all(MYSQLI_ASSOC);
                                     <div class="row  justify-content-between align-items-center">
                                         <div class="d-flex align-items-center m-3">
                                             <form action="" method="get">
-                                                <!-- <select class="fform-select form-select-sm form-control mr-4" aria-label="Small select example" name="sort_by" onchange="this.form.submit()">
-                          <option selected>排序方式</option>
-                          <option value="id_asc" name="id_asc">ID &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 小->大</option>
-                          <option value="id_desc" name="id_desc">ID &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 大->小</option>
-                          <option value="price_asc" name="price_asc">價格 &nbsp;&nbsp;低->高</option>
-                          <option value="price_desc" name="price_desc">價格&nbsp;&nbsp; 高->低</option>
-                          <option value="date_desc" name="date_desc">更新時間 近->遠</option>
-                          <option value="date_asc" name="date_asc">更新時間 遠->近</option>
-
-                        </select> -->
-                                            </form>
-                                            <form action="" method="get">
                                                 <select class=" form-select form-select-sm form-control" aria-label="Small select example" name="category" onchange="this.form.submit()">
                                                     <option value="">全部</option>
                                                     <option selected>分類</option>
-                                                    <?php foreach ($categories as $category) : ?>
-                                                        <option value="<?= htmlspecialchars($category["Product_cate_ID"]) ?>" <?= (isset($_GET['category']) && $_GET['category'] == $category["Product_cate_ID"]) ? 'selected' : '' ?>>
-                                                            <?= htmlspecialchars($category["Product_cate_name"]) ?>
+                                                    <?php foreach ($categories as $category): ?>
+                                                        <option value="<?=htmlspecialchars($category["Product_cate_ID"])?>" <?=(isset($_GET['category']) && $_GET['category'] == $category["Product_cate_ID"]) ? 'selected' : ''?>>
+                                                            <?=htmlspecialchars($category["Product_cate_name"])?>
                                                         </option>
-                                                    <?php endforeach; ?>
+                                                    <?php endforeach;?>
                                                 </select>
                                             </form>
-                                            <a href="addProduct.php" class=" mx-2 btn btn-sm btn-secondary" style="background-color: #17a2b8; border: none; padding:6px 14px;">
-                                                新增商品
+                                            <a href="addProduct.php" class="mx-2 btn px-3 py-2 btn-sm btn-secondary " style="background-color: #17a2b8; border: none; padding:6px 14px;">
+                                                <span class="h6">新增商品</span>
                                             </a>
-                                            <a href="productArchive.php" class="mx-2 btn btn-sm btn-secondary" name="addProduct">
-                                                管理下架商品
+                                            <a href="productArchive.php" class="mx-2 px-3 py-2 btn btn-sm btn-secondary " name="addProduct">
+                                                <span class="h6">管理下架商品</span>
                                             </a>
                                         </div>
                                         <!-- <div class="col-2">
@@ -373,7 +280,7 @@ $categories = $resultCategories->fetch_all(MYSQLI_ASSOC);
 
                     </div> -->
                                         <div class="col-auto justify-content-end">
-                                            <h5>共<?= $rowsCount ?> 筆資料</h5>
+                                            <h5>共<?=$rowsCount?> 筆資料</h5>
                                         </div>
                                         </form>
 
@@ -397,29 +304,29 @@ $categories = $resultCategories->fetch_all(MYSQLI_ASSOC);
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <?php foreach ($rows as $product) : ?>
-                                                            <?php $imagePath = './p_image/' . $product['single_image_url']; ?>
+                                                        <?php foreach ($rows as $product): ?>
+                                                            <?php $imagePath = './p_image/' . $product['single_image_url'];?>
                                                             <tr>
-                                                                <td style="font-size: 16px;"><?= $product["product_id"] ?></td>
-                                                                <td class="h6"><img src="<?= $imagePath ?>" style="width: 100px; height: auto; border-radius: 5px;" alt="<?= $product["product_name"] ?> " class="object-fit"></td>
-                                                                <td style="font-size: 17px; width:10%"><?= $product["product_name"] ?></td>
-                                                                <td style="font-size: 15px; width:35%"><?= $product["description"] ?></td>
-                                                                <td style="font-size: 15px;"><?= $product["category_name"] ?></td>
-                                                                <td style="font-size: 15px;"><?= $product["upload_date"] ?></td>
-                                                                <td style="font-size: 16px;">$ <?= $product["price"] ?></td>
-                                                                <td style="font-size: 16px;"><?= $product["stock_quantity"] ?></td>
+                                                                <td style="font-size: 16px;"><?=$product["product_id"]?></td>
+                                                                <td class="h6"><img src="<?=$imagePath?>" style="width: 100px; height: auto; border-radius: 5px;" alt="<?=$product["product_name"]?> " class="object-fit"></td>
+                                                                <td style="font-size: 17px; width:10%"><?=$product["product_name"]?></td>
+                                                                <td style="font-size: 15px; width:35%"><?=$product["description"]?></td>
+                                                                <td style="font-size: 15px;"><?=$product["category_name"]?></td>
+                                                                <td style="font-size: 15px;"><?=$product["upload_date"]?></td>
+                                                                <td style="font-size: 16px;">$ <?=$product["price"]?></td>
+                                                                <td style="font-size: 16px;"><?=$product["stock_quantity"]?></td>
                                                                 <td style="font-size: 17px; width:5%">
                                                                     <form action="editProduct.php" method="post">
-                                                                        <input type="hidden" name="product_id" value="<?= $product["product_id"] ?>">
-                                                                        <a href="./editProduct.php?product_id=<?= $product["product_id"] ?>" type=" submit" class="btn btn-outline-secondary"><i class="fa-solid fa-pen-to-square fa-fw"></i></a>
+                                                                        <input type="hidden" name="product_id" value="<?=$product["product_id"]?>">
+                                                                        <a href="./editProduct.php?product_id=<?=$product["product_id"]?>" type=" submit" class="btn btn-outline-secondary"><i class="fa-solid fa-pen-to-square fa-fw"></i></a>
                                                                     </form>
 
-                                                                    <input type="hidden" name="product_id" value="<?= $product["product_id"] ?>">
+                                                                    <input type="hidden" name="product_id" value="<?=$product["product_id"]?>">
                                                                     <!-- 删除按钮，触发模态框 -->
 
                                                                 </td>
                                                             </tr>
-                                                        <?php endforeach; ?>
+                                                        <?php endforeach;?>
                                                     </tbody>
                                                 </table>
                                             </div>

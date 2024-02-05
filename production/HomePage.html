@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>營養大選｜Nutripoll</title>
+    <title>營養大選｜Nutripolls</title>
 
     <!-- Bootstrap -->
     <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" />
@@ -50,7 +50,15 @@
 
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
+
+      body{
+        --p_hover: 8px;
+      }
+      
       .img-circle.profile_img {
         background: #ddd;
       }
@@ -67,7 +75,62 @@
         font-weight: 500;
       }
       .side-menu{
-font-size: 15px;
+        font-size: 15px;
+      }
+      .btn_remove_border:focus{
+        border: none;
+        outline: none !important;
+        box-shadow: none !important;
+      }
+      .partner{
+        width: 60vw;
+        height: 76vh;
+        position: absolute;
+        top: 50%;
+        left: 55%;
+        transform: translate(-50%, -50%);
+        z-index: 10;
+        /* Style your card as needed */
+        padding: 20px;
+        border-radius: 8px;
+        background-color: rgba(19, 55, 85, 0.808);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);   
+        /* --------------------------------------------- */
+        opacity: 0;
+        visibility: hidden;
+        transition: visibility .6s, opacity 0.5s linear;       
+      }
+      .partners{
+        width: 13vw;
+        height: 31vh;
+        background: #ecf0f1;
+        margin-right: 1vw;
+        border-radius: 12px;
+        transition: .4s ease;
+      }
+      .partners:hover{
+        transform: scale(1.06);
+      }
+      .circle_image{
+        width: 11vw;
+        height: 11vw;
+        background-color: white;
+      }
+      /* --------------------------------------------------- */
+      .partner.show {
+        opacity: 1;
+        visibility: visible;
+        transition: visibility .6s linear 0s, opacity 0.5s linear;
+      }
+      .close_btn{
+        background: transparent;
+        outline: none !important;
+        box-shadow: none !important;
+        border: none;
+        color: grey;
+      }
+      .close_btn:hover{
+        color: white;
       }
     </style>
   </head>
@@ -109,50 +172,30 @@ font-size: 15px;
               <div class="menu_section">
                
                 <ul class="nav side-menu">
-                  <li class="px-1">
-                    <a href="Member/member.php"
-                      ><i class="fa-solid fa-user"></i> 會員管理
-                     </a>
+                  <li class="h6"><a href="Member/member.php"><i class="fa-solid fa-user fa-fw"></i> 會員管理</a>
+                  </li><li class="h6"><a href="product.php"><i class="fa-solid fa-store fa-fw"></i> 商品管理</a>
                   </li>
+                  <li class="h6"><a><i class="fa-solid fa-hashtag fa-fw"></i> 分類管理<span class="fa fa-chevron-down"></span>
+                  <ul class="nav child_menu">
+                      <li><a href="categories_product.php" style="font-size: 16px;"> 商品</a></li>
+                      <li><a href="categories_class.php" style="font-size: 16px;"> 課程</a></li>
+                      <li><a href="categories_recipe.php" style="font-size: 16px;"> 食譜</a></li>
 
-                  <li  class="px-1">
-                    <a href="product.php"
-                      ><i class="fa-solid fa-store"></i> 商品管理
-                     </a>
+                    </ul>
 
                   </li>
-                  <li   class="px-1">
-                    <a
-                      ><i class="fa-solid fa-hashtag"></i> </i>分類管理<span
-                        class="fa fa-chevron-down"
-                      ></span>
-                      <ul class="nav child_menu">
-                        <li><a href="categories_product.php">商品</a></li>
-                        <li><a href="categories_class.php">課程</a></li>
-                        <li><a href="categories_recipe.php">食譜</a></li>
-                      </ul>
-                    </a>
+                  <li class="h6"><a href="recipe-list.php"><i class="fa-solid fa-kitchen-set fa-fw"></i> 食譜管理</a>
                   </li>
-                  <li class="px-1">
-                    <a href="recipe-list.php"
-                      ><i class="fa-solid fa-kitchen-set"></i> 食譜管理</a>
+                  <li class="h6"><a href="speaker.php"><i class="fa-solid fa-chalkboard-user fa-fw"></i> 講師管理</a>
                   </li>
-                  <li  class="px-1">
-                    <a href="speaker.php"
-                      ><i class="fa-solid fa-chalkboard-user"></i> 講師管理</a>
+                  <li class="h6"><a href="redirectClass.php"><i class="fa-solid fa-chalkboard fa-fw"></i> 課程管理</a>
                   </li>
-                  <li>
-                    <a href="redirectClass.php"
-                      ><i class="fa-solid fa-chalkboard"></i> 課程管理</a>
+                  <li class="h6"><a href="coupons.php"><i class="fa-sharp fa-solid fa-tag fa-fw"></i> 優惠卷管理</a>
                   </li>
-                  <li class="px-1">
-                    <a href="coupons.php"
-                      ><i class="fa-sharp fa-solid fa-tag"></i> 優惠卷管理</a>
-                  </li>
-                  <hr style="border-top: 2px solid aliceblue" />
-                  <li   class="px-1">
-                    <a href="./order_file/order.php"
-                      ><i class="fa-solid fa-note-sticky"></i> 訂單管理</a>
+                  <hr style="border-top: 2px solid aliceblue;">
+                  <li class="h6">
+                    <a href="order_file/order.php"
+                      ><i class="fa-solid fa-note-sticky fa-fw"></i> 訂單管理</a>
                   </li>
                 </ul>
               </div>
@@ -197,98 +240,84 @@ font-size: 15px;
                     class="dropdown-menu dropdown-usermenu pull-right"
                     aria-labelledby="navbarDropdown"
                   >
-                    <a class="dropdown-item" href="javascript:;"> Profile</a>
-                    <a class="dropdown-item" href="javascript:;">
-                      <!-- <span class="badge bg-red pull-right">50%</span> -->
-                      <span>Settings</span>
-                    </a>
-                    <a class="dropdown-item" href="javascript:;">Help</a>
                     <a class="dropdown-item" href="login.html"
                       ><i class="fa fa-sign-out pull-right"></i> Log Out</a
                     >
                   </div>
                 </li>
-
-                <li role="presentation" class="nav-item dropdown open">
-                  <ul
-                    class="dropdown-menu list-unstyled msg_list"
-                    role="menu"
-                    aria-labelledby="navbarDropdown1"
-                  >
-                    <li class="nav-item">
-                      <a class="dropdown-item">
-                        <span class="image"
-                          ><img src="images/img.jpg" alt="Profile Image"
-                        /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie
-                          makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="dropdown-item">
-                        <span class="image"
-                          ><img src="images/img.jpg" alt="Profile Image"
-                        /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie
-                          makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="dropdown-item">
-                        <span class="image"
-                          ><img src="images/img.jpg" alt="Profile Image"
-                        /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie
-                          makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="dropdown-item">
-                        <span class="image"
-                          ><img src="images/img.jpg" alt="Profile Image"
-                        /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie
-                          makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <div class="text-center">
-                        <a class="dropdown-item">
-                          <strong>See All Alerts</strong>
-                          <i class="fa fa-angle-right"></i>
-                        </a>
-                      </div>
-                    </li>
-                  </ul>
-                </li>
               </ul>
             </nav>
+            <!-- top navigation -->
+          </div>
+          <div class="container" style="width: 100%;">
+            <div style="width: 100%; padding-top: 12vh;" class="d-flex flex-column justify-content-center align-items-center">
+              <button style="background-color: transparent;" class="border-0 btn_remove_border" id="Nutripolls_partners">
+                <img src="../Logo＿square2.png" >
+              </button>
+              <div class="partner d-flex flex-column">
+                <div class="text-right">
+                  <button class="close_btn" style="font-size: 2rem;" id="closeButton">
+                    <i class="fa-regular fa-rectangle-xmark"></i>
+                  </button>
+                </div>
+                <div class="d-flex flex-wrap ">
+                  <div class="partners me-2 mb-5 d-flex flex-column align-items-center">
+                    <div class="rounded-circle circle_image d-flex align-items-center justify-content-center mt-2" style="overflow: hidden;">
+                      <img src="teammate/411.132a.png" alt="" class="mt-3">
+                    </div>
+                    <h4 class="fw-bold mt-2 text-dark" style="font-family: 'Noto Sans TC', sans-serif;">吳泓緯</h4>
+                    <h6 style="font-weight: 500; font-family: 'Noto Sans TC', sans-serif;">會員管理</ㄘ>
+                  </div>
+                  <div class="partners me-2 mb-5 d-flex flex-column align-items-center">
+                    <div class="rounded-circle circle_image d-flex align-items-center justify-content-center mt-2">
+                      <img src="" alt="">
+                    </div>
+                    <h4 class="fw-bold mt-2 text-dark" style="font-family: 'Noto Sans TC', sans-serif;">陳姵云</h4>
+                    <h6 style="font-weight: 500; font-family: 'Noto Sans TC', sans-serif;">商品管理</ㄘ>
+                  </div>
+                  <div class="partners me-2 mb-5 d-flex flex-column align-items-center">
+                    <div class="rounded-circle circle_image d-flex align-items-center justify-content-center mt-2" style="overflow: hidden;">
+                      <img src="teammate/Joker.png" alt="" style="width: 15vw; margin-top: 11vh;">
+                    </div>
+                    <h4 class="fw-bold mt-2 text-dark" style="font-family: 'Noto Sans TC', sans-serif;">陳宥毓</h4>
+                    <h6 style="font-weight: 500; font-family: 'Noto Sans TC', sans-serif;">分類、訂單管理</ㄘ>
+                    <h6 style="font-weight: 500; font-family: 'Noto Sans TC', sans-serif;">統整</ㄘ>
+                  </div>
+                  <div class="partners mb-5 d-flex flex-column align-items-center">
+                    <div class="rounded-circle circle_image d-flex align-items-center justify-content-center mt-2" style="overflow: hidden;">
+                      <img src="teammate/punpun.jpg" alt="" style="width: 13vw;">
+                    </div>
+                    <h4 class="fw-bold mt-2 text-dark" style="font-family: 'Noto Sans TC', sans-serif;">彭郁穎</h4>
+                    <h6 style="font-weight: 500; font-family: 'Noto Sans TC', sans-serif;">食譜管理</ㄘ>
+                  </div>
+                  <div class="partners me-2 mt-2 d-flex flex-column align-items-center">
+                    <div class="rounded-circle circle_image d-flex align-items-center justify-content-center mt-2" style="overflow: hidden;">
+                      <img src="teammate/zjq.png" alt="" style="width: 15vw; margin-top: 2vh; margin-right: 3.1vw;">
+                    </div>
+                    <h4 class="fw-bold mt-2 text-dark" style="font-family: 'Noto Sans TC', sans-serif;">曾靖荃</h4>
+                    <h6 style="font-weight: 500; font-family: 'Noto Sans TC', sans-serif;">講師管理</ㄘ>
+                  </div>
+                  <div class="partners me-2 mt-2 d-flex flex-column align-items-center">
+                    <div class="rounded-circle circle_image d-flex align-items-center justify-content-center mt-2" style="overflow: hidden;">
+                      <img src="teammate/Isaac.png" alt="" style="width: 11vw;">
+                    </div>
+                    <h4 class="fw-bold mt-2 text-dark" style="font-family: 'Noto Sans TC', sans-serif;">廖偉鈞</h4>
+                    <h6 style="font-weight: 500; font-family: 'Noto Sans TC', sans-serif;">課程管理</ㄘ>
+                  </div>
+                  <div class="partners mt-2 d-flex flex-column align-items-center">
+                    <div class="rounded-circle circle_image d-flex align-items-center justify-content-center mt-2" style="overflow: hidden;">
+                      <img src="teammate/jess.png" alt="" style="width: 13vw; margin-right: 0.5vw;">
+                    </div>
+                    <h4 class="fw-bold mt-2 text-dark" style="font-family: 'Noto Sans TC', sans-serif;">李品嫻</h4>
+                    <h6 style="font-weight: 500; font-family: 'Noto Sans TC', sans-serif;">優惠券管理</ㄘ>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+        
+        
       </div>
     </div>
 
@@ -321,5 +350,7 @@ font-size: 15px;
 
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
+    <script src="show.js"></script>
+    <script src="close_show.js"></script>
   </body>
 </html>

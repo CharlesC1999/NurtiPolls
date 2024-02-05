@@ -1,10 +1,10 @@
 <?php
-require_once("../db-connect.php");
+require_once "../db_connect.php";
 if (!isset($_GET["id"])) {
-  $id = 0;
-  echo "請由正常管道進入";
+    $id = 0;
+    echo "請由正常管道進入";
 } else {
-  $id = $_GET["id"];
+    $id = $_GET["id"];
 }
 
 // http://localhost/小專/production/speaker.php?id=5 (id=後面可以帶參數)
@@ -15,7 +15,6 @@ $result = $conn->query($sql);
 $row = $result->fetch_assoc();
 
 $rowCount = $result->num_rows; //result裡面有幾筆(num_rows)
-
 
 ?>
 <!DOCTYPE html>
@@ -30,7 +29,7 @@ $rowCount = $result->num_rows; //result裡面有幾筆(num_rows)
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>DataTables | Gentelella</title>
+  <title>營養大選 Nutripolls</title>
   <!-- Bootstrap -->
   <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
   <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -57,6 +56,28 @@ $rowCount = $result->num_rows; //result裡面有幾筆(num_rows)
   <!-- icon連結 https://cdnjs.com/libraries/font-awesome-->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
+    .img-circle.profile_img {
+      background: #ddd;
+    }
+
+    .profile_info span {
+      font-size: 14px;
+      line-height: 30px;
+      font-weight: 500;
+      color: #ecf0f1;
+    }
+
+    .profile_info h2 {
+      font-size: 14px;
+      color: #ecf0f1;
+      margin: 0;
+      font-weight: 500;
+    }
+
+    .side-menu {
+      font-size: 15px;
+    }
+
     .object-fit-cover {
       width: 100%;
       height: 100%;
@@ -67,7 +88,7 @@ $rowCount = $result->num_rows; //result裡面有幾筆(num_rows)
     .box1 {
       width: 18rem;
       height: 22rem;
-     
+
     }
 
     .card {
@@ -80,12 +101,12 @@ $rowCount = $result->num_rows; //result裡面有幾筆(num_rows)
       padding-top: 100px;
     }
 
-    .btn-info{
+    .btn-info {
       background-color: #17a2b8;
       border: 1px solid #17a2b8;
     }
 
-    .btn-info:hover{
+    .btn-info:hover {
       background-color: #128395;
       border: 1px solid #17a2b8;
     }
@@ -98,20 +119,19 @@ $rowCount = $result->num_rows; //result裡面有幾筆(num_rows)
     <div class="main_container">
       <div class="col-md-3 left_col">
         <div class="left_col scroll-view">
-          <div class="navbar nav_title" style="border: 0;">
-            <a href="HomePage.html" class="site_title"><i class="fa fa-paw"></i> <span>營養大選 Nutripoll</span></a>
+          <div class="navbar nav_title" style="border: 0">
+            <a href="HomePage.html" class="site_title"><img src="../Logo_sm.png" alt="" style="height: 65px;"></a>
           </div>
-
           <div class="clearfix"></div>
 
           <!-- menu profile quick info -->
           <div class="profile clearfix">
             <div class="profile_pic">
-              <img src="images/img.jpg" alt="..." class="img-circle profile_img">
+              <img src="../logo4.png" alt="..." class="img-circle profile_img" />
             </div>
             <div class="profile_info">
-              <span>Welcome,</span>
-              <h2>John Doe</h2>
+              <span>Hi,</span>
+              <h2>第四組</h2>
             </div>
           </div>
           <!-- /menu profile quick info -->
@@ -121,28 +141,34 @@ $rowCount = $result->num_rows; //result裡面有幾筆(num_rows)
           <!-- sidebar menu -->
           <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
             <div class="menu_section">
-              <h3>General</h3>
+
               <ul class="nav side-menu">
-
-                  <li><a href="member.php"><i class="fa fa-table"></i> 會員管理 <span class="fa fa-chevron-down"></span></a>
-                  </li><li><a href="product.php"><i class="fa fa-table"></i>商品管理 <span class="fa fa-chevron-down"></span></a>
+                  <li class="h6"><a href="Member/member.php"><i class="fa-solid fa-user fa-fw"></i> 會員管理</a>
+                  </li><li class="h6"><a href="product.php"><i class="fa-solid fa-store fa-fw"></i> 商品管理</a>
                   </li>
-                  <li><a><i class="fa fa-table"></i>分類管理<span class="fa fa-chevron-down"></span>
+                  <li class="h6"><a><i class="fa-solid fa-hashtag fa-fw"></i> 分類管理<span class="fa fa-chevron-down"></span>
                   <ul class="nav child_menu">
-                      <li><a href="categories_product.php" style="font-size: 16px;">商品</a></li>
-                      <li><a href="categories_class.php" style="font-size: 16px;">課程</a></li>
-                      <li><a href="categories_recipe.php" style="font-size: 16px;">食譜</a></li>
-                  </ul>
+                      <li><a href="categories_product.php" style="font-size: 16px;"> 商品</a></li>
+                      <li><a href="categories_class.php" style="font-size: 16px;"> 課程</a></li>
+                      <li><a href="categories_recipe.php" style="font-size: 16px;"> 食譜</a></li>
+
+                    </ul>
 
                   </li>
-                  <li><a href="recipe-list.php"><i class="fa fa-table"></i>食譜管理<span class="fa fa-chevron-down"></span></a>
+                  <li class="h6"><a href="recipe-list.php"><i class="fa-solid fa-kitchen-set fa-fw"></i> 食譜管理</a>
                   </li>
-                  <li><a href="speaker.php"><i class="fa fa-table"></i>講師管理<span class="fa fa-chevron-down"></span></a>
+                  <li class="h6"><a href="speaker.php"><i class="fa-solid fa-chalkboard-user fa-fw"></i> 講師管理</a>
                   </li>
-                  <li><a href="redirectClass.php"><i class="fa fa-table"></i>課程管理<span class="fa fa-chevron-down"></span></a>
+                  <li class="h6"><a href="redirectClass.php"><i class="fa-solid fa-chalkboard fa-fw"></i> 課程管理</a>
                   </li>
-                  <li><a href="coupons.php"><i class="fa fa-table"></i>優惠卷管理<span class="fa fa-chevron-down"></span></a>
+                  <li class="h6"><a href="coupons.php"><i class="fa-sharp fa-solid fa-tag fa-fw"></i> 優惠卷管理</a>
                   </li>
+                  <hr style="border-top: 2px solid aliceblue;">
+                  <li class="h6">
+                    <a href="order_file/order.php"
+                      ><i class="fa-solid fa-note-sticky fa-fw"></i> 訂單管理</a>
+                  </li>
+              </ul>
             </div>
           </div>
           <!-- /sidebar menu -->
@@ -166,86 +192,110 @@ $rowCount = $result->num_rows; //result裡面有幾筆(num_rows)
           </div>
           <nav class="nav navbar-nav">
             <ul class=" navbar-right">
-              <li class="nav-item dropdown open" style="padding-left: 15px;">
-                <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                  <img src="images/img.jpg" alt="">John Doe
-                </a>
-                <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="javascript:;"> Profile</a>
-                  <a class="dropdown-item" href="javascript:;">
-                    <span class="badge bg-red pull-right">50%</span>
-                    <span>Settings</span>
+            <li class="nav-item dropdown open" style="padding-left: 15px">
+                  <a
+                    href="javascript:;"
+                    class="user-profile dropdown-toggle"
+                    aria-haspopup="true"
+                    id="navbarDropdown"
+                    data-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    <img src="../logo4.png" alt="" />第四組
                   </a>
-                  <a class="dropdown-item" href="javascript:;">Help</a>
-                  <a class="dropdown-item" href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
-                </div>
-              </li>
+                  <div
+                    class="dropdown-menu dropdown-usermenu pull-right"
+                    aria-labelledby="navbarDropdown"
+                  >
+                    <a class="dropdown-item" href="javascript:;"> Profile</a>
+                    <a class="dropdown-item" href="javascript:;">
+                      <!-- <span class="badge bg-red pull-right">50%</span> -->
+                      <span>Settings</span>
+                    </a>
+                    <a class="dropdown-item" href="javascript:;">Help</a>
+                    <a class="dropdown-item" href="login.html"
+                      ><i class="fa fa-sign-out pull-right"></i> Log Out</a
+                    >
+                  </div>
+                </li>
 
-              <li role="presentation" class="nav-item dropdown open">
-                <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1" data-toggle="dropdown" aria-expanded="false">
-                  <i class="fa fa-envelope-o"></i>
-                  <span class="badge bg-green">6</span>
-                </a>
-                <ul class="dropdown-menu list-unstyled msg_list" role="menu" aria-labelledby="navbarDropdown1">
-                  <li class="nav-item">
-                    <a class="dropdown-item">
-                      <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                      <span>
-                        <span>John Smith</span>
-                        <span class="time">3 mins ago</span>
-                      </span>
-                      <span class="message">
-                        Film festivals used to be do-or-die moments for movie makers. They were where...
-                      </span>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="dropdown-item">
-                      <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                      <span>
-                        <span>John Smith</span>
-                        <span class="time">3 mins ago</span>
-                      </span>
-                      <span class="message">
-                        Film festivals used to be do-or-die moments for movie makers. They were where...
-                      </span>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="dropdown-item">
-                      <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                      <span>
-                        <span>John Smith</span>
-                        <span class="time">3 mins ago</span>
-                      </span>
-                      <span class="message">
-                        Film festivals used to be do-or-die moments for movie makers. They were where...
-                      </span>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="dropdown-item">
-                      <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                      <span>
-                        <span>John Smith</span>
-                        <span class="time">3 mins ago</span>
-                      </span>
-                      <span class="message">
-                        Film festivals used to be do-or-die moments for movie makers. They were where...
-                      </span>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <div class="text-center">
+                <li role="presentation" class="nav-item dropdown open">
+                  <ul
+                    class="dropdown-menu list-unstyled msg_list"
+                    role="menu"
+                    aria-labelledby="navbarDropdown1"
+                  >
+                    <li class="nav-item">
                       <a class="dropdown-item">
-                        <strong>See All Alerts</strong>
-                        <i class="fa fa-angle-right"></i>
+                        <span class="image"
+                          ><img src="images/img.jpg" alt="Profile Image"
+                        /></span>
+                        <span>
+                          <span>John Smith</span>
+                          <span class="time">3 mins ago</span>
+                        </span>
+                        <span class="message">
+                          Film festivals used to be do-or-die moments for movie
+                          makers. They were where...
+                        </span>
                       </a>
-                    </div>
-                  </li>
-                </ul>
-              </li>
-            </ul>
+                    </li>
+                    <li class="nav-item">
+                      <a class="dropdown-item">
+                        <span class="image"
+                          ><img src="images/img.jpg" alt="Profile Image"
+                        /></span>
+                        <span>
+                          <span>John Smith</span>
+                          <span class="time">3 mins ago</span>
+                        </span>
+                        <span class="message">
+                          Film festivals used to be do-or-die moments for movie
+                          makers. They were where...
+                        </span>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="dropdown-item">
+                        <span class="image"
+                          ><img src="images/img.jpg" alt="Profile Image"
+                        /></span>
+                        <span>
+                          <span>John Smith</span>
+                          <span class="time">3 mins ago</span>
+                        </span>
+                        <span class="message">
+                          Film festivals used to be do-or-die moments for movie
+                          makers. They were where...
+                        </span>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="dropdown-item">
+                        <span class="image"
+                          ><img src="images/img.jpg" alt="Profile Image"
+                        /></span>
+                        <span>
+                          <span>John Smith</span>
+                          <span class="time">3 mins ago</span>
+                        </span>
+                        <span class="message">
+                          Film festivals used to be do-or-die moments for movie
+                          makers. They were where...
+                        </span>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <div class="text-center">
+                        <a class="dropdown-item">
+                          <strong>See All Alerts</strong>
+                          <i class="fa fa-angle-right"></i>
+                        </a>
+                      </div>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
           </nav>
         </div>
       </div>
@@ -255,22 +305,22 @@ $rowCount = $result->num_rows; //result裡面有幾筆(num_rows)
       <div class="right_col" role="main">
         <div class="container">
           <form action="do_update_Speaker.php" method="post" enctype="multipart/form-data">
-            <input type="hidden" name="id" value="<?= $row["Speaker_ID"] ?>">
+            <input type="hidden" name="id" value="<?=$row["Speaker_ID"]?>">
             <div class="row justify-content-center frame">
-              <div class="h2 text-center">修改教師 <?= $row["Speaker_name"] ?> 個人資訊</div>
+              <div class="h2 text-center">修改教師 <?=$row["Speaker_name"]?> 個人資訊</div>
               <div class="box1">
                 <!-- 把原本的圖片資訊存在 hidden 裡，post 之後用來判斷是否要替換圖片 -->
-                <input type="hidden" name="old_img" value="<?= $row["Image"] ?>">
+                <input type="hidden" name="old_img" value="<?=$row["Image"]?>">
                 <!-- 建立一個img(output)作為縮圖的容器，設定好id並以display:none隱藏起來 並做js事件onchange當檔案值做變化時 -->
-                <img id="output" style="display:none" class="rounded mx-auto d-block object-fit-cover" src="Speaker_pic/<?= $row["Image"]?>" alt="Speaker_pic/<?= $row["Image"] ?>">
+                <img id="output" style="display:none" class="rounded mx-auto d-block object-fit-cover" src="Speaker_pic/<?=$row["Image"]?>" alt="Speaker_pic/<?=$row["Image"]?>">
               </div>
               <div class="card">
                 <div class="card-body">
                   <label for="" class="form-label">姓名 :</label>
-                  <input type="text" class="form-control" value="<?= $row["Speaker_name"] ?>" name="name">
+                  <input type="text" class="form-control" value="<?=$row["Speaker_name"]?>" name="name">
                   <p class="">
                     <label for="" class="form-label">個人簡介 :</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="7" name="description"><?= $row["Speaker_description"] ?></textarea>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="7" name="description"><?=$row["Speaker_description"]?></textarea>
                   </p>
                 </div>
               </div>

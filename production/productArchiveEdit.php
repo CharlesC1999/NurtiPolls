@@ -59,6 +59,29 @@ if (isset($_GET['product_id'])) {
 
     <!-- productCss.php -->
     <link href="../build/css/custom.min.css" rel="stylesheet" />
+    <style>
+        .img-circle.profile_img {
+            background: #ddd;
+        }
+
+        .profile_info span {
+            font-size: 14px;
+            line-height: 30px;
+            font-weight: 500;
+            color: #ecf0f1;
+        }
+
+        .profile_info h2 {
+            font-size: 14px;
+            color: #ecf0f1;
+            margin: 0;
+            font-weight: 500;
+        }
+
+        .side-menu {
+            font-size: 15px;
+        }
+    </style>
 
 </head>
 
@@ -91,36 +114,31 @@ if (isset($_GET['product_id'])) {
                     <!-- sidebar menu -->
                     <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
                         <div class="menu_section">
-                            <h3>General</h3>
+
                             <ul class="nav side-menu">
-                                <li>
-                                    <a href="member.php"><i class="fa fa-table"></i> 會員管理
-                                        <span class="fa fa-chevron-down"></span></a>
+                                </li><li class="h6"><a href="product.php"><i class="fa-solid fa-store fa-fw"></i> 商品管理</a>
                                 </li>
-                                <li>
-                                    <a href="product.php"><i class="fa fa-table"></i>商品管理
-                                        <span class="fa fa-chevron-down"></span></a>
+                                <li class="h6"><a><i class="fa-solid fa-hashtag fa-fw"></i> 分類管理<span class="fa fa-chevron-down"></span>
+                                <ul class="nav child_menu">
+                                    <li><a href="categories_product.php" style="font-size: 16px;"> 商品</a></li>
+                                    <li><a href="categories_class.php" style="font-size: 16px;"> 課程</a></li>
+                                    <li><a href="categories_recipe.php" style="font-size: 16px;"> 食譜</a></li>
+
+                                    </ul>
+
                                 </li>
-                                <li>
-                                    <a><i class="fa fa-table"></i>分類管理<span class="fa fa-chevron-down"></span>
-                                        <ul class="nav child_menu">
-                                            <li><a href="categories_product.php">商品</a></li>
-                                            <li><a href="categories_product.php">課程</a></li>
-                                            <li><a href="categories_product.php">食譜</a></li>
-                                        </ul>
-                                    </a>
+                                <li class="h6"><a href="recipe-list.php"><i class="fa-solid fa-kitchen-set fa-fw"></i> 食譜管理</a>
                                 </li>
-                                <li>
-                                    <a href="recipe-list.php"><i class="fa fa-table"></i>食譜管理<span class="fa fa-chevron-down"></span></a>
+                                <li class="h6"><a href="speaker.php"><i class="fa-solid fa-chalkboard-user fa-fw"></i> 講師管理</a>
                                 </li>
-                                <li>
-                                    <a href="speaker.php"><i class="fa fa-table"></i>講師管理<span class="fa fa-chevron-down"></span></a>
+                                <li class="h6"><a href="redirectClass.php"><i class="fa-solid fa-chalkboard fa-fw"></i> 課程管理</a>
                                 </li>
-                                <li>
-                                    <a href="redirectClass.php"><i class="fa fa-table"></i>課程管理<span class="fa fa-chevron-down"></span></a>
+                                <li class="h6"><a href="coupons.php"><i class="fa-sharp fa-solid fa-tag fa-fw"></i> 優惠卷管理</a>
                                 </li>
-                                <li>
-                                    <a href="coupons.php"><i class="fa fa-table"></i>優惠卷管理<span class="fa fa-chevron-down"></span></a>
+                                <hr style="border-top: 2px solid aliceblue;">
+                                <li class="h6">
+                                    <a href="order_file/order.php"
+                                    ><i class="fa-solid fa-note-sticky fa-fw"></i> 訂單管理</a>
                                 </li>
                             </ul>
                         </div>

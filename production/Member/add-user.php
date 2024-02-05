@@ -342,6 +342,7 @@ require_once "../../db_connect.php";
                     account
                 </label>
                 <input type="text" class="form-control" name="account" required="required" pattern="^(?=.*[a-zA-Z])(?=.*[0-9]).{4,}$">
+
             </div>
             <div class="mt-2">
                 <!-- 密碼 -->
@@ -373,6 +374,11 @@ require_once "../../db_connect.php";
             <?php endif;
 unset($_SESSION["error"]["message"]);
 ?>
+
+<?php if (isset($_GET['error']) && $_GET['error'] == 'account_exists'): ?>
+                <p style="color: red;margin-bottom:0px;margin: top 5px;" class="">帳號已存在</p>
+                 <?php endif;?>
+<!--  -->
             <div class="mt-2">
             <button type="submit" class="btn btn-info">送出</button>
             </div>
