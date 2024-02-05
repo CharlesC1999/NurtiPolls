@@ -1,3 +1,4 @@
+
 <?php
 require_once "../db_connect.php";
 $sqlCategory = "SELECT * FROM product_categories";
