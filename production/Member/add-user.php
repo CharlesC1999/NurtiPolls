@@ -12,7 +12,7 @@ require_once "../../db_connect.php";
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>營養大選 Nutripolls</title>
+    <title>DataTables | Gentelella</title>
 
     <!-- Bootstrap -->
     <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
@@ -34,7 +34,6 @@ require_once "../../db_connect.php";
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="../profile.css">
   </head>
 
   <body class="nav-md">
@@ -43,7 +42,7 @@ require_once "../../db_connect.php";
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-            <a href="../HomePage.html" class="site_title"
+            <a href="HomePage.php" class="site_title"
                 ><img src="../../Logo_sm.png" alt="" style="height: 65px;"></a>
             </div>
 
@@ -75,30 +74,50 @@ require_once "../../db_connect.php";
               <div class="menu_section">
 
                 <ul class="nav side-menu">
-                  <li class="h6"><a href="member.php"><i class="fa-solid fa-user fa-fw"></i> 會員管理</a>
-                  </li><li class="h6"><a href="../product.php"><i class="fa-solid fa-store fa-fw"></i> 商品管理</a>
+                  <li class="px-1">
+                    <a href="Member/member.php"
+                      ><i class="fa-solid fa-user"></i> 會員管理
+                     </a>
                   </li>
-                  <li class="h6"><a><i class="fa-solid fa-hashtag fa-fw"></i> 分類管理<span class="fa fa-chevron-down"></span>
-                  <ul class="nav child_menu">
-                      <li><a href="../categories_product.php" style="font-size: 16px;"> 商品</a></li>
-                      <li><a href="../categories_class.php" style="font-size: 16px;"> 課程</a></li>
-                      <li><a href="../categories_recipe.php" style="font-size: 16px;"> 食譜</a></li>
 
-                    </ul>
+                  <li  class="px-1">
+                    <a href="product.php"
+                      ><i class="fa-solid fa-store"></i> 商品管理
+                     </a>
 
                   </li>
-                  <li class="h6"><a href="../recipe-list.php"><i class="fa-solid fa-kitchen-set fa-fw"></i> 食譜管理</a>
+                  <li   class="px-1">
+                    <a
+                      ><i class="fa-solid fa-hashtag"></i> </i>分類管理<span
+                        class="fa fa-chevron-down"
+                      ></span>
+                      <ul class="nav child_menu">
+                        <li><a href="categories_product.php">商品</a></li>
+                        <li><a href="categories_class.php">課程</a></li>
+                        <li><a href="categories_recipe.php">食譜</a></li>
+                      </ul>
+                    </a>
                   </li>
-                  <li class="h6"><a href="../speaker.php"><i class="fa-solid fa-chalkboard-user fa-fw"></i> 講師管理</a>
+                  <li class="px-1">
+                    <a href="recipe-list.php"
+                      ><i class="fa-solid fa-kitchen-set"></i> 食譜管理</a>
                   </li>
-                  <li class="h6"><a href="../redirectClass.php"><i class="fa-solid fa-chalkboard fa-fw"></i> 課程管理</a>
+                  <li  class="px-1">
+                    <a href="speaker.php"
+                      ><i class="fa-solid fa-chalkboard-user"></i> 講師管理</a>
                   </li>
-                  <li class="h6"><a href="../coupons.php"><i class="fa-sharp fa-solid fa-tag fa-fw"></i> 優惠卷管理</a>
+                  <li>
+                    <a href="redirectClass.php"
+                      ><i class="fa-solid fa-chalkboard"></i> 課程管理</a>
                   </li>
-                  <hr style="border-top: 2px solid aliceblue;">
-                  <li class="h6">
-                    <a href="../order_file/order.php"
-                      ><i class="fa-solid fa-note-sticky fa-fw"></i> 訂單管理</a>
+                  <li class="px-1">
+                    <a href="coupons.php"
+                      ><i class="fa-sharp fa-solid fa-tag"></i> 優惠卷管理</a>
+                  </li>
+                  <hr style="border-top: 2px solid aliceblue" />
+                  <li   class="px-1">
+                    <a href="./order_file/order.php"
+                      ><i class="fa-solid fa-note-sticky"></i> 訂單管理</a>
                   </li>
                 </ul>
               </div>
@@ -125,39 +144,119 @@ require_once "../../db_connect.php";
         </div>
 
         <!-- top navigation -->
-          <div class="top_nav">
+        <div class="top_nav">
             <div class="nav_menu">
                 <div class="nav toggle">
-                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-                <nav class="nav navbar-nav d-flex justify-content-end ">
+                  <a id="menu_toggle"><i class="fa fa-bars"></i></a>
                 </div>
-                <ul class=" navbar-right ">
-
-                  <li class="nav-item dropdown open" style="padding-left: 15px">
-                    <a
-                      href="javascript:;"
-                      class="user-profile dropdown-toggle"
-                      aria-haspopup="true"
-                      id="navbarDropdown"
-                      data-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      <img src="../../logo4.png" alt="" />第四組
+                <nav class="nav navbar-nav">
+              <ul class="navbar-right">
+                <li class="nav-item dropdown open" style="padding-left: 15px">
+                  <a
+                    href="javascript:;"
+                    class="user-profile dropdown-toggle"
+                    aria-haspopup="true"
+                    id="navbarDropdown"
+                    data-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    <img src="../../logo4.png" alt="" />第四組
+                  </a>
+                  <a href="./login-sess.php"><i class="fa-solid fa-right-from-bracket py-2 px-1"></i></a>
+                  <div
+                    class="dropdown-menu dropdown-usermenu pull-right"
+                    aria-labelledby="navbarDropdown"
+                  >
+                    <a class="dropdown-item" href="javascript:;"> Profile</a>
+                    <a class="dropdown-item" href="javascript:;">
+                      <!-- <span class="badge bg-red pull-right">50%</span> -->
+                      <span>Settings</span>
                     </a>
-                    <a href="./login-sess.php"><i class="fa-solid fa-right-from-bracket py-2 px-1"></i></a>
-                    <!-- <li class="nav-item dropdown open" style="padding-left: 15px;">
-                      <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                        <img src="../images/img.jpg" alt="">John Doe6
-                      </a> -->
-                      <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="javascript:;">Help</a>
+                    <a class="dropdown-item" href="login.html"
+                      ><i class="fa fa-sign-out pull-right"></i> Log Out</a
+                    >
+                  </div>
+                </li>
 
-                        <a class="dropdown-item"  href="login-sess.php"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+                <li role="presentation" class="nav-item dropdown open">
+                  <ul
+                    class="dropdown-menu list-unstyled msg_list"
+                    role="menu"
+                    aria-labelledby="navbarDropdown1"
+                  >
+                    <li class="nav-item">
+                      <a class="dropdown-item">
+                        <span class="image"
+                          ><img src="images/img.jpg" alt="Profile Image"
+                        /></span>
+                        <span>
+                          <span>John Smith</span>
+                          <span class="time">3 mins ago</span>
+                        </span>
+                        <span class="message">
+                          Film festivals used to be do-or-die moments for movie
+                          makers. They were where...
+                        </span>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="dropdown-item">
+                        <span class="image"
+                          ><img src="images/img.jpg" alt="Profile Image"
+                        /></span>
+                        <span>
+                          <span>John Smith</span>
+                          <span class="time">3 mins ago</span>
+                        </span>
+                        <span class="message">
+                          Film festivals used to be do-or-die moments for movie
+                          makers. They were where...
+                        </span>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="dropdown-item">
+                        <span class="image"
+                          ><img src="images/img.jpg" alt="Profile Image"
+                        /></span>
+                        <span>
+                          <span>John Smith</span>
+                          <span class="time">3 mins ago</span>
+                        </span>
+                        <span class="message">
+                          Film festivals used to be do-or-die moments for movie
+                          makers. They were where...
+                        </span>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="dropdown-item">
+                        <span class="image"
+                          ><img src="images/img.jpg" alt="Profile Image"
+                        /></span>
+                        <span>
+                          <span>John Smith</span>
+                          <span class="time">3 mins ago</span>
+                        </span>
+                        <span class="message">
+                          Film festivals used to be do-or-die moments for movie
+                          makers. They were where...
+                        </span>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <div class="text-center">
+                        <a class="dropdown-item">
+                          <strong>See All Alerts</strong>
+                          <i class="fa fa-angle-right"></i>
+                        </a>
                       </div>
                     </li>
-
-
-                </ul>
-              </nav>
+                  </ul>
+                </li>
+              </ul>
+            </nav>
             </div>
           </div>
         <!-- /top navigation -->
@@ -243,6 +342,7 @@ require_once "../../db_connect.php";
                     account
                 </label>
                 <input type="text" class="form-control" name="account" required="required" pattern="^(?=.*[a-zA-Z])(?=.*[0-9]).{4,}$">
+
             </div>
             <div class="mt-2">
                 <!-- 密碼 -->
@@ -274,6 +374,11 @@ require_once "../../db_connect.php";
             <?php endif;
 unset($_SESSION["error"]["message"]);
 ?>
+
+<?php if (isset($_GET['error']) && $_GET['error'] == 'account_exists'): ?>
+                <p style="color: red;margin-bottom:0px;margin: top 5px;" class="">帳號已存在</p>
+                 <?php endif;?>
+<!--  -->
             <div class="mt-2">
             <button type="submit" class="btn btn-info">送出</button>
             </div>
