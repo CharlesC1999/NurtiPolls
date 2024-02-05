@@ -270,7 +270,7 @@ $product_type_count = $result_all_product->num_rows;
               <div class="col-md-12 col-sm-12 ">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>商品分類 <small>Product categories</small></h2>
+                    <h2>食譜分類 <small>Recipe categories</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a style="font-size: 16px;" class="text-secondary" data-id="<?=$cate["Recipe_cate_ID"]?>" data-bs-toggle="modal" data-bs-target="#addModal"><i class="fa fa-plus-circle"> 新增分類</i></a></li>
                       <li><a style="font-size: 16px;" class="collapse-link text-secondary" href="categories_recipe_edit.php"><i class="fa fa fa-wrench"> 修改</i></a></li>
