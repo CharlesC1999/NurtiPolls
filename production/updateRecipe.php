@@ -1,17 +1,6 @@
 <?php
 
-require_once("../db_connect.php");
-
-if (!isset($_POST["Title_R_name"])) {
-    die("請循正常管道進入");
-}
-$Recipe_ID = $_POST["Recipe_ID"];
-$Title_R_name = $_POST["Title_R_name"];
-$Content = $_POST["Content"];
-$Recipe_category_ID = $_POST["Recipe_category_ID"];
-$old_img = $_POST["old_img"];
-
-require_once "../db_connectn.php";
+require_once "../db_connect.php";
 
 if (!isset($_POST["Title_R_name"])) {
     die("請循正常管道進入");

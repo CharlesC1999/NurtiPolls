@@ -1,9 +1,9 @@
 <?php
-require_once("../db_connectn.php");
+require_once "../db_connect.php";
 $sql = "SELECT * FROM recipe WHERE valid=1 ORDER BY Recipe_ID ASC";
-$result = $conn->query($sql); 
+$result = $conn->query($sql);
 
-$recipeCount=$result->num_rows; 
+$recipeCount = $result->num_rows;
 
 ?>
 
@@ -35,7 +35,7 @@ $recipeCount=$result->num_rows;
     <!-- iCheck -->
     <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
     <!-- Datatables -->
-    
+
     <link href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
     <link href="../vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
     <link href="../vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
@@ -175,7 +175,7 @@ $recipeCount=$result->num_rows;
                         <li><a href="#level1_2">Level One</a>
                         </li>
                     </ul>
-                  </li>                  
+                  </li>
                   <li><a href="javascript:void(0)"><i class="fa fa-laptop"></i> Landing Page <span class="label label-success pull-right">Coming Soon</span></a></li>
                 </ul>
               </div> -->
@@ -224,7 +224,7 @@ $recipeCount=$result->num_rows;
                       <a class="dropdown-item"  href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
                     </div>
                   </li>
-  
+
                   <li role="presentation" class="nav-item dropdown open">
                     <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1" data-toggle="dropdown" aria-expanded="false">
                       <i class="fa fa-envelope-o"></i>
@@ -344,18 +344,18 @@ $recipeCount=$result->num_rows;
                           <th>建立日期</th>
                           <th>分類</th>
                           <th></th>
-                          
-                            
-                          
+
+
+
                         </tr>
                       </thead>
 
 
                       <tbody>
-                      <?php 
-                      $rows=$result->fetch_all(MYSQLI_ASSOC);
-                      foreach($rows as $recipe):
-                       ?>
+                      <?php
+$rows = $result->fetch_all(MYSQLI_ASSOC);
+foreach ($rows as $recipe):
+?>
                         <tr>
                           <td><?=$recipe["Title_R_name"]?></td>
                           <td><?=$recipe["Image_URL"]?></td>
@@ -374,12 +374,12 @@ $recipeCount=$result->num_rows;
                             ">
                               <i class="fa-solid fa-trash"></i>
                             </a> -->
-                            
-                           
+
+
                           </td>
-                         
+
                         </tr>
-                        <?php endforeach; ?>
+                        <?php endforeach;?>
                       </tbody>
                     </table>
                   </div>
@@ -389,14 +389,14 @@ $recipeCount=$result->num_rows;
                 </div>
               </div>
 
-              
-              
 
-              
 
-              
 
-              
+
+
+
+
+
             </div>
           </div>
         </div>
